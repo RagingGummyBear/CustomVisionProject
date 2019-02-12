@@ -20,6 +20,7 @@ class ImageProcessingViewController: UIViewController {
     // MARK: - Class properties
     public var capturedImage:UIImage?
     var visionModel = keyboardModel()
+//    var visionModel = Inceptionv3()
     
     
     // MARK: - View lifecycle
@@ -56,6 +57,9 @@ class ImageProcessingViewController: UIViewController {
             UIGraphicsBeginImageContextWithOptions(CGSize(width: 227, height: 227), true, 2.0)
             image.draw(in: CGRect(x: 0, y: 0, width: 227, height: 227))
             
+//            UIGraphicsBeginImageContextWithOptions(CGSize(width: 299, height: 299), true, 2.0)
+//            image.draw(in: CGRect(x: 0, y: 0, width: 299, height: 299))
+            
             let newImage = UIGraphicsGetImageFromCurrentImageContext()!
             UIGraphicsEndImageContext()
             
@@ -86,8 +90,11 @@ class ImageProcessingViewController: UIViewController {
                 return
             }
             
+//            guard let prediction = try? self.visionModel.prediction(image: pixelBuffer!) else {
+//                return
+//            }
+            print(prediction.loss)
             self.imageProcessingStatus.text = "I think this is a \(prediction.classLabel)."
-            
         }
         
     }

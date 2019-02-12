@@ -103,20 +103,24 @@
                                     <constraint firstAttribute="width" secondItem="3fc-g8-FvD" secondAttribute="height" multiplier="125:158" id="7JT-Sy-XFP"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTv-Wm-mFp">
-                                <rect key="frame" x="16" y="576" width="343" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image status" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTv-Wm-mFp">
+                                <rect key="frame" x="16" y="546" width="343" height="65"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDv-wY-me1">
-                                <rect key="frame" x="16" y="621" width="343" height="30"/>
+                                <rect key="frame" x="16" y="627" width="343" height="24"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="YGm-tL-nip"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="dTv-Wm-mFp" firstAttribute="top" secondItem="3fc-g8-FvD" secondAttribute="bottom" constant="8" id="I22-8a-KNO"/>
                             <constraint firstItem="kPd-o7-im0" firstAttribute="trailing" secondItem="dTv-Wm-mFp" secondAttribute="trailing" constant="16" id="KRX-Av-8sk"/>
                             <constraint firstItem="HDv-wY-me1" firstAttribute="top" secondItem="dTv-Wm-mFp" secondAttribute="bottom" constant="16" id="SSG-kB-tfo"/>
                             <constraint firstItem="3fc-g8-FvD" firstAttribute="leading" secondItem="kPd-o7-im0" secondAttribute="leading" id="XGP-nZ-eTS"/>

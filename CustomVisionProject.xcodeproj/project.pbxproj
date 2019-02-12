@@ -23,6 +23,7 @@
 		7DCEFCB62213002C00F59A37 /* ImageDisplayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB22213002C00F59A37 /* ImageDisplayCollectionViewCell.xib */; };
 		7DCEFCBA2213045C00F59A37 /* ImageProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB92213045C00F59A37 /* ImageProcessingViewController.swift */; };
 		7DCEFCBD221313CF00F59A37 /* keyboardModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFCBC221313CF00F59A37 /* keyboardModel.mlmodel */; };
+		7DCEFCBF22131EFB00F59A37 /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFCBE22131EFB00F59A37 /* Inceptionv3.mlmodel */; };
 		8996098B64BFF1266135999D /* Pods_CustomVisionProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 103ECFB2125195216ED93517 /* Pods_CustomVisionProject.framework */; };
 		EF32078907569E52BC2026EE /* Pods_CustomVisionProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B14875C9B054AFF1489D2EEC /* Pods_CustomVisionProjectTests.framework */; };
 		F8B98EFF9786E7C199214334 /* Pods_CustomVisionProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B17A82E9E2464828D1A6AA /* Pods_CustomVisionProjectUITests.framework */; };
@@ -72,6 +73,7 @@
 		7DCEFCB22213002C00F59A37 /* ImageDisplayCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDisplayCollectionViewCell.xib; sourceTree = "<group>"; };
 		7DCEFCB92213045C00F59A37 /* ImageProcessingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessingViewController.swift; sourceTree = "<group>"; };
 		7DCEFCBC221313CF00F59A37 /* keyboardModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = keyboardModel.mlmodel; sourceTree = "<group>"; };
+		7DCEFCBE22131EFB00F59A37 /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
 		A80E122864D91D2182706D87 /* Pods-CustomVisionProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomVisionProjectUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomVisionProjectUITests/Pods-CustomVisionProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		AE1F6A1F8234D3DD510307C9 /* Pods-CustomVisionProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomVisionProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomVisionProjectTests/Pods-CustomVisionProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		B14875C9B054AFF1489D2EEC /* Pods_CustomVisionProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomVisionProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -215,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				7DCEFCBC221313CF00F59A37 /* keyboardModel.mlmodel */,
+				7DCEFCBE22131EFB00F59A37 /* Inceptionv3.mlmodel */,
 			);
 			path = CoreModels;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				7DCEFC732212FAEC00F59A37 /* ViewController.swift in Sources */,
 				7DCEFCA82212FD6F00F59A37 /* CameraViewController.swift in Sources */,
 				7DCEFC712212FAEC00F59A37 /* AppDelegate.swift in Sources */,
+				7DCEFCBF22131EFB00F59A37 /* Inceptionv3.mlmodel in Sources */,
 				7DCEFCBD221313CF00F59A37 /* keyboardModel.mlmodel in Sources */,
 				7DCEFC792212FAEC00F59A37 /* CustomVisionProject.xcdatamodeld in Sources */,
 				7DCEFCAE2212FFFC00F59A37 /* ImageData.swift in Sources */,
