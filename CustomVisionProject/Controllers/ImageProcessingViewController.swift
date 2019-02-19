@@ -5,13 +5,16 @@
 //  Created by Seavus on 2/12/19.
 //  Copyright © 2019 Seavus. All rights reserved.
 //
+// https://www.youtube.com/watch?v=PnJlWXAjXDA
+// https://developer.apple.com/documentation/vision/recognizing_objects_in_live_capture
+// https://www.youtube.com/watch?v=p6GA8ODlnX0
 
 import UIKit
 import AVFoundation
 import CoreML
 import Vision
 
-class ImageProcessingViewController: UIViewController {
+class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
 
     // MARK: - IBOutlets
     @IBOutlet weak var processingImageView: UIImageView!
@@ -20,11 +23,10 @@ class ImageProcessingViewController: UIViewController {
     // MARK: - Class properties
     public var capturedImage:UIImage?
     var visionModel = keyboardModel()
+    var keyboardObjectDetection = keyboardDetection()
 //    var visionModel = Inceptionv3()
     
-    
     // MARK: - View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,15 +52,29 @@ class ImageProcessingViewController: UIViewController {
     }
     */
     
+    // MARK: - Custom Functions
+    func createHistogram(){
+        
+    }
+    
+    
+    func findObjectInImage(){
+        if let image = self.capturedImage {
+        }
+    }
+    
     // MARK: - MachineLearning
     func processTheImage(){
         
         if let image = self.capturedImage {
-            UIGraphicsBeginImageContextWithOptions(CGSize(width: 227, height: 227), true, 2.0)
-            image.draw(in: CGRect(x: 0, y: 0, width: 227, height: 227))
-            
+//            UIGraphicsBeginImageContextWithOptions(CGSize(width: 227, height: 227), true, 2.0)
+//            image.draw(in: CGRect(x: 0, y: 0, width: 227, height: 227))
+
 //            UIGraphicsBeginImageContextWithOptions(CGSize(width: 299, height: 299), true, 2.0)
 //            image.draw(in: CGRect(x: 0, y: 0, width: 299, height: 299))
+            
+            UIGraphicsBeginImageContextWithOptions(CGSize(width: 416, height: 416), true, 2.0)
+            image.draw(in: CGRect(x: 0, y: 0, width: 416, height: 416))
             
             let newImage = UIGraphicsGetImageFromCurrentImageContext()!
             UIGraphicsEndImageContext()
@@ -86,15 +102,27 @@ class ImageProcessingViewController: UIViewController {
             
             self.processingImageView.image = newImage
             
-            guard let prediction = try? self.visionModel.prediction(data: pixelBuffer!) else {
+//            guard let prediction = try? self.visionModel.prediction(data: pixelBuffer!) else {
+//                return
+//            }
+            
+            guard let prediction2 = try? self.keyboardObjectDetection.prediction(data: pixelBuffer!) else {
                 return
             }
             
+            
+//            let request = VNCoreMLRequest(model: keyboardDetection)
+//            VNImageRequestHandler(cgImage: <#T##CGImage#>, options: <#T##[VNImageOption : Any]#>)
+//            predi
+
+            print(prediction2.model_outputs0)
 //            guard let prediction = try? self.visionModel.prediction(image: pixelBuffer!) else {
 //                return
 //            }
-            print(prediction.loss)
-            self.imageProcessingStatus.text = "I think this is a \(prediction.classLabel)."
+            
+//            print(prediction.loss)
+            
+//            self.imageProcessingStatus.text = "I think this is a \(prediction.classLabel)."
         }
         
     }

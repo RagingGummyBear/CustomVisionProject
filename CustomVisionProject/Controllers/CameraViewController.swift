@@ -13,7 +13,7 @@ import AVFoundation
 import CoreML
 import Vision
 
-class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
+class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
 
     @IBOutlet weak var cameraPreview: UIImageView!
 //    @IBOutlet weak var captureImageView: UIImageView!
@@ -27,6 +27,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var captureDevice: AVCaptureDevice!
     
+    @IBOutlet weak var detectedObject: UILabel!
     var capturedImage: UIImage?
     
     var takenPhotosUids : [String] = []
@@ -34,7 +35,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.applyRoundCorner(self.takePhotoUIButton)
-        self.setupVision()
+//        self.setupVision()
         
     }
     
@@ -107,16 +108,18 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             let input = try AVCaptureDeviceInput(device: captureDevice)
             stillImageOutput = AVCapturePhotoOutput()
             
-            
             if captureSession.canAddInput(input) && captureSession.canAddOutput(stillImageOutput) {
                 captureSession.addInput(input)
-                captureSession.addOutput(stillImageOutput)
+
+//                captureSession.addOutput(stillImageOutput)
                 setupLivePreview()
             }
             
             DispatchQueue.global(qos: .userInitiated).async {
                 self.captureSession.startRunning()
-                
+                let dataOutput = AVCaptureVideoDataOutput()
+                dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue.init(label: "videoQueue"))
+                self.captureSession.addOutput(dataOutput)
                 DispatchQueue.main.async {
                     self.videoPreviewLayer.frame = self.cameraPreview.bounds
                 }
@@ -129,7 +132,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     func setupLivePreview() {
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        
         videoPreviewLayer.videoGravity = .resizeAspect
         videoPreviewLayer.connection?.videoOrientation = .portrait
         cameraPreview.layer.addSublayer(videoPreviewLayer)
@@ -154,16 +156,37 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
         }
+        
         var requestOptions:[VNImageOption : Any] = [:]
+        guard let model = try? VNCoreMLModel(for: SqueezeNet().model) else {
+            return
+        }
+        let request = VNCoreMLRequest(model: model) { (finishedRequest, error) in
+            
+            if let erorr = error {
+                print(error)
+            }
+            
+//            print(finishedRequest.results)
+            
+            guard let results = finishedRequest.results as? [VNRecognizedObjectObservation] else { return }
+            self.drawVisionRequestResults(results: results)
+            guard let firstObs = results.first else {
+                return
+            }
+//            print(firstObs.identifier, firstObs.confidence)
+            DispatchQueue.main.async {
+                
+                self.detectedObject.text = "\(firstObs.labels[0])"
+            }
+        }
+        
+        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [ : ]).perform([request])
         if let cameraIntrinsicData = CMGetAttachment(sampleBuffer, key: kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, attachmentModeOut: nil) {
             requestOptions = [.cameraIntrinsics:cameraIntrinsicData]
         }
-        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: CGImagePropertyOrientation(rawValue: 1)!, options: requestOptions)
-        do {
-            try imageRequestHandler.perform(self.requests)
-        } catch {
-            print(error)
-        }
+//        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: CGImagePropertyOrientation(rawValue: 1)!, options: requestOptions)
+
     }
     
     
@@ -183,32 +206,32 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
     }
     
-    // MARK: - MachineLearning
-    private var requests = [VNRequest]()
     
-    func setupVision() {
-        guard let visionModel = try? VNCoreMLModel(for: keyboardModel().model)
-            else { fatalError("Can't load VisionML model") }
-        let classificationRequest = VNCoreMLRequest(model: visionModel, completionHandler: handleClassifications)
-        classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop
-        self.requests = [classificationRequest]
-    }
-    
-    func handleClassifications(request: VNRequest, error: Error?) {
-        guard let observations = request.results
-            else { print("no results: \(error!)"); return }
-        let classifications = observations[0...4]
-            .flatMap({ $0 as? VNClassificationObservation })
-            .filter({ $0.confidence > 0.3 })
-            .map {
-                (prediction: VNClassificationObservation) -> String in
-                return "\(round(prediction.confidence * 100 * 100)/100)%: \(prediction.identifier)"
-        }
-        DispatchQueue.main.async {
-            print(classifications.joined(separator: "###"))
-            self.classificationText.text = classifications.joined(separator: "\n")
-        }
-    }
+    // MARK: - Custom functions
+    func drawVisionRequestResults(results: [VNRecognizedObjectObservation]){
+        
+//        for objectObservation in results {
+//            let topLabelObservation = objectObservation.labels[0]
+//            let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
+//            
+//            let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
+//            
+//            let textLayer = self.createTextSubLayerInBounds(objectBounds,
+//                                                            identifier: topLabelObservation.identifier,
+//                                                            confidence: topLabelObservation.confidence)
+//            shapeLayer.addSublayer(textLayer)
+//            detectionOverlay.addSublayer(shapeLayer)
+//        }
 
+    }
     
+}
+
+
+extension Double {
+    /// Rounds the double to decimal places value
+    func rounded(toPlaces places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
 }
