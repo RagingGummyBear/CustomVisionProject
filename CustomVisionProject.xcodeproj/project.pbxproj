@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		7D42941E221D3FEE00291794 /* PorscheCoffee.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7D42941D221D3FEE00291794 /* PorscheCoffee.mlmodel */; };
 		7D429426221D523A00291794 /* CoffeePorscheClass.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7D429425221D523900291794 /* CoffeePorscheClass.mlmodel */; };
+		7D429428221D7DBE00291794 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429427221D7DBD00291794 /* opencv2.framework */; };
+		7D42942A221D7E0D00291794 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429429221D7E0D00291794 /* AssetsLibrary.framework */; };
+		7D429432221D7E2B00291794 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429431221D7E2B00291794 /* Accelerate.framework */; };
+		7D429434221D7E3900291794 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429433221D7E3900291794 /* UIKit.framework */; };
+		7D429436221D7E4D00291794 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429435221D7E4D00291794 /* Foundation.framework */; };
+		7D429438221D7E5B00291794 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429437221D7E5B00291794 /* CoreImage.framework */; };
+		7D42943E221D7F4300291794 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D42943D221D7F4300291794 /* OpenCVWrapper.mm */; };
+		7D429443221D806000291794 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429442221D806000291794 /* opencv2.framework */; };
+		7D429445221D894600291794 /* TODOfile.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7D429444221D894600291794 /* TODOfile.txt */; };
 		7D93EA23221C1ED600547DD4 /* AppleDocsCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93EA22221C1ED600547DD4 /* AppleDocsCameraViewController.swift */; };
 		7DCEFC712212FAEC00F59A37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFC702212FAEC00F59A37 /* AppDelegate.swift */; };
 		7DCEFC732212FAEC00F59A37 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFC722212FAEC00F59A37 /* ViewController.swift */; };
@@ -58,6 +67,21 @@
 		50B17A82E9E2464828D1A6AA /* Pods_CustomVisionProjectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomVisionProjectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D42941D221D3FEE00291794 /* PorscheCoffee.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = PorscheCoffee.mlmodel; sourceTree = "<group>"; };
 		7D429425221D523900291794 /* CoffeePorscheClass.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CoffeePorscheClass.mlmodel; sourceTree = "<group>"; };
+		7D429427221D7DBD00291794 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../opencv2.framework; sourceTree = "<group>"; };
+		7D429429221D7E0D00291794 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		7D42942B221D7E1400291794 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		7D42942D221D7E1B00291794 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		7D42942F221D7E2400291794 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		7D429431221D7E2B00291794 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		7D429433221D7E3900291794 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		7D429435221D7E4D00291794 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7D429437221D7E5B00291794 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		7D42943B221D7F4200291794 /* CustomVisionProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CustomVisionProject-Bridging-Header.h"; sourceTree = "<group>"; };
+		7D42943C221D7F4300291794 /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
+		7D42943D221D7F4300291794 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
+		7D42943F221D7FC800291794 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		7D429442221D806000291794 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../Downloads/opencv2.framework; sourceTree = "<group>"; };
+		7D429444221D894600291794 /* TODOfile.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODOfile.txt; sourceTree = "<group>"; };
 		7D93EA22221C1ED600547DD4 /* AppleDocsCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDocsCameraViewController.swift; sourceTree = "<group>"; };
 		7DCEFC6D2212FAEC00F59A37 /* CustomVisionProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomVisionProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DCEFC702212FAEC00F59A37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +120,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D429438221D7E5B00291794 /* CoreImage.framework in Frameworks */,
+				7D429436221D7E4D00291794 /* Foundation.framework in Frameworks */,
+				7D429443221D806000291794 /* opencv2.framework in Frameworks */,
+				7D429434221D7E3900291794 /* UIKit.framework in Frameworks */,
+				7D429432221D7E2B00291794 /* Accelerate.framework in Frameworks */,
+				7D42942A221D7E0D00291794 /* AssetsLibrary.framework in Frameworks */,
+				7D429428221D7DBE00291794 /* opencv2.framework in Frameworks */,
 				8996098B64BFF1266135999D /* Pods_CustomVisionProject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,6 +153,15 @@
 		4E0CC9D98D6EDE5DE5202D1F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D429437221D7E5B00291794 /* CoreImage.framework */,
+				7D429435221D7E4D00291794 /* Foundation.framework */,
+				7D429433221D7E3900291794 /* UIKit.framework */,
+				7D429431221D7E2B00291794 /* Accelerate.framework */,
+				7D42942F221D7E2400291794 /* CoreFoundation.framework */,
+				7D42942D221D7E1B00291794 /* CoreMedia.framework */,
+				7D42942B221D7E1400291794 /* CoreGraphics.framework */,
+				7D429429221D7E0D00291794 /* AssetsLibrary.framework */,
+				7D429427221D7DBD00291794 /* opencv2.framework */,
 				103ECFB2125195216ED93517 /* Pods_CustomVisionProject.framework */,
 				B14875C9B054AFF1489D2EEC /* Pods_CustomVisionProjectTests.framework */,
 				50B17A82E9E2464828D1A6AA /* Pods_CustomVisionProjectUITests.framework */,
@@ -132,6 +172,7 @@
 		7DCEFC642212FAEC00F59A37 = {
 			isa = PBXGroup;
 			children = (
+				7D429442221D806000291794 /* opencv2.framework */,
 				7DCEFC6F2212FAEC00F59A37 /* CustomVisionProject */,
 				7DCEFC872212FAEF00F59A37 /* CustomVisionProjectTests */,
 				7DCEFC922212FAEF00F59A37 /* CustomVisionProjectUITests */,
@@ -154,6 +195,7 @@
 		7DCEFC6F2212FAEC00F59A37 /* CustomVisionProject */ = {
 			isa = PBXGroup;
 			children = (
+				7D429444221D894600291794 /* TODOfile.txt */,
 				7DCEFCBB221313BE00F59A37 /* CoreModels */,
 				7DCEFCA42212FBDB00F59A37 /* Utilities */,
 				7DCEFCA32212FBC700F59A37 /* Views */,
@@ -166,6 +208,10 @@
 				7DCEFC7C2212FAEF00F59A37 /* LaunchScreen.storyboard */,
 				7DCEFC7F2212FAEF00F59A37 /* Info.plist */,
 				7DCEFC772212FAEC00F59A37 /* CustomVisionProject.xcdatamodeld */,
+				7D42943C221D7F4300291794 /* OpenCVWrapper.h */,
+				7D42943D221D7F4300291794 /* OpenCVWrapper.mm */,
+				7D42943B221D7F4200291794 /* CustomVisionProject-Bridging-Header.h */,
+				7D42943F221D7FC800291794 /* PrefixHeader.pch */,
 			);
 			path = CustomVisionProject;
 			sourceTree = "<group>";
@@ -346,6 +392,7 @@
 				TargetAttributes = {
 					7DCEFC6C2212FAEC00F59A37 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					7DCEFC832212FAEF00F59A37 = {
 						CreatedOnToolsVersion = 10.1;
@@ -382,6 +429,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D429445221D894600291794 /* TODOfile.txt in Resources */,
 				7DCEFCC722132AAA00F59A37 /* predict.py in Resources */,
 				7DCEFCC822132AAA00F59A37 /* object_detection.py in Resources */,
 				7DCEFC7E2212FAEF00F59A37 /* LaunchScreen.storyboard in Resources */,
@@ -519,6 +567,7 @@
 				7DCEFCAE2212FFFC00F59A37 /* ImageData.swift in Sources */,
 				7DCEFCB32213002C00F59A37 /* ImageDisplayCollectionViewCell.swift in Sources */,
 				7D429426221D523A00291794 /* CoffeePorscheClass.mlmodel in Sources */,
+				7D42943E221D7F4300291794 /* OpenCVWrapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,8 +743,17 @@
 			baseConfigurationReference = C83847BC54ED201A494B3B15 /* Pods-CustomVisionProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YDC8GRH2PF;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Realm\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\"",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/CustomVisionProject",
+				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/CustomVisionProject/PrefixHeader.pch";
 				INFOPLIST_FILE = CustomVisionProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -703,7 +761,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.seavus.CustomVisionProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CustomVisionProject/CustomVisionProject-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/",
+				);
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -713,8 +777,17 @@
 			baseConfigurationReference = 2DA1AE70026249035E8552FF /* Pods-CustomVisionProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YDC8GRH2PF;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Realm\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\"",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/CustomVisionProject",
+				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/CustomVisionProject/PrefixHeader.pch";
 				INFOPLIST_FILE = CustomVisionProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -722,7 +795,12 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.seavus.CustomVisionProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CustomVisionProject/CustomVisionProject-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/",
+				);
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

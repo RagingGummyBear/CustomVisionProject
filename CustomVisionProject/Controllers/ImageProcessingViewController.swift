@@ -20,6 +20,18 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     @IBOutlet weak var processingImageView: UIImageView!
     @IBOutlet weak var imageProcessingStatus: UILabel!
     @IBOutlet weak var croppedImage: UIImageView!
+    @IBOutlet weak var thresholdSlider: UISlider!
+    
+    // MARK: - IBOutlet actions
+    @IBAction func thresholdSliderAction(_ sender: Any) {
+        if let image = self.capturedImage {
+            self.processingImageView.image = image
+            if let img = self.croppedImage.image {
+                self.croppedImage.image = OpenCVWrapper.find_contours(self.croppedImage.image!, withThresh: Int32(self.thresholdSlider!.value))
+            }
+        }
+        self.processingImageView.image = OpenCVWrapper.contours_bounding_circles_squares(self.capturedImage!, withThresh: Int32(self.thresholdSlider!.value))
+    }
     
     // MARK: - Class properties
     public var capturedImage:UIImage?
@@ -36,13 +48,13 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.detectionOverlay = CALayer() // container layer that has all the renderings of the observations
-        self.detectionOverlay.name = "DetectionOverlay"
-        self.detectionOverlay.bounds = CGRect(x: 0.0,
-                                              y: 0.0,
-                                              width: capturedImage!.size.width,
-                                              height: capturedImage!.size.height)
-        self.detectionOverlay.position = CGPoint(x: self.processingImageView.layer.bounds.midX, y: self.processingImageView.layer.bounds.midY)
+//        self.detectionOverlay = CALayer() // container layer that has all the renderings of the observations
+//        self.detectionOverlay.name = "DetectionOverlay"
+//        self.detectionOverlay.bounds = CGRect(x: 0.0,
+//                                              y: 0.0,
+//                                              width: capturedImage!.size.width,
+//                                              height: capturedImage!.size.height)
+//        self.detectionOverlay.position = CGPoint(x: self.processingImageView.layer.bounds.midX, y: self.processingImageView.layer.bounds.midY)
         
         // Do any additional setup after loading the view.
         self.processTheImage()
@@ -51,6 +63,16 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if let image = self.capturedImage {
+            self.processingImageView.image = image
+        }
+        
+        if let image = self.capturedImage {
+            self.processingImageView.image = image
+        }
+        if let image = self.capturedImage {
+            self.processingImageView.image = image
+        }
         if let image = self.capturedImage {
             self.processingImageView.image = image
         }
@@ -71,15 +93,9 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
         
     }
     
-    
-    func findObjectInImage(){
-        if let image = self.capturedImage {
-        }
-    }
-    
     // MARK: - MachineLearning
     func processTheImage(){
-        
+        return
         if let image = self.capturedImage {
 //            UIGraphicsBeginImageContextWithOptions(CGSize(width: 227, height: 227), true, 2.0)
 //            image.draw(in: CGRect(x: 0, y: 0, width: 227, height: 227))
@@ -192,7 +208,7 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
                                                             identifier: topLabelObservation.identifier,
                                                             confidence: topLabelObservation.confidence)
             shapeLayer.addSublayer(textLayer)
-            detectionOverlay.addSublayer(shapeLayer)
+//            detectionOverlay.addSublayer(shapeLayer)
         }
         
         self.updateLayerGeometry()
