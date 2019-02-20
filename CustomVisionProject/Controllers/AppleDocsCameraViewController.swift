@@ -11,23 +11,37 @@ import AVFoundation
 import CoreML
 import Vision
 
-class AppleDocsCameraViewController: UIViewController,AVCapturePhotoCaptureDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
+class AppleDocsCameraViewController: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     // MARK: - Custom properties
     private var session: AVCaptureSession!
     private var previewLayer: AVCaptureVideoPreviewLayer!
     private var videoDevice: AVCaptureDevice!
+    private var stillImageOutput: AVCapturePhotoOutput!
     
     private let videoDataOutputQueue = DispatchQueue.init(label: "videoOutput")
     private var bufferSize = CGSize(width: 0.0, height: 0.0)
 
     private var detectionOverlay: CALayer!
     
+    private var capturedImage: UIImage!
+    
     // MARK: - Outlets
     @IBOutlet weak var cameraDisplayImageView: UIImageView!
     @IBOutlet weak var imageStatusLabel: UILabel!
     @IBOutlet weak var captureImageButton: UIButton!
-    @IBOutlet weak var multiArrayImage: UIImageView!
+    
+    // MARK: - UIOutlets actions
+    
+    @IBAction func captureButtonAction(_ sender: Any) {
+//        let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+//        settings.flashMode = .auto
+//        stillImageOutput.capturePhoto(with: settings, delegate: self)
+        let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+        settings.flashMode = .auto
+        self.stillImageOutput.capturePhoto(with: settings, delegate: self)
+    }
+    
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -56,7 +70,7 @@ class AppleDocsCameraViewController: UIViewController,AVCapturePhotoCaptureDeleg
     func setupCamera(){
         
         self.session = AVCaptureSession()
-//        self.session.beginConfiguration()
+        self.session.beginConfiguration()
         self.session.sessionPreset = .vga640x480 // Model image size is smaller.
         
         self.videoDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
@@ -89,6 +103,12 @@ class AppleDocsCameraViewController: UIViewController,AVCapturePhotoCaptureDeleg
                 print("Could not add video data output to the session")
                 session.commitConfiguration()
                 return
+            }
+            
+            self.stillImageOutput = AVCapturePhotoOutput()
+            
+            if self.session.canAddOutput(self.stillImageOutput) {
+                self.session.addOutput(self.stillImageOutput)
             }
             
             let captureConnection = videoDataOutput.connection(with: .video)
@@ -125,7 +145,6 @@ class AppleDocsCameraViewController: UIViewController,AVCapturePhotoCaptureDeleg
         self.previewLayer.connection?.videoOrientation = .portrait
         self.cameraDisplayImageView.layer.addSublayer(previewLayer)
         
-        self.detectionOverlay = CALayer()
         self.detectionOverlay = CALayer() // container layer that has all the renderings of the observations
         self.detectionOverlay.name = "DetectionOverlay"
         self.detectionOverlay.bounds = CGRect(x: 0.0,
@@ -147,45 +166,31 @@ class AppleDocsCameraViewController: UIViewController,AVCapturePhotoCaptureDeleg
         }
         
         var requestOptions:[VNImageOption : Any] = [:]
-        guard let model = try? VNCoreMLModel(for: TinyYOLO().model) else {
+        guard let model = try? VNCoreMLModel(for: CoffeePorscheClass().model) else {
             return
         }
         
         let request = VNCoreMLRequest(model: model) { (finishedRequest, error) in
 //            keyboardModelOutput(features: <#T##MLFeatureProvider#>)
-            if let erorr = error {
+            if let error = error {
                 print(error)
             }
-            if let featureObservations = finishedRequest.results as? [VNCoreMLFeatureValueObservation] {
-                
-                if let multiArray = featureObservations[0].featureValue.multiArrayValue {
-//                    print(multiArray.strides[0])
-                    // 1 x 1 x 30 x 13 x 13
-                    let value = multiArray[[0, 0, 0, 0, 0] as [NSNumber]].floatValue
-                    
-                    print(value)
-                    DispatchQueue.main.async {
-                        
-                        self.multiArrayImage.image = multiArray.image()
-                        
-                    }
-                    
-                }
+            
+//            print(finishedRequest.results)
+            
+            guard let results = finishedRequest.results as? [VNClassificationObservation] else {
+                return
             }
             
+            DispatchQueue.main.async {
+                self.imageStatusLabel.text = results[0].identifier
+                if results[0].identifier == "coffee" {
+                    self.captureImageButton.isEnabled = true
+                } else {
+                    self.captureImageButton.isEnabled = false
+                }
+            }
 
-            if let results = finishedRequest.results as? [VNCoreMLFeatureValueObservation] {
-                for observation in results {
-                    print(observation)
-//                    if let kbObject = keyboardModelOutput(
-                }
-            }
-            
-//            DispatchQueue.main.async {
-//                if let results = finishedRequest.results {
-//                    self.drawVisionRequestResults(results)
-//                }
-//            }
         }
         
         try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [ : ]).perform([request])
@@ -194,6 +199,21 @@ class AppleDocsCameraViewController: UIViewController,AVCapturePhotoCaptureDeleg
         }
         //        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: CGImagePropertyOrientation(rawValue: 1)!, options: requestOptions)
         
+    }
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            
+            guard let imageData = photo.fileDataRepresentation()
+                else { return }
+            
+            let image = UIImage(data: imageData)
+            self.capturedImage = image
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "imageProcessSegueIdentifier", sender: self)
+            }
+        }
     }
     
     
@@ -273,14 +293,19 @@ class AppleDocsCameraViewController: UIViewController,AVCapturePhotoCaptureDeleg
         return shapeLayer
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "imageProcessSegueIdentifier" {
+            if let dest = segue.destination as? ImageProcessingViewController {
+                dest.capturedImage = self.capturedImage
+            }
+        }
     }
-    */
 
 }

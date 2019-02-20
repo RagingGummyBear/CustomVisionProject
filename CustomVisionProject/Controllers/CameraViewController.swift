@@ -158,33 +158,34 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate, AVC
         }
         
         var requestOptions:[VNImageOption : Any] = [:]
-        guard let model = try? VNCoreMLModel(for: SqueezeNet().model) else {
-            return
-        }
-        let request = VNCoreMLRequest(model: model) { (finishedRequest, error) in
-            
-            if let erorr = error {
-                print(error)
-            }
-            
-//            print(finishedRequest.results)
-            
-            guard let results = finishedRequest.results as? [VNRecognizedObjectObservation] else { return }
-            self.drawVisionRequestResults(results: results)
-            guard let firstObs = results.first else {
-                return
-            }
-//            print(firstObs.identifier, firstObs.confidence)
-            DispatchQueue.main.async {
-                
-                self.detectedObject.text = "\(firstObs.labels[0])"
-            }
-        }
+//        guard let model = try? VNCoreMLModel(for: SqueezeNet().model) else {
+//            return
+//        }
         
-        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [ : ]).perform([request])
-        if let cameraIntrinsicData = CMGetAttachment(sampleBuffer, key: kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, attachmentModeOut: nil) {
-            requestOptions = [.cameraIntrinsics:cameraIntrinsicData]
-        }
+//        let request = VNCoreMLRequest(model: model) { (finishedRequest, error) in
+//
+//            if let erorr = error {
+//                print(error)
+//            }
+//
+//            print(finishedRequest.results)
+//
+//            guard let results = finishedRequest.results as? [VNRecognizedObjectObservation] else { return }
+////            self.drawVisionRequestResults(results: results)
+//            guard let firstObs = results.first else {
+//                return
+//            }
+////            print(firstObs.identifier, firstObs.confidence)
+//            DispatchQueue.main.async {
+//
+//                self.detectedObject.text = "\(firstObs.labels[0])"
+//            }
+//        }
+
+//        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [ : ]).perform([request])
+//        if let cameraIntrinsicData = CMGetAttachment(sampleBuffer, key: kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, attachmentModeOut: nil) {
+//            requestOptions = [.cameraIntrinsics:cameraIntrinsicData]
+//        }
 //        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: CGImagePropertyOrientation(rawValue: 1)!, options: requestOptions)
 
     }
@@ -208,22 +209,28 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate, AVC
     
     
     // MARK: - Custom functions
-    func drawVisionRequestResults(results: [VNRecognizedObjectObservation]){
-        
+//    func drawVisionRequestResults(results: [VNRecognizedObjectObservation]){
+//
+//        let queue = DispatchQueue(label:"con",attributes:.concurrent)
+//        queue.async {
+//            print("Easy")
+//        }
+//
+//
 //        for objectObservation in results {
 //            let topLabelObservation = objectObservation.labels[0]
 //            let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
-//            
+//
 //            let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
-//            
+//
 //            let textLayer = self.createTextSubLayerInBounds(objectBounds,
 //                                                            identifier: topLabelObservation.identifier,
 //                                                            confidence: topLabelObservation.confidence)
 //            shapeLayer.addSublayer(textLayer)
 //            detectionOverlay.addSublayer(shapeLayer)
 //        }
-
-    }
+//
+//    }
     
 }
 

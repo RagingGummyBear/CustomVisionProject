@@ -19,16 +19,30 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     // MARK: - IBOutlets
     @IBOutlet weak var processingImageView: UIImageView!
     @IBOutlet weak var imageProcessingStatus: UILabel!
+    @IBOutlet weak var croppedImage: UIImageView!
     
     // MARK: - Class properties
     public var capturedImage:UIImage?
-    var visionModel = keyboardModel()
+    
+    private var detectionOverlay: CALayer!
+    
+    
+    
+//    var visionModel = keyboardModel()
     var keyboardObjectDetection = keyboardDetection()
 //    var visionModel = Inceptionv3()
     
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.detectionOverlay = CALayer() // container layer that has all the renderings of the observations
+        self.detectionOverlay.name = "DetectionOverlay"
+        self.detectionOverlay.bounds = CGRect(x: 0.0,
+                                              y: 0.0,
+                                              width: capturedImage!.size.width,
+                                              height: capturedImage!.size.height)
+        self.detectionOverlay.position = CGPoint(x: self.processingImageView.layer.bounds.midX, y: self.processingImageView.layer.bounds.midY)
         
         // Do any additional setup after loading the view.
         self.processTheImage()
@@ -100,31 +114,142 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
             UIGraphicsPopContext()
             CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
             
-            self.processingImageView.image = newImage
+//            self.processingImageView.image = newImage
+            self.processingImageView.image = self.capturedImage
             
 //            guard let prediction = try? self.visionModel.prediction(data: pixelBuffer!) else {
 //                return
 //            }
             
-            guard let prediction2 = try? self.keyboardObjectDetection.prediction(data: pixelBuffer!) else {
-                return
-            }
-            
-            
-//            let request = VNCoreMLRequest(model: keyboardDetection)
-//            VNImageRequestHandler(cgImage: <#T##CGImage#>, options: <#T##[VNImageOption : Any]#>)
-//            predi
-
-            print(prediction2.model_outputs0)
-//            guard let prediction = try? self.visionModel.prediction(image: pixelBuffer!) else {
+//            guard let prediction2 = try? self.keyboardObjectDetection.prediction(data: pixelBuffer!) else {
 //                return
 //            }
             
-//            print(prediction.loss)
+            // Create a request handler.
+//            let request = VNRequest(completionHandler: <#T##VNRequestCompletionHandler?##VNRequestCompletionHandler?##(VNRequest, Error?) -> Void#>)
+//            let imageRequestHandler = VNImageRequestHandler(cgImage: newImage.cgImage!,
+//                                                            orientation: .up,
+//                                                            options: [:])
             
-//            self.imageProcessingStatus.text = "I think this is a \(prediction.classLabel)."
+            guard let model = try? VNCoreMLModel(for: PorscheCoffee().model) else {
+                return
+            }
+            
+            let request = VNCoreMLRequest(model: model) { (finishedRequest, error) in
+                
+                
+                if let error = error {
+                    print(error)
+                }
+                
+                
+                self.drawVisionRequestResults(finishedRequest.results!)
+                
+                guard let results = finishedRequest.results as? [VNRecognizedObjectObservation] else {
+                    return
+                }
+                
+                print(results)
+//                print(results[0].labels)
+                
+                DispatchQueue.main.async {
+
+                }
+                
+            }
+            
+            let imageRequestHandler = VNImageRequestHandler(cgImage: newImage.cgImage!, options: [:])
+            _ = try? imageRequestHandler.perform([request])
+            
+        }
+    }
+    
+    func cropImage(imageToCrop:UIImage, toRect rect:CGRect) -> UIImage{
+        
+        let imageRef:CGImage = imageToCrop.cgImage!.cropping(to: rect)!
+        let cropped:UIImage = UIImage(cgImage:imageRef)
+        return cropped
+    }
+    
+    func drawVisionRequestResults(_ results: [Any]) {
+        CATransaction.begin()
+        CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+        detectionOverlay.sublayers = nil // remove all the old recognized objects
+        let bufferSize = CGSize(width: capturedImage!.size.width, height: capturedImage!.size.height)
+        for observation in results where observation is VNRecognizedObjectObservation {
+            guard let objectObservation = observation as? VNRecognizedObjectObservation else {
+                continue
+            }
+            // Select only the label with the highest confidence.
+            let topLabelObservation = objectObservation.labels[0]
+            let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
+            
+            self.croppedImage.image = self.cropImage(imageToCrop: self.capturedImage!, toRect: objectBounds)
+            
+            let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
+            
+            let textLayer = self.createTextSubLayerInBounds(objectBounds,
+                                                            identifier: topLabelObservation.identifier,
+                                                            confidence: topLabelObservation.confidence)
+            shapeLayer.addSublayer(textLayer)
+            detectionOverlay.addSublayer(shapeLayer)
         }
         
+        self.updateLayerGeometry()
+        CATransaction.commit()
     }
+    
+    func createRoundedRectLayerWithBounds(_ bounds: CGRect) -> CALayer {
+        let shapeLayer = CALayer()
+        shapeLayer.bounds = bounds
+        shapeLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        shapeLayer.name = "Found Object"
+        shapeLayer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 0.2, 0.4])
+        shapeLayer.cornerRadius = 7
+        return shapeLayer
+    }
+
+    
+    func updateLayerGeometry() {
+        let bounds = self.processingImageView.layer.bounds
+        var scale: CGFloat
+        let bufferSize = CGSize(width: capturedImage!.size.width, height: capturedImage!.size.height)
+        
+        let xScale: CGFloat = 1
+        let yScale: CGFloat = 1
+        
+        scale = fmax(xScale, yScale)
+        if scale.isInfinite {
+            scale = 1.0
+        }
+        CATransaction.begin()
+        CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+        
+        // rotate the layer into screen orientation and scale and mirror
+        detectionOverlay.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: scale, y: -scale))
+        // center the layer
+        detectionOverlay.position = CGPoint (x: bounds.midX, y: bounds.midY)
+        
+        CATransaction.commit()
+    }
+    
+    func createTextSubLayerInBounds(_ bounds: CGRect, identifier: String, confidence: VNConfidence) -> CATextLayer {
+        let textLayer = CATextLayer()
+        textLayer.name = "Object Label"
+        let formattedString = NSMutableAttributedString(string: String(format: "\(identifier)\nConfidence:  %.2f", confidence))
+        let largeFont = UIFont(name: "Helvetica", size: 24.0)!
+        formattedString.addAttributes([NSAttributedString.Key.font: largeFont], range: NSRange(location: 0, length: identifier.count))
+        textLayer.string = formattedString
+        textLayer.bounds = CGRect(x: 0, y: 0, width: bounds.size.height - 10, height: bounds.size.width - 10)
+        textLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        textLayer.shadowOpacity = 0.7
+        textLayer.shadowOffset = CGSize(width: 2, height: 2)
+        textLayer.foregroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.0, 0.0, 0.0, 1.0])
+        textLayer.contentsScale = 2.0 // retina rendering
+        // rotate the layer into screen orientation and scale and mirror
+        textLayer.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: 1.0, y: -1.0))
+        return textLayer
+    }
+    
 
 }
