@@ -29,7 +29,10 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
             self.croppedImage.image = OpenCVWrapper.find_contours(self.cropImage, withThresh: Int32(self.thresholdSlider!.value))
         }
         
-        self.processingImageView.image = OpenCVWrapper.contours_bounding_circles_squares(self.capturedImage!, withThresh: Int32(self.thresholdSlider!.value))
+        self.processingImageView.image = OpenCVWrapper.draw_contour_python_bound_square(self.capturedImage!, withThresh: Int32(self.thresholdSlider!.value))
+        
+        // self.processingImageView.image = OpenCVWrapper.find_contours(self.capturedImage!, withThresh: Int32(self.thresholdSlider!.value))
+        
     }
     
     // MARK: - Class properties
@@ -42,14 +45,6 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        self.detectionOverlay = CALayer() // container layer that has all the renderings of the observations
-//        self.detectionOverlay.name = "DetectionOverlay"
-//        self.detectionOverlay.bounds = CGRect(x: 0.0,
-//                                              y: 0.0,
-//                                              width: capturedImage!.size.width,
-//                                              height: capturedImage!.size.height)
-//        self.detectionOverlay.position = CGPoint(x: self.processingImageView.layer.bounds.midX, y: self.processingImageView.layer.bounds.midY)
         
         // Do any additional setup after loading the view.
         self.processTheImage()

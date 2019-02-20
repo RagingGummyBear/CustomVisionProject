@@ -481,13 +481,13 @@ const float nn_match_ratio = 0.8f;
     
     /// Approximate contours to polygons + get bounding rects and circles
     vector<vector<cv::Point> > contours_poly( contours.size() );
-    vector<cv::Rect> boundRect( contours.size() ); // -- Mark here
+    vector<cv::Rect> boundRect( contours.size() );
     vector<Point2f>center( contours.size() );
     vector<float>radius( contours.size() );
     
     for( int i = 0; i < contours.size(); i++ )
-    { approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true ); // -- Mark here
-        boundRect[i] = boundingRect( Mat(contours_poly[i]) ); // -- Mark here
+    { approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
+        boundRect[i] = boundingRect( Mat(contours_poly[i]) );
         minEnclosingCircle( (Mat)contours_poly[i], center[i], radius[i] );
     }
     
@@ -498,7 +498,7 @@ const float nn_match_ratio = 0.8f;
     {
         Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         drawContours( src, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, cv::Point() );
-        rectangle( src, boundRect[i].tl(), boundRect[i].br(), color, 2, 8, 0 ); // -- Mark here
+        rectangle( src, boundRect[i].tl(), boundRect[i].br(), color, 2, 8, 0 );
         circle( src, center[i], (int)radius[i], color, 2, 8, 0 );
         color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
@@ -529,14 +529,14 @@ const float nn_match_ratio = 0.8f;
     findContours( threshold_output, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
     
     /// Approximate contours to polygons + get bounding rects and circles
-    vector<vector<cv::Point> > contours_poly( contours.size() );
-    vector<cv::Rect> boundRect( contours.size() );
+    vector<vector<cv::Point> > contours_poly( contours.size() ); // Mark -- this too
+    vector<cv::Rect> boundRect( contours.size() ); // Mark -- square
     vector<Point2f>center( contours.size() );
     vector<float>radius( contours.size() );
     
-    for( int i = 0; i < contours.size(); i++ )
-    { approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
-        boundRect[i] = boundingRect( Mat(contours_poly[i]) );
+    for( int i = 0; i < contours.size(); i++ ){
+        approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
+        boundRect[i] = boundingRect( Mat(contours_poly[i]) ); // MARK -- square
         minEnclosingCircle( (Mat)contours_poly[i], center[i], radius[i] );
     }
     
@@ -547,7 +547,7 @@ const float nn_match_ratio = 0.8f;
     {
         Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         drawContours( src, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, cv::Point() );
-        rectangle( src, boundRect[i].tl(), boundRect[i].br(), color, 2, 8, 0 );
+        rectangle( src, boundRect[i].tl(), boundRect[i].br(), color, 2, 8, 0 ); // MARK -- square
         circle( src, center[i], (int)radius[i], color, 2, 8, 0 );
     }
     return MatToUIImage(src);
@@ -584,7 +584,6 @@ const float nn_match_ratio = 0.8f;
     { mc[i] = Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ); }
     
     /// Draw contours
-    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
     for( int i = 0; i< contours.size(); i++ )
     {
         Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
@@ -630,25 +629,87 @@ const float nn_match_ratio = 0.8f;
     //////////////////////
     
     Mat src; Mat src_gray; UIImageToMat(image, src);
-    /// Convert image to gray and blur it
+    Mat temp; cvtColor(src, temp, COLOR_BGR2RGB);
+    // Convert image to gray and blur it
     Mat src_blurred; GaussianBlur(src, src_blurred, cv::Size(5,5), 0);
-    Mat hsv; cvtColor( src, hsv, COLOR_BGR2HSV );
+    Mat hsv; cvtColor( src_blurred, hsv, COLOR_BGR2HSV );
     
+    //    Vec3b lowerC = cv::Vec3b(81,57,11); // RBG Values
+    //    Vec3b upperC = cv::Vec3b(240,230,220); // RBG values
     
+    Vec3b lowerC = cv::Vec3b(57,11,81); // BGR Values
+    Vec3b upperC = cv::Vec3b(230,220,240); // BGR values
+    
+    Mat mask; inRange(hsv, lowerC, upperC, mask);
     vector<vector<cv::Point> > contours;
     vector<Vec4i> hierarchy;
     
-    findContours( hsv, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
+    //    findContours(mask, contours, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    findContours(mask, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    //    findContours( hsv, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
+    cvtColor(temp, src, COLOR_RGB2BGR);
+    for( int i = 0; i< contours.size(
+        ); i++ ){
+        if( cv::contourArea(contours[i]) > 5000){
+            Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+            //            cv::drawContours(src, contours[i], -1, color, 3);
+            drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
+        }
+    }
     
-    Mat canny_output;
+    // return MatToUIImage(mask);
+    return MatToUIImage(src);
+}
+
++ (UIImage *) draw_contour_python_bound_square: (UIImage *) image withThresh:(int) thresh {
+    //////////////////////
+    int max_thresh = 255;
+    RNG rng(12345);
+    //////////////////////
+    
+    Mat src; Mat src_gray; UIImageToMat(image, src);
+    Mat temp; cvtColor(src, temp, COLOR_BGR2RGB);
+    /// Convert image to gray and blur it
+    Mat src_blurred; GaussianBlur(src, src_blurred, cv::Size(5,5), 0);
+    Mat hsv; cvtColor( src_blurred, hsv, COLOR_BGR2HSV );
+    //    Vec3b lowerC = cv::Vec3b(81,57,11); // RBG Values
+    //    Vec3b upperC = cv::Vec3b(240,230,220); // RBG values
+    
+    Vec3b lowerC = cv::Vec3b(57,11,81); // BGR Values
+    Vec3b upperC = cv::Vec3b(230,220,240); // BGR values
+    
+    Mat mask; inRange(hsv, lowerC, upperC, mask);
+    vector<vector<cv::Point> > contours;
+    vector<Vec4i> hierarchy;
+    
+    //    findContours(mask, contours, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    findContours(mask, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    //    findContours( hsv, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
+    
     for( int i = 0; i< contours.size(); i++ ){
         
         if( cv::contourArea(contours[i]) > 5000){
             Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-            cv::drawContours(src, contours[i], -1, color, 3);
+            //            cv::drawContours(src, contours[i], -1, color, 3);
+            drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
         }
     }
     
+    // return MatToUIImage(mask);
+    
+    vector<vector<cv::Point> > contours_poly( contours.size() ); // Mark -- this too
+    vector<cv::Rect> boundRect( contours.size() ); // Mark -- square
+    
+    cvtColor(temp, src, COLOR_RGB2BGR);
+    for( int i = 0; i < contours.size(); i++ ){
+        approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
+        boundRect[i] = boundingRect( Mat(contours_poly[i]) ); // MARK -- square
+    }
+    
+    for( int i = 0; i< contours.size(); i++ ) {
+        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        rectangle( src, boundRect[i].tl(), boundRect[i].br(), color, 2, 8, 0 ); // MARK -- square
+    }
     
     return MatToUIImage(src);
 }

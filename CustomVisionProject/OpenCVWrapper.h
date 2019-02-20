@@ -33,10 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *) find_contours: (UIImage *) image withThresh:(int) thresh;
 + (UIImage *) bounding_circles_squares: (UIImage *) image withThresh:(int) thresh;
 + (UIImage *) image_moments: (UIImage *) image withThresh:(int) thresh;
+
 + (UIImage *) draw_contour_python: (UIImage *) image withThresh:(int) thresh;
++ (UIImage *) draw_contour_python_bound_square: (UIImage *) image withThresh:(int) thresh;
 
 + (UIImage *) contours_bounding_circles_squares: (UIImage *) image withThresh:(int) thresh;
-
 
 @end
 

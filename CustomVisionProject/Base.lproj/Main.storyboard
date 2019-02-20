@@ -120,7 +120,7 @@
                                     <constraint firstAttribute="height" constant="65" id="XSq-mw-bEM"/>
                                 </constraints>
                             </imageView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="256" translatesAutoresizingMaskIntoConstraints="NO" id="Por-kK-8Yv">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="90" minValue="25" maxValue="256" translatesAutoresizingMaskIntoConstraints="NO" id="Por-kK-8Yv">
                                 <rect key="frame" x="14" y="621" width="347" height="31"/>
                                 <connections>
                                     <action selector="thresholdSliderAction:" destination="63D-Bm-QY8" eventType="valueChanged" id="Vjm-Tz-6an"/>
