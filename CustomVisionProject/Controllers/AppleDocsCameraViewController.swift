@@ -38,7 +38,7 @@ class AppleDocsCameraViewController: UIViewController, AVCapturePhotoCaptureDele
 //        settings.flashMode = .auto
 //        stillImageOutput.capturePhoto(with: settings, delegate: self)
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-        settings.flashMode = .auto
+//        settings.flashMode = .auto
         self.stillImageOutput.capturePhoto(with: settings, delegate: self)
     }
     
@@ -171,7 +171,6 @@ class AppleDocsCameraViewController: UIViewController, AVCapturePhotoCaptureDele
         }
         
         let request = VNCoreMLRequest(model: model) { (finishedRequest, error) in
-//            keyboardModelOutput(features: <#T##MLFeatureProvider#>)
             if let error = error {
                 print(error)
             }
@@ -209,7 +208,7 @@ class AppleDocsCameraViewController: UIViewController, AVCapturePhotoCaptureDele
                 else { return }
             
             let image = UIImage(data: imageData)
-            self.capturedImage = image
+            self.capturedImage = image?.updateImageOrientionUpSide()
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "imageProcessSegueIdentifier", sender: self)
             }
@@ -308,4 +307,24 @@ class AppleDocsCameraViewController: UIViewController, AVCapturePhotoCaptureDele
         }
     }
 
+}
+
+
+// Image extension
+extension UIImage {
+    
+    func updateImageOrientionUpSide() -> UIImage? {
+        if self.imageOrientation == .up {
+            return self
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+        if let normalizedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext() {
+            UIGraphicsEndImageContext()
+            return normalizedImage
+        }
+        UIGraphicsEndImageContext()
+        return nil
+    }
 }

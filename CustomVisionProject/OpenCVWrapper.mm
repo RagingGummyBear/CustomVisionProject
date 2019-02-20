@@ -481,13 +481,13 @@ const float nn_match_ratio = 0.8f;
     
     /// Approximate contours to polygons + get bounding rects and circles
     vector<vector<cv::Point> > contours_poly( contours.size() );
-    vector<cv::Rect> boundRect( contours.size() );
+    vector<cv::Rect> boundRect( contours.size() ); // -- Mark here
     vector<Point2f>center( contours.size() );
     vector<float>radius( contours.size() );
     
     for( int i = 0; i < contours.size(); i++ )
-    { approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
-        boundRect[i] = boundingRect( Mat(contours_poly[i]) );
+    { approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true ); // -- Mark here
+        boundRect[i] = boundingRect( Mat(contours_poly[i]) ); // -- Mark here
         minEnclosingCircle( (Mat)contours_poly[i], center[i], radius[i] );
     }
     
@@ -498,7 +498,7 @@ const float nn_match_ratio = 0.8f;
     {
         Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         drawContours( src, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, cv::Point() );
-        rectangle( src, boundRect[i].tl(), boundRect[i].br(), color, 2, 8, 0 );
+        rectangle( src, boundRect[i].tl(), boundRect[i].br(), color, 2, 8, 0 ); // -- Mark here
         circle( src, center[i], (int)radius[i], color, 2, 8, 0 );
         color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );

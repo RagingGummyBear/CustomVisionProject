@@ -24,25 +24,20 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     
     // MARK: - IBOutlet actions
     @IBAction func thresholdSliderAction(_ sender: Any) {
-        if let image = self.capturedImage {
-            self.processingImageView.image = image
-            if let img = self.croppedImage.image {
-                self.croppedImage.image = OpenCVWrapper.find_contours(self.croppedImage.image!, withThresh: Int32(self.thresholdSlider!.value))
-            }
+        
+        if let img = self.croppedImage.image {
+            self.croppedImage.image = OpenCVWrapper.find_contours(self.cropImage, withThresh: Int32(self.thresholdSlider!.value))
         }
+        
         self.processingImageView.image = OpenCVWrapper.contours_bounding_circles_squares(self.capturedImage!, withThresh: Int32(self.thresholdSlider!.value))
     }
     
     // MARK: - Class properties
     public var capturedImage:UIImage?
+    private var cropImage: UIImage!
     
     private var detectionOverlay: CALayer!
-    
-    
-    
-//    var visionModel = keyboardModel()
     var keyboardObjectDetection = keyboardDetection()
-//    var visionModel = Inceptionv3()
     
     // MARK: - View lifecycle
     override func viewDidLoad() {
@@ -66,16 +61,6 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
         if let image = self.capturedImage {
             self.processingImageView.image = image
         }
-        
-        if let image = self.capturedImage {
-            self.processingImageView.image = image
-        }
-        if let image = self.capturedImage {
-            self.processingImageView.image = image
-        }
-        if let image = self.capturedImage {
-            self.processingImageView.image = image
-        }
     }
     
     /*
@@ -89,13 +74,14 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     */
     
     // MARK: - Custom Functions
+    
     func createHistogram(){
         
     }
     
     // MARK: - MachineLearning
     func processTheImage(){
-        return
+//        return
         if let image = self.capturedImage {
 //            UIGraphicsBeginImageContextWithOptions(CGSize(width: 227, height: 227), true, 2.0)
 //            image.draw(in: CGRect(x: 0, y: 0, width: 227, height: 227))
@@ -130,22 +116,8 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
             UIGraphicsPopContext()
             CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
             
-//            self.processingImageView.image = newImage
             self.processingImageView.image = self.capturedImage
-            
-//            guard let prediction = try? self.visionModel.prediction(data: pixelBuffer!) else {
-//                return
-//            }
-            
-//            guard let prediction2 = try? self.keyboardObjectDetection.prediction(data: pixelBuffer!) else {
-//                return
-//            }
-            
-            // Create a request handler.
-//            let request = VNRequest(completionHandler: <#T##VNRequestCompletionHandler?##VNRequestCompletionHandler?##(VNRequest, Error?) -> Void#>)
-//            let imageRequestHandler = VNImageRequestHandler(cgImage: newImage.cgImage!,
-//                                                            orientation: .up,
-//                                                            options: [:])
+
             
             guard let model = try? VNCoreMLModel(for: PorscheCoffee().model) else {
                 return
@@ -190,7 +162,7 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     func drawVisionRequestResults(_ results: [Any]) {
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
-        detectionOverlay.sublayers = nil // remove all the old recognized objects
+//        detectionOverlay.sublayers = nil // remove all the old recognized objects
         let bufferSize = CGSize(width: capturedImage!.size.width, height: capturedImage!.size.height)
         for observation in results where observation is VNRecognizedObjectObservation {
             guard let objectObservation = observation as? VNRecognizedObjectObservation else {
@@ -201,6 +173,7 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
             let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
             
             self.croppedImage.image = self.cropImage(imageToCrop: self.capturedImage!, toRect: objectBounds)
+            self.cropImage = self.cropImage(imageToCrop: self.capturedImage!, toRect: objectBounds)
             
             let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
             
@@ -208,7 +181,6 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
                                                             identifier: topLabelObservation.identifier,
                                                             confidence: topLabelObservation.confidence)
             shapeLayer.addSublayer(textLayer)
-//            detectionOverlay.addSublayer(shapeLayer)
         }
         
         self.updateLayerGeometry()
@@ -242,9 +214,9 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         
         // rotate the layer into screen orientation and scale and mirror
-        detectionOverlay.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: scale, y: -scale))
+//        detectionOverlay.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: scale, y: -scale))
         // center the layer
-        detectionOverlay.position = CGPoint (x: bounds.midX, y: bounds.midY)
+//        detectionOverlay.position = CGPoint (x: bounds.midX, y: bounds.midY)
         
         CATransaction.commit()
     }

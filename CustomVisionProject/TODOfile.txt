@@ -2,6 +2,7 @@
 // I. Use a better classification and then use color contours to findout the coffee in the image
 
 // II. Skip the part of using better classification and user color contours to findout the coffee in the image
+ - Make a bounding box out of the contours
 
 // III. Try to make the Object detection work
 
