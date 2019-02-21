@@ -23,9 +23,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSMutableArray *) extract_features: (UIImage *) image;
 
+//+ (UIImage *) create_histogram_color: (UIImage *) image;
++ (NSMutableArray *) create_histogram_color: (UIImage *) image;
 + (UIImage *) generate_histograms: (UIImage *) image;
 + (UIImage *) generate_hs_histogram: (UIImage *) image;
 
++ (double) compareHistograms: (UIImage *) src withHistogramArray:(NSMutableArray *) compare;
++ (double) compareHistograms: (UIImage *) src withHistogram:(UIImage *) compare;
 + (double) compareHistograms: (UIImage *) src withImage:(UIImage *) compare;
 
 + (UIImage *) hist_and_Backproj: (UIImage *) image withX: (int) x withY: (int) y threshLow: (int) low threshUp: (int) up;
@@ -34,10 +38,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *) bounding_circles_squares: (UIImage *) image withThresh:(int) thresh;
 + (UIImage *) image_moments: (UIImage *) image withThresh:(int) thresh;
 
++ (UIImage *) contours_bounding_circles_squares: (UIImage *) image withThresh:(int) thresh;
+
 + (UIImage *) draw_contour_python: (UIImage *) image withThresh:(int) thresh;
 + (UIImage *) draw_contour_python_bound_square: (UIImage *) image withThresh:(int) thresh;
++ (NSMutableArray *) contour_python_bound_square: (UIImage *) image withThresh:(int) thresh;
 
-+ (UIImage *) contours_bounding_circles_squares: (UIImage *) image withThresh:(int) thresh;
 
 @end
 

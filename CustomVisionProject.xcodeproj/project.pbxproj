@@ -19,6 +19,8 @@
 		7D429443221D806000291794 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429442221D806000291794 /* opencv2.framework */; };
 		7D429445221D894600291794 /* TODOfile.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7D429444221D894600291794 /* TODOfile.txt */; };
 		7D93EA23221C1ED600547DD4 /* AppleDocsCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93EA22221C1ED600547DD4 /* AppleDocsCameraViewController.swift */; };
+		7DB6B31C221EB2A900D3A208 /* HistogramHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB6B31B221EB2A900D3A208 /* HistogramHandler.swift */; };
+		7DB6B31D221EEED600D3A208 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D42943D221D7F4300291794 /* OpenCVWrapper.mm */; };
 		7DCEFC712212FAEC00F59A37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFC702212FAEC00F59A37 /* AppDelegate.swift */; };
 		7DCEFC732212FAEC00F59A37 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFC722212FAEC00F59A37 /* ViewController.swift */; };
 		7DCEFC762212FAEC00F59A37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFC742212FAEC00F59A37 /* Main.storyboard */; };
@@ -34,10 +36,6 @@
 		7DCEFCB52213002C00F59A37 /* ImageFullDisplayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB12213002B00F59A37 /* ImageFullDisplayCollectionViewCell.xib */; };
 		7DCEFCB62213002C00F59A37 /* ImageDisplayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB22213002C00F59A37 /* ImageDisplayCollectionViewCell.xib */; };
 		7DCEFCBA2213045C00F59A37 /* ImageProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB92213045C00F59A37 /* ImageProcessingViewController.swift */; };
-		7DCEFCC722132AAA00F59A37 /* predict.py in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFCC322132AAA00F59A37 /* predict.py */; };
-		7DCEFCC822132AAA00F59A37 /* object_detection.py in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFCC422132AAA00F59A37 /* object_detection.py */; };
-		7DCEFCC922132AAA00F59A37 /* labels.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFCC522132AAA00F59A37 /* labels.txt */; };
-		7DCEFCCA22132AAA00F59A37 /* keyboardDetection.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFCC622132AAA00F59A37 /* keyboardDetection.mlmodel */; };
 		8996098B64BFF1266135999D /* Pods_CustomVisionProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 103ECFB2125195216ED93517 /* Pods_CustomVisionProject.framework */; };
 		EF32078907569E52BC2026EE /* Pods_CustomVisionProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B14875C9B054AFF1489D2EEC /* Pods_CustomVisionProjectTests.framework */; };
 		F8B98EFF9786E7C199214334 /* Pods_CustomVisionProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B17A82E9E2464828D1A6AA /* Pods_CustomVisionProjectUITests.framework */; };
@@ -83,6 +81,7 @@
 		7D429442221D806000291794 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../Downloads/opencv2.framework; sourceTree = "<group>"; };
 		7D429444221D894600291794 /* TODOfile.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODOfile.txt; sourceTree = "<group>"; };
 		7D93EA22221C1ED600547DD4 /* AppleDocsCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDocsCameraViewController.swift; sourceTree = "<group>"; };
+		7DB6B31B221EB2A900D3A208 /* HistogramHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistogramHandler.swift; sourceTree = "<group>"; };
 		7DCEFC6D2212FAEC00F59A37 /* CustomVisionProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomVisionProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DCEFC702212FAEC00F59A37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7DCEFC722212FAEC00F59A37 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -104,10 +103,6 @@
 		7DCEFCB12213002B00F59A37 /* ImageFullDisplayCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageFullDisplayCollectionViewCell.xib; sourceTree = "<group>"; };
 		7DCEFCB22213002C00F59A37 /* ImageDisplayCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDisplayCollectionViewCell.xib; sourceTree = "<group>"; };
 		7DCEFCB92213045C00F59A37 /* ImageProcessingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessingViewController.swift; sourceTree = "<group>"; };
-		7DCEFCC322132AAA00F59A37 /* predict.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = predict.py; sourceTree = "<group>"; };
-		7DCEFCC422132AAA00F59A37 /* object_detection.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = object_detection.py; sourceTree = "<group>"; };
-		7DCEFCC522132AAA00F59A37 /* labels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = labels.txt; sourceTree = "<group>"; };
-		7DCEFCC622132AAA00F59A37 /* keyboardDetection.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = keyboardDetection.mlmodel; sourceTree = "<group>"; };
 		A80E122864D91D2182706D87 /* Pods-CustomVisionProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomVisionProjectUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomVisionProjectUITests/Pods-CustomVisionProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		AE1F6A1F8234D3DD510307C9 /* Pods-CustomVisionProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomVisionProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomVisionProjectTests/Pods-CustomVisionProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		B14875C9B054AFF1489D2EEC /* Pods_CustomVisionProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomVisionProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,6 +261,7 @@
 		7DCEFCA42212FBDB00F59A37 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7DB6B31B221EB2A900D3A208 /* HistogramHandler.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -274,37 +270,9 @@
 			isa = PBXGroup;
 			children = (
 				7D42941D221D3FEE00291794 /* PorscheCoffee.mlmodel */,
-				7DCEFCC022132A8E00F59A37 /* ObjectDetection */,
 				7D429425221D523900291794 /* CoffeePorscheClass.mlmodel */,
 			);
 			path = CoreModels;
-			sourceTree = "<group>";
-		};
-		7DCEFCC022132A8E00F59A37 /* ObjectDetection */ = {
-			isa = PBXGroup;
-			children = (
-				7DCEFCC122132AAA00F59A37 /* keyboardDetection */,
-			);
-			path = ObjectDetection;
-			sourceTree = "<group>";
-		};
-		7DCEFCC122132AAA00F59A37 /* keyboardDetection */ = {
-			isa = PBXGroup;
-			children = (
-				7DCEFCC222132AAA00F59A37 /* python */,
-				7DCEFCC522132AAA00F59A37 /* labels.txt */,
-				7DCEFCC622132AAA00F59A37 /* keyboardDetection.mlmodel */,
-			);
-			path = keyboardDetection;
-			sourceTree = "<group>";
-		};
-		7DCEFCC222132AAA00F59A37 /* python */ = {
-			isa = PBXGroup;
-			children = (
-				7DCEFCC322132AAA00F59A37 /* predict.py */,
-				7DCEFCC422132AAA00F59A37 /* object_detection.py */,
-			);
-			path = python;
 			sourceTree = "<group>";
 		};
 		C264866A77D36492B7930AB5 /* Pods */ = {
@@ -430,10 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D429445221D894600291794 /* TODOfile.txt in Resources */,
-				7DCEFCC722132AAA00F59A37 /* predict.py in Resources */,
-				7DCEFCC822132AAA00F59A37 /* object_detection.py in Resources */,
 				7DCEFC7E2212FAEF00F59A37 /* LaunchScreen.storyboard in Resources */,
-				7DCEFCC922132AAA00F59A37 /* labels.txt in Resources */,
 				7DCEFC7B2212FAEF00F59A37 /* Assets.xcassets in Resources */,
 				7DCEFCB62213002C00F59A37 /* ImageDisplayCollectionViewCell.xib in Resources */,
 				7DCEFCB52213002C00F59A37 /* ImageFullDisplayCollectionViewCell.xib in Resources */,
@@ -562,9 +527,9 @@
 				7DCEFCA82212FD6F00F59A37 /* CameraViewController.swift in Sources */,
 				7DCEFC712212FAEC00F59A37 /* AppDelegate.swift in Sources */,
 				7D93EA23221C1ED600547DD4 /* AppleDocsCameraViewController.swift in Sources */,
-				7DCEFCCA22132AAA00F59A37 /* keyboardDetection.mlmodel in Sources */,
 				7DCEFC792212FAEC00F59A37 /* CustomVisionProject.xcdatamodeld in Sources */,
 				7DCEFCAE2212FFFC00F59A37 /* ImageData.swift in Sources */,
+				7DB6B31C221EB2A900D3A208 /* HistogramHandler.swift in Sources */,
 				7DCEFCB32213002C00F59A37 /* ImageDisplayCollectionViewCell.swift in Sources */,
 				7D429426221D523A00291794 /* CoffeePorscheClass.mlmodel in Sources */,
 				7D42943E221D7F4300291794 /* OpenCVWrapper.mm in Sources */,
@@ -583,6 +548,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DB6B31D221EEED600D3A208 /* OpenCVWrapper.mm in Sources */,
 				7DCEFC942212FAEF00F59A37 /* CustomVisionProjectUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

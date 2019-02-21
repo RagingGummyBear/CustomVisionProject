@@ -26,6 +26,14 @@
                                     <segue destination="5fe-5e-ouO" kind="show" id="T1M-uf-D7X"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Olf-aJ-f4X">
+                                <rect key="frame" x="164" y="207" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="63D-Bm-QY8" kind="show" id="XnO-a8-hCj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -34,7 +42,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1072.8" y="133.5832083958021"/>
+            <point key="canvasLocation" x="1262" y="-394"/>
         </scene>
         <!--Take new photos-->
         <scene sceneID="RBb-yi-DnQ">
@@ -96,7 +104,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KAj-HZ-iS9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="8x0-VN-EaP"/>
             </objects>
-            <point key="canvasLocation" x="1892" y="-37"/>
+            <point key="canvasLocation" x="2820" y="-814"/>
         </scene>
         <!--Processing-->
         <scene sceneID="6UR-d7-o1h">
@@ -107,39 +115,49 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3fc-g8-FvD">
-                                <rect key="frame" x="0.0" y="64" width="375" height="474"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="474"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="3fc-g8-FvD" secondAttribute="height" multiplier="125:158" id="7JT-Sy-XFP"/>
+                                    <constraint firstAttribute="height" constant="474" id="S0X-ju-wZA"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5dR-em-6or">
-                                <rect key="frame" x="8" y="546" width="65" height="65"/>
+                                <rect key="frame" x="8" y="502" width="65" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="65" id="VJF-S5-oIm"/>
                                     <constraint firstAttribute="height" constant="65" id="XSq-mw-bEM"/>
                                 </constraints>
                             </imageView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="90" minValue="25" maxValue="256" translatesAutoresizingMaskIntoConstraints="NO" id="Por-kK-8Yv">
-                                <rect key="frame" x="14" y="621" width="347" height="31"/>
+                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="90" minValue="25" maxValue="256" translatesAutoresizingMaskIntoConstraints="NO" id="Por-kK-8Yv">
+                                <rect key="frame" x="14" y="617" width="347" height="31"/>
                                 <connections>
                                     <action selector="thresholdSliderAction:" destination="63D-Bm-QY8" eventType="valueChanged" id="Vjm-Tz-6an"/>
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image status" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTv-Wm-mFp">
-                                <rect key="frame" x="16" y="568.5" width="343" height="20.5"/>
+                                <rect key="frame" x="16" y="502" width="343" height="65"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t9E-mS-VJQ">
+                                <rect key="frame" x="307" y="502" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="SAt-Z3-obx"/>
+                                    <constraint firstAttribute="width" constant="60" id="mNT-lV-ujS"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5dR-em-6or" firstAttribute="top" secondItem="3fc-g8-FvD" secondAttribute="bottom" constant="8" id="0w8-bV-ONE"/>
+                            <constraint firstAttribute="trailing" secondItem="t9E-mS-VJQ" secondAttribute="trailing" constant="8" id="1ib-Ut-dJ5"/>
                             <constraint firstItem="Por-kK-8Yv" firstAttribute="leading" secondItem="kPd-o7-im0" secondAttribute="leading" constant="16" id="2Fe-WR-QUA"/>
+                            <constraint firstItem="t9E-mS-VJQ" firstAttribute="top" secondItem="dTv-Wm-mFp" secondAttribute="top" id="B1U-ww-cqc"/>
                             <constraint firstItem="kPd-o7-im0" firstAttribute="trailing" secondItem="Por-kK-8Yv" secondAttribute="trailing" constant="16" id="BfP-l3-nMA"/>
                             <constraint firstItem="kPd-o7-im0" firstAttribute="bottom" secondItem="Por-kK-8Yv" secondAttribute="bottom" constant="16" id="FZr-40-5mm"/>
                             <constraint firstItem="kPd-o7-im0" firstAttribute="trailing" secondItem="dTv-Wm-mFp" secondAttribute="trailing" constant="16" id="KRX-Av-8sk"/>
+                            <constraint firstItem="t9E-mS-VJQ" firstAttribute="top" secondItem="5dR-em-6or" secondAttribute="top" id="N7o-8k-PbU"/>
                             <constraint firstItem="5dR-em-6or" firstAttribute="leading" secondItem="kPd-o7-im0" secondAttribute="leading" constant="8" id="Nmx-Gj-SU3"/>
                             <constraint firstItem="3fc-g8-FvD" firstAttribute="leading" secondItem="kPd-o7-im0" secondAttribute="leading" id="XGP-nZ-eTS"/>
                             <constraint firstItem="dTv-Wm-mFp" firstAttribute="leading" secondItem="kPd-o7-im0" secondAttribute="leading" constant="16" id="Xkh-Ix-qBP"/>
@@ -152,11 +170,15 @@
                     <navigationItem key="navigationItem" title="Processing" id="dVJ-HK-Wl4">
                         <barButtonItem key="backBarButtonItem" title="Back" id="M6Q-ns-p9D"/>
                     </navigationItem>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee18"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="croppedImage" destination="5dR-em-6or" id="hGY-9L-6dw"/>
                         <outlet property="imageProcessingStatus" destination="dTv-Wm-mFp" id="rLy-a0-jqs"/>
                         <outlet property="processingImageView" destination="3fc-g8-FvD" id="eqG-xf-Uz3"/>
                         <outlet property="thresholdSlider" destination="Por-kK-8Yv" id="aGp-v8-Obl"/>
+                        <outlet property="worstCrop" destination="t9E-mS-VJQ" id="n3T-KQ-Qlc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIe-HG-8ka" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -244,7 +266,10 @@
             <point key="canvasLocation" x="1892" y="661"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="coffee18" width="728" height="546"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Cyg-kD-kmb"/>
+        <segue reference="AT3-xi-Sfb"/>
     </inferredMetricsTieBreakers>
 </document>

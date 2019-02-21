@@ -164,6 +164,61 @@ const float nn_match_ratio = 0.8f;
     return vectors;
 }
 
++ (NSMutableArray *) create_histogram_color: (UIImage *) image {
+    
+    Mat src_img, hsv_src; UIImageToMat(image, src_img);
+    
+    // Convert to HSV
+    cvtColor( src_img, hsv_src, COLOR_BGR2HSV );
+    
+    // Using 50 bins for hue and 60 for saturation
+    int h_bins = 50; int s_bins = 60;
+    int histSize[] = { h_bins, s_bins };
+    
+    // hue varies from 0 to 179, saturation from 0 to 255
+    float h_ranges[] = { 0, 180 };
+    float s_ranges[] = { 0, 256 };
+    
+    const float* ranges[] = { h_ranges, s_ranges };
+    
+    // Use the o-th and 1-st channels
+    int channels[] = { 0, 1 };
+    
+    // Histograms
+    Mat hist_src;
+    
+    // Calculate the histograms for the HSV images
+    calcHist( &hsv_src, 1, channels, Mat(), hist_src, 2, histSize, ranges, true, false );
+    normalize( hist_src, hist_src, 0, 1, NORM_MINMAX, -1, Mat() );
+    
+    NSMutableArray *vectors = [NSMutableArray array];
+    NSMutableArray *vector = [NSMutableArray array];
+    [vector addObject: [NSNumber numberWithUnsignedChar: hist_src.rows]];
+    [vector addObject: [NSNumber numberWithUnsignedChar: hist_src.cols]];
+    [vector addObject: [NSNumber numberWithUnsignedChar: hist_src.type()]];
+    [vectors addObject:vector];
+
+    
+    for(int i = 0 ; i < hist_src.rows; ++i){
+//        [vectors addObject: [NSMutableArray array]];
+        NSMutableArray *innerVector = [NSMutableArray array];
+        
+        for(int j = 0; j < hist_src.cols; ++j){
+            NSMutableArray *vector = [NSMutableArray array];
+            [vector addObject: [NSNumber numberWithUnsignedChar:(hist_src.at<cv::Vec3b>(i,j)[0])]];
+            [vector addObject: [NSNumber numberWithUnsignedChar:(hist_src.at<cv::Vec3b>(i,j)[1])]];
+            [vector addObject: [NSNumber numberWithUnsignedChar:(hist_src.at<cv::Vec3b>(i,j)[2])]];
+            //            cout << [NSNumber numberWithUnsignedChar:(inputImage.at<cv::Vec4b>(i,j)[3])];
+            //            inputImage.at<cv::Vec4b>
+            [innerVector addObject:vector];
+            
+        }
+        [vectors addObject:innerVector];
+    }
+    return vectors;
+}
+
+
 + (UIImage *) generate_histograms: (UIImage *) image {
     
     Mat src, dst;
@@ -323,6 +378,66 @@ const float nn_match_ratio = 0.8f;
     return vectors;
 }
 
++ (double) compareHistograms: (UIImage *) src withHistogramArray:(nonnull NSMutableArray *)compare {
+    Mat src_img, hsv_src; UIImageToMat(src, src_img);
+    
+    // Convert to HSV
+    cvtColor( src_img, hsv_src, COLOR_BGR2HSV );
+    
+    // Using 50 bins for hue and 60 for saturation
+    int h_bins = 50; int s_bins = 60;
+    int histSize[] = { h_bins, s_bins };
+    
+    // hue varies from 0 to 179, saturation from 0 to 255
+    float h_ranges[] = { 0, 180 };
+    float s_ranges[] = { 0, 256 };
+    
+    const float* ranges[] = { h_ranges, s_ranges };
+    
+    // Use the o-th and 1-st channels
+    int channels[] = { 0, 1 };
+    
+    // Histograms
+    Mat hist_src;
+    
+//    Mat hist_compare; UIImageToMat(compare, hist_compare);
+    [[[compare objectAtIndex:0] objectAtIndex:0] unsignedCharValue];
+    Mat hist_compare; hist_compare = Mat([[[compare objectAtIndex:0] objectAtIndex:0] unsignedCharValue], [[[compare objectAtIndex:0] objectAtIndex:1] unsignedCharValue], [[[compare objectAtIndex:0] objectAtIndex:2] unsignedCharValue], Scalar(0,0, 0));
+    
+    for (int i = 1; i < [compare count]; ++i) {
+        NSMutableArray *vector = [NSMutableArray arrayWithArray: [compare objectAtIndex: i]];
+        for (int y = 0; y < [vector count]; ++y){
+
+            NSMutableArray *rgb = [NSMutableArray arrayWithArray:  [vector objectAtIndex: y]];
+            hist_compare.at<cv::Vec3b>(i,y) = cv::Vec3b();
+            hist_compare.at<cv::Vec3b>(i,y) = cv::Vec3b([[rgb objectAtIndex: 0] unsignedCharValue],[[rgb objectAtIndex: 1] unsignedCharValue],[[rgb objectAtIndex: 2] unsignedCharValue]);
+        }
+    }
+    
+    // Calculate the histograms for the HSV images
+    calcHist( &hsv_src, 1, channels, Mat(), hist_src, 2, histSize, ranges, true, false );
+    normalize( hist_src, hist_src, 0, 1, NORM_MINMAX, -1, Mat() );
+    
+//    calcHist( &hsv_compare, 1, channels, Mat(), hist_compare, 2, histSize, ranges, true, false );
+//    normalize( hist_compare, hist_compare, 0, 1, NORM_MINMAX, -1, Mat() );
+    
+    double src_compare = 0;
+    double result = 0;
+    
+    /// Apply the histogram comparison methods
+    for( int i = 0; i < 4; i++ ){
+        int compare_method = i;
+        src_compare = compareHist( hist_src, hist_compare, compare_method );
+//        printf( " Method [%d] : %f \n", i, src_compare);
+        if (i == 0){
+            result = src_compare;
+        }
+    }
+//    printf( "Done \n" );
+    return result;
+}
+
+
 + (double) compareHistograms: (UIImage *) src withImage:(UIImage *) compare {
     Mat src_img, hsv_src; UIImageToMat(src, src_img);
     Mat compare_img, hsv_compare; UIImageToMat(compare, compare_img);
@@ -356,17 +471,19 @@ const float nn_match_ratio = 0.8f;
     normalize( hist_compare, hist_compare, 0, 1, NORM_MINMAX, -1, Mat() );
     
     double src_compare = 0;
+    double result = 0;
     
     /// Apply the histogram comparison methods
-    for( int i = 0; i < 4; i++ )
-    {
+    for( int i = 0; i < 4; i++ ){
         int compare_method = i;
         src_compare = compareHist( hist_src, hist_compare, compare_method );
-        
-        printf( " Method [%d] Perfect, Base-Half, Base-Test(1), Base-Test(2) : %f \n", i, src_compare);
+//        printf( " Method [%d] : %f \n", i, src_compare);
+        if (i == 0){
+            result = src_compare;
+        }
     }
-    printf( "Done \n" );
-    return src_compare;
+//    printf( "Done \n" );
+    return result;
 }
 
 + (UIImage *) hist_and_Backproj: (UIImage *) image withX: (int) x withY: (int) y threshLow: (int) low threshUp: (int) up {
@@ -377,7 +494,6 @@ const float nn_match_ratio = 0.8f;
     /// Transform it to HSV
     cvtColor( src, hsv, COLOR_BGR2HSV );
     cvtColor( hsv, src, COLOR_HSV2BGR );
-    
     // Fill and get the mask
     
     if (x < 0){
@@ -711,6 +827,104 @@ const float nn_match_ratio = 0.8f;
         rectangle( src, boundRect[i].tl(), boundRect[i].br(), color, 2, 8, 0 ); // MARK -- square
     }
     
+    return MatToUIImage(src);
+}
+
++ (NSMutableArray *) contour_python_bound_square: (UIImage *) image withThresh:(int) thresh {
+    //////////////////////
+    int max_thresh = 255;
+    RNG rng(12345);
+    //////////////////////
+    
+    Mat src; Mat src_gray; UIImageToMat(image, src);
+    Mat temp; cvtColor(src, temp, COLOR_BGR2RGB);
+    /// Convert image to gray and blur it
+    Mat src_blurred; GaussianBlur(src, src_blurred, cv::Size(5,5), 0);
+    Mat hsv; cvtColor( src_blurred, hsv, COLOR_BGR2HSV );
+    //    Vec3b lowerC = cv::Vec3b(81,57,11); // RBG Values
+    //    Vec3b upperC = cv::Vec3b(240,230,220); // RBG values
+    
+    Vec3b lowerC = cv::Vec3b(57,11,81); // BGR Values
+    Vec3b upperC = cv::Vec3b(230,220,240); // BGR values
+    
+    Mat mask; inRange(hsv, lowerC, upperC, mask);
+    vector<vector<cv::Point> > contours;
+    vector<Vec4i> hierarchy;
+    
+    //    findContours(mask, contours, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    findContours(mask, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    
+    vector<vector<cv::Point> > contours_poly( contours.size() ); // Mark -- this too
+    vector<cv::Rect> boundRect( contours.size() ); // Mark -- square
+    
+    cvtColor(temp, src, COLOR_RGB2BGR); // HACK for drawing colors
+    
+    for( int i = 0; i < contours.size(); i++ ){
+        approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
+        boundRect[i] = boundingRect( Mat(contours_poly[i]) ); // MARK -- square
+    }
+    
+    cv::Rect thirdBiggest = cv::Rect(0,0,1,1);
+    cv::Rect secondBiggest = cv::Rect(0,0,1,1);
+    cv::Rect biggest = cv::Rect(0,0,1,1);
+    
+    for( int i = 0; i< contours.size(); i++ ) {
+        if (biggest.width * biggest.height < boundRect[i].width * boundRect[i].height) {
+            thirdBiggest = secondBiggest;
+            secondBiggest = biggest;
+            biggest = boundRect[i];
+        } else {
+            if (secondBiggest.width * secondBiggest.height < boundRect[i].width * boundRect[i].height) {
+                secondBiggest = boundRect[i];
+            } else {
+                if (thirdBiggest.width * thirdBiggest.height < boundRect[i].width * boundRect[i].height) {
+                    thirdBiggest = boundRect[i];
+                }
+            }
+        }
+    }
+    
+    NSMutableArray *result = [NSMutableArray array];
+    
+    [result addObject:[NSValue valueWithCGRect: CGRectMake(biggest.tl().x, biggest.tl().y, biggest.width, biggest.height)]];
+    [result addObject:[NSValue valueWithCGRect: CGRectMake(secondBiggest.tl().x, secondBiggest.tl().y, secondBiggest.width, secondBiggest.height)]];
+    [result addObject:[NSValue valueWithCGRect: CGRectMake(thirdBiggest.tl().x, thirdBiggest.tl().y, thirdBiggest.width, thirdBiggest.height)]];
+    
+    return result;
+}
+
++ (UIImage *) find_circles: (UIImage *) image withThresh:(int) thresh {
+    
+    cout << "Find circles function is not finished or tunned so it doesnt work...";
+    
+    Mat src; Mat src_gray; UIImageToMat(image, src);
+    Mat temp; cvtColor(src, temp, COLOR_BGR2RGB);
+    cvtColor(src, src_gray, COLOR_BGR2GRAY);
+    // Convert image to gray and blur it
+    medianBlur(src_gray, src_gray, 5);
+    
+    
+    vector<Vec3f> circles;
+    HoughCircles(src_gray, circles, HOUGH_GRADIENT, 1,
+                 1,  // change this value to detect circles with different distances to each other
+                 100, 30, 350, 400 // change the last two parameters
+                 // (min_radius & max_radius) to detect larger circles
+                 );
+    
+    cout << circles.size();
+    for( size_t i = 0; i < circles.size(); i++ )
+    {
+        Vec3i c = circles[i];
+        cv::Point center = cv::Point(c[0], c[1]);
+        // circle center
+        circle( src, center, 1, Scalar(0,100,100), 3, LINE_AA);
+        // circle outline
+        int radius = c[2];
+        circle( src, center, radius, Scalar(255,0,255), 3, LINE_AA);
+    }
+
+    
+    // return MatToUIImage(mask);
     return MatToUIImage(src);
 }
 

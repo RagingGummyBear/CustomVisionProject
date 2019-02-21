@@ -20,27 +20,28 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     @IBOutlet weak var processingImageView: UIImageView!
     @IBOutlet weak var imageProcessingStatus: UILabel!
     @IBOutlet weak var croppedImage: UIImageView!
+    @IBOutlet weak var worstCrop: UIImageView!
     @IBOutlet weak var thresholdSlider: UISlider!
     
     // MARK: - IBOutlet actions
     @IBAction func thresholdSliderAction(_ sender: Any) {
         
         if let img = self.croppedImage.image {
-            self.croppedImage.image = OpenCVWrapper.find_contours(self.cropImage, withThresh: Int32(self.thresholdSlider!.value))
+            self.croppedImage.image = OpenCVWrapper.draw_contour_python_bound_square(self.capturedImage!, withThresh: Int32(self.thresholdSlider!.value))
+            self.processingImageView.image =  OpenCVWrapper.find_contours(img, withThresh: Int32(self.thresholdSlider!.value))
         }
         
-        self.processingImageView.image = OpenCVWrapper.draw_contour_python_bound_square(self.capturedImage!, withThresh: Int32(self.thresholdSlider!.value))
+
         
         // self.processingImageView.image = OpenCVWrapper.find_contours(self.capturedImage!, withThresh: Int32(self.thresholdSlider!.value))
         
     }
     
     // MARK: - Class properties
-    public var capturedImage:UIImage?
+    @IBInspectable public var capturedImage:UIImage?
     private var cropImage: UIImage!
-    
+    private var foundCropBounds: [CGRect] = []
     private var detectionOverlay: CALayer!
-    var keyboardObjectDetection = keyboardDetection()
     
     // MARK: - View lifecycle
     override func viewDidLoad() {
@@ -55,6 +56,14 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
         
         if let image = self.capturedImage {
             self.processingImageView.image = image
+//            self.processingImageView.image = OpenCVWrapper.contour_python_bound_square(image, withThresh: Int32(10))
+            let bounds = OpenCVWrapper.contour_python_bound_square(image, withThresh: Int32(10))
+            for bound in bounds {
+                if let rect = bound as? CGRect {
+                    self.foundCropBounds.append(rect)
+                }
+            }
+            self.findTheBestBound()
         }
     }
     
@@ -69,9 +78,36 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     */
     
     // MARK: - Custom Functions
-    
     func createHistogram(){
         
+    }
+    
+    func findTheBestBound(){
+        var bestResult = 0.0
+        var bestClass = "undefined"
+        DispatchQueue.init(label: "findBestBound").async {
+            if let image = self.capturedImage {
+                for bound in self.foundCropBounds {
+                    let crop = self.cropImage(imageToCrop: image, toRect: bound)
+                    let (bestClassCrop,bestResultCrop) = HistogramHandler.shared().findTheBestClass(image: crop)
+                    print(bestResultCrop)
+                    if bestResult < bestResultCrop {
+                        print(bestResultCrop)
+                        bestResult = bestResultCrop
+                        bestClass = bestClassCrop
+                        DispatchQueue.main.async {
+                            self.processingImageView.image = crop
+                            self.capturedImage = crop
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.worstCrop.image = self.croppedImage.image
+                            self.croppedImage.image = crop
+                        }
+                    }
+                }
+            }
+        }
     }
     
     // MARK: - MachineLearning
@@ -132,7 +168,7 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
                     return
                 }
                 
-                print(results)
+//                print(results)
 //                print(results[0].labels)
                 
                 DispatchQueue.main.async {
