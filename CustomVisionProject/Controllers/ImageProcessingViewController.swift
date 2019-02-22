@@ -63,7 +63,10 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
                     self.foundCropBounds.append(rect)
                 }
             }
-            self.findTheBestBound()
+//            self.findTheBestBound()
+            let (bestClassCrop, bestResultCrop, bestImage) = HistogramHandler.shared().findTheBestClassHUCompare(image: image)
+            print("hallu")
+            self.processingImageView.image = OpenCVWrapper.compareFeatures(image, with: bestImage!)
         }
     }
     
@@ -89,15 +92,21 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
             if let image = self.capturedImage {
                 for bound in self.foundCropBounds {
                     let crop = self.cropImage(imageToCrop: image, toRect: bound)
-                    let (bestClassCrop,bestResultCrop) = HistogramHandler.shared().findTheBestClass(image: crop)
-                    print(bestResultCrop)
+//                    let (bestClassCrop, bestResultCrop, bestImage, bestHisto) = HistogramHandler.shared().findTheBestClass(image: crop)
+                    let (bestClassCrop, bestResultCrop, bestImage) = HistogramHandler.shared().findTheBestClassHUCompare(image: crop)
+    
+//                    print(bestResultCrop)
                     if bestResult < bestResultCrop {
-                        print(bestResultCrop)
+//                        print(bestResultCrop)
                         bestResult = bestResultCrop
                         bestClass = bestClassCrop
                         DispatchQueue.main.async {
                             self.processingImageView.image = crop
                             self.capturedImage = crop
+                            if let img = bestImage {
+                                self.processingImageView.image = OpenCVWrapper.compareFeatures(crop, with: img)
+                            }
+//                            self.processingImageView.image = OpenCVWrapper.compareFeatures(crop, with: bestImage)
                         }
                     } else {
                         DispatchQueue.main.async {

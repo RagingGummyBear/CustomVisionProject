@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         print("Normal compare AGANE!")
         OpenCVWrapper.compareHistograms(image, with: image2)
         
-        print(HistogramHandler.shared().findTheBestClass(image: #imageLiteral(resourceName: "coffee18")))
+//        print(HistogramHandler.shared().findTheBestClass(image: #imageLiteral(resourceName: "coffee18")))
 //        OpenCVWrapper.compareHistograms(OpenCV, with: T##UIImage)
         //
         

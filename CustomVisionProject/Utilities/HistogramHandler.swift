@@ -142,7 +142,7 @@ class HistogramHandler {
     
     // MARK: - Other.
     
-    func findTheBestClass(image: UIImage) -> (String, Double) {
+    func findTheBestClassHUCompare(image: UIImage) -> (String, Double, UIImage?) {
         // 1. Look for the best score compared to the method 1 within a class
         // 2. Compare with the best results from the other classes
         // 3. return the class with the best result
@@ -153,38 +153,82 @@ class HistogramHandler {
         var bestResult = 0.0
         var tempResult = 0.0
         var bestClass = "light"
-        var bestHisto = self.lightCoffeeHistograms[0]
+        var bestImage: UIImage?
+        
+        for img in self.lightCoffeeImages {
+            tempResult = OpenCVWrapper.compare(usingContoursMatch: image, with: img)
+            if tempResult > bestResult {
+                bestResult = tempResult
+                bestClass = "light"
+                bestImage = img
+            }
+        }
+        
+        for img in self.darkCoffeeImages {
+            tempResult = OpenCVWrapper.compare(usingContoursMatch: image, with: img)
+            if tempResult > bestResult {
+                bestResult = tempResult
+                bestClass = "dark"
+                bestImage = img
+            }
+        }
+        
+        for img in self.fancyCoffeeImages {
+            tempResult = OpenCVWrapper.compare(usingContoursMatch: image, with: img)
+            if tempResult > bestResult {
+                bestResult = tempResult
+                bestClass = "fancy"
+                bestImage = img
+            }
+        }
+        
+        return (bestClass, bestResult, bestImage);
+    }
+    
+    func findTheBestClass(image: UIImage) -> (String, Double, UIImage?, NSMutableArray?) {
+        // 1. Look for the best score compared to the method 1 within a class
+        // 2. Compare with the best results from the other classes
+        // 3. return the class with the best result
+        if self.lightCoffeeHistograms.count == 0 {
+            self.generateHistograms()
+        }
+        
+        var bestResult = 0.0
+        var tempResult = 0.0
+        var bestClass = "light"
+        var bestHisto: NSMutableArray?
+        var bestImage: UIImage?
 
         
-        
-        for histo in self.lightCoffeeHistograms {
-            tempResult = OpenCVWrapper.compareHistograms(image, withHistogramArray: histo)
-            if tempResult > bestResult {
-                bestResult = tempResult
-                bestHisto = histo
-                bestClass = "light"
-            }
-        }
-        
-        
-        for histo in self.darkCoffeeHistograms {
-            tempResult = OpenCVWrapper.compareHistograms(image, withHistogramArray: histo)
-            if tempResult > bestResult {
-                bestResult = tempResult
-                bestHisto = histo
-                bestClass = "dark"
-            }
-        }
-        
-        
-        for histo in self.fancyCoffeeHistograms {
-            tempResult = OpenCVWrapper.compareHistograms(image, withHistogramArray: histo)
-            if tempResult > bestResult {
-                bestResult = tempResult
-                bestHisto = histo
-                bestClass = "fancy"
-            }
-        }
+//        
+//        for histo in self.lightCoffeeHistograms {
+//            tempResult = OpenCVWrapper.compareHistograms(image, withHistogramArray: histo)
+//            if tempResult > bestResult {
+//                bestResult = tempResult
+//                bestHisto = histo
+//                bestClass = "light"
+//            }
+//        }
+//        
+//        
+//        for histo in self.darkCoffeeHistograms {
+//            tempResult = OpenCVWrapper.compareHistograms(image, withHistogramArray: histo)
+//            if tempResult > bestResult {
+//                bestResult = tempResult
+//                bestHisto = histo
+//                bestClass = "dark"
+//            }
+//        }
+//        
+//        
+//        for histo in self.fancyCoffeeHistograms {
+//            tempResult = OpenCVWrapper.compareHistograms(image, withHistogramArray: histo)
+//            if tempResult > bestResult {
+//                bestResult = tempResult
+//                bestHisto = histo
+//                bestClass = "fancy"
+//            }
+//        }
         
         for img in self.lightCoffeeImages {
             tempResult = OpenCVWrapper.compareHistograms(image, with: img)
@@ -192,6 +236,7 @@ class HistogramHandler {
                 bestResult = tempResult
 //                bestHisto = histo
                 bestClass = "light"
+                bestImage = img
             }
         }
         
@@ -201,6 +246,7 @@ class HistogramHandler {
                 bestResult = tempResult
 //                bestHisto = histo
                 bestClass = "dark"
+                bestImage = img
             }
         }
         
@@ -210,10 +256,11 @@ class HistogramHandler {
                 bestResult = tempResult
 //                bestHisto = histo
                 bestClass = "fancy"
+                bestImage = img
             }
         }
         
-        return (bestClass, bestResult);
+        return (bestClass, bestResult, bestImage, bestHisto);
     }
     
     

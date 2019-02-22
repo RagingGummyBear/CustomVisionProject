@@ -44,6 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *) draw_contour_python_bound_square: (UIImage *) image withThresh:(int) thresh;
 + (NSMutableArray *) contour_python_bound_square: (UIImage *) image withThresh:(int) thresh;
 
++ (UIImage *) compareFeatures: (UIImage *) src withImage:(UIImage *) compare;
++ (UIImage *) compareFeaturesHomography: (UIImage *) src withImage:(UIImage *) compare;
+
++ (double) compareUsingContoursMatch: (UIImage *) src withImage:(UIImage *) compare;
 
 @end
 
