@@ -10,6 +10,8 @@
         * Feature matching ~ not very good, either doesnt detect or it detects not relateable features
         * Image simple thresholding ??? 
         * Image back propagation
+        * Image histogram compare // Not doing well. Allways picks the fancy class
+        * Image grayscale histogram compare
         * Use RGB overall values for random prediction ~ for this algorithm cut coffee images required
     - Use edge contours, grayscale, bounding contours, color range contours as animations to the original image during the processing 
 
@@ -54,3 +56,8 @@
     - Make assets with clean coffee mug too aid the CoreML?
     - Make assets with better textures for comparison
 
+
+## TODO:
+    - Implement Grayscale histogram compare
+    - Implement contours with ROI ( region of interest )
+    - Make the contour animations

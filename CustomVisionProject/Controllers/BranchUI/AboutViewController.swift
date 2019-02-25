@@ -1,5 +1,5 @@
 //
-//  CameraCoffeeViewController.swift
+//  AboutViewController.swift
 //  CustomVisionProject
 //
 //  Created by Seavus on 2/25/19.
@@ -8,18 +8,16 @@
 
 import UIKit
 
-class CameraCoffeeViewController: UIViewController {
+class AboutViewController: UIViewController {
     
     // MARK: - Custom references and variables
     
     // MARK: - IBOutlets references
-    @IBOutlet weak var cameraPreviewImageView: UIImageView!
-    @IBOutlet weak var captureButton: UIButton!
-    @IBOutlet weak var coffeeIndicatorLabel: UILabel!
+    @IBOutlet weak var wildPorsche: UIImageView!
     
     // MARK: - IBOutlets actions
-    @IBAction func captureButtonAction(_ sender: Any) {
-        self.transitionToImageProcessing()
+    @IBAction func touchMe(_ sender: Any) {
+        
     }
     
     // MARK: - View lifecycle
@@ -30,7 +28,7 @@ class CameraCoffeeViewController: UIViewController {
             self.initalUISetup()
         }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -42,27 +40,33 @@ class CameraCoffeeViewController: UIViewController {
     // MARK: - UI Functions
     func initalUISetup(){
         // Change label's text, etc.
-        self.applyRoundCorner(self.captureButton)
     }
     
     func finalUISetup(){
         // Here do all the resizing and constraint calculations
         // In some cases apply the background gradient here
-        self.applyRoundCorner(self.captureButton)
-    }
-    
-    func applyRoundCorner(_ object:AnyObject){
-        object.layer?.cornerRadius = (object.frame?.size.width)! / 2
-        object.layer?.masksToBounds = true
+        
     }
     
     // MARK: - Logic functions
     
     // MARK: - Navigation
-    func transitionToImageProcessing(){
-        let imageProcessingViewController = self.storyboard?.instantiateViewController(withIdentifier: "imageProcessingViewController") as! ProcessingImageViewController
-        self.navigationController?.pushViewController(imageProcessingViewController, animated: true)
+    /*
+    func transitionToNextViewController(){
+     if let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewControllerIdentifier") as? UIViewController {
+         self.navigationController?.pushViewController(nextViewController, animated: true)
+     }
     }
-    
+     */
+    /*
+    func transitionBackMultiple() {
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+    }
+    */
+
     // MARK: - Other functions
+
+    
 }
+

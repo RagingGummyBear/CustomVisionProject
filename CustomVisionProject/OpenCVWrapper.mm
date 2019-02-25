@@ -914,7 +914,7 @@ const float nn_match_ratio = 0.8f;
                  // (min_radius & max_radius) to detect larger circles
                  );
     
-    cout << circles.size();
+//    cout << circles.size();
     for( size_t i = 0; i < circles.size(); i++ )
     {
         Vec3i c = circles[i];
@@ -1080,13 +1080,68 @@ const float nn_match_ratio = 0.8f;
     threshold(img_1, img_1, 128, 255, THRESH_BINARY);
     
     double d1 = matchShapes(img_1, img_2, CONTOURS_MATCH_I1, 0);
-    double d2 = matchShapes(img_1, img_2, CONTOURS_MATCH_I2, 0);
-    double d3 = matchShapes(img_1, img_2, CONTOURS_MATCH_I3, 0);
+//    double d2 = matchShapes(img_1, img_2, CONTOURS_MATCH_I2, 0);
+//    double d3 = matchShapes(img_1, img_2, CONTOURS_MATCH_I3, 0);
     
     return d1;
 }
 
++ (double) compareUsingGrayScaleHistograms: (UIImage *) src withImage:(UIImage *) compare {
+    Mat img_1; UIImageToMat(src, img_1);
+    Mat img_2; UIImageToMat(compare, img_2);
+    cvtColor(img_1, img_1, COLOR_BGR2GRAY);
+    cvtColor(img_2, img_2, COLOR_BGR2GRAY);
+    
+    threshold(img_1, img_1, 128, 255, THRESH_BINARY);
+    
+    double d1 = matchShapes(img_1, img_2, CONTOURS_MATCH_I1, 0);
+    //    double d2 = matchShapes(img_1, img_2, CONTOURS_MATCH_I2, 0);
+    //    double d3 = matchShapes(img_1, img_2, CONTOURS_MATCH_I3, 0);
+    
+    return d1;
+}
 
++ (UIImage *) find_contours: (UIImage *) image withBound:(CGRect) bound {
+    // Consts //
+    //    int thresh = 60;
+    int min_thresh = 25;
+    RNG rng(12345);
+    ////////////
+    
+    Mat src; Mat src_gray; UIImageToMat(image, src);
+    cvtColor( src, src_gray, COLOR_BGR2GRAY );
+    blur( src_gray, src_gray, cv::Size(3,3) );
+    
+    Mat canny_output;
+    vector<vector<cv::Point> > contours;
+    vector<Vec4i> hierarchy;
+    
+    Mat src_blurred; GaussianBlur(src, src_blurred, cv::Size(5,5), 0);
+    Mat hsv; cvtColor( src_blurred, hsv, COLOR_BGR2HSV );
+    
+    cv::Mat boundMask = cv::Mat::zeros(src.rows, src.cols, CV_8U); // all 0
+    Mat boundMat = boundMask(cv::Rect(bound.origin.x, bound.origin.y, bound.size.width, bound.size.height)) = 1;
+    
+    cout << bound.origin.x << " " << bound.origin.y << " and size: " << bound.size.width << " " << bound.size.height << "\n";
+    cout << bound.origin.x << " " << bound.origin.y << " and size: " << bound.size.width << " " << bound.size.height << "\n";
+    
+    
+    // Detect edges using canny
+    Canny( src_gray, canny_output, 25, 75, 3 );
+    // Find contours
+    findContours( canny_output, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
+    
+    // Draw contours
+    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
+    for( int i = 0; i< contours.size(); i++ )
+    {
+        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
+    }
+    
+    copyTo(drawing, drawing, boundMask);
+    return MatToUIImage(drawing);
+}
 
 
 @end

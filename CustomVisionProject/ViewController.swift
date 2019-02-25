@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     
     
     func specialCase(){
+        ImageComparator.shared()
         // MAKING A WILD TEST
         let image = #imageLiteral(resourceName: "light_coffee_1")
         let image2 = #imageLiteral(resourceName: "light_coffee_1")

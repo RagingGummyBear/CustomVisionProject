@@ -48,7 +48,6 @@ class AppleDocsCameraViewController: UIViewController, AVCapturePhotoCaptureDele
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-
 //        self.setupCamera()
 //        self.setupPreview()
         
@@ -115,7 +114,6 @@ class AppleDocsCameraViewController: UIViewController, AVCapturePhotoCaptureDele
             // Always process the frames
             captureConnection?.isEnabled = true
             do {
-                
                 try  videoDevice!.lockForConfiguration()
                 let dimensions = CMVideoFormatDescriptionGetDimensions((videoDevice?.activeFormat.formatDescription)!)
                 bufferSize.width = CGFloat(dimensions.width)
@@ -124,10 +122,7 @@ class AppleDocsCameraViewController: UIViewController, AVCapturePhotoCaptureDele
             } catch {
                 print(error)
             }
-            
             session.commitConfiguration()
-            
-            
         } catch {
             print("Could not create video device input: \(error)")
             return

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fvx-YF-3x9">
-    <device id="retina4_0" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mYa-yl-cqx">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,7 +15,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Olf-aJ-f4X">
@@ -50,24 +50,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1262" y="-394"/>
+            <point key="canvasLocation" x="1163" y="-394"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="gSL-Dn-EE6">
             <objects>
                 <viewController id="rvX-l2-gfm" customClass="MainMenuViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jiz-ao-1jA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="porsche3" translatesAutoresizingMaskIntoConstraints="NO" id="Irj-Sf-obO">
-                                <rect key="frame" x="96" y="88" width="128" height="128"/>
+                                <rect key="frame" x="124.33333333333333" y="87.999999999999986" width="165.33333333333337" height="165.66666666666663"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Irj-Sf-obO" secondAttribute="height" id="Lgc-Uv-xUz"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLb-Dq-BFn">
-                                <rect key="frame" x="24" y="240" width="272" height="126"/>
+                                <rect key="frame" x="24" y="277.66666666666669" width="366" height="218.66666666666669"/>
                                 <attributedString key="attributedText">
                                     <fragment content="If this is coffee, please bring me some tea; but if this is tea, please bring me some coffee.  Abraham Lincoln">
                                         <attributes>
@@ -80,7 +80,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NMR-uz-fef">
-                                <rect key="frame" x="16" y="522" width="60" height="30"/>
+                                <rect key="frame" x="16" y="690" width="60" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="A8O-kC-bQt"/>
                                 </constraints>
@@ -90,8 +90,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZJ-Kb-byo">
-                                <rect key="frame" x="96" y="390" width="128" height="128"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="124.33333333333333" y="520.33333333333337" width="165.33333333333337" height="165.66666666666663"/>
+                                <color key="backgroundColor" red="1" green="0.31837925950000001" blue="0.24066447069999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="fZJ-Kb-byo" secondAttribute="height" multiplier="1:1" id="AZO-v7-gMY"/>
                                 </constraints>
@@ -103,7 +103,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="wxP-10-gRg" kind="show" id="p0W-D0-wMR"/>
+                                    <action selector="discoverFortuneAction:" destination="rvX-l2-gfm" eventType="touchUpInside" id="5yL-48-5z7"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -129,7 +129,10 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="fhA-aw-8GZ"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="discoverFortuneButton" destination="fZJ-Kb-byo" id="aUS-21-GKN"/>
+                        <outlet property="discoverButton" destination="fZJ-Kb-byo" id="YNJ-eV-w6Y"/>
+                        <outlet property="logoImageView" destination="Irj-Sf-obO" id="Auq-xz-sXK"/>
+                        <outlet property="quoteLabel" destination="rLb-Dq-BFn" id="Y17-NW-h5h"/>
+                        <segue destination="wxP-10-gRg" kind="show" identifier="shootYourCoffeSeugeIdentifier" id="pT4-aw-9aJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iB4-G1-zAS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -139,13 +142,13 @@
         <!--About-->
         <scene sceneID="qWt-Qv-SyL">
             <objects>
-                <viewController id="rKS-NC-huu" sceneMemberID="viewController">
+                <viewController id="rKS-NC-huu" customClass="AboutViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7tO-tZ-szX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In developer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17b-r1-MYt">
-                                <rect key="frame" x="16" y="80" width="288" height="21"/>
+                                <rect key="frame" x="16" y="80" width="382" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="30r-qA-xtY"/>
                                 </constraints>
@@ -154,7 +157,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAl-sP-b8U">
-                                <rect key="frame" x="16" y="117" width="288" height="435"/>
+                                <rect key="frame" x="16" y="117" width="382" height="603"/>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <string key="content">Explain why and how does the app generate the results. Add disclaimer of avoidance and abstinence of truth and logic to the majority of the app's results.</string>
@@ -166,6 +169,25 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fd6-f1-e8v">
+                                <rect key="frame" x="158" y="198" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="touchMe:" destination="rKS-NC-huu" eventType="touchUpInside" id="EsD-Xt-yHg"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kwb-wt-KJu" customClass="PassthroughView" customModule="CustomVisionProject" customModuleProvider="target">
+                                <rect key="frame" x="61" y="149" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="porsche3" translatesAutoresizingMaskIntoConstraints="NO" id="pKP-48-5Ph">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -181,36 +203,39 @@
                         <viewLayoutGuide key="safeArea" id="pZi-RZ-NU0"/>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="VRQ-wE-EZl"/>
+                    <connections>
+                        <outlet property="wildPorsche" destination="pKP-48-5Ph" id="gv3-a1-obQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WZF-4u-o7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1168" y="1318"/>
+            <point key="canvasLocation" x="1164" y="1219"/>
         </scene>
         <!--Shoot your coffee-->
         <scene sceneID="1nM-Ba-Bxc">
             <objects>
                 <viewController id="wxP-10-gRg" customClass="CameraCoffeeViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yOj-D4-pBf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="coffee18" translatesAutoresizingMaskIntoConstraints="NO" id="iLd-Wb-10b">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416.5"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" ambiguous="YES" image="coffee18" translatesAutoresizingMaskIntoConstraints="NO" id="iLd-Wb-10b">
+                                <rect key="frame" x="0.0" y="64" width="414" height="416.5"/>
                                 <gestureRecognizers/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0p-Y2-jXc">
-                                <rect key="frame" x="140" y="512" width="40" height="40"/>
+                                <rect key="frame" x="187" y="680" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.88110723349999998" green="0.0" blue="0.041211885480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="P26-Ni-vTX"/>
                                     <constraint firstAttribute="width" constant="40" id="jwo-zB-VEb"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="cDb-TW-iXF" kind="show" id="9sB-gi-6nC"/>
+                                    <action selector="captureButtonAction:" destination="wxP-10-gRg" eventType="touchUpInside" id="ota-bq-Fhx"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No coffee found" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8B-sd-WwQ">
-                                <rect key="frame" x="16" y="488.5" width="288" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="No coffee found" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8B-sd-WwQ">
+                                <rect key="frame" x="16" y="488.5" width="382" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -234,9 +259,10 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="mvy-AX-2rT"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="cameraPreviewImageView" destination="iLd-Wb-10b" id="8eY-bw-lz9"/>
-                        <outlet property="captureButton" destination="r0p-Y2-jXc" id="Vhd-lD-B3n"/>
-                        <outlet property="foundCoffeIndicatorLabel" destination="N8B-sd-WwQ" id="BXi-2h-0ME"/>
+                        <outlet property="cameraPreviewImageView" destination="iLd-Wb-10b" id="yRo-WQ-si1"/>
+                        <outlet property="captureButton" destination="r0p-Y2-jXc" id="5ln-eI-cJu"/>
+                        <outlet property="coffeeIndicatorLabel" destination="N8B-sd-WwQ" id="ARx-U0-qe2"/>
+                        <segue destination="cDb-TW-iXF" kind="show" identifier="processCapturedImageSegueIdentifier" id="kh6-HR-Ylv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CMD-Lu-z93" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -246,19 +272,19 @@
         <!--Image processing-->
         <scene sceneID="REn-Zp-paR">
             <objects>
-                <viewController id="cDb-TW-iXF" customClass="ProcessingImageViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="imageProcessingViewController" id="cDb-TW-iXF" customClass="ProcessingImageViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eMI-j1-ZDd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="porsche3" translatesAutoresizingMaskIntoConstraints="NO" id="LiX-6H-AvZ">
-                                <rect key="frame" x="0.0" y="64" width="320" height="449"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="617"/>
                             </imageView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ENS-BZ-jfa">
-                                <rect key="frame" x="0.0" y="513" width="320" height="2"/>
+                                <rect key="frame" x="0.0" y="681" width="414" height="2"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Processing image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WOr-HU-qQf">
-                                <rect key="frame" x="16" y="531" width="288" height="21"/>
+                                <rect key="frame" x="16" y="699" width="382" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -283,6 +309,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Image processing" id="eRd-TG-GsB"/>
                     <connections>
+                        <outlet property="processingImageView" destination="LiX-6H-AvZ" id="AEZ-76-WSI"/>
+                        <outlet property="processingProgressBar" destination="52q-nx-DX3" id="dPv-Bz-gff"/>
+                        <outlet property="processingStatusLabel" destination="WOr-HU-qQf" id="2U4-nE-eFu"/>
                         <segue destination="Ajj-d0-5nB" kind="show" identifier="imageProcessToFortuneSeugeIdentifier" id="hOx-Iw-sDx"/>
                     </connections>
                 </viewController>
@@ -293,7 +322,7 @@
         <!--Your fortune-->
         <scene sceneID="Zq9-9M-OLB">
             <objects>
-                <viewController id="Ajj-d0-5nB" customClass="YourFortuneViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="fortuneViewControllerId" id="Ajj-d0-5nB" customClass="YourFortuneViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hEP-fe-0x8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -302,16 +331,10 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="682"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dom-s1-Jlo" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1644.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1644.3333333333333"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="porsche3" translatesAutoresizingMaskIntoConstraints="NO" id="7Qr-HX-Xck">
-                                                <rect key="frame" x="48" y="24" width="224" height="186.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="7Qr-HX-Xck" secondAttribute="height" multiplier="6:5" id="DCa-hZ-DOa"/>
-                                                </constraints>
-                                            </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Short description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Rj-Nz-Kbz">
-                                                <rect key="frame" x="16" y="234.5" width="288" height="21"/>
+                                                <rect key="frame" x="16" y="234.66666666666669" width="288" height="21"/>
                                                 <color key="backgroundColor" white="1" alpha="0.40207619863013699" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="FL8-fR-ktY"/>
@@ -321,27 +344,36 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYy-VV-H5N">
-                                                <rect key="frame" x="16" y="271.5" width="288" height="1319"/>
+                                                <rect key="frame" x="16" y="271.66666666666663" width="288" height="1318.666666666667"/>
                                                 <color key="backgroundColor" white="1" alpha="0.4005511558219178" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin a sem non dignissim. Aenean non tincidunt ligula, vitae vestibulum libero. Curabitur vel justo ac lorem iaculis placerat eu sit amet justo. In a erat lorem. Suspendisse condimentum vitae magna a malesuada. Nullam finibus iaculis rhoncus. Aenean imperdiet blandit mauris, vel eleifend sapien vehicula ut. Nunc mollis porta lectus. Integer ut nibh ante. Vivamus quis risus nec ex fermentum maximus vel ut erat. In a malesuada justo. Vivamus viverra eget enim nec tincidunt.
+                                                <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin a sem non dignissim. Aenean non tincidunt ligula, vitae vestibulum libero. Curabitur vel justo ac lorem iaculis placerat eu sit amet justo. In a erat lorem. Suspendisse condimentum vitae magna a malesuada. Nullam finibus iaculis rhoncus. Aenean imperdiet blandit mauris, vel eleifend sapien vehicula ut. Nunc mollis porta lectus. Integer ut nibh ante. Vivamus quis risus nec ex fermentum maximus vel ut erat. In a malesuada justo. Vivamus viverra eget enim nec tincidunt.
 
 Integer elementum odio maximus maximus placerat. In hac habitasse platea dictumst. Integer facilisis iaculis est a interdum. Quisque commodo mollis pretium. Ut in lorem dapibus, viverra arcu vel, dapibus mi. Vivamus accumsan mauris a nisl sagittis egestas. Phasellus tristique venenatis odio eu facilisis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer velit ligula, imperdiet in posuere et, ornare pulvinar est. Nam dui dolor, sodales vel interdum at, vehicula ac enim. Phasellus mollis ut nunc ut tristique.
 
 Quisque rhoncus tellus sit amet malesuada fermentum. Aenean eget feugiat ipsum. Sed nec scelerisque augue, eget vestibulum ipsum. Proin in vehicula ex, pulvinar venenatis orci. Vivamus fringilla ullamcorper orci ultricies placerat. Mauris dapibus dictum finibus. Cras non dolor a purus semper gravida. Fusce condimentum quam ac ex sodales dictum. Cras aliquam, turpis eget pharetra efficitur, velit magna feugiat urna, finibus dapibus erat nulla quis massa.
 
-Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim condimentum, et laoreet dolor varius. Vestibulum euismod urna vel scelerisque tempus. Donec lacus dolor, venenatis id velit id, facilisis pharetra quam. Quisque imperdiet mi sit amet finibus sollicitudin. Curabitur magna risus, tristique eget nisi sed, vestibulum laoreet enim. Proin vel nulla sed enim euismod ultricies vitae id lorem. Integer tellus mauris, fermentum ac malesuada eu, blandit ac tellus. Suspendisse sed mi luctus, tristique diam id, commodo dolor.</mutableString>
+Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim condimentum, et laoreet dolor varius. Vestibulum euismod urna vel scelerisque tempus. Donec lacus dolor, venenatis id velit id, facilisis pharetra quam. Quisque imperdiet mi sit amet finibus sollicitudin. Curabitur magna risus, tristique eget nisi sed, vestibulum laoreet enim. Proin vel nulla sed enim euismod ultricies vitae id lorem. Integer tellus mauris, fermentum ac malesuada eu, blandit ac tellus. Suspendisse sed mi luctus, tristique diam id, commodo dolor.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cPn-Eu-dHX">
-                                                <rect key="frame" x="16" y="1606.5" width="288" height="30"/>
+                                                <rect key="frame" x="16" y="1606.3333333333333" width="288" height="30"/>
                                                 <color key="backgroundColor" red="0.88110723349999998" green="0.0" blue="0.041211885480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="Rpl-Dp-oob"/>
                                                 </constraints>
                                                 <state key="normal" title="Send like"/>
+                                                <connections>
+                                                    <action selector="sendLikeButtonAction:" destination="Ajj-d0-5nB" eventType="touchUpInside" id="mXN-YU-pra"/>
+                                                </connections>
                                             </button>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="porsche3" translatesAutoresizingMaskIntoConstraints="NO" id="7Qr-HX-Xck">
+                                                <rect key="frame" x="48" y="24" width="224" height="186.66666666666666"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="7Qr-HX-Xck" secondAttribute="height" multiplier="6:5" id="DCa-hZ-DOa"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="0.67674443493150682" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -376,6 +408,9 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                                     <constraint firstAttribute="height" constant="30" id="aTt-N8-ITv"/>
                                 </constraints>
                                 <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="shareButtonAction:" destination="Ajj-d0-5nB" eventType="primaryActionTriggered" id="oWq-kj-cuy"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -391,23 +426,36 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nWA-pl-Csq"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Your fortune" id="XhQ-he-XeC"/>
+                    <navigationItem key="navigationItem" title="Your fortune" id="XhQ-he-XeC">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="N8x-wO-SNi">
+                            <connections>
+                                <action selector="doneNavigationBarButton:" destination="Ajj-d0-5nB" id="lRP-hZ-YB0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <size key="freeformSize" width="320" height="800"/>
+                    <connections>
+                        <outlet property="fullDescriptionLabel" destination="xYy-VV-H5N" id="0me-0M-XkD"/>
+                        <outlet property="originalImageView" destination="7Qr-HX-Xck" id="s8Q-bw-i31"/>
+                        <outlet property="sendLikeButton" destination="cPn-Eu-dHX" id="4uB-WE-X0U"/>
+                        <outlet property="shareButton" destination="hps-P1-X1w" id="z7e-W9-ArY"/>
+                        <outlet property="shortDescriptionLabel" destination="1Rj-Nz-Kbz" id="bcs-KG-FK2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCI-3b-clX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3861" y="570"/>
+            <point key="canvasLocation" x="3794" y="474"/>
         </scene>
         <!--Feature Matching Test View Controller-->
         <scene sceneID="egc-n0-a4e">
             <objects>
                 <viewController id="Twx-8l-osR" customClass="FeatureMatchingTestViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="s2K-3c-yml">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ksH-l1-YJH">
-                                <rect key="frame" x="16" y="80" width="288" height="472"/>
+                                <rect key="frame" x="16" y="80" width="382" height="640"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -425,18 +473,18 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i3U-EF-TGS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2098" y="-394"/>
+            <point key="canvasLocation" x="2511" y="-1502"/>
         </scene>
         <!--Processing-->
         <scene sceneID="6UR-d7-o1h">
             <objects>
                 <viewController id="63D-Bm-QY8" customClass="ImageProcessingViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="daP-x9-WGz">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3fc-g8-FvD">
-                                <rect key="frame" x="0.0" y="64" width="320" height="474"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="474"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="474" id="S0X-ju-wZA"/>
@@ -456,13 +504,13 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image status" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTv-Wm-mFp">
-                                <rect key="frame" x="16" y="546" width="288" height="65"/>
+                                <rect key="frame" x="16" y="546" width="382" height="65"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t9E-mS-VJQ">
-                                <rect key="frame" x="252" y="546" width="60" height="60"/>
+                                <rect key="frame" x="346" y="546" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="SAt-Z3-obx"/>
                                     <constraint firstAttribute="width" constant="60" id="mNT-lV-ujS"/>
@@ -492,7 +540,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                         <barButtonItem key="backBarButtonItem" title="Back" id="M6Q-ns-p9D"/>
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee8"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee15"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="croppedImage" destination="5dR-em-6or" id="hGY-9L-6dw"/>
@@ -504,7 +552,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIe-HG-8ka" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2908" y="-394"/>
+            <point key="canvasLocation" x="3759" y="-394"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="47D-2f-JbJ">
@@ -512,7 +560,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mYa-yl-cqx" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pOi-kg-nKQ">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -522,25 +570,25 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k4K-iS-wnp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="302" y="-394"/>
+            <point key="canvasLocation" x="366" y="-394"/>
         </scene>
         <!--Take new photos-->
         <scene sceneID="f9n-fY-gzA">
             <objects>
                 <viewController title="Take new photos" id="5fe-5e-ouO" customClass="AppleDocsCameraViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WRn-9y-8Td">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zs5-0q-z4a">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416.5"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="584.66666666666663"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="CDg-1z-V4M" appends="YES" id="KvR-w3-Twu"/>
                                 </connections>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="552-ed-J1Z">
-                                <rect key="frame" x="140" y="512" width="40" height="40"/>
+                                <rect key="frame" x="187" y="680" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.88110723349999998" green="0.0" blue="0.041211885480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="DsX-kM-JXU"/>
@@ -551,7 +599,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image status" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSI-U2-qNx">
-                                <rect key="frame" x="16" y="488.5" width="288" height="20.5"/>
+                                <rect key="frame" x="16" y="656.66666666666663" width="382" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -584,7 +632,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yqr-FE-ypP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="CDg-1z-V4M"/>
             </objects>
-            <point key="canvasLocation" x="3714" y="-394"/>
+            <point key="canvasLocation" x="2511" y="-742"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GCT-yk-tH5">
@@ -592,7 +640,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fvx-YF-3x9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="exc-Sy-59l">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -606,8 +654,8 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
         </scene>
     </scenes>
     <resources>
+        <image name="coffee15" width="625" height="417"/>
         <image name="coffee18" width="728" height="546"/>
-        <image name="coffee8" width="108" height="72"/>
         <image name="porsche3" width="1920" height="1080"/>
     </resources>
     <inferredMetricsTieBreakers>

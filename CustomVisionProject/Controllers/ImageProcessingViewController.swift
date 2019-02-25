@@ -26,9 +26,11 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     // MARK: - IBOutlet actions
     @IBAction func thresholdSliderAction(_ sender: Any) {
         
-        if let img = self.croppedImage.image {
-            self.croppedImage.image = OpenCVWrapper.draw_contour_python_bound_square(self.capturedImage!, withThresh: Int32(self.thresholdSlider!.value))
+        if let img = self.capturedImage {
+//            self.croppedImage.image = OpenCVWrapper.draw_contour_python_bound_square(img, withThresh: Int32(self.thresholdSlider!.value))
             self.processingImageView.image =  OpenCVWrapper.find_contours(img, withThresh: Int32(self.thresholdSlider!.value))
+            self.processingImageView.image =  OpenCVWrapper.find_contours(img, withBound: self.bestBound)
+            
         }
         
 
@@ -41,32 +43,27 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     @IBInspectable public var capturedImage:UIImage?
     private var cropImage: UIImage!
     private var foundCropBounds: [CGRect] = []
+    private var foundCropImages: [UIImage] = []
     private var detectionOverlay: CALayer!
+    
+    // Maybe some of these will be useful
+    private var bestBound: CGRect = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
+    private var bestClass: String = "Dark-Light"
+    private var bestResult = 0.0
     
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.processTheImage()
+//        self.processTheImage()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let image = self.capturedImage {
-            self.processingImageView.image = image
-//            self.processingImageView.image = OpenCVWrapper.contour_python_bound_square(image, withThresh: Int32(10))
-            let bounds = OpenCVWrapper.contour_python_bound_square(image, withThresh: Int32(10))
-            for bound in bounds {
-                if let rect = bound as? CGRect {
-                    self.foundCropBounds.append(rect)
-                }
-            }
-//            self.findTheBestBound()
-            let (bestClassCrop, bestResultCrop, bestImage) = HistogramHandler.shared().findTheBestClassHUCompare(image: image)
-            print("hallu")
-            self.processingImageView.image = OpenCVWrapper.compareFeatures(image, with: bestImage!)
+        self.processingImageView.image = self.capturedImage
+        DispatchQueue.global(qos: .background).async {
+            self.findTopBounds()
         }
     }
     
@@ -81,42 +78,47 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     */
     
     // MARK: - Custom Functions
-    func createHistogram(){
-        
+    
+    func findTopBounds(){
+        if let image = self.capturedImage {
+            let bounds = OpenCVWrapper.contour_python_bound_square(image, withThresh: Int32(10))
+            for bound in bounds {
+                if let rect = bound as? CGRect {
+                    self.foundCropBounds.append(rect)
+                }
+            }
+            
+            ImageComparator.shared().findBestCropHistogramCompare(originalImage: image, bounds: self.foundCropBounds, completion: { (bestResult: Double, bestClass: String, croppedImage: UIImage, bestBound: CGRect) in
+                self.bestBound = bestBound
+                self.bestClass = bestClass
+                self.bestResult = bestResult
+                
+            }) { (msg: String) in
+                print(msg)
+            }
+            
+//            if let image = self.capturedImage {
+//                for bound in self.foundCropBounds {
+//                    let crop = self.cropImage(imageToCrop: image, toRect: bound)
+//                    self.foundCropImages.append(crop)
+//                }
+//            }
+            
+//            self.findTheBestBound()
+        }
     }
     
     func findTheBestBound(){
-        var bestResult = 0.0
-        var bestClass = "undefined"
-        DispatchQueue.init(label: "findBestBound").async {
-            if let image = self.capturedImage {
-                for bound in self.foundCropBounds {
-                    let crop = self.cropImage(imageToCrop: image, toRect: bound)
-//                    let (bestClassCrop, bestResultCrop, bestImage, bestHisto) = HistogramHandler.shared().findTheBestClass(image: crop)
-                    let (bestClassCrop, bestResultCrop, bestImage) = HistogramHandler.shared().findTheBestClassHUCompare(image: crop)
-    
-//                    print(bestResultCrop)
-                    if bestResult < bestResultCrop {
-//                        print(bestResultCrop)
-                        bestResult = bestResultCrop
-                        bestClass = bestClassCrop
-                        DispatchQueue.main.async {
-                            self.processingImageView.image = crop
-                            self.capturedImage = crop
-                            if let img = bestImage {
-                                self.processingImageView.image = OpenCVWrapper.compareFeatures(crop, with: img)
-                            }
-//                            self.processingImageView.image = OpenCVWrapper.compareFeatures(crop, with: bestImage)
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self.worstCrop.image = self.croppedImage.image
-                            self.croppedImage.image = crop
-                        }
-                    }
-                }
+        
+        ImageComparator.shared().findBestCropHistogramCompare(originalImages: self.foundCropImages, completion: { (result: Double, className: String, croppedImage: UIImage) in
+            DispatchQueue.main.async {
+                self.processingImageView.image = croppedImage
+//                self.capturedImage = croppedImage
+                self.croppedImage.image = croppedImage
             }
-        }
+        }, error: { (msg: String) in
+            print(msg)
+        })
     }
     
     // MARK: - MachineLearning
@@ -156,7 +158,7 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
             UIGraphicsPopContext()
             CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
             
-            self.processingImageView.image = self.capturedImage
+//            self.processingImageView.image = self.capturedImage
 
             
             guard let model = try? VNCoreMLModel(for: PorscheCoffee().model) else {
@@ -192,7 +194,7 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
         }
     }
     
-    func cropImage(imageToCrop:UIImage, toRect rect:CGRect) -> UIImage{
+    func cropImage(imageToCrop:UIImage, toRect rect:CGRect) -> UIImage {
         
         let imageRef:CGImage = imageToCrop.cgImage!.cropping(to: rect)!
         let cropped:UIImage = UIImage(cgImage:imageRef)
@@ -212,7 +214,7 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
             let topLabelObservation = objectObservation.labels[0]
             let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
             
-            self.croppedImage.image = self.cropImage(imageToCrop: self.capturedImage!, toRect: objectBounds)
+//            self.croppedImage.image = self.cropImage(imageToCrop: self.capturedImage!, toRect: objectBounds)
             self.cropImage = self.cropImage(imageToCrop: self.capturedImage!, toRect: objectBounds)
             
             let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)

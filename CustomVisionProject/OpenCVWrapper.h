@@ -49,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (double) compareUsingContoursMatch: (UIImage *) src withImage:(UIImage *) compare;
 
++ (UIImage *) find_contours: (UIImage *) image withBound:(CGRect) bound;
+
 @end
 
 NS_ASSUME_NONNULL_END

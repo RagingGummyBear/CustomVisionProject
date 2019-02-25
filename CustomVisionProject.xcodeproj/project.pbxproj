@@ -17,12 +17,15 @@
 		7D429438221D7E5B00291794 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429437221D7E5B00291794 /* CoreImage.framework */; };
 		7D42943E221D7F4300291794 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D42943D221D7F4300291794 /* OpenCVWrapper.mm */; };
 		7D429443221D806000291794 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429442221D806000291794 /* opencv2.framework */; };
+		7D49D78D2223F14000ABC7F5 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D49D78C2223F14000ABC7F5 /* TemplateViewController.swift */; };
+		7D49D78F2223FFD200ABC7F5 /* ProcessingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D49D78E2223FFD200ABC7F5 /* ProcessingImageViewController.swift */; };
+		7D49D791222401EE00ABC7F5 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D49D790222401EE00ABC7F5 /* MainMenuViewController.swift */; };
+		7D49D79322240C2F00ABC7F5 /* CameraCoffeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D49D79222240C2F00ABC7F5 /* CameraCoffeeViewController.swift */; };
+		7D49D7972224158800ABC7F5 /* ImageComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D49D7962224158800ABC7F5 /* ImageComparator.swift */; };
+		7D49D79922242F8600ABC7F5 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D49D79822242F8600ABC7F5 /* AboutViewController.swift */; };
 		7D93EA23221C1ED600547DD4 /* AppleDocsCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93EA22221C1ED600547DD4 /* AppleDocsCameraViewController.swift */; };
 		7DB28304221FED430015BD32 /* FeatureMatchingTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB28303221FED430015BD32 /* FeatureMatchingTestViewController.swift */; };
-		7DB2830922203A530015BD32 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB2830822203A530015BD32 /* MainMenuViewController.swift */; };
-		7DB2830B222051A90015BD32 /* CameraCoffeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB2830A222051A90015BD32 /* CameraCoffeeViewController.swift */; };
 		7DB2830D222051D00015BD32 /* YourFortuneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB2830C222051D00015BD32 /* YourFortuneViewController.swift */; };
-		7DB2830F2220582D0015BD32 /* ProcessingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB2830E2220582D0015BD32 /* ProcessingImageViewController.swift */; };
 		7DB6B31C221EB2A900D3A208 /* HistogramHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB6B31B221EB2A900D3A208 /* HistogramHandler.swift */; };
 		7DB6B31D221EEED600D3A208 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D42943D221D7F4300291794 /* OpenCVWrapper.mm */; };
 		7DCEFC712212FAEC00F59A37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFC702212FAEC00F59A37 /* AppDelegate.swift */; };
@@ -83,13 +86,16 @@
 		7D42943D221D7F4300291794 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		7D42943F221D7FC800291794 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		7D429442221D806000291794 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../Downloads/opencv2.framework; sourceTree = "<group>"; };
+		7D49D78C2223F14000ABC7F5 /* TemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
+		7D49D78E2223FFD200ABC7F5 /* ProcessingImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingImageViewController.swift; sourceTree = "<group>"; };
+		7D49D790222401EE00ABC7F5 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		7D49D79222240C2F00ABC7F5 /* CameraCoffeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCoffeeViewController.swift; sourceTree = "<group>"; };
+		7D49D7962224158800ABC7F5 /* ImageComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComparator.swift; sourceTree = "<group>"; };
+		7D49D79822242F8600ABC7F5 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		7D93EA22221C1ED600547DD4 /* AppleDocsCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDocsCameraViewController.swift; sourceTree = "<group>"; };
 		7DB28303221FED430015BD32 /* FeatureMatchingTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureMatchingTestViewController.swift; sourceTree = "<group>"; };
 		7DB28305222017620015BD32 /* Workflow.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Workflow.md; sourceTree = "<group>"; };
-		7DB2830822203A530015BD32 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
-		7DB2830A222051A90015BD32 /* CameraCoffeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCoffeeViewController.swift; sourceTree = "<group>"; };
 		7DB2830C222051D00015BD32 /* YourFortuneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourFortuneViewController.swift; sourceTree = "<group>"; };
-		7DB2830E2220582D0015BD32 /* ProcessingImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingImageViewController.swift; sourceTree = "<group>"; };
 		7DB6B31B221EB2A900D3A208 /* HistogramHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistogramHandler.swift; sourceTree = "<group>"; };
 		7DCEFC6D2212FAEC00F59A37 /* CustomVisionProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomVisionProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DCEFC702212FAEC00F59A37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -176,10 +182,11 @@
 		7DB283072220347A0015BD32 /* BranchUI */ = {
 			isa = PBXGroup;
 			children = (
-				7DB2830822203A530015BD32 /* MainMenuViewController.swift */,
-				7DB2830A222051A90015BD32 /* CameraCoffeeViewController.swift */,
+				7D49D79222240C2F00ABC7F5 /* CameraCoffeeViewController.swift */,
 				7DB2830C222051D00015BD32 /* YourFortuneViewController.swift */,
-				7DB2830E2220582D0015BD32 /* ProcessingImageViewController.swift */,
+				7D49D78E2223FFD200ABC7F5 /* ProcessingImageViewController.swift */,
+				7D49D790222401EE00ABC7F5 /* MainMenuViewController.swift */,
+				7D49D79822242F8600ABC7F5 /* AboutViewController.swift */,
 			);
 			path = BranchUI;
 			sourceTree = "<group>";
@@ -227,6 +234,7 @@
 				7D42943B221D7F4200291794 /* CustomVisionProject-Bridging-Header.h */,
 				7D42943F221D7FC800291794 /* PrefixHeader.pch */,
 				7DB28305222017620015BD32 /* Workflow.md */,
+				7D49D78C2223F14000ABC7F5 /* TemplateViewController.swift */,
 			);
 			path = CustomVisionProject;
 			sourceTree = "<group>";
@@ -284,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				7DB6B31B221EB2A900D3A208 /* HistogramHandler.swift */,
+				7D49D7962224158800ABC7F5 /* ImageComparator.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -544,20 +553,23 @@
 				7DCEFCBA2213045C00F59A37 /* ImageProcessingViewController.swift in Sources */,
 				7DCEFCB42213002C00F59A37 /* ImageFullDisplayCollectionViewCell.swift in Sources */,
 				7DCEFC732212FAEC00F59A37 /* ViewController.swift in Sources */,
+				7D49D79922242F8600ABC7F5 /* AboutViewController.swift in Sources */,
 				7D42941E221D3FEE00291794 /* PorscheCoffee.mlmodel in Sources */,
 				7DCEFCA82212FD6F00F59A37 /* CameraViewController.swift in Sources */,
 				7DB2830D222051D00015BD32 /* YourFortuneViewController.swift in Sources */,
+				7D49D79322240C2F00ABC7F5 /* CameraCoffeeViewController.swift in Sources */,
+				7D49D7972224158800ABC7F5 /* ImageComparator.swift in Sources */,
 				7DCEFC712212FAEC00F59A37 /* AppDelegate.swift in Sources */,
-				7DB2830B222051A90015BD32 /* CameraCoffeeViewController.swift in Sources */,
-				7DB2830922203A530015BD32 /* MainMenuViewController.swift in Sources */,
-				7DB2830F2220582D0015BD32 /* ProcessingImageViewController.swift in Sources */,
+				7D49D78F2223FFD200ABC7F5 /* ProcessingImageViewController.swift in Sources */,
 				7D93EA23221C1ED600547DD4 /* AppleDocsCameraViewController.swift in Sources */,
 				7DCEFC792212FAEC00F59A37 /* CustomVisionProject.xcdatamodeld in Sources */,
 				7DCEFCAE2212FFFC00F59A37 /* ImageData.swift in Sources */,
 				7DB6B31C221EB2A900D3A208 /* HistogramHandler.swift in Sources */,
+				7D49D78D2223F14000ABC7F5 /* TemplateViewController.swift in Sources */,
 				7DCEFCB32213002C00F59A37 /* ImageDisplayCollectionViewCell.swift in Sources */,
 				7D429426221D523A00291794 /* CoffeePorscheClass.mlmodel in Sources */,
 				7DB28304221FED430015BD32 /* FeatureMatchingTestViewController.swift in Sources */,
+				7D49D791222401EE00ABC7F5 /* MainMenuViewController.swift in Sources */,
 				7D42943E221D7F4300291794 /* OpenCVWrapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
