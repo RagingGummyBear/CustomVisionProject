@@ -58,6 +58,6 @@
 
 
 ## TODO:
-    - Implement Grayscale histogram compare
-    - Implement contours with ROI ( region of interest )
-    - Make the contour animations
+    - Processing animations: +++ SemiDone
+    - Figure out how to classify the processing image (using histogram, tryout feature extraction, hucompare?, mask?)
+    - Use best bound size?

@@ -37,11 +37,13 @@ class MainMenuViewController: UIViewController {
         DispatchQueue.main.async {
             self.finalUISetup()
         }
+        
     }
     
     // MARK: - UI Functions
     func initalUISetup(){
         // Change label's text, etc.
+        self.quoteLabel.alpha = 0
         self.applyRoundCorner(self.discoverButton)
     }
     
@@ -49,6 +51,12 @@ class MainMenuViewController: UIViewController {
         // Here do all the resizing and constraint calculations
         // In some cases apply the background gradient here
         self.applyRoundCorner(self.discoverButton)
+        
+        self.pickRandomQuote()
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
+            self.quoteLabel.alpha = 1
+        }, completion: nil)
+        
     }
     
     func applyRoundCorner(_ object:AnyObject){
@@ -57,6 +65,40 @@ class MainMenuViewController: UIViewController {
     }
     
     // MARK: - Logic functions
+    
+    func pickRandomQuote(){
+        if let path = Bundle.main.path(forResource: "wittyCoffeeQuotes", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let quotesContainer = try JSONDecoder().decode(WittyCoffeeQuotes.self, from: data);
+                if quotesContainer.quotes.count > 0 {
+                    
+                    self.setQuote(quote: quotesContainer.quotes.randomElement()!)
+                }
+            } catch {
+                // handle error
+                print("Unable to load json")
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                self.quoteLabel.alpha = 0
+            }, completion: { (finished: Bool) in
+                if finished {
+                    self.pickRandomQuote()
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.quoteLabel.alpha = 1
+                    })
+                }
+            })
+        }
+    }
+    
+    func setQuote(quote:QuoteModel){
+        self.quoteLabel.text = quote.toString()
+    }
     
     // MARK: - Navigation
 

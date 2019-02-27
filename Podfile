@@ -6,7 +6,6 @@ target 'CustomVisionProject' do
   use_frameworks!
 
   # Pods for CustomVisionProject
-  pod 'RealmSwift'
 
   target 'CustomVisionProjectTests' do
     inherit! :search_paths

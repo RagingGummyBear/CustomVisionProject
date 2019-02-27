@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mYa-yl-cqx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fvx-YF-3x9">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -42,6 +42,14 @@
                                     <segue destination="5fe-5e-ouO" kind="show" id="T1M-uf-D7X"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rjt-Yi-Lbi">
+                                <rect key="frame" x="88" y="433" width="199" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Clean image processing view"/>
+                                <connections>
+                                    <segue destination="1j4-hf-o5J" kind="show" id="JB5-xw-ECl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -50,7 +58,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1163" y="-394"/>
+            <point key="canvasLocation" x="1123" y="-1202"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="gSL-Dn-EE6">
@@ -104,6 +112,14 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="discoverFortuneAction:" destination="rvX-l2-gfm" eventType="touchUpInside" id="5yL-48-5z7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKX-O6-nN6">
+                                <rect key="frame" x="184" y="307" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="US8-lo-0PM"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -219,11 +235,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" ambiguous="YES" image="coffee18" translatesAutoresizingMaskIntoConstraints="NO" id="iLd-Wb-10b">
-                                <rect key="frame" x="0.0" y="64" width="414" height="416.5"/>
-                                <gestureRecognizers/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0p-Y2-jXc">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0p-Y2-jXc">
                                 <rect key="frame" x="187" y="680" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.88110723349999998" green="0.0" blue="0.041211885480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -234,12 +246,16 @@
                                     <action selector="captureButtonAction:" destination="wxP-10-gRg" eventType="touchUpInside" id="ota-bq-Fhx"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="No coffee found" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8B-sd-WwQ">
-                                <rect key="frame" x="16" y="488.5" width="382" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No coffee found" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8B-sd-WwQ">
+                                <rect key="frame" x="16" y="656.66666666666663" width="382" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="coffee18" translatesAutoresizingMaskIntoConstraints="NO" id="iLd-Wb-10b">
+                                <rect key="frame" x="0.0" y="64" width="414" height="546"/>
+                                <gestureRecognizers/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -249,7 +265,6 @@
                             <constraint firstItem="r0p-Y2-jXc" firstAttribute="centerX" secondItem="yOj-D4-pBf" secondAttribute="centerX" id="JlE-Ge-DYe"/>
                             <constraint firstItem="iLd-Wb-10b" firstAttribute="trailing" secondItem="qQe-gy-u9E" secondAttribute="trailing" id="TY9-tH-0Ee"/>
                             <constraint firstItem="N8B-sd-WwQ" firstAttribute="leading" secondItem="qQe-gy-u9E" secondAttribute="leading" constant="16" id="kX1-UH-mo2"/>
-                            <constraint firstItem="N8B-sd-WwQ" firstAttribute="top" secondItem="iLd-Wb-10b" secondAttribute="bottom" constant="8" id="sUg-Tg-nfy"/>
                             <constraint firstItem="r0p-Y2-jXc" firstAttribute="top" secondItem="N8B-sd-WwQ" secondAttribute="bottom" constant="3" id="xMk-a1-DpR"/>
                             <constraint firstItem="qQe-gy-u9E" firstAttribute="bottom" secondItem="r0p-Y2-jXc" secondAttribute="bottom" constant="16" id="zxc-9h-xAu"/>
                         </constraints>
@@ -308,10 +323,13 @@
                         <viewLayoutGuide key="safeArea" id="CHI-7W-3hb"/>
                     </view>
                     <navigationItem key="navigationItem" title="Image processing" id="eRd-TG-GsB"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee13"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="processingImageView" destination="LiX-6H-AvZ" id="AEZ-76-WSI"/>
-                        <outlet property="processingProgressBar" destination="52q-nx-DX3" id="dPv-Bz-gff"/>
                         <outlet property="processingStatusLabel" destination="WOr-HU-qQf" id="2U4-nE-eFu"/>
+                        <outlet property="progressBar" destination="ENS-BZ-jfa" id="qTT-Sm-p6Q"/>
                         <segue destination="Ajj-d0-5nB" kind="show" identifier="imageProcessToFortuneSeugeIdentifier" id="hOx-Iw-sDx"/>
                     </connections>
                 </viewController>
@@ -331,20 +349,20 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="682"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dom-s1-Jlo" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1644.3333333333333"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1665.3333333333333"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Short description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Rj-Nz-Kbz">
-                                                <rect key="frame" x="16" y="234.66666666666669" width="288" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Short description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Rj-Nz-Kbz">
+                                                <rect key="frame" x="16" y="234.66666666666669" width="288" height="42"/>
                                                 <color key="backgroundColor" white="1" alpha="0.40207619863013699" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="21" id="FL8-fR-ktY"/>
+                                                    <constraint firstAttribute="height" constant="42" id="FL8-fR-ktY"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYy-VV-H5N">
-                                                <rect key="frame" x="16" y="271.66666666666663" width="288" height="1318.666666666667"/>
+                                                <rect key="frame" x="16" y="292.66666666666663" width="288" height="1318.666666666667"/>
                                                 <color key="backgroundColor" white="1" alpha="0.4005511558219178" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin a sem non dignissim. Aenean non tincidunt ligula, vitae vestibulum libero. Curabitur vel justo ac lorem iaculis placerat eu sit amet justo. In a erat lorem. Suspendisse condimentum vitae magna a malesuada. Nullam finibus iaculis rhoncus. Aenean imperdiet blandit mauris, vel eleifend sapien vehicula ut. Nunc mollis porta lectus. Integer ut nibh ante. Vivamus quis risus nec ex fermentum maximus vel ut erat. In a malesuada justo. Vivamus viverra eget enim nec tincidunt.
 
@@ -358,7 +376,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cPn-Eu-dHX">
-                                                <rect key="frame" x="16" y="1606.3333333333333" width="288" height="30"/>
+                                                <rect key="frame" x="16" y="1627.3333333333333" width="288" height="30"/>
                                                 <color key="backgroundColor" red="0.88110723349999998" green="0.0" blue="0.041211885480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="Rpl-Dp-oob"/>
@@ -473,7 +491,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i3U-EF-TGS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2511" y="-1502"/>
+            <point key="canvasLocation" x="2512" y="-2318"/>
         </scene>
         <!--Processing-->
         <scene sceneID="6UR-d7-o1h">
@@ -497,7 +515,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                                     <constraint firstAttribute="height" constant="65" id="XSq-mw-bEM"/>
                                 </constraints>
                             </imageView>
-                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="90" minValue="25" maxValue="256" translatesAutoresizingMaskIntoConstraints="NO" id="Por-kK-8Yv">
+                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="150" minValue="0.0" maxValue="256" translatesAutoresizingMaskIntoConstraints="NO" id="Por-kK-8Yv">
                                 <rect key="frame" x="14" y="617" width="347" height="31"/>
                                 <connections>
                                     <action selector="thresholdSliderAction:" destination="63D-Bm-QY8" eventType="valueChanged" id="Vjm-Tz-6an"/>
@@ -540,7 +558,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                         <barButtonItem key="backBarButtonItem" title="Back" id="M6Q-ns-p9D"/>
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee15"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee18"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="croppedImage" destination="5dR-em-6or" id="hGY-9L-6dw"/>
@@ -552,7 +570,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIe-HG-8ka" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3759" y="-394"/>
+            <point key="canvasLocation" x="3745" y="-1202"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="47D-2f-JbJ">
@@ -570,7 +588,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k4K-iS-wnp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="366" y="-394"/>
+            <point key="canvasLocation" x="326" y="-1202"/>
         </scene>
         <!--Take new photos-->
         <scene sceneID="f9n-fY-gzA">
@@ -632,7 +650,39 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yqr-FE-ypP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="CDg-1z-V4M"/>
             </objects>
-            <point key="canvasLocation" x="2511" y="-742"/>
+            <point key="canvasLocation" x="2512" y="-1578"/>
+        </scene>
+        <!--Clean Processing View Controller-->
+        <scene sceneID="IsW-ve-rh3">
+            <objects>
+                <viewController id="1j4-hf-o5J" customClass="CleanProcessingViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uV3-gQ-zZM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tik-q2-5HH">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Tik-q2-5HH" firstAttribute="trailing" secondItem="be6-eu-XBJ" secondAttribute="trailing" id="9aA-h6-Vti"/>
+                            <constraint firstItem="Tik-q2-5HH" firstAttribute="bottom" secondItem="be6-eu-XBJ" secondAttribute="bottom" id="JBx-OM-wCP"/>
+                            <constraint firstItem="Tik-q2-5HH" firstAttribute="top" secondItem="be6-eu-XBJ" secondAttribute="top" id="cbB-Fg-gnM"/>
+                            <constraint firstItem="Tik-q2-5HH" firstAttribute="leading" secondItem="be6-eu-XBJ" secondAttribute="leading" id="z7H-6H-5L9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="be6-eu-XBJ"/>
+                    </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee7"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="processingImageView" destination="Tik-q2-5HH" id="TN2-AJ-BpX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pl1-gF-aMt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2512" y="-751"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GCT-yk-tH5">
@@ -654,11 +704,13 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
         </scene>
     </scenes>
     <resources>
-        <image name="coffee15" width="625" height="417"/>
+        <image name="coffee13" width="1024" height="768"/>
         <image name="coffee18" width="728" height="546"/>
+        <image name="coffee7" width="108" height="72"/>
         <image name="porsche3" width="1920" height="1080"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Cyg-kD-kmb"/>
+        <segue reference="XnO-a8-hCj"/>
+        <segue reference="8bU-De-SHM"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1,14 +1,14 @@
 //
-//  ProcessingImageViewController.swift
+//  CleanProcessingViewController.swift
 //  CustomVisionProject
 //
-//  Created by Seavus on 2/25/19.
+//  Created by Seavus on 2/26/19.
 //  Copyright © 2019 Seavus. All rights reserved.
 //
 
 import UIKit
 
-class ProcessingImageViewController: UIViewController {
+class CleanProcessingViewController: UIViewController {
     
     // MARK: - Custom references and variables
     var privateThreadSafeQueue = DispatchQueue.init(label: "com.seavus.imageprocessing.safe")
@@ -31,22 +31,21 @@ class ProcessingImageViewController: UIViewController {
     var fullHistogramCompareClass = "N/A"
     var partialHistogramCompareClass = "N/A"
     
-    var foundClasses = [String]()
-    
     // MARK: - IBInspectable
     @IBInspectable public var capturedImage:UIImage?
-    
-    // MARK: - IBOutlet references
+
+    // MARK: - IBOutlets references
     @IBOutlet weak var processingImageView: UIImageView!
-    @IBOutlet weak var processingStatusLabel: UILabel!
-    @IBOutlet weak var progressBar: UIProgressView!
-    
     // MARK: - IBOutlets actions
     
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        if let img = self.capturedImage {
+            self.workingImage = img
+        }
         DispatchQueue.main.async {
             self.initalUISetup()
         }
@@ -54,7 +53,6 @@ class ProcessingImageViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         DispatchQueue.main.async {
             self.finalUISetup()
         }
@@ -63,16 +61,15 @@ class ProcessingImageViewController: UIViewController {
     // MARK: - UI Functions
     func initalUISetup(){
         // Change label's text, etc.
+        if let img = self.capturedImage {
+            self.processingImageView.image = img
+            self.startImageProcessing()
+        }
     }
     
     func finalUISetup(){
         // Here do all the resizing and constraint calculations
         // In some cases apply the background gradient here
-        if let img = self.capturedImage {
-            self.workingImage = img
-            self.processingImageView.image = img
-            self.startImageProcessing()
-        }
     }
     
     // MARK: - Logic functions
@@ -80,7 +77,6 @@ class ProcessingImageViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.applyGrayscale()
         }
-        self.getOverallRGBClass()
     }
     
     // MARK: - Background processing functions
@@ -111,15 +107,12 @@ class ProcessingImageViewController: UIViewController {
         if xSize > 0 && ySize > 0 {
             // coffee is bigger
             // more focused
-            self.foundClasses.append("bound-size-big")
         } else if xSize < 0 && ySize < 0 {
             // coffee is smaller
             // more objective
-            self.foundClasses.append("bound-size-small")
         } else {
             // coffee is mixed
             // more creative
-            self.foundClasses.append("bound-size-mixed")
         }
         
         // Position check
@@ -138,18 +131,15 @@ class ProcessingImageViewController: UIViewController {
         } else {
             yPos = -1
         }
+        
         if xPos > 0 && yPos > 0 {
             // bot right
-            self.foundClasses.append("bound-pos-bot-right")
         } else if xPos < 0 && yPos > 0 {
             // bot left
-            self.foundClasses.append("bound-pos-bot-left")
         } else if xPos > 0 && yPos < 0 {
             // up right
-            self.foundClasses.append("bound-pos-up-right")
         } else if xPos < 0 && yPos < 0 {
             // up left
-            self.foundClasses.append("bound-pos-up-left")
         }
         
     }
@@ -167,18 +157,14 @@ class ProcessingImageViewController: UIViewController {
             if blue > green {
                 if blue > red {
                     print("Biggest blue: \(blue)")
-                    self.foundClasses.append("rgb-full-blue")
                 } else {
                     print("Biggest red: \(red)")
-                    self.foundClasses.append("rgb-full-red")
                 }
             } else {
                 if green > red {
                     print("Biggest green: \(green)")
-                    self.foundClasses.append("rgb-full-green")
                 } else {
                     print("Biggest red: \(red)")
-                    self.foundClasses.append("rgb-full-red")
                 }
             }
         }
@@ -193,22 +179,18 @@ class ProcessingImageViewController: UIViewController {
             let blue = array[0] as? Double ?? 0
             let green = array[1] as? Double ?? 0
             let red = array[2] as? Double ?? 0
-
+            
             if blue > green {
                 if blue > red {
                     print("Biggest blue: \(blue)")
-                    self.foundClasses.append("rgb-partial-blue")
                 } else {
                     print("Biggest red: \(red)")
-                    self.foundClasses.append("rgb-partial-red")
                 }
             } else {
                 if green > red {
                     print("Biggest green: \(green)")
-                    self.foundClasses.append("rgb-partial-green")
                 } else {
                     print("Biggest red: \(red)")
-                    self.foundClasses.append("rgb-partial-red")
                 }
             }
         }
@@ -220,7 +202,6 @@ class ProcessingImageViewController: UIViewController {
             ImageComparator.shared().findBestClassHistogramCompare(image: image, completion: { (result: Double, bestClass: String, bestImage: UIImage) in
                 self.fullHistogramCompareClass = bestClass
                 print("FullHistogramCompareClass : \(bestClass)")
-                self.foundClasses.append("hist-full-\(bestClass)")
             }, error: nil)
         }
     }
@@ -232,7 +213,6 @@ class ProcessingImageViewController: UIViewController {
             ImageComparator.shared().findBestClassHistogramCompare(image: croppedImage, completion: { (result: Double, bestClass: String, bestImage: UIImage) in
                 self.partialHistogramCompareClass = bestClass
                 print("PartialHistogramCompareClass : \(bestClass)")
-                self.foundClasses.append("hist-partial-\(bestClass)")
             }, error: nil)
         }
     }
@@ -286,7 +266,7 @@ class ProcessingImageViewController: UIViewController {
             ImageComparator.shared().findBestCropHistogramCompare(originalImage: image, bounds: self.selectedImageRect, completion: { (bestResult: Double, bestClass: String, croppedImage: UIImage, bestBound: CGRect) in
                 
                 print("Color histogram result: \(bestResult)")
-                
+
                 self.privateThreadSafeQueue.sync {
                     if self.bestResult < bestResult {
                         self.bestBound = bestBound
@@ -304,7 +284,6 @@ class ProcessingImageViewController: UIViewController {
                             
                             self.getPartialRGBClass()
                             
-                            self.getBestBoundClass()
                             
                             self.getFullHistogramComparisonClass()
                             self.getPartialHistogramClass()
@@ -336,8 +315,6 @@ class ProcessingImageViewController: UIViewController {
                     if self.colorHistogramCompareFinished {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
                             self.processingImageView.image = self.workingImage
-                            
-                            self.getBestBoundClass()
                             
                             self.getPartialRGBClass()
                             
@@ -448,18 +425,22 @@ class ProcessingImageViewController: UIViewController {
     
     func processingFinished(){
         // Check if background finished processing
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.transitionToFortuneDisplay()
-        }
     }
     
     // MARK: - Navigation
-    func transitionToFortuneDisplay(){
-        let fortuneVC = self.storyboard?.instantiateViewController(withIdentifier: "fortuneViewControllerId") as! YourFortuneViewController
-        fortuneVC.capturedImage = self.capturedImage
-        fortuneVC.foundClasses = self.foundClasses
-        self.navigationController?.pushViewController(fortuneVC, animated: true)
+    /*
+    func transitionToNextViewController(){
+     if let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewControllerIdentifier") as? UIViewController {
+         self.navigationController?.pushViewController(nextViewController, animated: true)
+     }
     }
-    
+     */
+    /*
+    func transitionBackMultiple() {
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+    }
+    */
+
     // MARK: - Other functions
 }

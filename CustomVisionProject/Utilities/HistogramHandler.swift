@@ -231,7 +231,7 @@ class HistogramHandler {
 //        }
         
         for img in self.lightCoffeeImages {
-            tempResult = OpenCVWrapper.compareHistograms(image, with: img)
+//            tempResult = OpenCVWrapper.compareHistograms(image, with: img)
             if tempResult > bestResult {
                 bestResult = tempResult
 //                bestHisto = histo
@@ -241,7 +241,7 @@ class HistogramHandler {
         }
         
         for img in self.darkCoffeeImages {
-            tempResult = OpenCVWrapper.compareHistograms(image, with: img)
+//            tempResult = OpenCVWrapper.compareHistograms(image, with: img)
             if tempResult > bestResult {
                 bestResult = tempResult
 //                bestHisto = histo
@@ -251,7 +251,7 @@ class HistogramHandler {
         }
         
         for img in self.fancyCoffeeImages {
-            tempResult = OpenCVWrapper.compareHistograms(image, with: img)
+//            tempResult = OpenCVWrapper.compareHistograms(image, with: img)
             if tempResult > bestResult {
                 bestResult = tempResult
 //                bestHisto = histo

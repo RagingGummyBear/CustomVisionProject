@@ -11,6 +11,10 @@ import UIKit
 class YourFortuneViewController: UIViewController {
 
     // MARK: - Custom references and variables
+    public var capturedImage: UIImage?
+    public var foundClasses = [String]()
+    
+    private var textGenerator = TextGenerator()
     
     // MARK: - IBOutlets references
     @IBOutlet weak var originalImageView: UIImageView!
@@ -33,18 +37,39 @@ class YourFortuneViewController: UIViewController {
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpNavigationBar()
         // Do any additional setup after loading the view.
+        self.initalUISetup()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.finalUISetup()
     }
     
     // MARK: - UI Functions
+    func initalUISetup(){
+        // Change label's text, etc.
+        self.textGenerator.foundClasses = self.foundClasses
+        self.textGenerator.generateShortText { (result: String) in
+            DispatchQueue.main.async {
+                self.shortDescriptionLabel.text = result
+            }
+        }
+        self.setUpNavigationBar()
+        if let img = self.capturedImage {
+            self.originalImageView.image = img
+        }
+    }
+    
+    func finalUISetup(){
+        // Here do all the resizing and constraint calculations
+        // In some cases apply the background gradient here
+    }
+    
     func setUpNavigationBar(){
         self.navigationItem.setHidesBackButton(true, animated: false)
     }
+    
     
     // MARK: - Custom functions
 

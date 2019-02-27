@@ -12,7 +12,7 @@ import UIKit
 class ImageComparator {
     
     // MARK: - Class properties
-    private let dispatchQueue = DispatchQueue.init(label: "imageComparator")
+    private let dispatchQueue = DispatchQueue.init(label: "imageComparator", attributes: .concurrent)
     
     private var darkCoffeeArray: [UIImage] = []
     private var lightCoffeeArray: [UIImage] = []
@@ -70,8 +70,9 @@ class ImageComparator {
     
     // MARK: - Compare functions
     
-    
-    // Normal histogram compare
+    ////////////////////////////////
+    /// Normal histogram compare ///
+    ////////////////////////////////
     
     public func findBestClassHistogramCompare(image: UIImage, completion: @escaping (Double, String, UIImage)->(), error: ((String)->())? ) {
         self.dispatchQueue.async {
@@ -98,7 +99,8 @@ class ImageComparator {
         var bestImage: UIImage?
         
         for img in self.lightCoffeeArray {
-            tempResult = OpenCVWrapper.compareHistograms(image, with: img)
+//            tempResult = OpenCVWrapper.compare(usingGrayScaleHistograms: image, with: img)
+            tempResult = OpenCVWrapper.compare(usingHistograms: image, with: img)
             if tempResult > bestResult {
                 bestResult = tempResult
                 bestClass = "light"
@@ -107,7 +109,8 @@ class ImageComparator {
         }
         
         for img in self.darkCoffeeArray {
-            tempResult = OpenCVWrapper.compareHistograms(image, with: img)
+//            tempResult = OpenCVWrapper.compare(usingGrayScaleHistograms: image, with: img)
+            tempResult = OpenCVWrapper.compare(usingHistograms: image, with: img)
             if tempResult > bestResult {
                 bestResult = tempResult
                 bestClass = "dark"
@@ -116,7 +119,8 @@ class ImageComparator {
         }
         
         for img in self.fancyCoffeeArray {
-            tempResult = OpenCVWrapper.compareHistograms(image, with: img)
+//            tempResult = OpenCVWrapper.compare(usingGrayScaleHistograms: image, with: img)
+            tempResult = OpenCVWrapper.compare(usingHistograms: image, with: img)
             if tempResult > bestResult {
                 bestResult = tempResult
                 bestClass = "fancy"
@@ -127,7 +131,136 @@ class ImageComparator {
         return ( bestResult, bestClass, bestImage)
     }
     
-    // HuCompare
+    public func findBestCropHistogramCompare(originalImage: UIImage, bounds: [CGRect], completion: @escaping (Double, String, UIImage, CGRect)->(), error: ((String)->())? ){
+        self.dispatchQueue.async {
+            var bestResult = 0.0
+            var bestImage:UIImage?
+            var bestClass:String = "None"
+            var bestBound: CGRect = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
+            
+            for bound in bounds {
+                let croppedImg = self.cropImage(imageToCrop: originalImage, toRect: bound)
+                let (tempResult, tempClass, _) = self.findBestClassHistogramCompare(image: croppedImg)
+                
+                if tempResult > bestResult {
+                    bestResult = tempResult
+                    bestImage = croppedImg
+                    bestClass = tempClass
+                    bestBound = bound
+                }
+                
+            }
+            
+            guard let bestImageMatch = bestImage else {
+                if let error = error {
+                    error("ImageComparator -> findBestCropHuCompare: Error parsing the image, maybe no image was found? Or there is bug?")
+                }
+                
+                return
+            }
+            
+            completion(bestResult, bestClass, bestImageMatch, bestBound)
+        }
+    }
+    
+    //////////////////////////////
+    /// Gray histogram compare ///
+    //////////////////////////////
+    
+    public func findBestClassHistogramGrayCompare(image: UIImage, completion: @escaping (Double, String, UIImage)->(), error: ((String)->())? ) {
+        self.dispatchQueue.async {
+            let (bestResult, bestClass, bestImg) = self.findBestClassHistogramGrayCompare(image: image)
+            
+            if let img = bestImg {
+                completion(bestResult, bestClass, img)
+            } else {
+                if let error = error {
+                    error("ImageComparator -> findbestClassHistogramGrayCompare: Error parsing the bestImage. Maybe no image was found?")
+                }
+            }
+        }
+    }
+    
+    private func findBestClassHistogramGrayCompare(image: UIImage) -> (Double, String, UIImage?) {
+        // 1. Look for the best score compared to the method 1 within a class
+        // 2. Compare with the best results from the other classes
+        // 3. return the class with the best result
+        
+        var bestResult = 0.0
+        var tempResult = 0.0
+        var bestClass = "light"
+        var bestImage: UIImage?
+        
+        for img in self.lightCoffeeArray {
+            tempResult = OpenCVWrapper.compare(usingGrayScaleHistograms: image, with: img)
+//            tempResult = OpenCVWrapper.compare(usingHistograms: image, with: img)
+            if tempResult > bestResult {
+                bestResult = tempResult
+                bestClass = "light"
+                bestImage = img
+            }
+        }
+        
+        for img in self.darkCoffeeArray {
+            tempResult = OpenCVWrapper.compare(usingGrayScaleHistograms: image, with: img)
+//            tempResult = OpenCVWrapper.compare(usingHistograms: image, with: img)
+            if tempResult > bestResult {
+                bestResult = tempResult
+                bestClass = "dark"
+                bestImage = img
+            }
+        }
+        
+        for img in self.fancyCoffeeArray {
+            tempResult = OpenCVWrapper.compare(usingGrayScaleHistograms: image, with: img)
+//            tempResult = OpenCVWrapper.compare(usingHistograms: image, with: img)
+            if tempResult > bestResult {
+                bestResult = tempResult
+                bestClass = "fancy"
+                bestImage = img
+            }
+        }
+        
+        return ( bestResult, bestClass, bestImage)
+    }
+    
+    public func findBestCropHistogramGrayCompare(originalImage: UIImage, bounds: [CGRect], completion: @escaping (Double, String, UIImage, CGRect)->(), error: ((String)->())? ){
+        self.dispatchQueue.async {
+            var bestResult = 0.0
+            var bestImage:UIImage?
+            var bestClass:String = "None"
+            var bestBound: CGRect = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
+            
+            for bound in bounds {
+                let croppedImg = self.cropImage(imageToCrop: originalImage, toRect: bound)
+                let (tempResult, tempClass, _) = self.findBestClassHistogramGrayCompare(image: croppedImg)
+                
+                if tempResult > bestResult {
+                    bestResult = tempResult
+                    bestImage = croppedImg
+                    bestClass = tempClass
+                    bestBound = bound
+                }
+                
+            }
+            
+            guard let bestImageMatch = bestImage else {
+                if let error = error {
+                    error("ImageComparator -> findBestCropHistogramGrayCompare: Error parsing the image, maybe no image was found? Or there is bug?")
+                }
+                
+                return
+            }
+            
+            completion(bestResult, bestClass, bestImageMatch, bestBound)
+        }
+    }
+    
+    
+    /////////////////
+    /// HuCompare ///
+    /////////////////
+    
     public func findBestClassHuCompare(captureImage: UIImage, completion: @escaping (Double, String, UIImage) -> (), error: ((String)->())? ){
         dispatchQueue.async {
             let (bestResult, bestClass, bestImage) = self.findBestClassHuCompare(captureImage: captureImage)
@@ -213,7 +346,7 @@ class ImageComparator {
         }
     }
     
-    public func findBestCropHistogramCompare(originalImages: [UIImage], completion: @escaping (Double, String, UIImage)->(), error: ((String)->())? ){
+    private func findBestCropHistogramCompare(originalImages: [UIImage], completion: @escaping (Double, String, UIImage)->(), error: ((String)->())? ){
         self.dispatchQueue.async {
             var bestResult = 0.0
             var bestImage:UIImage?
@@ -230,7 +363,7 @@ class ImageComparator {
             
             guard let bestImageMatch = bestImage else {
                 if let error = error {
-                    error("ImageComparator -> findBestCropHuCompare: Error parsing the image, maybe no image was found? Or there is bug?")
+                    error("ImageComparator -> findBestCropHistogramCompare: Error parsing the image, maybe no image was found? Or there is bug?")
                 }
                 
                 return
@@ -239,39 +372,10 @@ class ImageComparator {
         }
     }
     
-    public func findBestCropHistogramCompare(originalImage: UIImage, bounds: [CGRect], completion: @escaping (Double, String, UIImage, CGRect)->(), error: ((String)->())? ){
-        self.dispatchQueue.async {
-            var bestResult = 0.0
-            var bestImage:UIImage?
-            var bestClass:String = "None"
-            var bestBound: CGRect = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
-            
-            for bound in bounds {
-                let (tempResult, tempClass, _) = self.findBestClassHistogramCompare(image: self.cropImage(imageToCrop: originalImage, toRect: bound))
-                
-                if tempResult > bestResult {
-                    bestResult = tempResult
-                    bestImage = originalImage
-                    bestClass = tempClass
-                    bestBound = bound
-                }
-                
-            }
-            
-            guard let bestImageMatch = bestImage else {
-                if let error = error {
-                    error("ImageComparator -> findBestCropHuCompare: Error parsing the image, maybe no image was found? Or there is bug?")
-                }
-                
-                return
-            }
-            
-            completion(bestResult, bestClass, bestImageMatch, bestBound)
-        }
-    }
+    
     
     // MARK: - Other functions
-    func cropImage(imageToCrop:UIImage, toRect rect:CGRect) -> UIImage {
+    public func cropImage(imageToCrop:UIImage, toRect rect:CGRect) -> UIImage {
         let imageRef:CGImage = imageToCrop.cgImage!.cropping(to: rect)!
         let cropped:UIImage = UIImage(cgImage:imageRef)
         return cropped

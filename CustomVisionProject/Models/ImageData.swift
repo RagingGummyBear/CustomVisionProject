@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import RealmSwift
 
-class ImageData : Object {
-    @objc dynamic var id : String = ""
-    @objc dynamic var imagePath : String = ""
-    @objc dynamic var thumbnailPath : String = ""
-    @objc dynamic var temp : Bool = false
+class ImageData : Codable {
+    var id : String = ""
+    var imagePath : String = ""
+    var thumbnailPath : String = ""
+    var temp : Bool = false
 }

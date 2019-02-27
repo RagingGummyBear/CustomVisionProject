@@ -15,6 +15,11 @@ import CoreML
 import Vision
 
 class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+    
+    
+    var privateThreadSafeQueue = DispatchQueue.init(label: "com.seavus.imageprocessing.safe")
+    var colorHistogramResult = -10.0
+    var grayHistogramResult = -10.0
 
     // MARK: - IBOutlets
     @IBOutlet weak var processingImageView: UIImageView!
@@ -27,14 +32,14 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     @IBAction func thresholdSliderAction(_ sender: Any) {
         
         if let img = self.capturedImage {
-//            self.croppedImage.image = OpenCVWrapper.draw_contour_python_bound_square(img, withThresh: Int32(self.thresholdSlider!.value))
-            self.processingImageView.image =  OpenCVWrapper.find_contours(img, withThresh: Int32(self.thresholdSlider!.value))
-            self.processingImageView.image =  OpenCVWrapper.find_contours(img, withBound: self.bestBound)
+//            self.processingImageView.image = OpenCVWrapper.draw_contour_python_bound_square(img, withThresh: Int32(self.thresholdSlider!.value))
+//            self.processingImageView.image =  OpenCVWrapper.draw_color_mask(img, withBound: self.bestBound, withThresh: Int32(self.thresholdSlider!.value))
+//            self.processingImageView.image =  OpenCVWrapper.find_contours(img, withBound: self.bestBound)
+//            self.processingImageView.image = OpenCVWrapper.find_contours(img, withBound: self.bestBound, withThreshold: Int32(self.thresholdSlider!.value))
+            self.processingImageView.image = OpenCVWrapper.bounding_circles_squares(img, withBound: self.bestBound, withThresh: Int32(self.thresholdSlider!.value))
+//                        self.processingImageView.image = OpenCVWrapper.bounding_circles_squares(img, withThresh: Int32(self.thresholdSlider!.value))
             
         }
-        
-
-        
         // self.processingImageView.image = OpenCVWrapper.find_contours(self.capturedImage!, withThresh: Int32(self.thresholdSlider!.value))
         
     }
@@ -54,7 +59,6 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
 //        self.processTheImage()
     }
@@ -85,40 +89,59 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
             for bound in bounds {
                 if let rect = bound as? CGRect {
                     self.foundCropBounds.append(rect)
+                } else if let img = bound as? UIImage {
+                    self.capturedImage = img
+                    DispatchQueue.main.async {
+                        self.processingImageView.image = img
+                    }
                 }
             }
             
             ImageComparator.shared().findBestCropHistogramCompare(originalImage: image, bounds: self.foundCropBounds, completion: { (bestResult: Double, bestClass: String, croppedImage: UIImage, bestBound: CGRect) in
-                self.bestBound = bestBound
-                self.bestClass = bestClass
-                self.bestResult = bestResult
                 
+                print("Color histogram result: \(bestResult)")
+                DispatchQueue.main.async {
+//                    self.processingImageView.image = croppedImage
+                    self.croppedImage.image = croppedImage
+                }
+                self.privateThreadSafeQueue.sync {
+                    if self.bestResult < bestResult {
+                        self.bestBound = bestBound
+                        self.bestClass = bestClass
+                        self.bestResult = bestResult
+                        
+                        DispatchQueue.main.async {
+//                            self.processingImageView.image = croppedImage
+                        }
+                    }
+                }
             }) { (msg: String) in
                 print(msg)
             }
             
-//            if let image = self.capturedImage {
-//                for bound in self.foundCropBounds {
-//                    let crop = self.cropImage(imageToCrop: image, toRect: bound)
-//                    self.foundCropImages.append(crop)
-//                }
-//            }
-            
+            ImageComparator.shared().findBestCropHistogramGrayCompare(originalImage: image, bounds: self.foundCropBounds, completion: { (bestResult: Double, bestClass: String, croppedImage: UIImage, bestBound: CGRect) in
+                
+                print("Gray histogram result: \(bestResult)")
+                DispatchQueue.main.async {
+                    self.processingImageView.image = croppedImage
+                    self.worstCrop.image = croppedImage
+                }
+                self.privateThreadSafeQueue.sync {
+                    if self.bestResult < bestResult {
+                        self.bestBound = bestBound
+                        self.bestClass = bestClass
+                        self.bestResult = bestResult
+                        
+                        DispatchQueue.main.async {
+                            self.processingImageView.image = croppedImage
+                        }
+                    }
+                }
+            }) { (msg: String) in
+                print(msg)
+            }
 //            self.findTheBestBound()
         }
-    }
-    
-    func findTheBestBound(){
-        
-        ImageComparator.shared().findBestCropHistogramCompare(originalImages: self.foundCropImages, completion: { (result: Double, className: String, croppedImage: UIImage) in
-            DispatchQueue.main.async {
-                self.processingImageView.image = croppedImage
-//                self.capturedImage = croppedImage
-                self.croppedImage.image = croppedImage
-            }
-        }, error: { (msg: String) in
-            print(msg)
-        })
     }
     
     // MARK: - MachineLearning
@@ -160,36 +183,23 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
             
 //            self.processingImageView.image = self.capturedImage
 
+//            guard let model = try? VNCoreMLModel(for: PorscheCoffee().model) else {
+//                return
+//            }
+//
+//            let request = VNCoreMLRequest(model: model) { (finishedRequest, error) in
+//                if let error = error {
+//                    print(error)
+//                }
+//                self.drawVisionRequestResults(finishedRequest.results!)
+//
+//                guard let results = finishedRequest.results as? [VNRecognizedObjectObservation] else {
+//                    return
+//                }
+//            }
             
-            guard let model = try? VNCoreMLModel(for: PorscheCoffee().model) else {
-                return
-            }
-            
-            let request = VNCoreMLRequest(model: model) { (finishedRequest, error) in
-                
-                
-                if let error = error {
-                    print(error)
-                }
-                
-                
-                self.drawVisionRequestResults(finishedRequest.results!)
-                
-                guard let results = finishedRequest.results as? [VNRecognizedObjectObservation] else {
-                    return
-                }
-                
-//                print(results)
-//                print(results[0].labels)
-                
-                DispatchQueue.main.async {
-
-                }
-                
-            }
-            
-            let imageRequestHandler = VNImageRequestHandler(cgImage: newImage.cgImage!, options: [:])
-            _ = try? imageRequestHandler.perform([request])
+//            let imageRequestHandler = VNImageRequestHandler(cgImage: newImage.cgImage!, options: [:])
+//            _ = try? imageRequestHandler.perform([request])
             
         }
     }

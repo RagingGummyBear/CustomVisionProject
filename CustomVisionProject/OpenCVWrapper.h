@@ -30,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (double) compareHistograms: (UIImage *) src withHistogramArray:(NSMutableArray *) compare;
 + (double) compareHistograms: (UIImage *) src withHistogram:(UIImage *) compare;
-+ (double) compareHistograms: (UIImage *) src withImage:(UIImage *) compare;
 
 + (UIImage *) hist_and_Backproj: (UIImage *) image withX: (int) x withY: (int) y threshLow: (int) low threshUp: (int) up;
 
@@ -42,14 +41,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIImage *) draw_contour_python: (UIImage *) image withThresh:(int) thresh;
 + (UIImage *) draw_contour_python_bound_square: (UIImage *) image withThresh:(int) thresh;
-+ (NSMutableArray *) contour_python_bound_square: (UIImage *) image withThresh:(int) thresh;
 
 + (UIImage *) compareFeatures: (UIImage *) src withImage:(UIImage *) compare;
 + (UIImage *) compareFeaturesHomography: (UIImage *) src withImage:(UIImage *) compare;
 
 + (double) compareUsingContoursMatch: (UIImage *) src withImage:(UIImage *) compare;
 
-+ (UIImage *) find_contours: (UIImage *) image withBound:(CGRect) bound;
++ (UIImage *) bounding_circles_squares: (UIImage *) image withBound:(CGRect) bound withThresh:(int) thresh;
+
+
++ (NSMutableArray *) find_rgb_values: (UIImage *) image withBound: (CGRect) bound; // USING
++ (NSMutableArray *) find_rgb_values: (UIImage *) image; // USING
+
++ (UIImage *) draw_color_mask: (UIImage *) image withBound:(CGRect) bound; // USING
+
++ (UIImage *) draw_color_maskPorsche: (UIImage *) image withBound:(CGRect) bound withThresh:(int) thresh; // SERIOUS USE!
+
++ (UIImage *) find_contours: (UIImage *) image withBound:(CGRect) bound withThreshold:(int) max_thresh; // USING
++ (double) compareUsingHistograms: (UIImage *) src withImage:(UIImage *) compare; // USING
++ (double) compareUsingGrayScaleHistograms: (UIImage *) src withImage:(UIImage *) compare; // USING
++ (NSMutableArray *) contour_python_bound_square: (UIImage *) image withThresh:(int) thresh; // USING
 
 @end
 
