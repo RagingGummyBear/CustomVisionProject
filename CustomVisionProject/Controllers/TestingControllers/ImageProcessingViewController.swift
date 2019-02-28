@@ -56,11 +56,17 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
     private var bestClass: String = "Dark-Light"
     private var bestResult = 0.0
     
+    var customAnims:ContourLinesCustomAnimation!
+    
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 //        self.processTheImage()
+        DispatchQueue.init(label: "customAnims").async {
+//            self.customAnims = ContourLinesCustomAnimation(targetView: self.processingImageView, image: self.capturedImage!)
+//            self.customAnims.start()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

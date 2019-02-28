@@ -256,6 +256,14 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="546"/>
                                 <gestureRecognizers/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffg-vm-eZ7">
+                                <rect key="frame" x="16" y="685" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="cDb-TW-iXF" kind="show" id="sgf-HG-GER"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -324,7 +332,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Image processing" id="eRd-TG-GsB"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee13"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee6"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="processingImageView" destination="LiX-6H-AvZ" id="AEZ-76-WSI"/>
@@ -335,7 +343,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kgo-T0-grE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2906" y="448"/>
+            <point key="canvasLocation" x="2907" y="448"/>
         </scene>
         <!--Your fortune-->
         <scene sceneID="Zq9-9M-OLB">
@@ -558,7 +566,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                         <barButtonItem key="backBarButtonItem" title="Back" id="M6Q-ns-p9D"/>
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee18"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee14"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="croppedImage" destination="5dR-em-6or" id="hGY-9L-6dw"/>
@@ -704,13 +712,15 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
         </scene>
     </scenes>
     <resources>
-        <image name="coffee13" width="1024" height="768"/>
+        <image name="coffee14" width="3264" height="2448"/>
         <image name="coffee18" width="728" height="546"/>
+        <image name="coffee6" width="919.344482421875" height="1390.508544921875"/>
         <image name="coffee7" width="108" height="72"/>
         <image name="porsche3" width="1920" height="1080"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XnO-a8-hCj"/>
+        <segue reference="kh6-HR-Ylv"/>
         <segue reference="8bU-De-SHM"/>
     </inferredMetricsTieBreakers>
 </document>

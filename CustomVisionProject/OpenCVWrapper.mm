@@ -526,9 +526,11 @@ const float nn_match_ratio = 0.8f;
 
     // Draw contours
     Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
+    
+    Scalar color = Scalar( 32, 194, 14);
     for( int i = 0; i< contours.size(); i++ )
     {
-        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+//        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
     }
     return MatToUIImage(src);
@@ -570,9 +572,11 @@ const float nn_match_ratio = 0.8f;
     /// Draw polygonal contour + bonding rects + circles
     cvtColor(temp, src, COLOR_RGB2BGR);
     //    Mat drawing = Mat::zeros( threshold_output.size(), CV_8UC3 );
+    
+    Scalar color = Scalar( 32, 194, 14);
     for( int i = 0; i< contours.size(); i++ )
     {
-        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+//        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         drawContours( src, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, cv::Point() );
         rectangle( src, boundRect[i].tl(), boundRect[i].br(), color, 2, 8, 0 );
         circle( src, center[i], (int)radius[i], color, 2, 8, 0 );
@@ -615,28 +619,23 @@ const float nn_match_ratio = 0.8f;
     { mc[i] = Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ); }
 
     /// Draw contours
+    Scalar color = Scalar( 32, 194, 14);
     for( int i = 0; i< contours.size(); i++ )
     {
-        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+//        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
         circle( src, mc[i], 4, color, -1, 8, 0 );
     }
 
     cvtColor(src, outputImg, COLOR_BGR2RGB);
     cvtColor(outputImg, outputImg, COLOR_RGB2BGR);
+//    Scalar color = Scalar( 32, 194, 14);
     for( int i = 0; i< contours.size(); i++ ){
-        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+//        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         drawContours( outputImg, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
         circle( outputImg, mc[i], 4, color, -1, 8, 0 );
     }
 
-    //    for( int i = 0; i< contours.size(); i++ ){
-    //
-    //        if( cv::contourArea(contours[i]) > 5000){
-    //            Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-    //            cv::drawContours(outputImg, contours, -1, color, 3);
-    //        }
-    //    }
 
     /// Calculate the area with the moments 00 and compare with the result of the OpenCV function
     //    printf("\t Info: Area and Contour Length \n");
@@ -647,8 +646,6 @@ const float nn_match_ratio = 0.8f;
         drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
         circle( src, mc[i], 4, color, -1, 8, 0 );
     }
-
-
     return MatToUIImage(outputImg);
 }
 
@@ -981,9 +978,11 @@ const float nn_match_ratio = 0.8f;
     cvtColor(src, temp, COLOR_BGR2RGB);
     cvtColor(temp, src, COLOR_RGB2BGR); // HACK for drawing colors
 
+    
+    Scalar color = Scalar( 32, 194, 14);
     for( int i = 0; i< contours.size(); i++ ){
-        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-        drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
+//        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        drawContours( src, contours, i, color, 1, 8, hierarchy, 0, cv::Point() );
     }
 
     return MatToUIImage(src);
@@ -1092,7 +1091,8 @@ const float nn_match_ratio = 0.8f;
         }
     }
 
-    Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+    Scalar color = Scalar( 32, 194, 14);
+    
     rectangle(src, biggest.tl(), biggest.br(), color, 2, 8, 0);
     rectangle(src, secondBiggest.tl(), secondBiggest.br(), color, 2, 8, 0);
     rectangle(src, thirdBiggest.tl(), thirdBiggest.br(), color, 2, 8, 0);
@@ -1296,8 +1296,12 @@ const float nn_match_ratio = 0.8f;
     cvtColor(temp, src, COLOR_RGB2BGR);
     Mat drawing = Mat::zeros( threshold_output.size(), CV_8UC3 );
 
-    Scalar rectangleColor = Scalar( 12, 104, 252 );
-    Scalar circleColor = Scalar( 10, 180, 240 );
+    Scalar rectangleColor = Scalar( 32, 194, 14);
+    Scalar circleColor = Scalar( 32, 194, 14);
+    
+    
+//    Scalar color = Scalar( 32, 194, 14); // HAKAR COLOR
+    
 
 //    rgb(12, 104, 252)
 

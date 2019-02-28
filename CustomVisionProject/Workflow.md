@@ -58,6 +58,10 @@
 
 
 ## TODO:
+    - Quotes
+    - Progress bar
+    - Colors
+    - Camera indicator
+    - Placeholder images
     - Processing animations: +++ SemiDone
     - Figure out how to classify the processing image (using histogram, tryout feature extraction, hucompare?, mask?)
-    - Use best bound size?

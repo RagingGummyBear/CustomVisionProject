@@ -19,10 +19,10 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     private var videoDevice: AVCaptureDevice!
     private var stillImageOutput: AVCapturePhotoOutput!
     
-    
     private let videoDataOutputQueue = DispatchQueue.init(label: "com.seavus.customvision.videoOutput")
     private var bufferSize = CGSize(width: 0.0, height: 0.0)
     var capturedImage: UIImage?
+    private var photoTaken = false
     
     // MARK: - IBOutlets references
     @IBOutlet weak var cameraPreviewImageView: UIImageView!
@@ -31,7 +31,6 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     
     // MARK: - IBOutlets actions
     @IBAction func captureButtonAction(_ sender: Any) {
-        
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
 //        settings.flashMode = .auto
         stillImageOutput.capturePhoto(with: settings, delegate: self)
@@ -57,6 +56,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.session.stopRunning()
+        self.cameraPreviewImageView.image = nil
     }
     
     // MARK: - UI Functions
@@ -69,7 +69,6 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         // Here do all the resizing and constraint calculations
         // In some cases apply the background gradient here
         self.applyRoundCorner(self.captureButton)
-        
         self.setupCamera()
         self.setupPreview()
     }
@@ -141,11 +140,9 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
             print("Could not create video device input: \(error)")
             return
         }
-        
     }
     
     func setupPreview(){
-        
         self.previewLayer = AVCaptureVideoPreviewLayer(session: self.session)
         
         self.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
@@ -153,26 +150,14 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         
         self.previewLayer.connection?.videoOrientation = .portrait
         self.cameraPreviewImageView.layer.addSublayer(previewLayer)
-        
-//        self.detectionOverlay = CALayer() // container layer that has all the renderings of the observations
-//        self.detectionOverlay.name = "DetectionOverlay"
-//        self.detectionOverlay.bounds = CGRect(x: 0.0,
-//                                              y: 0.0,
-//                                              width: bufferSize.width,
-//                                              height: bufferSize.height)
-//        self.detectionOverlay.position = CGPoint(x: self.cameraDisplayImageView.layer.bounds.midX, y: self.cameraDisplayImageView.layer.bounds.midY)
-//        self.cameraDisplayImageView.layer.addSublayer(detectionOverlay)
-        
     }
     
     // MARK: - Logic functions
-    
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
         }
         
-        var requestOptions:[VNImageOption : Any] = [:]
         guard let model = try? VNCoreMLModel(for: CoffeePorscheClass().model) else {
             return
         }
@@ -181,8 +166,6 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
             if let error = error {
                 print(error)
             }
-            
-            //            print(finishedRequest.results)
             
             guard let results = finishedRequest.results as? [VNClassificationObservation] else {
                 return
@@ -196,21 +179,13 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
                     self.captureButton.isEnabled = false
                 }
             }
-            
         }
-        
         try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [ : ]).perform([request])
-        if let cameraIntrinsicData = CMGetAttachment(sampleBuffer, key: kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, attachmentModeOut: nil) {
-            requestOptions = [.cameraIntrinsics:cameraIntrinsicData]
-        }
-        //        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: CGImagePropertyOrientation(rawValue: 1)!, options: requestOptions)
-        
     }
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         
         DispatchQueue.global(qos: .userInitiated).async {
-            
             guard let imageData = photo.fileDataRepresentation()
                 else { return }
             
@@ -220,10 +195,12 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         }
     }
 
-    
-
     // MARK: - Navigation
     func transitionToImageProcessing(){
+        if photoTaken {
+            return
+        }
+        photoTaken = true
         DispatchQueue.main.async {
             let imageProcessingViewController = self.storyboard?.instantiateViewController(withIdentifier: "imageProcessingViewController") as! ProcessingImageViewController
             imageProcessingViewController.capturedImage = self.capturedImage

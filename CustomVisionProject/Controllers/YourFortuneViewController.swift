@@ -46,6 +46,14 @@ class YourFortuneViewController: UIViewController {
         self.finalUISetup()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        self.capturedImage = nil
+        self.originalImageView.image = nil
+        self.shortDescriptionLabel.text = nil
+        self.fullDescriptionLabel.text = nil
+        
+    }
+    
     // MARK: - UI Functions
     func initalUISetup(){
         // Change label's text, etc.
@@ -69,7 +77,6 @@ class YourFortuneViewController: UIViewController {
     func setUpNavigationBar(){
         self.navigationItem.setHidesBackButton(true, animated: false)
     }
-    
     
     // MARK: - Custom functions
 
