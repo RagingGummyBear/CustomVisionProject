@@ -14,7 +14,7 @@ import Vision
 class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     // MARK: - Custom references and variables
-    private var session: AVCaptureSession!
+    private var session: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer!
     private var videoDevice: AVCaptureDevice!
     private var stillImageOutput: AVCapturePhotoOutput!
@@ -26,11 +26,14 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     
     // MARK: - IBOutlets references
     @IBOutlet weak var cameraPreviewImageView: UIImageView!
+    @IBOutlet weak var overCameraImageView: UIImageView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var captureButton: UIButton!
     @IBOutlet weak var coffeeIndicatorLabel: UILabel!
     
     // MARK: - IBOutlets actions
     @IBAction func captureButtonAction(_ sender: Any) {
+        
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
 //        settings.flashMode = .auto
         stillImageOutput.capturePhoto(with: settings, delegate: self)
@@ -51,12 +54,28 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         DispatchQueue.main.async {
             self.finalUISetup()
         }
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.session.stopRunning()
-        self.cameraPreviewImageView.image = nil
+        self.session?.stopRunning()
+        
+        self.view.layer.removeAllAnimations()
+        
+        UIView.animate(withDuration: 0.1) {
+            self.overCameraImageView.alpha = 0
+        }
+//        self.navigationController?.navigationBar.prefersLargeTitles = true
+//        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent:parent)
+        if parent == nil {
+            // The back button was pressed or interactive gesture used
+            self.navigationController?.setNavigationBarHidden(true, animated: false)
+        }
     }
     
     // MARK: - UI Functions
@@ -82,45 +101,46 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     func setupCamera(){
         
         self.session = AVCaptureSession()
-        self.session.beginConfiguration()
-        self.session.sessionPreset = .vga640x480 // Model image size is smaller.
+        self.session!.beginConfiguration()
+        self.session!.sessionPreset = .vga640x480 // Model image size is smaller.
         
         self.videoDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
         
         do {
             let deviceInput = try AVCaptureDeviceInput(device: self.videoDevice!)
             
-            guard session.canAddInput(deviceInput) else {
+            guard self.session!.canAddInput(deviceInput) else {
                 print("Could not add video device input to the session")
-                session.commitConfiguration()
+                self.session!.commitConfiguration()
                 return
             }
-            session.addInput(deviceInput)
+            
+            self.session!.addInput(deviceInput)
             // Setting up preview
             self.setupPreview()
             
             let videoDataOutput = AVCaptureVideoDataOutput()
             
-            if session.canAddOutput(videoDataOutput) {
+            if self.session!.canAddOutput(videoDataOutput) {
                 // Add a video data output
                 videoDataOutput.alwaysDiscardsLateVideoFrames = true
                 videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
                 videoDataOutput.setSampleBufferDelegate(self, queue: self.videoDataOutputQueue)
-                session.addOutput(videoDataOutput)
+                self.session!.addOutput(videoDataOutput)
                 DispatchQueue.main.async {
-                    self.session.startRunning()
+                    self.session!.startRunning()
                 }
-                //                self.session.startRunning()
+                // self.session.startRunning()
             } else {
                 print("Could not add video data output to the session")
-                session.commitConfiguration()
+                self.session!.commitConfiguration()
                 return
             }
             
             self.stillImageOutput = AVCapturePhotoOutput()
             
-            if self.session.canAddOutput(self.stillImageOutput) {
-                self.session.addOutput(self.stillImageOutput)
+            if self.session!.canAddOutput(self.stillImageOutput) {
+                self.session!.addOutput(self.stillImageOutput)
             }
             
             let captureConnection = videoDataOutput.connection(with: .video)
@@ -135,7 +155,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
             } catch {
                 print(error)
             }
-            session.commitConfiguration()
+            self.session!.commitConfiguration()
         } catch {
             print("Could not create video device input: \(error)")
             return
@@ -143,7 +163,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     }
     
     func setupPreview(){
-        self.previewLayer = AVCaptureVideoPreviewLayer(session: self.session)
+        self.previewLayer = AVCaptureVideoPreviewLayer(session: self.session!)
         
         self.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         self.previewLayer.frame = self.cameraPreviewImageView.layer.bounds
@@ -172,10 +192,16 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
             }
             
             DispatchQueue.main.async {
-                self.coffeeIndicatorLabel.text = results[0].identifier
+                UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn , animations: {
+                    self.overCameraImageView.alpha = 0
+                }, completion: nil)
+                
+//                self.coffeeIndicatorLabel.text = results[0].identifier
                 if results[0].identifier == "coffee" {
+                    self.coffeeIndicatorLabel.text = "Coffee detected"
                     self.captureButton.isEnabled = true
                 } else {
+                    self.coffeeIndicatorLabel.text = "Coffee not detected"
                     self.captureButton.isEnabled = false
                 }
             }
@@ -184,11 +210,9 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     }
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        
         DispatchQueue.global(qos: .userInitiated).async {
             guard let imageData = photo.fileDataRepresentation()
                 else { return }
-            
             let image = UIImage(data: imageData)
             self.capturedImage = image?.updateImageOrientionUpSide()
             self.transitionToImageProcessing()
@@ -209,4 +233,12 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     }
     
     // MARK: - Other functions
+    
+    deinit {
+        self.cameraPreviewImageView.image = nil
+        self.backgroundImageView.image = nil
+        self.overCameraImageView.image = nil
+        self.capturedImage = nil
+        
+    }
 }

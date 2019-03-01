@@ -11,14 +11,20 @@ import UIKit
 class MainMenuViewController: UIViewController {
     
     // MARK: - Custom references and variables
+    var canTransition = false
     
     // MARK: - IBOutlets references
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var quoteLabel: UILabel!
     @IBOutlet weak var discoverButton: UIButton!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     
     // MARK: - IBOutlets actions
     @IBAction func discoverFortuneAction(_ sender: Any) {
+        if !self.canTransition {
+            return
+        }
+        self.canTransition = false
         self.performSegue(withIdentifier: "shootYourCoffeSeugeIdentifier", sender: self)
     }
     
@@ -33,11 +39,23 @@ class MainMenuViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        self.canTransition = true
         DispatchQueue.main.async {
             self.finalUISetup()
         }
-        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+//        self.backgroundImageView.alpha = 0
+//        self.backgroundImageView.image = nil
+        self.viewDidDisappear(animated)
+        self.displayNavigationBar()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        self.backgroundImageView.image = nil
+        self.displayNavigationBar()
     }
     
     // MARK: - UI Functions
@@ -45,6 +63,16 @@ class MainMenuViewController: UIViewController {
         // Change label's text, etc.
         self.quoteLabel.alpha = 0
         self.applyRoundCorner(self.discoverButton)
+//        self.hideNavigationBar()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+            return .lightContent
+        }
+         statusBarView.backgroundColor = UIColor(named: "NavigationBackground")
+//        statusBarView.backgroundColor = UIColor(named: "BackgroundBrown")
+        return .lightContent
     }
     
     func finalUISetup(){
@@ -53,15 +81,30 @@ class MainMenuViewController: UIViewController {
         self.applyRoundCorner(self.discoverButton)
         
         self.pickRandomQuote()
+        self.view.layer.removeAllAnimations()
+        self.quoteLabel.layer.removeAllAnimations()
         UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
             self.quoteLabel.alpha = 1
         }, completion: nil)
         
+        self.hideNavigationBar()
+//        navigationController?.navigationBar.barStyle = .blackTranslucent
+//        navigationController?.navigationBar.barTintColor = .black
     }
     
     func applyRoundCorner(_ object:AnyObject){
         object.layer?.cornerRadius = (object.frame?.size.width)! / 2
         object.layer?.masksToBounds = true
+    }
+    
+    func hideNavigationBar(){
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+//        self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    func displayNavigationBar(){
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+//        self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     // MARK: - Logic functions
@@ -72,7 +115,6 @@ class MainMenuViewController: UIViewController {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let quotesContainer = try JSONDecoder().decode(WittyCoffeeQuotes.self, from: data);
                 if quotesContainer.quotes.count > 0 {
-                    
                     self.setQuote(quote: quotesContainer.quotes.randomElement()!)
                 }
             } catch {
@@ -81,8 +123,7 @@ class MainMenuViewController: UIViewController {
             }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
                 self.quoteLabel.alpha = 0
             }, completion: { (finished: Bool) in
@@ -103,4 +144,5 @@ class MainMenuViewController: UIViewController {
     // MARK: - Navigation
 
     // MARK: - Other functions
+    
 }

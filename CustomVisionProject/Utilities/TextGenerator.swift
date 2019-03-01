@@ -60,7 +60,6 @@ class TextGenerator {
             
         } else if className.contains("mixed"){
             return short_bound_size_mixed()
-            
         }
         return ""
     }
@@ -78,7 +77,6 @@ class TextGenerator {
     }
     
     private func short_bound_pos(className:String) -> String {
-        
         if className.contains("bound-pos-bot-right"){
             return self.short_bound_pos_bot_right()
         } else if className.contains("bound-pos-bot-left"){
@@ -88,12 +86,10 @@ class TextGenerator {
         } else if className.contains("bound-pos-up-left"){
             return self.short_bound_pos_up_left()
         }
-        
         return ""
     }
     
     private func short_bound_pos_bot_right() -> String {
-
         return "Optimistic"
     }
     
@@ -127,7 +123,6 @@ class TextGenerator {
         } else if className.contains("light"){
             return short_hist_full_light()
         }
-        
         return ""
     }
     
@@ -142,8 +137,6 @@ class TextGenerator {
     private func short_hist_full_light() -> String {
         return "Idea"
     }
-    
-    
     
     private func short_hist_partial(className: String) -> String {
         if className.contains("fancy"){
@@ -167,7 +160,6 @@ class TextGenerator {
     private func short_hist_partial_light() -> String {
         return "Idea"
     }
-    
     
     // MARK: - Short RGB
     private func short_rgb(className: String) -> String {

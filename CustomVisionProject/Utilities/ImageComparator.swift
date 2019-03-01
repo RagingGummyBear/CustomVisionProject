@@ -139,7 +139,7 @@ class ImageComparator {
             var bestBound: CGRect = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
             
             for bound in bounds {
-                let croppedImg = self.cropImage(imageToCrop: originalImage, toRect: bound)
+                let croppedImg = CustomUtility.cropImage(imageToCrop: originalImage, toRect: bound)
                 let (tempResult, tempClass, _) = self.findBestClassHistogramCompare(image: croppedImg)
                 
                 if tempResult > bestResult {
@@ -232,7 +232,7 @@ class ImageComparator {
             var bestBound: CGRect = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
             
             for bound in bounds {
-                let croppedImg = self.cropImage(imageToCrop: originalImage, toRect: bound)
+                let croppedImg = CustomUtility.cropImage(imageToCrop: originalImage, toRect: bound)
                 let (tempResult, tempClass, _) = self.findBestClassHistogramGrayCompare(image: croppedImg)
                 
                 if tempResult > bestResult {
@@ -375,11 +375,7 @@ class ImageComparator {
     
     
     // MARK: - Other functions
-    public func cropImage(imageToCrop:UIImage, toRect rect:CGRect) -> UIImage {
-        let imageRef:CGImage = imageToCrop.cgImage!.cropping(to: rect)!
-        let cropped:UIImage = UIImage(cgImage:imageRef)
-        return cropped
-    }
+
     
     // MARK: - Singleton implementation
     private static var singletonPrivateInstance: ImageComparator = {

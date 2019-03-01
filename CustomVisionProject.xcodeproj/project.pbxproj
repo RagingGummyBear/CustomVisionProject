@@ -19,6 +19,7 @@
 		7D429438221D7E5B00291794 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429437221D7E5B00291794 /* CoreImage.framework */; };
 		7D42943E221D7F4300291794 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D42943D221D7F4300291794 /* OpenCVWrapper.mm */; };
 		7D429443221D806000291794 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429442221D806000291794 /* opencv2.framework */; };
+		7D4890FC22298592000D4951 /* CustomUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4890FB22298592000D4951 /* CustomUtility.swift */; };
 		7D49D78D2223F14000ABC7F5 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D49D78C2223F14000ABC7F5 /* TemplateViewController.swift */; };
 		7D49D78F2223FFD200ABC7F5 /* ProcessingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D49D78E2223FFD200ABC7F5 /* ProcessingImageViewController.swift */; };
 		7D49D791222401EE00ABC7F5 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D49D790222401EE00ABC7F5 /* MainMenuViewController.swift */; };
@@ -29,6 +30,8 @@
 		7D6240D52227F0B900A70D53 /* ContourLinesCustomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6240D42227F0B900A70D53 /* ContourLinesCustomAnimation.swift */; };
 		7D6240D7222819F600A70D53 /* ContourPartialCustomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6240D6222819F600A70D53 /* ContourPartialCustomAnimation.swift */; };
 		7D6240D922281C9E00A70D53 /* ContourBoundCircleCustomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6240D822281C9E00A70D53 /* ContourBoundCircleCustomAnimation.swift */; };
+		7D6FDC6D22291DF5007F8CC4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6FDC6C22291DF5007F8CC4 /* Extensions.swift */; };
+		7D6FDC6F22291E1B007F8CC4 /* CustomUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6FDC6E22291E1B007F8CC4 /* CustomUtility.swift */; };
 		7D93EA23221C1ED600547DD4 /* AppleDocsCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93EA22221C1ED600547DD4 /* AppleDocsCameraViewController.swift */; };
 		7DAE76CB222585FE0003C08B /* CleanProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAE76CA222585FE0003C08B /* CleanProcessingViewController.swift */; };
 		7DB28304221FED430015BD32 /* FeatureMatchingTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB28303221FED430015BD32 /* FeatureMatchingTestViewController.swift */; };
@@ -90,6 +93,7 @@
 		7D42943D221D7F4300291794 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		7D42943F221D7FC800291794 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		7D429442221D806000291794 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../Downloads/opencv2.framework; sourceTree = "<group>"; };
+		7D4890FB22298592000D4951 /* CustomUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomUtility.swift; path = /Users/seavus/Documents/tutorials/CustomVisionProject/CustomVisionProject/Utilities/CustomUtility.swift; sourceTree = "<absolute>"; };
 		7D49D78C2223F14000ABC7F5 /* TemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
 		7D49D78E2223FFD200ABC7F5 /* ProcessingImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingImageViewController.swift; sourceTree = "<group>"; };
 		7D49D790222401EE00ABC7F5 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 		7D6240D42227F0B900A70D53 /* ContourLinesCustomAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContourLinesCustomAnimation.swift; sourceTree = "<group>"; };
 		7D6240D6222819F600A70D53 /* ContourPartialCustomAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContourPartialCustomAnimation.swift; sourceTree = "<group>"; };
 		7D6240D822281C9E00A70D53 /* ContourBoundCircleCustomAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContourBoundCircleCustomAnimation.swift; sourceTree = "<group>"; };
+		7D6FDC6C22291DF5007F8CC4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7D6FDC6E22291E1B007F8CC4 /* CustomUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomUtility.swift; path = /Users/seavus/Documents/tutorials/CustomVisionProject/CustomVisionProject/Utilities/CustomUtility.swift; sourceTree = "<absolute>"; };
 		7D93EA22221C1ED600547DD4 /* AppleDocsCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDocsCameraViewController.swift; sourceTree = "<group>"; };
 		7DAE76CA222585FE0003C08B /* CleanProcessingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanProcessingViewController.swift; sourceTree = "<group>"; };
 		7DB28303221FED430015BD32 /* FeatureMatchingTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureMatchingTestViewController.swift; sourceTree = "<group>"; };
@@ -284,10 +290,10 @@
 		7DCEFCA12212FBB000F59A37 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7D49D79222240C2F00ABC7F5 /* CameraCoffeeViewController.swift */,
-				7DB2830C222051D00015BD32 /* YourFortuneViewController.swift */,
-				7D49D78E2223FFD200ABC7F5 /* ProcessingImageViewController.swift */,
 				7D49D790222401EE00ABC7F5 /* MainMenuViewController.swift */,
+				7D49D79222240C2F00ABC7F5 /* CameraCoffeeViewController.swift */,
+				7D49D78E2223FFD200ABC7F5 /* ProcessingImageViewController.swift */,
+				7DB2830C222051D00015BD32 /* YourFortuneViewController.swift */,
 				7D49D79822242F8600ABC7F5 /* AboutViewController.swift */,
 				7DAB82B52227CA6D00290246 /* TestingControllers */,
 			);
@@ -320,6 +326,9 @@
 				7D6240D32227F09B00A70D53 /* CustomAnimations */,
 				7D49D7962224158800ABC7F5 /* ImageComparator.swift */,
 				7DBAFD322226CA7000BBC36C /* TextGenerator.swift */,
+				7D6FDC6C22291DF5007F8CC4 /* Extensions.swift */,
+				7D4890FB22298592000D4951 /* CustomUtility.swift */,
+				7D6FDC6E22291E1B007F8CC4 /* CustomUtility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -553,6 +562,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DCEFCBA2213045C00F59A37 /* ImageProcessingViewController.swift in Sources */,
+				7D6FDC6F22291E1B007F8CC4 /* CustomUtility.swift in Sources */,
+				7D6FDC6D22291DF5007F8CC4 /* Extensions.swift in Sources */,
 				7DCEFCB42213002C00F59A37 /* ImageFullDisplayCollectionViewCell.swift in Sources */,
 				7DCEFC732212FAEC00F59A37 /* ViewController.swift in Sources */,
 				7D49D79922242F8600ABC7F5 /* AboutViewController.swift in Sources */,
@@ -574,6 +585,7 @@
 				7D6240D922281C9E00A70D53 /* ContourBoundCircleCustomAnimation.swift in Sources */,
 				7D429426221D523A00291794 /* CoffeePorscheClass.mlmodel in Sources */,
 				7DBAFD332226CA7000BBC36C /* TextGenerator.swift in Sources */,
+				7D4890FC22298592000D4951 /* CustomUtility.swift in Sources */,
 				7DB28304221FED430015BD32 /* FeatureMatchingTestViewController.swift in Sources */,
 				7D49D791222401EE00ABC7F5 /* MainMenuViewController.swift in Sources */,
 				7D6240D7222819F600A70D53 /* ContourPartialCustomAnimation.swift in Sources */,

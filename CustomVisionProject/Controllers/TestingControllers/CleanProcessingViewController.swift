@@ -209,7 +209,7 @@ class CleanProcessingViewController: UIViewController {
     func getPartialHistogramClass(){
         // Histogram compare based on best bound
         if let image = self.capturedImage {
-            let croppedImage = ImageComparator.shared().cropImage(imageToCrop: image, toRect: self.bestBound)
+            let croppedImage = CustomUtility.cropImage(imageToCrop: image, toRect: self.bestBound)
             ImageComparator.shared().findBestClassHistogramCompare(image: croppedImage, completion: { (result: Double, bestClass: String, bestImage: UIImage) in
                 self.partialHistogramCompareClass = bestClass
                 print("PartialHistogramCompareClass : \(bestClass)")

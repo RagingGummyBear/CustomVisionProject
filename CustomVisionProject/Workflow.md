@@ -59,9 +59,13 @@
 
 ## TODO:
     - Quotes
-    - Progress bar
-    - Colors
     - Camera indicator
-    - Placeholder images
     - Processing animations: +++ SemiDone
     - Figure out how to classify the processing image (using histogram, tryout feature extraction, hucompare?, mask?)
+    - IMPROVE MEMORY USAGE
+    
+## BUGS:
+    - Potential memory leak in the camera view controller
+    - Main view quote speeds up
+    - Camera view session buggs out if moving back forward fast
+    - TOO MUCH MEMORY USAGE

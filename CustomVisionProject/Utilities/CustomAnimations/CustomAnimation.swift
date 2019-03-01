@@ -16,9 +16,12 @@ class CustomAnimation {
     private var previousTick:TimeInterval!
   //                             ______________
   //                            |              |
-     internal var completions:  [  (() -> ())  ]      = []
+     internal var completions:  [  (() -> ())  ]?
   //                            |    \____/    |
   //                             --------------
+  //                                  |  |
+    //                        --------    --------
+    //                        |                  |
     
      internal var completion: (() -> ())?
     

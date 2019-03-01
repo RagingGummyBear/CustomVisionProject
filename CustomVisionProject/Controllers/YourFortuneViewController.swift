@@ -18,6 +18,7 @@ class YourFortuneViewController: UIViewController {
     
     // MARK: - IBOutlets references
     @IBOutlet weak var originalImageView: UIImageView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var shortDescriptionLabel: UILabel!
     @IBOutlet weak var fullDescriptionLabel: UILabel!
     @IBOutlet weak var shareButton: UIButton!
@@ -46,11 +47,18 @@ class YourFortuneViewController: UIViewController {
         self.finalUISetup()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.backgroundImageView.alpha = 0
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         self.capturedImage = nil
         self.originalImageView.image = nil
         self.shortDescriptionLabel.text = nil
         self.fullDescriptionLabel.text = nil
+        self.backgroundImageView.image = nil
         
     }
     

@@ -160,8 +160,7 @@ const float nn_match_ratio = 0.8f;
 
         col = homography * col;
         col /= col.at<double>(2);
-        double dist = sqrt( pow(col.at<double>(0) - matched2[i].pt.x, 2) +
-                           pow(col.at<double>(1) - matched2[i].pt.y, 2));
+//        double dist = sqrt( pow(col.at<double>(0) - matched2[i].pt.x, 2) + pow(col.at<double>(1) - matched2[i].pt.y, 2));
     }
     NSMutableArray *vectors = [NSMutableArray array];
     return vectors;
@@ -375,7 +374,7 @@ const float nn_match_ratio = 0.8f;
     for(int i = 0 ; i < desc.rows; ++i){
         [vectors addObject: [NSMutableArray array]];
         for(int j = 0; j < desc.cols; ++j){
-            NSMutableArray *vector = [NSMutableArray array];
+//            NSMutableArray *vector = [NSMutableArray array];
         }
     }
     return vectors;
