@@ -67,5 +67,16 @@
 ## BUGS:
     - Potential memory leak in the camera view controller
     - Main view quote speeds up
-    - Camera view session buggs out if moving back forward fast
     - TOO MUCH MEMORY USAGE
+
+### Memory leak:
+    - Reduce the size of background images and quality
+    - Remove unnecessery view controllers
+    - Fortune view last image (steamy) stays in memory maybe?
+    - UIImage_IO in the camera view
+    - Surface_IO in the camera view
+    - UILabel ????
+    - Mainmenu animations not cleared
+    - Use imageWithContentsOfFile
+    - Core animation in the result page
+    

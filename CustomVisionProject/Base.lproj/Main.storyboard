@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fvx-YF-3x9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dIz-EB-Gxi">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -69,7 +69,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="darkBackground" translatesAutoresizingMaskIntoConstraints="NO" id="ckK-Yp-lnq">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ckK-Yp-lnq">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ApplicationLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Irj-Sf-obO">
@@ -125,7 +125,7 @@
                                 <rect key="frame" x="352" y="690" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="US8-lo-0PM"/>
+                                    <segue destination="Ajj-d0-5nB" kind="show" id="RI5-kD-Ro8"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -166,7 +166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iB4-G1-zAS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1499" y="448"/>
+            <point key="canvasLocation" x="133" y="390"/>
         </scene>
         <!--About-->
         <scene sceneID="qWt-Qv-SyL">
@@ -223,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WZF-4u-o7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1163.768115942029" y="1218.75"/>
+            <point key="canvasLocation" x="-201" y="1160"/>
         </scene>
         <!--Shoot photo-->
         <scene sceneID="1nM-Ba-Bxc">
@@ -233,7 +233,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="darkBackground" translatesAutoresizingMaskIntoConstraints="NO" id="SOK-XY-Kea">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SOK-XY-Kea">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0p-Y2-jXc">
@@ -256,16 +256,16 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ApplicationLogo" translatesAutoresizingMaskIntoConstraints="NO" id="iLd-Wb-10b">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="iLd-Wb-10b">
                                 <rect key="frame" x="0.0" y="64" width="414" height="584"/>
                                 <gestureRecognizers/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffg-vm-eZ7">
-                                <rect key="frame" x="16" y="685" width="46" height="30"/>
+                                <rect key="frame" x="-6" y="685" width="91" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Debug image"/>
                                 <connections>
-                                    <segue destination="cDb-TW-iXF" kind="show" id="sgf-HG-GER"/>
+                                    <segue destination="cDb-TW-iXF" kind="show" identifier="debugImageSegueIdentifier" id="sgf-HG-GER"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="darkLightBackground" translatesAutoresizingMaskIntoConstraints="NO" id="hyO-3W-II1">
@@ -310,7 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CMD-Lu-z93" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2272" y="448"/>
+            <point key="canvasLocation" x="1055" y="390"/>
         </scene>
         <!--Image processing-->
         <scene sceneID="REn-Zp-paR">
@@ -320,10 +320,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="darkBackground" translatesAutoresizingMaskIntoConstraints="NO" id="XD7-KW-35V">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XD7-KW-35V">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="owlBackground" translatesAutoresizingMaskIntoConstraints="NO" id="LiX-6H-AvZ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="LiX-6H-AvZ">
                                 <rect key="frame" x="0.0" y="64" width="414" height="617"/>
                             </imageView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ENS-BZ-jfa">
@@ -335,6 +335,9 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="owlBackground" translatesAutoresizingMaskIntoConstraints="NO" id="Os4-Ol-CAe">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="NavigationBackground"/>
                         <constraints>
@@ -344,6 +347,8 @@
                             <constraint firstItem="ENS-BZ-jfa" firstAttribute="top" secondItem="LiX-6H-AvZ" secondAttribute="bottom" id="52q-nx-DX3"/>
                             <constraint firstAttribute="trailing" secondItem="ENS-BZ-jfa" secondAttribute="trailing" id="8IQ-rP-foP"/>
                             <constraint firstItem="LiX-6H-AvZ" firstAttribute="trailing" secondItem="CHI-7W-3hb" secondAttribute="trailing" id="Bsi-Te-bAD"/>
+                            <constraint firstItem="Os4-Ol-CAe" firstAttribute="bottom" secondItem="CHI-7W-3hb" secondAttribute="bottom" id="DI2-Fw-50C"/>
+                            <constraint firstItem="Os4-Ol-CAe" firstAttribute="trailing" secondItem="CHI-7W-3hb" secondAttribute="trailing" id="J3h-Lb-puI"/>
                             <constraint firstItem="XD7-KW-35V" firstAttribute="leading" secondItem="eMI-j1-ZDd" secondAttribute="leading" id="SNM-aL-fwb"/>
                             <constraint firstItem="CHI-7W-3hb" firstAttribute="trailing" secondItem="WOr-HU-qQf" secondAttribute="trailing" constant="16" id="VLP-Gm-Hi7"/>
                             <constraint firstItem="LiX-6H-AvZ" firstAttribute="leading" secondItem="CHI-7W-3hb" secondAttribute="leading" id="cIQ-t6-ULN"/>
@@ -354,24 +359,27 @@
                             <constraint firstAttribute="trailing" secondItem="XD7-KW-35V" secondAttribute="trailing" id="ofR-5z-Zkz"/>
                             <constraint firstItem="ENS-BZ-jfa" firstAttribute="leading" secondItem="eMI-j1-ZDd" secondAttribute="leading" id="q9n-Vp-X13"/>
                             <constraint firstItem="ENS-BZ-jfa" firstAttribute="top" secondItem="LiX-6H-AvZ" secondAttribute="bottom" id="qcs-U2-aW0"/>
+                            <constraint firstItem="Os4-Ol-CAe" firstAttribute="leading" secondItem="CHI-7W-3hb" secondAttribute="leading" id="sEb-NS-3IW"/>
+                            <constraint firstItem="Os4-Ol-CAe" firstAttribute="top" secondItem="CHI-7W-3hb" secondAttribute="top" id="y0O-vo-1Ae"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CHI-7W-3hb"/>
                     </view>
                     <navigationItem key="navigationItem" title="Image processing" id="eRd-TG-GsB"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee6"/>
+                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="heartBackground"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="backgroundImageView" destination="XD7-KW-35V" id="P5e-gi-OUd"/>
                         <outlet property="processingImageView" destination="LiX-6H-AvZ" id="AEZ-76-WSI"/>
                         <outlet property="processingStatusLabel" destination="WOr-HU-qQf" id="2U4-nE-eFu"/>
                         <outlet property="progressBar" destination="ENS-BZ-jfa" id="qTT-Sm-p6Q"/>
+                        <outlet property="splashScreenUIImage" destination="Os4-Ol-CAe" id="Vd9-ic-EaN"/>
                         <segue destination="Ajj-d0-5nB" kind="show" identifier="imageProcessToFortuneSeugeIdentifier" id="hOx-Iw-sDx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kgo-T0-grE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3171" y="448"/>
+            <point key="canvasLocation" x="2042" y="390"/>
         </scene>
         <!--Your result-->
         <scene sceneID="Zq9-9M-OLB">
@@ -381,7 +389,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="darkBackground" translatesAutoresizingMaskIntoConstraints="NO" id="BRn-jB-l74">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BRn-jB-l74">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cou-Io-kCw">
@@ -425,7 +433,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                                                     <action selector="sendLikeButtonAction:" destination="Ajj-d0-5nB" eventType="touchUpInside" id="mXN-YU-pra"/>
                                                 </connections>
                                             </button>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="steamyBackground" translatesAutoresizingMaskIntoConstraints="NO" id="7Qr-HX-Xck">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Qr-HX-Xck">
                                                 <rect key="frame" x="90" y="24" width="420" height="350"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="7Qr-HX-Xck" secondAttribute="height" multiplier="6:5" id="DCa-hZ-DOa"/>
@@ -506,7 +514,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCI-3b-clX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4043" y="515"/>
+            <point key="canvasLocation" x="3017" y="457"/>
         </scene>
         <!--Feature Matching Test View Controller-->
         <scene sceneID="egc-n0-a4e">
@@ -728,6 +736,36 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
             </objects>
             <point key="canvasLocation" x="2512" y="-751"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="MvB-oj-8EE">
+            <objects>
+                <viewController id="dIz-EB-Gxi" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Osy-us-D1m">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ww8-d9-ZZz">
+                                <rect key="frame" x="184" y="302" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="fvx-YF-3x9" kind="show" id="aCP-4R-ecd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xvg-WU-Kua">
+                                <rect key="frame" x="184" y="387" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Lwc-CW-FtJ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xNh-6M-eND" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1465" y="-112"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="GCT-yk-tH5">
             <objects>
@@ -749,18 +787,16 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nQ1-IX-Tai" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="301.60000000000002" y="448.42578710644682"/>
+            <point key="canvasLocation" x="-699" y="390"/>
         </scene>
     </scenes>
     <resources>
         <image name="ApplicationLogo" width="1200" height="1551"/>
         <image name="coffee14" width="3264" height="2448"/>
-        <image name="coffee6" width="919.344482421875" height="1390.508544921875"/>
         <image name="coffee7" width="108" height="72"/>
-        <image name="darkBackground" width="1920" height="1080"/>
         <image name="darkLightBackground" width="307.20001220703125" height="205"/>
+        <image name="heartBackground" width="307.20001220703125" height="205"/>
         <image name="owlBackground" width="1440" height="810"/>
-        <image name="steamyBackground" width="460.79998779296875" height="288"/>
         <namedColor name="NavigationBackground">
             <color red="0.058823529411764705" green="0.015686274509803921" blue="0.015686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -770,7 +806,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XnO-a8-hCj"/>
-        <segue reference="kh6-HR-Ylv"/>
-        <segue reference="US8-lo-0PM"/>
+        <segue reference="hOx-Iw-sDx"/>
+        <segue reference="sgf-HG-GER"/>
     </inferredMetricsTieBreakers>
 </document>

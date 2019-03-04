@@ -64,6 +64,12 @@ class YourFortuneViewController: UIViewController {
     
     // MARK: - UI Functions
     func initalUISetup(){
+        
+//        var bundlePath = Bundle.main.path(forResource: "coffee6", ofType: "jpg")
+//        var image = UIImage(contentsOfFile: bundlePath!)
+        
+//        self.originalImageView.image = UIImage(contentsOfFile: String)
+        self.backgroundImageView.image = #imageLiteral(resourceName: "darkBackground")
         // Change label's text, etc.
         self.textGenerator.foundClasses = self.foundClasses
         self.textGenerator.generateShortText { (result: String) in
@@ -80,6 +86,9 @@ class YourFortuneViewController: UIViewController {
     func finalUISetup(){
         // Here do all the resizing and constraint calculations
         // In some cases apply the background gradient here
+        self.backgroundImageView.layer.removeAllAnimations()
+        self.backgroundImageView.layer.removeAllAnimations()
+        UIView.commitAnimations()
     }
     
     func setUpNavigationBar(){
@@ -90,8 +99,11 @@ class YourFortuneViewController: UIViewController {
 
     // MARK: - Navigation
     func backToMainMenu() {
-        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 4], animated: true)
+        DispatchQueue.main.async {
+            let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+            //self.navigationController!.popToViewController(viewControllers[viewControllers.count - 4], animated: true)
+            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 2], animated: true)
+        }
     }
 
     // MARK: - Other functions

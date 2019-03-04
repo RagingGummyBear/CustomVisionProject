@@ -31,6 +31,11 @@ class MainMenuViewController: UIViewController {
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var bundlePath = Bundle.main.path(forResource: "coffee6", ofType: "jpg")
+        var image = UIImage(contentsOfFile: bundlePath!)
+//        self.backgroundImageView.image = image
+        
         // Do any additional setup after loading the view.
         DispatchQueue.main.async {
             self.initalUISetup()

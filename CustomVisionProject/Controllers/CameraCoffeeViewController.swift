@@ -16,7 +16,8 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     // MARK: - Custom references and variables
     private var session: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer!
-    private var videoDevice: AVCaptureDevice!
+    private var videoDevice: AVCaptureDevice? = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
+    lazy private var model = try? VNCoreMLModel(for: CoffeePorscheClass().model)
     private var stillImageOutput: AVCapturePhotoOutput!
     
     private let videoDataOutputQueue = DispatchQueue.init(label: "com.seavus.customvision.videoOutput")
@@ -43,9 +44,18 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        if self.videoDevice == nil {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.performSegue(withIdentifier: "debugImageSegueIdentifier", sender: self)
+            }
+        }
+        
         DispatchQueue.main.async {
             self.initalUISetup()
         }
+        
+//        self.performSegue(withIdentifier: "debugImageSegueIdentifier", sender: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,9 +75,18 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         
         UIView.animate(withDuration: 0.1) {
             self.overCameraImageView.alpha = 0
+            self.backgroundImageView.alpha = 0
         }
+        
 //        self.navigationController?.navigationBar.prefersLargeTitles = true
 //        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.releaseSomeMemory()
+        self.capturedImage = nil
+        self.cameraPreviewImageView.image = nil
     }
     
     override func willMove(toParent parent: UIViewController?) {
@@ -82,14 +101,15 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     func initalUISetup(){
         // Change label's text, etc.
         self.applyRoundCorner(self.captureButton)
+        
+        self.setupCamera()
+//        self.setupPreview()
     }
     
     func finalUISetup(){
         // Here do all the resizing and constraint calculations
         // In some cases apply the background gradient here
         self.applyRoundCorner(self.captureButton)
-        self.setupCamera()
-        self.setupPreview()
     }
     
     func applyRoundCorner(_ object:AnyObject){
@@ -106,6 +126,18 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         
         self.videoDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
         
+        if self.videoDevice == nil {
+            // TO SOON FOR PERFORMSEGUE!
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+//                print("15 have passed brah")
+//                self.performSegue(withIdentifier: "debugImageSegueIdentifier", sender: self)
+//            }
+            self.session?.commitConfiguration()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.performSegue(withIdentifier: "debugImageSegueIdentifier", sender: self)
+            }
+            return
+        }
         do {
             let deviceInput = try AVCaptureDeviceInput(device: self.videoDevice!)
             
@@ -144,6 +176,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
             }
             
             let captureConnection = videoDataOutput.connection(with: .video)
+            
             // Always process the frames
             captureConnection?.isEnabled = true
             do {
@@ -163,6 +196,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     }
     
     func setupPreview(){
+        
         self.previewLayer = AVCaptureVideoPreviewLayer(session: self.session!)
         
         self.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
@@ -170,6 +204,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         
         self.previewLayer.connection?.videoOrientation = .portrait
         self.cameraPreviewImageView.layer.addSublayer(previewLayer)
+        print("Me here ! /WAVE")
     }
     
     // MARK: - Logic functions
@@ -178,7 +213,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
             return
         }
         
-        guard let model = try? VNCoreMLModel(for: CoffeePorscheClass().model) else {
+        guard let model = self.model else {
             return
         }
         
@@ -192,9 +227,11 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
             }
             
             DispatchQueue.main.async {
-                UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn , animations: {
-                    self.overCameraImageView.alpha = 0
-                }, completion: nil)
+                if self.overCameraImageView.alpha == 1 {
+                    UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn , animations: {
+                        self.overCameraImageView.alpha = 0
+                    }, completion: nil)
+                }
                 
 //                self.coffeeIndicatorLabel.text = results[0].identifier
                 if results[0].identifier == "coffee" {
@@ -211,9 +248,11 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         DispatchQueue.global(qos: .userInitiated).async {
+            
             guard let imageData = photo.fileDataRepresentation()
                 else { return }
             let image = UIImage(data: imageData)
+            
             self.capturedImage = image?.updateImageOrientionUpSide()
             self.transitionToImageProcessing()
         }
@@ -234,11 +273,15 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     
     // MARK: - Other functions
     
-    deinit {
-        self.cameraPreviewImageView.image = nil
-        self.backgroundImageView.image = nil
-        self.overCameraImageView.image = nil
-        self.capturedImage = nil
+    private func releaseSomeMemory(){
+        self.session?.stopRunning()
         
+        if let sublayers = self.cameraPreviewImageView.layer.sublayers {
+            for sublayer in sublayers {
+                sublayer.removeFromSuperlayer()
+            }
+        }
+        self.cameraPreviewImageView.layer.sublayers = []
     }
+
 }

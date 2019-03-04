@@ -822,22 +822,45 @@ const float nn_match_ratio = 0.8f;
     return MatToUIImage(img_matches);
 }
 
-
 + (double) compareUsingContoursMatch: (UIImage *) src withImage:(UIImage *) compare {
     Mat img_1; UIImageToMat(src, img_1);
     Mat img_2; UIImageToMat(compare, img_2);
-    cvtColor(img_1, img_1, COLOR_BGR2GRAY);
-    cvtColor(img_2, img_2, COLOR_BGR2GRAY);
+    cvtColor(img_1, img_1, COLOR_BGR2RGB);
+    cvtColor(img_2, img_2, COLOR_BGR2RGB);
 
-    threshold(img_1, img_1, 128, 255, THRESH_BINARY);
+    Mat src_blurred1; GaussianBlur(img_1, src_blurred1, cv::Size(5,5), 0);
+    Mat src_blurred2; GaussianBlur(img_2, src_blurred2, cv::Size(5,5), 0);
+    
+    Mat hsv1; cvtColor( src_blurred1, hsv1, COLOR_BGR2HSV );
+    Mat hsv2; cvtColor( src_blurred2, hsv2, COLOR_BGR2HSV );
+    
+    Vec3b lowerC = cv::Vec3b(57,11,81); // BGR Values
+    Vec3b upperC = cv::Vec3b(230,220,240); // BGR values
+    
+    Mat mask1; inRange(hsv1, lowerC, upperC, mask1);
+    Mat mask2; inRange(hsv2, lowerC, upperC, mask2);
+    
+    ///////////////////////////////////////////////////////
+    vector<Vec4i> hierarchy;
+    vector<vector<cv::Point> > contours1;
+    vector<vector<cv::Point> > contours2;
+    
+    findContours(mask1, contours1, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    findContours(mask2, contours2, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    
+//    cout << contours1.size() << "\n";
+//    cout << contours2.size() << "\n";
+//    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I1, 0);
+//    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I2, 0);
+//    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I3, 0);
 
-    double d1 = matchShapes(img_1, img_2, CONTOURS_MATCH_I1, 0);
-//    double d2 = matchShapes(img_1, img_2, CONTOURS_MATCH_I2, 0);
-//    double d3 = matchShapes(img_1, img_2, CONTOURS_MATCH_I3, 0);
+//    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I1, 0);
+    double resut = matchShapes(mask1, mask2, CONTOURS_MATCH_I2, 0);
+//    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I3, 0);
 
-    return d1;
+    
+    return resut;
 }
-
 
 // USING ???? Really?
 + (NSMutableArray *) draw_contour_python_bound_square: (UIImage *) image withBound:(CGRect) bound withThresh:(int) thresh {
@@ -981,7 +1004,7 @@ const float nn_match_ratio = 0.8f;
     Scalar color = Scalar( 32, 194, 14);
     for( int i = 0; i< contours.size(); i++ ){
 //        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-        drawContours( src, contours, i, color, 1, 8, hierarchy, 0, cv::Point() );
+        drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
     }
 
     return MatToUIImage(src);
@@ -1306,8 +1329,8 @@ const float nn_match_ratio = 0.8f;
 
     for( int i = 0; i< contours.size(); i++ )
     {
-        rectangle( src, boundRect[i].tl(), boundRect[i].br(), rectangleColor, 1, 8, 0 );
-        circle( src, center[i], (int)radius[i], circleColor, 1, 8, 0 );
+        rectangle( src, boundRect[i].tl(), boundRect[i].br(), rectangleColor, 2, 8, 0 );
+        circle( src, center[i], (int)radius[i], circleColor, 2, 8, 0 );
     }
     return MatToUIImage(src);
 }
@@ -1398,7 +1421,7 @@ const float nn_match_ratio = 0.8f;
         if( cv::contourArea(contours[i]) > 5000){
             Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
             //            cv::drawContours(src, contours[i], -1, color, 3);
-            drawContours( src, contours, i, color, 1, 8, hierarchy, 0, cv::Point() );
+            drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
         }
     }
 

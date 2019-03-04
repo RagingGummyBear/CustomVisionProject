@@ -15,8 +15,6 @@ class QuoteModel : Codable {
     
     func toString() -> String {
         guard let text = self.text, let author = self.author else {
-            print(self.text)
-            print(self.author)
             return ""
         }
         return "\(text) \n -\(author)"

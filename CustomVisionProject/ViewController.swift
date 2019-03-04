@@ -40,6 +40,12 @@ class ViewController: UIViewController {
         print("Normal compare AGANE!")
         OpenCVWrapper.compare(usingHistograms: image, with: image2)
         
+        ImageComparator.shared().findBestClassHuCompare(captureImage: #imageLiteral(resourceName: "heartBackground"), completion: { (bestResult: Double, bestClass: String, bestImage: UIImage) in
+            print("Best result: \(bestResult) Best class: \(bestClass)")
+        }, error: { (msg: String) in
+            print("ViewController -> specialCase: Error with msg: \(msg)")
+        })
+        
 //        print(HistogramHandler.shared().findTheBestClass(image: #imageLiteral(resourceName: "coffee18")))
 //        OpenCVWrapper.compareHistograms(OpenCV, with: T##UIImage)
         //

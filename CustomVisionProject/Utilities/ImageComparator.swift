@@ -21,17 +21,30 @@ class ImageComparator {
     // MARK: - Init function
     private init() {
         
-        self.dispatchQueue.async {
-            self.fillUpDarkCoffeeArray()
-        }
-        
-        self.dispatchQueue.async {
-            self.fillUpLightCoffeeArray()
-        }
-        
-        self.dispatchQueue.async {
-            self.fillUpFancyCoffeeArray()
-        }
+//        self.dispatchQueue.async {
+//            self.fillUpDarkCoffeeArray()
+//        }
+//        
+//        self.dispatchQueue.async {
+//            self.fillUpLightCoffeeArray()
+//        }
+//        
+//        self.dispatchQueue.async {
+//            self.fillUpFancyCoffeeArray()
+//        }
+    }
+    
+    
+    public func fillUpAll(){
+        fillUpDarkCoffeeArray()
+        fillUpLightCoffeeArray()
+        fillUpFancyCoffeeArray()
+    }
+    
+    public func releaseAll(){
+        self.releaseDarkCoffeeArray()
+        self.releaseFancyCoffeeArray()
+        self.releaseLightCoffeeArray()
     }
     
     // MARK: - Data generation and release functions
@@ -265,8 +278,10 @@ class ImageComparator {
         dispatchQueue.async {
             let (bestResult, bestClass, bestImage) = self.findBestClassHuCompare(captureImage: captureImage)
             if let bestImage = bestImage {
+                
                 completion(bestResult, bestClass, bestImage)
             } else {
+                
                 guard let error = error else { return }
                 error("ImageComparator -> findBestClassHuCompare: Error while parsing best image")
             }
@@ -334,12 +349,10 @@ class ImageComparator {
                     bestClass = tempClass
                 }
             }
-            
             guard let bestImageMatch = bestImage else {
                 if let error = error {
                     error("ImageComparator -> findBestCropHuCompare: Error parsing the image, maybe no image was found? Or there is bug?")
                 }
-                
                 return
             }
             completion(bestResult, bestClass, bestImageMatch)
@@ -348,6 +361,7 @@ class ImageComparator {
     
     private func findBestCropHistogramCompare(originalImages: [UIImage], completion: @escaping (Double, String, UIImage)->(), error: ((String)->())? ){
         self.dispatchQueue.async {
+            
             var bestResult = 0.0
             var bestImage:UIImage?
             var bestClass:String = "None"
@@ -365,7 +379,6 @@ class ImageComparator {
                 if let error = error {
                     error("ImageComparator -> findBestCropHistogramCompare: Error parsing the image, maybe no image was found? Or there is bug?")
                 }
-                
                 return
             }
             completion(bestResult, bestClass, bestImageMatch)
