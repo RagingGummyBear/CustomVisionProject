@@ -31,11 +31,6 @@ class MainMenuViewController: UIViewController {
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var bundlePath = Bundle.main.path(forResource: "coffee6", ofType: "jpg")
-        var image = UIImage(contentsOfFile: bundlePath!)
-//        self.backgroundImageView.image = image
-        
         // Do any additional setup after loading the view.
         DispatchQueue.main.async {
             self.initalUISetup()
@@ -51,15 +46,13 @@ class MainMenuViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-//        self.backgroundImageView.alpha = 0
-//        self.backgroundImageView.image = nil
+        super.viewWillDisappear(animated)
         self.viewDidDisappear(animated)
         self.displayNavigationBar()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        self.backgroundImageView.image = nil
+        super.viewDidDisappear(animated)
         self.displayNavigationBar()
     }
     
@@ -68,15 +61,17 @@ class MainMenuViewController: UIViewController {
         // Change label's text, etc.
         self.quoteLabel.alpha = 0
         self.applyRoundCorner(self.discoverButton)
-//        self.hideNavigationBar()
+        let bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
+        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
+        self.hideNavigationBar()
     }
+
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
             return .lightContent
         }
-         statusBarView.backgroundColor = UIColor(named: "NavigationBackground")
-//        statusBarView.backgroundColor = UIColor(named: "BackgroundBrown")
+        statusBarView.backgroundColor = UIColor(named: "BackgroundBrown")
         return .lightContent
     }
     
@@ -113,7 +108,6 @@ class MainMenuViewController: UIViewController {
     }
     
     // MARK: - Logic functions
-    
     func pickRandomQuote(){
         if let path = Bundle.main.path(forResource: "wittyCoffeeQuotes", ofType: "json") {
             do {

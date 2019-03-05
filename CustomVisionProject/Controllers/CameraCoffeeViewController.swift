@@ -100,10 +100,15 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     // MARK: - UI Functions
     func initalUISetup(){
         // Change label's text, etc.
+        var bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
+        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
+
         self.applyRoundCorner(self.captureButton)
+
+        bundlePath = Bundle.main.path(forResource: "yingyangcoffee", ofType: "jpg")
+        self.overCameraImageView.image = UIImage(contentsOfFile: bundlePath!)
         
         self.setupCamera()
-//        self.setupPreview()
     }
     
     func finalUISetup(){
@@ -230,7 +235,9 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
                 if self.overCameraImageView.alpha == 1 {
                     UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn , animations: {
                         self.overCameraImageView.alpha = 0
-                    }, completion: nil)
+                    }, completion: {(completed : Bool) in
+                        self.overCameraImageView.image = nil
+                    })
                 }
                 
 //                self.coffeeIndicatorLabel.text = results[0].identifier
@@ -268,6 +275,22 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
             let imageProcessingViewController = self.storyboard?.instantiateViewController(withIdentifier: "imageProcessingViewController") as! ProcessingImageViewController
             imageProcessingViewController.capturedImage = self.capturedImage
             self.navigationController?.pushViewController(imageProcessingViewController, animated: true)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        ////////////////
+        // Used for debugging
+        if segue.identifier == "debugImageSegueIdentifier" {
+            if self.capturedImage == nil {
+                let bundlePath = Bundle.main.path(forResource: "heartCoffee", ofType: "jpg")
+                self.capturedImage = UIImage(contentsOfFile: bundlePath!)
+            }
+            
+            if let destination = segue.destination as? ProcessingImageViewController {
+                destination.capturedImage = self.capturedImage
+            }
         }
     }
     

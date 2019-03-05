@@ -64,12 +64,9 @@ class YourFortuneViewController: UIViewController {
     
     // MARK: - UI Functions
     func initalUISetup(){
+        let bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
+        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
         
-//        var bundlePath = Bundle.main.path(forResource: "coffee6", ofType: "jpg")
-//        var image = UIImage(contentsOfFile: bundlePath!)
-        
-//        self.originalImageView.image = UIImage(contentsOfFile: String)
-        self.backgroundImageView.image = #imageLiteral(resourceName: "darkBackground")
         // Change label's text, etc.
         self.textGenerator.foundClasses = self.foundClasses
         self.textGenerator.generateShortText { (result: String) in
@@ -101,8 +98,8 @@ class YourFortuneViewController: UIViewController {
     func backToMainMenu() {
         DispatchQueue.main.async {
             let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-            //self.navigationController!.popToViewController(viewControllers[viewControllers.count - 4], animated: true)
-            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 2], animated: true)
+            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 4], animated: true)
+//            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 2], animated: true)
         }
     }
 

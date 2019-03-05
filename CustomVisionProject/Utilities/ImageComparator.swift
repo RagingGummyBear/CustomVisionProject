@@ -49,24 +49,56 @@ class ImageComparator {
     
     // MARK: - Data generation and release functions
     private func fillUpDarkCoffeeArray(){
-        self.darkCoffeeArray.append(#imageLiteral(resourceName: "dark_coffee_4"))
-        self.darkCoffeeArray.append(#imageLiteral(resourceName: "dark_coffee_1"))
-        self.darkCoffeeArray.append(#imageLiteral(resourceName: "dark_coffee_3"))
-        self.darkCoffeeArray.append(#imageLiteral(resourceName: "dark_coffee_2"))
+//        self.darkCoffeeArray.append(#imageLiteral(resourceName: "dark_coffee_4"))
+//        self.darkCoffeeArray.append(#imageLiteral(resourceName: "dark_coffee_1"))
+//        self.darkCoffeeArray.append(#imageLiteral(resourceName: "dark_coffee_3"))
+//        self.darkCoffeeArray.append(#imageLiteral(resourceName: "dark_coffee_2"))
         
+        var bundlePath = Bundle.main.path(forResource: "dark_coffee_1", ofType: "jpg")
+        self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
+        
+        bundlePath = Bundle.main.path(forResource: "dark_coffee_2", ofType: "jpg")
+        self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
+        
+        bundlePath = Bundle.main.path(forResource: "dark_coffee_3", ofType: "jpg")
+        self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
+        
+        bundlePath = Bundle.main.path(forResource: "dark_coffee_4", ofType: "jpg")
+        self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
     }
     
     private func fillUpLightCoffeeArray(){
-        self.lightCoffeeArray.append(#imageLiteral(resourceName: "light_coffee_4"))
-        self.lightCoffeeArray.append(#imageLiteral(resourceName: "light_coffee_2"))
-        self.lightCoffeeArray.append(#imageLiteral(resourceName: "light_coffee_1"))
-        self.lightCoffeeArray.append(#imageLiteral(resourceName: "light_coffee_3"))
+//        self.lightCoffeeArray.append(#imageLiteral(resourceName: "light_coffee_4"))
+//        self.lightCoffeeArray.append(#imageLiteral(resourceName: "light_coffee_2"))
+//        self.lightCoffeeArray.append(#imageLiteral(resourceName: "light_coffee_1"))
+//        self.lightCoffeeArray.append(#imageLiteral(resourceName: "light_coffee_3"))
+        
+        var bundlePath = Bundle.main.path(forResource: "light_coffee_1", ofType: "jpg")
+        self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
+        
+        bundlePath = Bundle.main.path(forResource: "light_coffee_2", ofType: "jpg")
+        self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
+        
+        bundlePath = Bundle.main.path(forResource: "light_coffee_3", ofType: "png")
+        self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
+        
+        bundlePath = Bundle.main.path(forResource: "light_coffee_4", ofType: "jpg")
+        self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
     }
     
     private func fillUpFancyCoffeeArray(){
-        self.fancyCoffeeArray.append(#imageLiteral(resourceName: "fancy_coffe_3"))
-        self.fancyCoffeeArray.append(#imageLiteral(resourceName: "fancy_coffee_2"))
-        self.fancyCoffeeArray.append(#imageLiteral(resourceName: "fancy_coffee_1"))
+//        self.fancyCoffeeArray.append(#imageLiteral(resourceName: "fancy_coffe_3"))
+//        self.fancyCoffeeArray.append(#imageLiteral(resourceName: "fancy_coffee_2"))
+//        self.fancyCoffeeArray.append(#imageLiteral(resourceName: "fancy_coffee_1"))
+        
+        var bundlePath = Bundle.main.path(forResource: "fancy_coffee_1", ofType: "jpg")
+        self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
+        
+        bundlePath = Bundle.main.path(forResource: "fancy_coffee_1", ofType: "jpg")
+        self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
+        
+        bundlePath = Bundle.main.path(forResource: "fancy_coffee_1", ofType: "jpg")
+        self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
     }
     
     private func releaseDarkCoffeeArray(){

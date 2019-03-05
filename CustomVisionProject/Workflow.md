@@ -70,13 +70,8 @@
     - TOO MUCH MEMORY USAGE
 
 ### Memory leak:
-    - Reduce the size of background images and quality
-    - Remove unnecessery view controllers
-    - Fortune view last image (steamy) stays in memory maybe?
-    - UIImage_IO in the camera view
+    - Remove unnecessery view controllers from navigation view
     - Surface_IO in the camera view
     - UILabel ????
-    - Mainmenu animations not cleared
-    - Use imageWithContentsOfFile
-    - Core animation in the result page
+    - On completion for the splashscreens, remove them from memory using the imageView.image = nil
     

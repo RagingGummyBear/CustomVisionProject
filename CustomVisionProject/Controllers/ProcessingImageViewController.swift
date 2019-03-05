@@ -85,6 +85,11 @@ class ProcessingImageViewController: UIViewController {
     // MARK: - UI Functions
     func initalUISetup(){
         // Change label's text, etc.
+        var bundlePath = Bundle.main.path(forResource: "coffeeOwl", ofType: "jpg")
+        self.splashScreenUIImage.image = UIImage(contentsOfFile: bundlePath!)
+        
+        bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
+        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
     }
     
     func finalUISetup(){
@@ -95,8 +100,12 @@ class ProcessingImageViewController: UIViewController {
             self.processingImageView.image = img
             UIView.transition(with: self.splashScreenUIImage, duration: 0.3, options: .transitionFlipFromTop, animations: {
                 self.splashScreenUIImage.alpha = 0
-            }, completion: nil)
+            }, completion: { (completed: Bool) in
+                self.splashScreenUIImage.image = nil
+            })
             self.startImageProcessing()
+        } else {
+            self.backToMainMenu()
         }
     }
     
@@ -412,20 +421,20 @@ class ProcessingImageViewController: UIViewController {
         // self.animatePartialContours()
         
         autoreleasepool { () -> () in
-        if let image = self.capturedImage {
-            DispatchQueue.main.async { [unowned self] in
-                self.processingImageView.image = OpenCVWrapper.draw_color_mask(image, withBound: self.bestBound)
+            if let image = self.capturedImage {
+                DispatchQueue.main.async { [unowned self] in
+                    self.processingImageView.image = OpenCVWrapper.draw_color_mask(image, withBound: self.bestBound)
+                }
             }
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [unowned self] in
-            
-            self.processingImageView.image = OpenCVWrapper.draw_color_mask(self.workingImage, withBound: self.bestBound)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [unowned self] in
                 
-                self.progressBar.progress += 0.07
-                self.animateFullContours()
-            })
-        }
+                self.processingImageView.image = OpenCVWrapper.draw_color_mask(self.workingImage, withBound: self.bestBound)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
+                    
+                    self.progressBar.progress += 0.07
+                    self.animateFullContours()
+                })
+            }
         }
     }
     
@@ -451,19 +460,19 @@ class ProcessingImageViewController: UIViewController {
         // self.animateBoundAndCircleContours()
         
         autoreleasepool { () -> () in
-        if let image = self.capturedImage {
-            let anim = ContourPartialCustomAnimation(targetView: self.processingImageView, image: image, bound: self.bestBound, completion: { [unowned self] in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [unowned self] in
-                    
-                    self.progressBar.progress += 0.07
-                    self.animateBoundAndCircleContours()
+            if let image = self.capturedImage {
+                let anim = ContourPartialCustomAnimation(targetView: self.processingImageView, image: image, bound: self.bestBound, completion: { [unowned self] in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [unowned self] in
+                        
+                        self.progressBar.progress += 0.07
+                        self.animateBoundAndCircleContours()
+                    })
                 })
-            })
-            
-            self.customAnimationsQueue.async {
-                anim.start()
+                
+                self.customAnimationsQueue.async {
+                    anim.start()
+                }
             }
-        }
         }
     }
     
@@ -472,18 +481,18 @@ class ProcessingImageViewController: UIViewController {
         // self.processingFinished()
         
         autoreleasepool { () -> () in
-        if let image = self.capturedImage {
-            let anim = ContourBoundCircleCustomAnimation(targetView: self.processingImageView, image: image, completion: { [unowned self] in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [unowned self] in
-                    
-                    self.progressBar.progress += 0.07
-                    self.processingFinished()
+            if let image = self.capturedImage {
+                let anim = ContourBoundCircleCustomAnimation(targetView: self.processingImageView, image: image, completion: { [unowned self] in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [unowned self] in
+                        
+                        self.progressBar.progress += 0.07
+                        self.processingFinished()
+                    })
                 })
-            })
-            self.customAnimationsQueue.async {
-                anim.start()
+                self.customAnimationsQueue.async {
+                    anim.start()
+                }
             }
-        }
         }
     }
     
@@ -499,11 +508,20 @@ class ProcessingImageViewController: UIViewController {
     
     // MARK: - Navigation
     func transitionToFortuneDisplay(){
-        let fortuneVC = self.storyboard?.instantiateViewController(withIdentifier: "fortuneViewControllerId") as! YourFortuneViewController
-        fortuneVC.capturedImage = self.capturedImage
-        fortuneVC.foundClasses = self.foundClasses
-        self.backgroundImageView.alpha = 0
-        self.navigationController?.pushViewController(fortuneVC, animated: true)
+        self.dismiss(animated: true) {
+            let fortuneVC = self.storyboard?.instantiateViewController(withIdentifier: "fortuneViewControllerId") as! YourFortuneViewController
+            fortuneVC.capturedImage = self.capturedImage
+            fortuneVC.foundClasses = self.foundClasses
+            self.backgroundImageView.alpha = 0
+            self.navigationController?.pushViewController(fortuneVC, animated: true)
+        }
+    }
+    
+    func backToMainMenu() {
+        DispatchQueue.main.async {
+            let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+        }
     }
     
     // MARK: - Other functions

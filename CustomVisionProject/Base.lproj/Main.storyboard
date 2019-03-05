@@ -125,7 +125,7 @@
                                 <rect key="frame" x="352" y="690" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <segue destination="Ajj-d0-5nB" kind="show" id="RI5-kD-Ro8"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="DIH-8s-nSB"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -233,6 +233,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Mi-3W-Tog" userLabel="BackgroundColor">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <color key="backgroundColor" name="BackgroundBrown"/>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SOK-XY-Kea">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
@@ -252,8 +256,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="4iX-nr-1o7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="17"/>
+                                <color key="textColor" name="NavigationText"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="iLd-Wb-10b">
@@ -268,12 +272,11 @@
                                     <segue destination="cDb-TW-iXF" kind="show" identifier="debugImageSegueIdentifier" id="sgf-HG-GER"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="darkLightBackground" translatesAutoresizingMaskIntoConstraints="NO" id="hyO-3W-II1">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="hyO-3W-II1">
                                 <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <gestureRecognizers/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="NavigationBackground"/>
                         <constraints>
                             <constraint firstItem="N8B-sd-WwQ" firstAttribute="top" secondItem="iLd-Wb-10b" secondAttribute="bottom" constant="8" id="3Gt-Qv-W9n"/>
                             <constraint firstItem="hyO-3W-II1" firstAttribute="trailing" secondItem="qQe-gy-u9E" secondAttribute="trailing" id="Ekh-rq-Tb0"/>
@@ -285,9 +288,13 @@
                             <constraint firstItem="SOK-XY-Kea" firstAttribute="leading" secondItem="yOj-D4-pBf" secondAttribute="leading" id="OWZ-gr-yd9"/>
                             <constraint firstItem="iLd-Wb-10b" firstAttribute="leading" secondItem="qQe-gy-u9E" secondAttribute="leading" id="Pym-5a-ihP"/>
                             <constraint firstItem="qQe-gy-u9E" firstAttribute="bottom" secondItem="hyO-3W-II1" secondAttribute="bottom" id="TDc-No-Vc5"/>
+                            <constraint firstItem="qQe-gy-u9E" firstAttribute="bottom" secondItem="4Mi-3W-Tog" secondAttribute="bottom" id="TTX-XT-WBO"/>
+                            <constraint firstItem="4Mi-3W-Tog" firstAttribute="leading" secondItem="qQe-gy-u9E" secondAttribute="leading" id="cqr-QB-OPE"/>
+                            <constraint firstItem="4Mi-3W-Tog" firstAttribute="top" secondItem="qQe-gy-u9E" secondAttribute="top" id="ixW-m8-1gW"/>
                             <constraint firstItem="N8B-sd-WwQ" firstAttribute="leading" secondItem="qQe-gy-u9E" secondAttribute="leading" constant="16" id="kX1-UH-mo2"/>
                             <constraint firstItem="hyO-3W-II1" firstAttribute="leading" secondItem="qQe-gy-u9E" secondAttribute="leading" id="mOv-Kc-agf"/>
                             <constraint firstAttribute="trailing" secondItem="SOK-XY-Kea" secondAttribute="trailing" id="n6P-9o-Byh"/>
+                            <constraint firstItem="qQe-gy-u9E" firstAttribute="trailing" secondItem="4Mi-3W-Tog" secondAttribute="trailing" id="tPH-5l-0hq"/>
                             <constraint firstItem="iLd-Wb-10b" firstAttribute="trailing" secondItem="qQe-gy-u9E" secondAttribute="trailing" id="thz-53-2M9"/>
                             <constraint firstItem="hyO-3W-II1" firstAttribute="top" secondItem="qQe-gy-u9E" secondAttribute="top" id="trK-G3-Wz9"/>
                             <constraint firstItem="r0p-Y2-jXc" firstAttribute="top" secondItem="N8B-sd-WwQ" secondAttribute="bottom" constant="3" id="xMk-a1-DpR"/>
@@ -324,22 +331,22 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="LiX-6H-AvZ">
-                                <rect key="frame" x="0.0" y="64" width="414" height="617"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="618"/>
                             </imageView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ENS-BZ-jfa">
-                                <rect key="frame" x="0.0" y="681" width="414" height="2"/>
+                                <rect key="frame" x="0.0" y="682" width="414" height="2"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Processing image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WOr-HU-qQf">
-                                <rect key="frame" x="16" y="699" width="382" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="16" y="700" width="382" height="20"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="17"/>
+                                <color key="textColor" name="NavigationText"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="owlBackground" translatesAutoresizingMaskIntoConstraints="NO" id="Os4-Ol-CAe">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Os4-Ol-CAe">
                                 <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="NavigationBackground"/>
+                        <color key="backgroundColor" name="BackgroundBrown"/>
                         <constraints>
                             <constraint firstItem="WOr-HU-qQf" firstAttribute="top" secondItem="ENS-BZ-jfa" secondAttribute="bottom" constant="16" id="0GK-df-1xR"/>
                             <constraint firstItem="CHI-7W-3hb" firstAttribute="bottom" secondItem="WOr-HU-qQf" secondAttribute="bottom" constant="16" id="14C-JM-iSr"/>
@@ -364,10 +371,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CHI-7W-3hb"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Image processing" id="eRd-TG-GsB"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="heartBackground"/>
-                    </userDefinedRuntimeAttributes>
+                    <navigationItem key="navigationItem" title="Image processing" id="eRd-TG-GsB">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="QYx-oq-X3b"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="backgroundImageView" destination="XD7-KW-35V" id="P5e-gi-OUd"/>
                         <outlet property="processingImageView" destination="LiX-6H-AvZ" id="AEZ-76-WSI"/>
@@ -477,17 +483,24 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                                     <action selector="shareButtonAction:" destination="Ajj-d0-5nB" eventType="primaryActionTriggered" id="oWq-kj-cuy"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i19-Ye-91R">
+                                <rect key="frame" x="0.0" y="64" width="600" height="790"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="NavigationBackground"/>
+                        <color key="backgroundColor" name="BackgroundBrown"/>
                         <constraints>
                             <constraint firstItem="hps-P1-X1w" firstAttribute="leading" secondItem="nWA-pl-Csq" secondAttribute="leading" constant="16" id="8uM-vs-YYf"/>
                             <constraint firstAttribute="bottom" secondItem="BRn-jB-l74" secondAttribute="bottom" id="Bom-lk-QGT"/>
                             <constraint firstItem="nWA-pl-Csq" firstAttribute="trailing" secondItem="hps-P1-X1w" secondAttribute="trailing" constant="16" id="D9e-ma-9B0"/>
+                            <constraint firstItem="nWA-pl-Csq" firstAttribute="trailing" secondItem="i19-Ye-91R" secondAttribute="trailing" id="Dji-IZ-Vaf"/>
+                            <constraint firstItem="i19-Ye-91R" firstAttribute="leading" secondItem="nWA-pl-Csq" secondAttribute="leading" id="Ijs-ni-6Td"/>
                             <constraint firstItem="BRn-jB-l74" firstAttribute="top" secondItem="hEP-fe-0x8" secondAttribute="top" id="J5G-gL-Xml"/>
                             <constraint firstItem="BRn-jB-l74" firstAttribute="leading" secondItem="hEP-fe-0x8" secondAttribute="leading" id="KJa-EW-93k"/>
                             <constraint firstItem="cou-Io-kCw" firstAttribute="top" secondItem="nWA-pl-Csq" secondAttribute="top" id="Qbq-os-pPs"/>
                             <constraint firstItem="nWA-pl-Csq" firstAttribute="bottom" secondItem="hps-P1-X1w" secondAttribute="bottom" constant="16" id="csQ-rW-hN6"/>
                             <constraint firstItem="hps-P1-X1w" firstAttribute="top" secondItem="cou-Io-kCw" secondAttribute="bottom" constant="8" id="e22-gE-iMj"/>
+                            <constraint firstItem="hps-P1-X1w" firstAttribute="top" secondItem="i19-Ye-91R" secondAttribute="bottom" id="flS-dF-iaq"/>
+                            <constraint firstItem="i19-Ye-91R" firstAttribute="top" secondItem="nWA-pl-Csq" secondAttribute="top" id="nSu-ni-s9b"/>
                             <constraint firstAttribute="trailing" secondItem="BRn-jB-l74" secondAttribute="trailing" id="pgu-vJ-d9v"/>
                             <constraint firstItem="Dom-s1-Jlo" firstAttribute="width" secondItem="nWA-pl-Csq" secondAttribute="width" id="sWu-rY-t51"/>
                             <constraint firstItem="cou-Io-kCw" firstAttribute="leading" secondItem="nWA-pl-Csq" secondAttribute="leading" id="sfh-Dd-POf"/>
@@ -496,7 +509,7 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                         <viewLayoutGuide key="safeArea" id="nWA-pl-Csq"/>
                     </view>
                     <navigationItem key="navigationItem" title="Your result" id="XhQ-he-XeC">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="N8x-wO-SNi">
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="N8x-wO-SNi">
                             <connections>
                                 <action selector="doneNavigationBarButton:" destination="Ajj-d0-5nB" id="lRP-hZ-YB0"/>
                             </connections>
@@ -609,9 +622,6 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                     <navigationItem key="navigationItem" title="Processing" id="dVJ-HK-Wl4">
                         <barButtonItem key="backBarButtonItem" title="Back" id="M6Q-ns-p9D"/>
                     </navigationItem>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="capturedImage" value="coffee14"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="croppedImage" destination="5dR-em-6or" id="hGY-9L-6dw"/>
                         <outlet property="imageProcessingStatus" destination="dTv-Wm-mFp" id="rLy-a0-jqs"/>
@@ -774,10 +784,11 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="exc-Sy-59l">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.97931915520000001" green="0.9800599217" blue="0.9794338346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" name="NavigationBackground"/>
+                        <color key="tintColor" name="NavigationText"/>
+                        <color key="barTintColor" name="TextBackground"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.97931915521621704" green="0.9800599217414856" blue="0.97943383455276489" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="21"/>
+                            <color key="textColor" name="NavigationText"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -792,21 +803,26 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
     </scenes>
     <resources>
         <image name="ApplicationLogo" width="1200" height="1551"/>
-        <image name="coffee14" width="3264" height="2448"/>
         <image name="coffee7" width="108" height="72"/>
-        <image name="darkLightBackground" width="307.20001220703125" height="205"/>
-        <image name="heartBackground" width="307.20001220703125" height="205"/>
-        <image name="owlBackground" width="1440" height="810"/>
+        <namedColor name="BackgroundBrown">
+            <color red="0.28627450980392155" green="0.1803921568627451" blue="0.10980392156862745" alpha="0.80400002002716064" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="NavigationBackground">
             <color red="0.058823529411764705" green="0.015686274509803921" blue="0.015686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="NavigationText">
             <color red="0.97254901960784312" green="0.59607843137254901" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="NavigationText">
+            <color red="0.97254901960784312" green="0.59607843137254901" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextBackground">
+            <color red="0.22352941176470589" green="0.12156862745098039" blue="0.058823529411764705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XnO-a8-hCj"/>
-        <segue reference="hOx-Iw-sDx"/>
         <segue reference="sgf-HG-GER"/>
+        <segue reference="DIH-8s-nSB"/>
     </inferredMetricsTieBreakers>
 </document>
