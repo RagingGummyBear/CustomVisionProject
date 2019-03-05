@@ -856,7 +856,6 @@ const float nn_match_ratio = 0.8f;
     //    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I1, 0);
     //    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I2, 0);
     //    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I3, 0);
-    
     //    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I1, 0);
     double resut = matchShapes(mask1, mask2, CONTOURS_MATCH_I2, 0);
     //    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I3, 0);
@@ -892,7 +891,6 @@ const float nn_match_ratio = 0.8f;
     
     vector<vector<cv::Point> > contours_poly( contours.size() ); // Mark -- this too
     vector<cv::Rect> boundRect( contours.size() ); // Mark -- square
-    
     
     for( int i = 0; i < contours.size(); i++ ){
         approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
@@ -942,9 +940,6 @@ const float nn_match_ratio = 0.8f;
     double g = 0;
     double b = 0;
     
-    //    cout << "Double max: " << DBL_MAX << "\n";
-    //    cout << "Image x: " << src.rows << " Image y: " << src.cols << "\n";
-    
     // Src is in BGR
     for (int x = 0 ; x < src.cols; ++x) {
         for (int y = 0 ; y < src.rows; ++y){
@@ -962,7 +957,6 @@ const float nn_match_ratio = 0.8f;
     
     return result;
 }
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1208,7 +1202,6 @@ const float nn_match_ratio = 0.8f;
     return MatToUIImage(temp);
 }
 
-
 // YELLOW PORSCHE SERIOUS USE!
 + (UIImage *) draw_color_maskPorsche: (UIImage *) image withBound:(CGRect) bound withThresh:(int) thresh {
     //////////////////////
@@ -1240,7 +1233,6 @@ const float nn_match_ratio = 0.8f;
     //    boundMask.copyTo(temp);
     return MatToUIImage(temp);
 }
-
 
 // USING FOR DEBUGING!!!
 + (UIImage *) draw_contour_python_bound_square: (UIImage *) image withThresh:(int) thresh {
@@ -1328,12 +1320,7 @@ const float nn_match_ratio = 0.8f;
     
     Scalar rectangleColor = Scalar( 248, 152, 30); // HACKERGREEN
     Scalar circleColor = Scalar( 248, 152, 30); // HACKERGREEN
-    
-    //    Scalar color = Scalar( 32, 194, 14); // HAKAR COLOR
-    
-    
-    //    rgb(12, 104, 252)
-    
+
     for( int i = 0; i< contours.size(); i++ )
     {
         rectangle( src, boundRect[i].tl(), boundRect[i].br(), rectangleColor, 2, 8, 0 );
@@ -1465,9 +1452,5 @@ const float nn_match_ratio = 0.8f;
     
     return result;
 }
-
-
-
-
 
 @end
