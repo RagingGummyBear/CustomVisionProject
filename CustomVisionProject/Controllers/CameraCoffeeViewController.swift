@@ -58,7 +58,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         // Do any additional setup after loading the view.
         
         if self.videoDevice == nil {
-            self.debugPhotoButtonAction(self)
+//            self.debugPhotoButtonAction(self)
         }
         
         DispatchQueue.main.async {

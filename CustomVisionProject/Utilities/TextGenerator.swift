@@ -31,7 +31,7 @@ class TextGenerator {
                 } else if className.contains("hist"){
                     result.append(self.short_hist(className: className))
                 } else if className.contains("background"){
-                    
+                    result.append(self.short_background(className: className))
                 }
             }
             completion(result)

@@ -45,12 +45,6 @@ class MainMenuViewController: UIViewController {
         DispatchQueue.main.async {
             self.finalUISetup()
         }
-        
-//        if let capturedPhoto = self.capturedPhoto {
-//            self.transitionToProcessingImage()
-//        } else if self.processingFoundClasses.count > 0 {
-//            self.transitionToYourFortune()
-//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -118,17 +118,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CustomVisionProject/Utilities/ImageComparator.swift"
-            timestampString = "574692194.5169261"
+            timestampString = "574700761.4875129"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "305"
             endingLineNumber = "305"
-            landmarkName = "findBestClassHistogramGrayCompare(image:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -138,29 +138,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CustomVisionProject/Utilities/ImageComparator.swift"
-            timestampString = "574692194.517009"
+            timestampString = "574700761.487646"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "489"
             endingLineNumber = "489"
-            landmarkName = "findTheBestBackgroundWithCoffee(image:bounds:completion:error:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CustomVisionProject/Utilities/ImageComparator.swift"
-            timestampString = "574692194.517087"
+            timestampString = "574700761.487718"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "302"
             endingLineNumber = "302"
-            landmarkName = "findBestClassHistogramGrayCompare(image:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
