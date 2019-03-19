@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/seavus/Documents/tutorials/CustomVisionProject/CustomVisionProject/Utilities/CustomUtility.swift">
-   </FileRef>
-   <FileRef
       location = "group:CustomVisionProject.xcodeproj">
    </FileRef>
    <FileRef

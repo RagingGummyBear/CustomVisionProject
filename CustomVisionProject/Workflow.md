@@ -8,10 +8,10 @@
     - Use multiple additional algorithms to get the subclasses for the image:
         * HU Moments ~ semi good. Might be used to determine the possition of the mugg in the image
         * Feature matching ~ not very good, either doesnt detect or it detects not relateable features
-        * Image simple thresholding ??? 
-        * Image back propagation
-        * Image histogram compare // Not doing well. Allways picks the fancy class
-        * Image grayscale histogram compare
+        * Image simple thresholding ??? (Not sure how to use) 
+        * Image back propagation ??? (Not sure how to sue)
+        * Image histogram compare on best bound and on whole image
+        * Image grayscale histogram compare on best bound and on whole image
         * Use RGB overall values for random prediction ~ for this algorithm cut coffee images required
     - Use edge contours, grayscale, bounding contours, color range contours as animations to the original image during the processing 
 
@@ -21,7 +21,7 @@
     - Mainscreen
         * Cool message on the top
         * Button for transition to the camera page
-        * Button for transition to the settings page
+        * Button for transition to the settings (About) page
         
     - Camera page
         * ImageView to display the camera
@@ -30,21 +30,15 @@
         
     - Processing page // With displaying the processing
         * Big imageView with animations ( not necessarily the Real processing animations but some cool looking anims )
-        * Smaller imageView with the original image
         * Label/progression bar to notify the user of current processing progression
-        * Discover your fortune button to transition the user to the fortune view
-        
-    - Processing page // without displaying the processing
-        * Big imageView with original image
-        * Label/Progression bar
-        * Discover your fortune button to transition the user to the fortune view
         
     - Fortune view 
-        * Share button top right???
         * Scroll View
-        * Big ImageView with original image
+        * ImageView with original image
         * Short description label
         * Long description about the fortune label
+        * Share button top right??? (allows the user to share the image with the short fortune text)
+        * Send like button on the bottom
 
 ## Additional assets:
 
@@ -54,24 +48,11 @@
 ### ComparingAssets:
     - Make assets with only coffee color from the top, side, angled
     - Make assets with clean coffee mug too aid the CoreML?
-    - Make assets with better textures for comparison
-
+    - Make assets with better textures for comparison ???
+    - Get background assets with coffee on them
 
 ## TODO:
-    - Quotes
-    - Camera indicator
-    - Processing animations: +++ SemiDone
-    - Figure out how to classify the processing image (using histogram, tryout feature extraction, hucompare?, mask?)
-    - IMPROVE MEMORY USAGE
+    - Acquisition of new images for the classifier and new images for the histogram bounds compare
+    - Acquire images for background with coffee compare --- BIG MUST
     
 ## BUGS:
-    - Potential memory leak in the camera view controller
-    - Main view quote speeds up
-    - TOO MUCH MEMORY USAGE
-
-### Memory leak:
-    - Remove unnecessery view controllers from navigation view
-    - Surface_IO in the camera view
-    - UILabel ????
-    - On completion for the splashscreens, remove them from memory using the imageView.image = nil
-    

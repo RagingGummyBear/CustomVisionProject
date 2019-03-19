@@ -30,7 +30,8 @@ class ProcessingImageViewController: UIViewController {
     
     var processingStarted = false
     
-    var foundClasses = [String]()
+    public var foundClasses = [String]()
+    public var parentReturn : (([String]) -> ())?
     
     // CustomAnimation references
     
@@ -81,6 +82,14 @@ class ProcessingImageViewController: UIViewController {
         
         ImageComparator.shared().releaseAll()
     }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent:parent)
+        if parent == nil {
+            self.navigationController?.setNavigationBarHidden(true, animated: false)
+        }
+    }
+    
     
     // MARK: - UI Functions
     func initalUISetup(){
@@ -208,18 +217,18 @@ class ProcessingImageViewController: UIViewController {
             
             if blue > green {
                 if blue > red {
-                    print("Biggest blue: \(blue)")
+//                    print("Biggest blue: \(blue)")
                     self.foundClasses.append("rgb-full-blue")
                 } else {
-                    print("Biggest red: \(red)")
+//                    print("Biggest red: \(red)")
                     self.foundClasses.append("rgb-full-red")
                 }
             } else {
                 if green > red {
-                    print("Biggest green: \(green)")
+//                    print("Biggest green: \(green)")
                     self.foundClasses.append("rgb-full-green")
                 } else {
-                    print("Biggest red: \(red)")
+//                    print("Biggest red: \(red)")
                     self.foundClasses.append("rgb-full-red")
                 }
             }
@@ -242,18 +251,18 @@ class ProcessingImageViewController: UIViewController {
 
             if blue > green {
                 if blue > red {
-                    print("Biggest blue: \(blue)")
+//                    print("Biggest blue: \(blue)")
                     self.foundClasses.append("rgb-partial-blue")
                 } else {
-                    print("Biggest red: \(red)")
+//                    print("Biggest red: \(red)")
                     self.foundClasses.append("rgb-partial-red")
                 }
             } else {
                 if green > red {
-                    print("Biggest green: \(green)")
+//                    print("Biggest green: \(green)")
                     self.foundClasses.append("rgb-partial-green")
                 } else {
-                    print("Biggest red: \(red)")
+//                    print("Biggest red: \(red)")
                     self.foundClasses.append("rgb-partial-red")
                 }
             }
@@ -262,7 +271,6 @@ class ProcessingImageViewController: UIViewController {
         DispatchQueue.main.async {
             self.progressBar.progress += 0.07
         }
-        
     }
     
     func getFullHistogramComparisonClass(){
@@ -310,6 +318,7 @@ class ProcessingImageViewController: UIViewController {
     func findTopBounds(){
         DispatchQueue.global(qos: .background).async { [unowned self] in
             if let image = self.capturedImage {
+                
                 let array = OpenCVWrapper.contour_python_bound_square(image, withThresh: Int32(1))
                 for elem in array {
                     if let rect = elem as? CGRect {
@@ -321,6 +330,7 @@ class ProcessingImageViewController: UIViewController {
                         }
                     }
                 }
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { [unowned self] in
                     self.findBestBound()
                     self.progressBar.progress += 0.07
@@ -338,7 +348,7 @@ class ProcessingImageViewController: UIViewController {
             autoreleasepool { () -> () in
                 ImageComparator.shared().findBestCropHistogramCompare(originalImage: image, bounds: self.selectedImageRect, completion: { [unowned self] (bestResult: Double, bestClass: String, croppedImage: UIImage, bestBound: CGRect) in
                     
-                    print("Color histogram result: \(bestResult)")
+//                    print("Color histogram result: \(bestResult)")
                     
                     self.privateThreadSafeQueue.sync { [unowned self] in
                         if self.bestResult < bestResult {
@@ -376,7 +386,6 @@ class ProcessingImageViewController: UIViewController {
                 
                 ImageComparator.shared().findBestCropHistogramGrayCompare(originalImage: image, bounds: self.selectedImageRect, completion: { [unowned self] (bestResult: Double, bestClass: String, croppedImage: UIImage, bestBound: CGRect) in
                     
-                    print("Gray histogram result: \(bestResult)")
                     self.privateThreadSafeQueue.sync { [unowned self] in
                         if self.bestResult < bestResult {
                             self.bestBound = bestBound
@@ -432,9 +441,43 @@ class ProcessingImageViewController: UIViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
                     
                     self.progressBar.progress += 0.07
-                    self.animateFullContours()
+                    self.applyPartialGrayscaleReversed()
                 })
             }
+        }
+    }
+    
+    func applyPartialGrayscaleReversed(){
+        // On finish
+        // self.animatePartialContours()
+        // TODO: make the background comparison here
+        autoreleasepool { () -> () in
+            if let image = self.capturedImage {
+                DispatchQueue.main.async { [unowned self] in
+                    self.processingImageView.image = OpenCVWrapper.draw_color_mask_reversed(image, withBound: self.bestBound)
+                }
+                
+                ImageComparator.shared().findTheBestBackgroundWithoutCoffee(image: image, bestBound: self.bestBound, completion: { (result:Double, backgroundClass: String, backgroundImage: UIImage) in
+                    
+                    
+                    self.foundClasses.append(backgroundClass)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [unowned self] in
+                        
+                        //                self.processingImageView.image = OpenCVWrapper.draw_color_mask_reversed(self.workingImage, withBound: self.bestBound)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
+                            
+                            self.progressBar.progress += 0.07
+                            self.animateFullContours()
+                        })
+                    }
+                    
+                }, error: { (msg:String) in
+                    print("ProcessingImageViewController -> applyPartialGrayscaleReversed: Error while executing function with message: \(msg)")
+                })
+            }
+            
+            
         }
     }
     
@@ -508,12 +551,14 @@ class ProcessingImageViewController: UIViewController {
     
     // MARK: - Navigation
     func transitionToFortuneDisplay(){
-        self.dismiss(animated: true) {
-            let fortuneVC = self.storyboard?.instantiateViewController(withIdentifier: "fortuneViewControllerId") as! YourFortuneViewController
-            fortuneVC.capturedImage = self.capturedImage
-            fortuneVC.foundClasses = self.foundClasses
-            self.backgroundImageView.alpha = 0
-            self.navigationController?.pushViewController(fortuneVC, animated: true)
+        
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: false)
+            if let completion = self.parentReturn {
+                if self.foundClasses.count > 0 {
+                    completion(self.foundClasses)
+                }
+            }
         }
     }
     

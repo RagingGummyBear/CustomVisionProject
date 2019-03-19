@@ -30,6 +30,8 @@ class TextGenerator {
                     result.append(self.short_rgb(className: className))
                 } else if className.contains("hist"){
                     result.append(self.short_hist(className: className))
+                } else if className.contains("background"){
+                    
                 }
             }
             completion(result)
@@ -219,15 +221,94 @@ class TextGenerator {
         return "Luck"
     }
     
+    // MARK: - Short Background
+    private func short_background(className: String) -> String {
+        
+        if className.contains("white"){
+            return self.generateShortTextBackgroundWhite()
+        } else if className.contains("blue") {
+            return self.generateShortTextBackgroundWhite()
+        } else if className.contains("green") {
+            return self.generateShortTextBackgroundGreen()
+        } else if className.contains("red") {
+            return self.generateShortTextBackgroundRed()
+        } else if className.contains("brown") {
+            return self.generateShortTextBackgroundBrown()
+        } else if className.contains("asphalt") {
+            return self.generateShortTextBackgroundAsphalt()
+        }
+        return ""
+    }
+    
+    private func generateShortTextBackgroundBrown() -> String {
+        return "Brown background"
+    }
+    
+    private func generateShortTextBackgroundAsphalt() -> String {
+        return "Asphalt background"
+    }
+    
+    private func generateShortTextBackgroundGreen() -> String {
+        return "Green background"
+    }
+    
+    private func generateShortTextBackgroundBlue() -> String {
+        return "Blue background"
+    }
+    
+    private func generateShortTextBackgroundRed() -> String {
+        return "Red background"
+    }
+    
+    private func generateShortTextBackgroundWhite() -> String {
+        return "White background"
+    }
+    
     
     // MARK: - Long text functions
     
-    // MARK: - Witty coffee quotes
+    // MARK: - Long Background
     
-    class func fetchCoffeeQuote() -> String {
-     
-        return "Random"
+    private func long_background(className: String) -> String {
+        if className.contains("white"){
+            return self.generateLongTextBackgroundWhite()
+        } else if className.contains("blue") {
+            return self.generateLongTextBackgroundWhite()
+        } else if className.contains("green") {
+            return self.generateLongTextBackgroundGreen()
+        } else if className.contains("red") {
+            return self.generateLongTextBackgroundRed()
+        } else if className.contains("brown") {
+            return self.generateLongTextBackgroundBrown()
+        } else if className.contains("asphalt") {
+            return self.generateLongTextBackgroundAsphalt()
+        }
+        return ""
     }
     
+    private func generateLongTextBackgroundBrown() -> String {
+        return "Brown background"
+    }
+    
+    private func generateLongTextBackgroundAsphalt() -> String {
+        return "Asphalt background"
+    }
+    
+    private func generateLongTextBackgroundGreen() -> String {
+        return "Green background"
+    }
+    
+    private func generateLongTextBackgroundBlue() -> String {
+        return "Blue background"
+    }
+    
+    private func generateLongTextBackgroundRed() -> String {
+        return "Red background"
+    }
+    
+    private func generateLongTextBackgroundWhite() -> String {
+        return "White background"
+    }
+    // MARK: - Long text functions
     
 }

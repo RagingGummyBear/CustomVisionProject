@@ -30,6 +30,7 @@ class YourFortuneViewController: UIViewController {
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
+        self.shareImage()
     }
     
     @IBAction func sendLikeButtonAction(_ sender: Any) {
@@ -49,17 +50,18 @@ class YourFortuneViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.backgroundImageView.alpha = 0
+        UIView.animate(withDuration: 0.1) {
+            self.backgroundImageView.alpha = 0
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.capturedImage = nil
-        self.originalImageView.image = nil
-        self.shortDescriptionLabel.text = nil
-        self.fullDescriptionLabel.text = nil
-        self.backgroundImageView.image = nil
-        
+//        self.originalImageView.image = nil
+//        self.shortDescriptionLabel.text = nil
+//        self.fullDescriptionLabel.text = nil
+//        self.backgroundImageView.image = nil
     }
     
     // MARK: - UI Functions
@@ -71,7 +73,14 @@ class YourFortuneViewController: UIViewController {
         self.textGenerator.foundClasses = self.foundClasses
         self.textGenerator.generateShortText { (result: String) in
             DispatchQueue.main.async {
-                self.shortDescriptionLabel.text = result
+//                self.shortDescriptionLabel.text = result
+                var shortLabel = ""
+                for foundClass in self.foundClasses {
+                    shortLabel += foundClass + ", "
+                }
+                
+                self.shortDescriptionLabel.text = shortLabel
+//                self.shortDescriptionLabel.text = self.foundClasses
             }
         }
         self.setUpNavigationBar()
@@ -93,13 +102,19 @@ class YourFortuneViewController: UIViewController {
     }
     
     // MARK: - Custom functions
+    func shareImage() {
+        let img = self.capturedImage
+        let messageStr = self.shortDescriptionLabel.text
+        let activityViewController:UIActivityViewController = UIActivityViewController(activityItems:  [img!, messageStr], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [UIActivity.ActivityType.print, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.copyToPasteboard, UIActivity.ActivityType.addToReadingList, UIActivity.ActivityType.postToVimeo]
+        self.present(activityViewController, animated: true, completion: nil)
+        
+    }
 
     // MARK: - Navigation
     func backToMainMenu() {
         DispatchQueue.main.async {
-            let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 4], animated: true)
-//            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 2], animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
     }
 

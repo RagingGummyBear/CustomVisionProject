@@ -105,7 +105,7 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
             
             ImageComparator.shared().findBestCropHistogramCompare(originalImage: image, bounds: self.foundCropBounds, completion: { (bestResult: Double, bestClass: String, croppedImage: UIImage, bestBound: CGRect) in
                 
-                print("Color histogram result: \(bestResult)")
+//                print("Color histogram result: \(bestResult)")
                 DispatchQueue.main.async {
 //                    self.processingImageView.image = croppedImage
                     self.croppedImage.image = croppedImage
@@ -127,7 +127,6 @@ class ImageProcessingViewController: UIViewController, AVCaptureVideoDataOutputS
             
             ImageComparator.shared().findBestCropHistogramGrayCompare(originalImage: image, bounds: self.foundCropBounds, completion: { (bestResult: Double, bestClass: String, croppedImage: UIImage, bestBound: CGRect) in
                 
-                print("Gray histogram result: \(bestResult)")
                 DispatchQueue.main.async {
                     self.processingImageView.image = croppedImage
                     self.worstCrop.image = croppedImage

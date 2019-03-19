@@ -261,11 +261,10 @@ class CleanProcessingViewController: UIViewController {
         print("HERE WE STOP FOR NOW")
         print("We shall continiue")
         
-        
         if let image = self.capturedImage {
             ImageComparator.shared().findBestCropHistogramCompare(originalImage: image, bounds: self.selectedImageRect, completion: { (bestResult: Double, bestClass: String, croppedImage: UIImage, bestBound: CGRect) in
                 
-                print("Color histogram result: \(bestResult)")
+//                print("Color histogram result: \(bestResult)")
 
                 self.privateThreadSafeQueue.sync {
                     if self.bestResult < bestResult {
@@ -298,7 +297,6 @@ class CleanProcessingViewController: UIViewController {
             
             ImageComparator.shared().findBestCropHistogramGrayCompare(originalImage: image, bounds: self.selectedImageRect, completion: { (bestResult: Double, bestClass: String, croppedImage: UIImage, bestBound: CGRect) in
                 
-                print("Gray histogram result: \(bestResult)")
                 DispatchQueue.main.async {
                 }
                 self.privateThreadSafeQueue.sync {

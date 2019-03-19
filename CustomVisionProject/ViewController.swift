@@ -31,12 +31,9 @@ class ViewController: UIViewController {
         let resultColorHist = OpenCVWrapper.compare(usingHistograms: image, with: image2)
         let resultColorGray = OpenCVWrapper.compare(usingGrayScaleHistograms: image, with: image2)
         print("Color result: \(resultColorHist) Gray result: \(resultColorGray)")
-//        OpenCVWrapper.compareHistograms(image, with: image2)
         print("Converted compare")
-//        let result = OpenCVWrapper.create_histogram_color(image2)
 //        print(result);
         // NEEDS BETTER RESULTS
-        OpenCVWrapper.compareHistograms(image, withHistogramArray: OpenCVWrapper.create_histogram_color(image2))
         print("Normal compare AGANE!")
         OpenCVWrapper.compare(usingHistograms: image, with: image2)
         
@@ -47,7 +44,6 @@ class ViewController: UIViewController {
         })
         
 //        print(HistogramHandler.shared().findTheBestClass(image: #imageLiteral(resourceName: "coffee18")))
-//        OpenCVWrapper.compareHistograms(OpenCV, with: T##UIImage)
         //
         
 //        HistogramHandler.shared().generateHistograms()

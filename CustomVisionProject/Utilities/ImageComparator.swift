@@ -18,9 +18,12 @@ class ImageComparator {
     private var lightCoffeeArray: [UIImage] = []
     private var fancyCoffeeArray: [UIImage] = []
     
+    private var backgroundWithCoffee : [ImageClassBundle] = []
+    private var backgroundWithoutCoffee : [ImageClassBundle] = []
+    
+    
     // MARK: - Init function
     private init() {
-        
 //        self.dispatchQueue.async {
 //            self.fillUpDarkCoffeeArray()
 //        }
@@ -34,25 +37,48 @@ class ImageComparator {
 //        }
     }
     
-    
     public func fillUpAll(){
-        fillUpDarkCoffeeArray()
-        fillUpLightCoffeeArray()
-        fillUpFancyCoffeeArray()
+        self.fillUpDarkCoffeeArray()
+        self.fillUpLightCoffeeArray()
+        self.fillUpFancyCoffeeArray()
+        self.fillUpBackgroundWithCoffee()
+        self.fillUpBackgroundWithoutCoffee()
     }
     
     public func releaseAll(){
         self.releaseDarkCoffeeArray()
         self.releaseFancyCoffeeArray()
         self.releaseLightCoffeeArray()
+        self.releaseBackgroundWithCoffee()
+        self.releaseBackgroundWithoutCoffee()
     }
     
     // MARK: - Data generation and release functions
+    private func fillUpBackgroundWithCoffee(){
+        // TODO: MAKE THIS HAPPEN!
+    }
+    
+    private func fillUpBackgroundWithoutCoffee(){
+        var bundlePath = Bundle.main.path(forResource: "background_without_coffee_1", ofType: "jp2")
+        self.backgroundWithoutCoffee.append(ImageClassBundle(image: UIImage(contentsOfFile: bundlePath!)!, imageClass: "background-white"))
+        
+        bundlePath = Bundle.main.path(forResource: "background_without_coffee_2", ofType: "jpeg")
+        self.backgroundWithoutCoffee.append(ImageClassBundle(image: UIImage(contentsOfFile: bundlePath!)!, imageClass: "background-blue"))
+        
+        bundlePath = Bundle.main.path(forResource: "background_without_coffee_3", ofType: "jpeg")
+        self.backgroundWithoutCoffee.append(ImageClassBundle(image: UIImage(contentsOfFile: bundlePath!)!, imageClass: "background-green"))
+        
+        bundlePath = Bundle.main.path(forResource: "background_without_coffee_4", ofType: "jpg")
+        self.backgroundWithoutCoffee.append(ImageClassBundle(image: UIImage(contentsOfFile: bundlePath!)!, imageClass: "background-red"))
+
+        bundlePath = Bundle.main.path(forResource: "background_without_coffee_5", ofType: "jpg")
+        self.backgroundWithoutCoffee.append(ImageClassBundle(image: UIImage(contentsOfFile: bundlePath!)!, imageClass: "background-brown"))
+        
+        bundlePath = Bundle.main.path(forResource: "background_without_coffee_6", ofType: "jpg")
+        self.backgroundWithoutCoffee.append(ImageClassBundle(image: UIImage(contentsOfFile: bundlePath!)!, imageClass: "background-asphalt"))
+    }
+    
     private func fillUpDarkCoffeeArray(){
-//        self.darkCoffeeArray.append(#imageLiteral(resourceName: "dark_coffee_4"))
-//        self.darkCoffeeArray.append(#imageLiteral(resourceName: "dark_coffee_1"))
-//        self.darkCoffeeArray.append(#imageLiteral(resourceName: "dark_coffee_3"))
-//        self.darkCoffeeArray.append(#imageLiteral(resourceName: "dark_coffee_2"))
         
         var bundlePath = Bundle.main.path(forResource: "dark_coffee_1", ofType: "jpg")
         self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
@@ -68,10 +94,6 @@ class ImageComparator {
     }
     
     private func fillUpLightCoffeeArray(){
-//        self.lightCoffeeArray.append(#imageLiteral(resourceName: "light_coffee_4"))
-//        self.lightCoffeeArray.append(#imageLiteral(resourceName: "light_coffee_2"))
-//        self.lightCoffeeArray.append(#imageLiteral(resourceName: "light_coffee_1"))
-//        self.lightCoffeeArray.append(#imageLiteral(resourceName: "light_coffee_3"))
         
         var bundlePath = Bundle.main.path(forResource: "light_coffee_1", ofType: "jpg")
         self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
@@ -87,9 +109,6 @@ class ImageComparator {
     }
     
     private func fillUpFancyCoffeeArray(){
-//        self.fancyCoffeeArray.append(#imageLiteral(resourceName: "fancy_coffe_3"))
-//        self.fancyCoffeeArray.append(#imageLiteral(resourceName: "fancy_coffee_2"))
-//        self.fancyCoffeeArray.append(#imageLiteral(resourceName: "fancy_coffee_1"))
         
         var bundlePath = Bundle.main.path(forResource: "fancy_coffee_1", ofType: "jpg")
         self.darkCoffeeArray.append(UIImage(contentsOfFile: bundlePath!)!)
@@ -111,6 +130,14 @@ class ImageComparator {
     
     private func releaseFancyCoffeeArray(){
         self.fancyCoffeeArray = []
+    }
+    
+    private func releaseBackgroundWithCoffee(){
+        self.backgroundWithCoffee = []
+    }
+    
+    private func releaseBackgroundWithoutCoffee(){
+        self.backgroundWithoutCoffee = []
     }
     
     // MARK: - Compare functions
@@ -179,8 +206,8 @@ class ImageComparator {
     public func findBestCropHistogramCompare(originalImage: UIImage, bounds: [CGRect], completion: @escaping (Double, String, UIImage, CGRect)->(), error: ((String)->())? ){
         self.dispatchQueue.async {
             var bestResult = 0.0
-            var bestImage:UIImage?
-            var bestClass:String = "None"
+            var bestImage: UIImage?
+            var bestClass: String = "None"
             var bestBound: CGRect = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
             
             for bound in bounds {
@@ -206,6 +233,28 @@ class ImageComparator {
             
             completion(bestResult, bestClass, bestImageMatch, bestBound)
         }
+    }
+    
+    private func findBestCropHistogramCompare(originalImage: UIImage, bounds: [CGRect]) -> (Double, String, UIImage, CGRect) {
+
+            var bestResult = 0.0
+            var bestImage: UIImage!
+            var bestClass: String = "None"
+            var bestBound: CGRect = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
+            
+            for bound in bounds {
+                let croppedImg = CustomUtility.cropImage(imageToCrop: originalImage, toRect: bound)
+                let (tempResult, tempClass, _) = self.findBestClassHistogramCompare(image: croppedImg)
+                
+                if tempResult > bestResult {
+                    bestResult = tempResult
+                    bestImage = croppedImg
+                    bestClass = tempClass
+                    bestBound = bound
+                }
+            }
+        
+            return (bestResult, bestClass, bestImage, bestBound)
     }
     
     //////////////////////////////
@@ -286,17 +335,14 @@ class ImageComparator {
                     bestClass = tempClass
                     bestBound = bound
                 }
-                
             }
             
             guard let bestImageMatch = bestImage else {
                 if let error = error {
                     error("ImageComparator -> findBestCropHistogramGrayCompare: Error parsing the image, maybe no image was found? Or there is bug?")
                 }
-                
                 return
             }
-            
             completion(bestResult, bestClass, bestImageMatch, bestBound)
         }
     }
@@ -420,7 +466,78 @@ class ImageComparator {
     
     
     // MARK: - Other functions
+    public func findTheBestBackgroundWithCoffee(image:UIImage, bounds:[CGRect], completion: @escaping (Double, String, UIImage)->(), error: ((String)->())? ){
+        self.dispatchQueue.async {
+            var workingImageBounds = [CGRect]()
+            
+            let array = OpenCVWrapper.contour_python_bound_square(image, withThresh: Int32(1))
+            for elem in array {
+                if let rect = elem as? CGRect {
+                    workingImageBounds.append(rect)
+                }
+            }
+            
+            var bestCompareResult = 0.0
+            var bestBackgroundClass = "None"
+            var bestBackgroundImage: UIImage!
+            
+            let (_, _, _, bestBound) = self.findBestCropHistogramCompare(originalImage: image, bounds: bounds )
+            
+            for backgroundBundle in self.backgroundWithCoffee {
 
+                var backgroundBounds = [CGRect]()
+                
+                let array = OpenCVWrapper.contour_python_bound_square(backgroundBundle.image, withThresh: Int32(1))
+                for elem in array {
+                    if let rect = elem as? CGRect {
+                        backgroundBounds.append(rect)
+                    }
+                }
+                
+                let (_, _, _, bestBackgroundBound) = self.findBestCropHistogramCompare(originalImage: backgroundBundle.image, bounds: bounds)
+                
+                let compareResult = OpenCVWrapper.compare(usingHistograms: image, withBound: bestBound, with: backgroundBundle.image, withBound: bestBackgroundBound)
+                
+                if compareResult > bestCompareResult {
+                    bestCompareResult = compareResult
+                     bestBackgroundClass = backgroundBundle.imageClass
+                    bestBackgroundImage = backgroundBundle.image
+                }
+            }
+            completion(bestCompareResult, bestBackgroundClass, bestBackgroundImage)
+        }
+    }
+    
+    public func findTheBestBackgroundWithoutCoffee(image:UIImage, bestBound:CGRect, completion: @escaping (Double, String, UIImage)->(), error: ((String)->())? ){
+        self.dispatchQueue.async {
+            
+            var bestCompareResult = 0.0
+            var bestBackgroundClass = "None"
+            var bestBackgroundImage: UIImage!
+            
+//            let (_, _, _, bestBound) = self.findBestCropHistogramCompare(originalImage: image, bounds: bounds )
+            
+            for backgroundBundle in self.backgroundWithoutCoffee {
+                var backgroundBounds = [CGRect]()
+                
+                let array = OpenCVWrapper.contour_python_bound_square(backgroundBundle.image, withThresh: Int32(1))
+                for elem in array {
+                    if let rect = elem as? CGRect {
+                        backgroundBounds.append(rect)
+                    }
+                }
+                
+                let compareResult = OpenCVWrapper.compare(usingHistograms: image, withBound: bestBound, with: backgroundBundle.image)
+                
+                if compareResult > bestCompareResult {
+                    bestCompareResult = compareResult
+                    bestBackgroundClass = backgroundBundle.imageClass
+                    bestBackgroundImage = backgroundBundle.image
+                }
+            }
+            completion(bestCompareResult, bestBackgroundClass, bestBackgroundImage)
+        }
+    }
     
     // MARK: - Singleton implementation
     private static var singletonPrivateInstance: ImageComparator = {
@@ -436,4 +553,10 @@ class ImageComparator {
         return singletonPrivateInstance
     }
     
+}
+
+
+private struct ImageClassBundle {
+    var image: UIImage!
+    var imageClass: String
 }
