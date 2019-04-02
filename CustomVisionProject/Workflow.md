@@ -52,6 +52,8 @@
     - Get background assets with coffee on them
 
 ## TODO:
+    - Try to make better detection for the coffee color using OpenCV ( so we can remove the comparison and reduce the cpu stress )
+    - if the above is successful then try to implement it for the backgrounds ( this will also reduce the cpu stress ) 
     - Acquisition of new images for the classifier and new images for the histogram bounds compare
     - Acquire images for background with coffee compare --- BIG MUST
     

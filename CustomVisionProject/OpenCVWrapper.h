@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSMutableArray *) contour_python_bound_square: (UIImage *) image withThresh:(int) thresh; // USING
 
++ (UIImage *) get_color_content: (UIImage *) image; // TESTING
+
 @end
 
 NS_ASSUME_NONNULL_END

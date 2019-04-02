@@ -39,7 +39,7 @@ class CombinedProcessingImageViewController: UIViewController {
     var colorHistogramResult = -10.0
     var grayHistogramResult = -10.0
     
-    var bestResult = -10.0
+//    var bestResult = -10.0
     var bestClass = "N/A"
     var bestBound = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
     

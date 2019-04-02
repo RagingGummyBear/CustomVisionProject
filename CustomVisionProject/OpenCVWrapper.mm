@@ -546,7 +546,6 @@ using namespace cv;
     cvtColor(src, temp, COLOR_BGR2GRAY);
     cvtColor(temp, temp, COLOR_GRAY2BGR);
     
-    
     src.copyTo(temp, mask);
     return MatToUIImage(temp);
 }
@@ -752,5 +751,74 @@ using namespace cv;
     
     return result;
 }
+
+// ///////////////////////// //
+// /// Testing functions /// //
+// ///////////////////////// //
+
++ (UIImage *) get_color_content: (UIImage *) image {
+    // https://www.learnopencv.com/invisibility-cloak-using-color-detection-and-segmentation-with-opencv/
+    
+    //////////////////////
+    //    int max_thresh = 255;
+    RNG rng(12345);
+    //////////////////////
+    
+    Mat src; Mat src_gray; UIImageToMat(image, src);
+    Mat temp; cvtColor(src, temp, COLOR_BGR2RGB);
+    // Convert image to gray and blur it
+    Mat src_blurred; GaussianBlur(src, src_blurred, cv::Size(5,5), 0);
+    Mat hsv; cvtColor( src_blurred, hsv, COLOR_BGR2HSV );
+    
+        Vec3b lowerC = cv::Vec3b(31,24,18); // RBG Values
+        Vec3b upperC = cv::Vec3b(180,170,160); // RBG values
+    
+//    Vec3b lowerC = cv::Vec3b(15,20,25); // BGR Values
+//    Vec3b upperC = cv::Vec3b(105,155,190); // BGR values
+    
+    Mat mask; inRange(hsv, lowerC, upperC, mask);
+    vector<vector<cv::Point> > contours;
+    vector<Vec4i> hierarchy;
+    
+    //    findContours(mask, contours, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    findContours(mask, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    //    findContours( hsv, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
+    cvtColor(temp, src, COLOR_RGB2BGR);
+    for( int i = 0; i< contours.size(
+        ); i++ ){
+        if( cv::contourArea(contours[i]) > 5000){
+            Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+            //            cv::drawContours(src, contours[i], -1, color, 3);
+            drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
+        }
+    }
+    
+    // return MatToUIImage(mask);
+//    return MatToUIImage(src);
+    
+    Mat frame;
+    // Capture frame-by-frame
+    
+    // Laterally invert the image / flip the image
+    flip(frame,frame,1);
+    
+    //Converting image from BGR to HSV color space.
+    UIImageToMat(image, src);
+    inRange(hsv, lowerC, upperC, mask);
+    
+    Mat mask1,mask2;
+    // Creating masks to detect the upper and lower red color.
+    inRange(hsv, Scalar(17, 45, 75), Scalar(15, 40, 10), mask1);
+//    inRange(hsv, Scalar(170, 120, 70), Scalar(180, 255, 255), mask2);
+    
+    // Generating the final mask
+//    mask1 = mask1 + mask2;
+    
+    
+    // return MatToUIImage(mask);
+    return MatToUIImage(mask);
+}
+
+//////////////////////////////////////////
 
 @end

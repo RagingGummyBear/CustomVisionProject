@@ -41,6 +41,7 @@
 		7D6240D922281C9E00A70D53 /* ContourBoundCircleCustomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6240D822281C9E00A70D53 /* ContourBoundCircleCustomAnimation.swift */; };
 		7D6FDC6D22291DF5007F8CC4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6FDC6C22291DF5007F8CC4 /* Extensions.swift */; };
 		7D7BF8FE22533AE700F9CAF1 /* CombinedProcessingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7BF8FD22533AE700F9CAF1 /* CombinedProcessingImageViewController.swift */; };
+		7D87CD3E2253A9A5001E9C69 /* OpenCVTestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D87CD3D2253A9A5001E9C69 /* OpenCVTestingViewController.swift */; };
 		7D8CF300222D875500421CD1 /* steamyCoffe.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CF29A222D875400421CD1 /* steamyCoffe.jpg */; };
 		7D8CF307222D875500421CD1 /* coffeeOwl.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CF2A8222D875400421CD1 /* coffeeOwl.jpg */; };
 		7D8CF30C222D875500421CD1 /* heartCoffee.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CF2AF222D875400421CD1 /* heartCoffee.jpg */; };
@@ -150,6 +151,7 @@
 		7D6240D822281C9E00A70D53 /* ContourBoundCircleCustomAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContourBoundCircleCustomAnimation.swift; sourceTree = "<group>"; };
 		7D6FDC6C22291DF5007F8CC4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7D7BF8FD22533AE700F9CAF1 /* CombinedProcessingImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedProcessingImageViewController.swift; sourceTree = "<group>"; };
+		7D87CD3D2253A9A5001E9C69 /* OpenCVTestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenCVTestingViewController.swift; sourceTree = "<group>"; };
 		7D8CF29A222D875400421CD1 /* steamyCoffe.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = steamyCoffe.jpg; sourceTree = "<group>"; };
 		7D8CF2A8222D875400421CD1 /* coffeeOwl.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffeeOwl.jpg; sourceTree = "<group>"; };
 		7D8CF2AF222D875400421CD1 /* heartCoffee.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = heartCoffee.jpg; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 		7D1B7E3E224E26A0008B0FE2 /* Debug Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7D87CD3D2253A9A5001E9C69 /* OpenCVTestingViewController.swift */,
 			);
 			path = "Debug Controllers";
 			sourceTree = "<group>";
@@ -809,6 +812,7 @@
 				7DE532DF22522FE90078A07C /* UserDefineRectBoundController.swift in Sources */,
 				7D6240D52227F0B900A70D53 /* ContourLinesCustomAnimation.swift in Sources */,
 				7D6240D22227EB9300A70D53 /* CustomAnimation.swift in Sources */,
+				7D87CD3E2253A9A5001E9C69 /* OpenCVTestingViewController.swift in Sources */,
 				7DCEFC792212FAEC00F59A37 /* CustomVisionProject.xcdatamodeld in Sources */,
 				7DCEFCAE2212FFFC00F59A37 /* ImageData.swift in Sources */,
 				7DBAFD372226E7EA00BBC36C /* QuoteModel.swift in Sources */,

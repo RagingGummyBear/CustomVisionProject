@@ -27,7 +27,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     public var parentReturn : ((UIImage) -> ())?
     
     // MARK: - IBInspectable
-    @IBInspectable public var debugImage: UIImage?
+    public var debugImage: UIImage?
     
     // MARK: - IBOutlets references
     @IBOutlet weak var cameraPreviewImageView: UIImageView!
@@ -52,7 +52,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         if let img = self.debugImage {
             self.capturedImage = img
         } else {
-            let bundlePath = Bundle.main.path(forResource: "heartCoffee", ofType: "jpg")
+            let bundlePath = Bundle.main.path(forResource: "photo2", ofType: "jpg")
             self.capturedImage =  UIImage(contentsOfFile: bundlePath!)
         }
         self.transitionToImageProcessing()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fvx-YF-3x9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YH4-TH-NhV">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -114,14 +114,13 @@
                         <outlet property="logoImageView" destination="Irj-Sf-obO" id="Auq-xz-sXK"/>
                         <outlet property="quoteLabel" destination="rLb-Dq-BFn" id="Y17-NW-h5h"/>
                         <segue destination="wxP-10-gRg" kind="show" identifier="shootYourCoffeSeugeIdentifier" id="pT4-aw-9aJ"/>
-                        <segue destination="cDb-TW-iXF" kind="show" identifier="ImageProcessingSegueIdentifier.2" id="u4i-Yi-ey7"/>
                         <segue destination="Ajj-d0-5nB" kind="show" identifier="MainMenuToFortuneSeugeIdentifier" id="Pvg-n8-edk"/>
                         <segue destination="KL0-BR-Huj" kind="show" identifier="ImageProcessingSegueIdentifier" id="z8g-G3-aEc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iB4-G1-zAS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1187" y="179"/>
+            <point key="canvasLocation" x="-2262" y="179"/>
         </scene>
         <!--About-->
         <scene sceneID="qWt-Qv-SyL">
@@ -230,10 +229,10 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="gVq-qG-az1">
-                                <rect key="frame" x="18" y="82" width="378" height="588"/>
+                                <rect key="frame" x="18" y="38" width="378" height="632"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="24p-Uu-MLB">
-                                <rect key="frame" x="18" y="82" width="378" height="588"/>
+                                <rect key="frame" x="18" y="38" width="378" height="632"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jiN-Xl-OGo">
@@ -275,7 +274,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9js-Ba-Tyo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1093" y="-477"/>
+            <point key="canvasLocation" x="1687" y="-626"/>
         </scene>
         <!--Shoot photo-->
         <scene sceneID="1nM-Ba-Bxc">
@@ -387,7 +386,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="LiX-6H-AvZ">
-                                <rect key="frame" x="0.0" y="64" width="414" height="618"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="662"/>
                             </imageView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ENS-BZ-jfa">
                                 <rect key="frame" x="0.0" y="682" width="414" height="2"/>
@@ -399,7 +398,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Os4-Ol-CAe">
-                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" name="BackgroundBrown"/>
@@ -444,7 +443,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kgo-T0-grE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="93" y="-236"/>
+            <point key="canvasLocation" x="752" y="-354"/>
         </scene>
         <!--Your result-->
         <scene sceneID="Zq9-9M-OLB">
@@ -461,7 +460,7 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="782"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dom-s1-Jlo" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1238.3333333333333"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="905"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Short description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Rj-Nz-Kbz">
                                                 <rect key="frame" x="16" y="398" width="568" height="64"/>
@@ -474,21 +473,17 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYy-VV-H5N">
-                                                <rect key="frame" x="16" y="478.00000000000006" width="568" height="706.33333333333348"/>
+                                                <rect key="frame" x="16" y="478" width="568" height="373"/>
                                                 <color key="backgroundColor" red="0.22352941176470589" green="0.12156862745098039" blue="0.058823529411764705" alpha="0.7459332191780822" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin a sem non dignissim. Aenean non tincidunt ligula, vitae vestibulum libero. Curabitur vel justo ac lorem iaculis placerat eu sit amet justo. In a erat lorem. Suspendisse condimentum vitae magna a malesuada. Nullam finibus iaculis rhoncus. Aenean imperdiet blandit mauris, vel eleifend sapien vehicula ut. Nunc mollis porta lectus. Integer ut nibh ante. Vivamus quis risus nec ex fermentum maximus vel ut erat. In a malesuada justo. Vivamus viverra eget enim nec tincidunt.
+                                                <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin a sem non dignissim. Aenean non tincidunt ligula, vitae vestibulum libero. Curabitur vel justo ac lorem iaculis placerat eu sit amet justo. In a erat lorem. Suspendisse condimentum vitae magna a malesuada. Nullam finibus iaculis rhoncus. Aenean imperdiet blandit mauris, vel eleifend sapien vehicula ut. Nunc mollis porta lectus. Integer ut nibh ante. Vivamus quis risus nec ex fermentum maximus vel ut erat. In a malesuada justo. Vivamus viverra eget enim nec tincidunt.
 
-Integer elementum odio maximus maximus placerat. In hac habitasse platea dictumst. Integer facilisis iaculis est a interdum. Quisque commodo mollis pretium. Ut in lorem dapibus, viverra arcu vel, dapibus mi. Vivamus accumsan mauris a nisl sagittis egestas. Phasellus tristique venenatis odio eu facilisis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer velit ligula, imperdiet in posuere et, ornare pulvinar est. Nam dui dolor, sodales vel interdum at, vehicula ac enim. Phasellus mollis ut nunc ut tristique.
-
-Quisque rhoncus tellus sit amet malesuada fermentum. Aenean eget feugiat ipsum. Sed nec scelerisque augue, eget vestibulum ipsum. Proin in vehicula ex, pulvinar venenatis orci. Vivamus fringilla ullamcorper orci ultricies placerat. Mauris dapibus dictum finibus. Cras non dolor a purus semper gravida. Fusce condimentum quam ac ex sodales dictum. Cras aliquam, turpis eget pharetra efficitur, velit magna feugiat urna, finibus dapibus erat nulla quis massa.
-
-Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim condimentum, et laoreet dolor varius. Vestibulum euismod urna vel scelerisque tempus. Donec lacus dolor, venenatis id velit id, facilisis pharetra quam. Quisque imperdiet mi sit amet finibus sollicitudin. Curabitur magna risus, tristique eget nisi sed, vestibulum laoreet enim. Proin vel nulla sed enim euismod ultricies vitae id lorem. Integer tellus mauris, fermentum ac malesuada eu, blandit ac tellus. Suspendisse sed mi luctus, tristique diam id, commodo dolor.</string>
+Integer elementum odio maximus maximus placerat. In hac habitasse platea dictumst. Integer facilisis iaculis est a interdum. Quisque commodo mollis pretium. Ut in lorem dapibus, viverra arcu vel, dapibus mi. Vivamus accumsan mauris a nisl sagittis egestas. Phasellus tristique venenatis odio eu facilisis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer velit ligula, imperdiet in posuere et, ornare pulvinar est. Nam dui dolor, sodales vel interdum at, vehicula ac enim. Phasellus mollis ut nunc ut tristique.</mutableString>
                                                 <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="17"/>
                                                 <color key="textColor" name="NavigationText"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cPn-Eu-dHX">
-                                                <rect key="frame" x="16" y="1200.3333333333333" width="568" height="30"/>
+                                                <rect key="frame" x="16" y="867" width="568" height="30"/>
                                                 <color key="backgroundColor" name="NavigationText"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="Rpl-Dp-oob"/>
@@ -616,7 +611,49 @@ Aenean sit amet congue erat, quis tempus nunc. Nam vestibulum purus eget enim co
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nQ1-IX-Tai" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1965" y="287"/>
+            <point key="canvasLocation" x="-3039" y="288"/>
+        </scene>
+        <!--OpenCV Testing View Controller-->
+        <scene sceneID="PD3-Pr-9x0">
+            <objects>
+                <viewController id="YH4-TH-NhV" customClass="OpenCVTestingViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Wzc-Io-muC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pmg-CZ-9lY">
+                                <rect key="frame" x="18" y="38" width="378" height="632"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Exs-fW-rZ0">
+                                <rect key="frame" x="18" y="688" width="378" height="30"/>
+                                <state key="normal" title="Start button"/>
+                                <connections>
+                                    <action selector="startButtonAction:" destination="YH4-TH-NhV" eventType="primaryActionTriggered" id="cwV-bX-jE3"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ySo-SD-u8b" firstAttribute="bottom" secondItem="Exs-fW-rZ0" secondAttribute="bottom" constant="18" id="0ft-k0-ysg"/>
+                            <constraint firstItem="pmg-CZ-9lY" firstAttribute="top" secondItem="ySo-SD-u8b" secondAttribute="top" constant="18" id="50C-3z-YYf"/>
+                            <constraint firstItem="Exs-fW-rZ0" firstAttribute="leading" secondItem="ySo-SD-u8b" secondAttribute="leading" constant="18" id="7WT-NS-Dkd"/>
+                            <constraint firstItem="pmg-CZ-9lY" firstAttribute="leading" secondItem="ySo-SD-u8b" secondAttribute="leading" constant="18" id="HkE-wH-03H"/>
+                            <constraint firstItem="ySo-SD-u8b" firstAttribute="trailing" secondItem="Exs-fW-rZ0" secondAttribute="trailing" constant="18" id="MiP-gq-UBp"/>
+                            <constraint firstItem="ySo-SD-u8b" firstAttribute="trailing" secondItem="pmg-CZ-9lY" secondAttribute="trailing" constant="18" id="mVn-Xk-cov"/>
+                            <constraint firstItem="Exs-fW-rZ0" firstAttribute="top" secondItem="pmg-CZ-9lY" secondAttribute="bottom" constant="18" id="yRl-Ux-bhG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ySo-SD-u8b"/>
+                    </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="photo1.jpg"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="mainImageView" destination="pmg-CZ-9lY" id="n4E-g8-kCl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BCb-UY-vCM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3193" y="-1678"/>
         </scene>
         <!--Draw around the coffee-->
         <scene sceneID="izy-1w-0Rn">

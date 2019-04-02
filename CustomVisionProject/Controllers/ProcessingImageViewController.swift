@@ -79,7 +79,6 @@ class ProcessingImageViewController: UIViewController {
         }
     }
     
-    
     // MARK: - UI Functions
     func initalUISetup(){
         // Change label's text, etc.
@@ -146,16 +145,10 @@ class ProcessingImageViewController: UIViewController {
         }
         
         if xSize > 0 && ySize > 0 {
-            // coffee is bigger
-            // more focused
             self.foundClasses.append("bound-size-big")
         } else if xSize < 0 && ySize < 0 {
-            // coffee is smaller
-            // more objective
             self.foundClasses.append("bound-size-small")
         } else {
-            // coffee is mixed
-            // more creative
             self.foundClasses.append("bound-size-mixed")
         }
         
