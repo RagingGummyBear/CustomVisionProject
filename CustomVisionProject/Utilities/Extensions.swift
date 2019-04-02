@@ -68,3 +68,35 @@ extension Double {
         return (self * divisor).rounded() / divisor
     }
 }
+
+
+extension UIView {
+    func checkIfPointInView( point: CGPoint) -> Bool {
+        if(point.x >= 0 && point.x <= self.frame.width){
+            if(point.y >= 0 && point.y <= self.frame.height){
+                return true
+            }
+        }
+        return false
+    }
+    
+    func fitRectInView( rect: inout CGRect ) {
+        
+        if rect.origin.x < 0 {
+            rect.origin.x = 0
+        }
+        
+        if rect.origin.y < 0 {
+            rect.origin.y = 0
+        }
+        
+        if rect.origin.x + rect.width > self.frame.width {
+            rect.size.width = self.frame.width
+        }
+        
+        if rect.origin.y + rect.height > self.frame.height {
+            rect.size.height = self.frame.height
+        }
+    }
+    
+}

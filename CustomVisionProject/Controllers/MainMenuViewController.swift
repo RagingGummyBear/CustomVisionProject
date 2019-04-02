@@ -181,8 +181,8 @@ class MainMenuViewController: UIViewController {
                 }
             }
         } else if segue.identifier == "ImageProcessingSegueIdentifier" {
-            if let destination = segue.destination as? ProcessingImageViewController {
-                destination.capturedImage = self.capturedImage
+            if let destination = segue.destination as? CombinedProcessingImageViewController {
+                destination.selectedImage = self.capturedImage
                 destination.parentReturn = {[unowned self]  (foundClasses: [String]) in
                     self.foundClasses = foundClasses
                     DispatchQueue.main.async {

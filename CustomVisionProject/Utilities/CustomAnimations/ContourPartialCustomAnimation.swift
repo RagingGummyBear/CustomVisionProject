@@ -35,6 +35,7 @@ class ContourPartialCustomAnimation : CustomAnimation {
         if tresh < 25 {
             return
         }
+        
         let img = OpenCVWrapper.find_contours(self.image, withBound: self.bound, withThreshold: Int32(tresh))
         DispatchQueue.main.sync {
             self.targetImageView.image = img

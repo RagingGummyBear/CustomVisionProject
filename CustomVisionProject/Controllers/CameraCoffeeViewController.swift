@@ -26,6 +26,9 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     private var photoTaken = false
     public var parentReturn : ((UIImage) -> ())?
     
+    // MARK: - IBInspectable
+    @IBInspectable public var debugImage: UIImage?
+    
     // MARK: - IBOutlets references
     @IBOutlet weak var cameraPreviewImageView: UIImageView!
     @IBOutlet weak var overCameraImageView: UIImageView!
@@ -46,9 +49,12 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     }
     
     @IBAction func debugPhotoButtonAction(_ sender: Any) {
-        let bundlePath = Bundle.main.path(forResource: "heartCoffee", ofType: "jpg")
-//        let bundlePath = Bundle.main.path(forResource: "coffee18", ofType: "jpg")
-        self.capturedImage =  UIImage(contentsOfFile: bundlePath!)
+        if let img = self.debugImage {
+            self.capturedImage = img
+        } else {
+            let bundlePath = Bundle.main.path(forResource: "heartCoffee", ofType: "jpg")
+            self.capturedImage =  UIImage(contentsOfFile: bundlePath!)
+        }
         self.transitionToImageProcessing()
     }
     
@@ -134,7 +140,9 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         
         self.session = AVCaptureSession()
         self.session!.beginConfiguration()
-        self.session!.sessionPreset = .vga640x480 // Model image size is smaller.
+//        self.session!.sessionPreset = .vga640x480 // Model image size is smaller.
+        
+                self.session!.sessionPreset = .hd1920x1080 // Model image size is smaller.
         
         self.videoDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
         
@@ -268,7 +276,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     func transitionToImageProcessing(){
         DispatchQueue.main.async {
             self.navigationController?.popViewController(animated: false)
-            if let completion  = self.parentReturn, let image = self.capturedImage {
+            if let completion = self.parentReturn, let image = self.capturedImage {
                 completion(image)
             }
         }
@@ -291,7 +299,6 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     }
     
     // MARK: - Other functions
-    
     private func releaseSomeMemory(){
         self.session?.commitConfiguration()
         

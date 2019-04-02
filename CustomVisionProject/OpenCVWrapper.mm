@@ -424,8 +424,9 @@ using namespace cv;
     //    Vec3b lowerC = cv::Vec3b(81,57,11); // RBG Values
     //    Vec3b upperC = cv::Vec3b(240,230,220); // RBG values
     
-    Vec3b lowerC = cv::Vec3b(57,11,81); // BGR Values
+    Vec3b lowerC = cv::Vec3b(9,9,9); // BGR Values
     Vec3b upperC = cv::Vec3b(230,220,240); // BGR values
+//    Vec3b upperC = cv::Vec3b(250,250,250); // BGR values
     
     Mat mask; inRange(hsv, lowerC, upperC, mask);
     vector<vector<cv::Point> > contours;
@@ -544,6 +545,8 @@ using namespace cv;
     cvtColor(temp, src, COLOR_RGB2BGR);
     cvtColor(src, temp, COLOR_BGR2GRAY);
     cvtColor(temp, temp, COLOR_GRAY2BGR);
+    
+    
     src.copyTo(temp, mask);
     return MatToUIImage(temp);
 }

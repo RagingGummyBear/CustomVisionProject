@@ -36,9 +36,8 @@ class ProcessingImageViewController: UIViewController {
     // CustomAnimation references
     
     let customAnimationsQueue = DispatchQueue.init(label: "com.seavus.customvision.customAnimationsQueue", attributes: .concurrent)
-    
-    // MARK: - IBInspectable
-    @IBInspectable public var capturedImage:UIImage?
+
+    public var capturedImage:UIImage?
     
     // MARK: - IBOutlet references
     @IBOutlet weak var processingImageView: UIImageView!
@@ -71,16 +70,6 @@ class ProcessingImageViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        self.processingImageView.image = nil
-        self.capturedImage = nil
-        self.workingImage = UIImage()
-        self.tempImageHolder = UIImage()
-        
-        self.selectedImageRect = []
-        self.backgroundImageView.image = nil
-        
-        ImageComparator.shared().releaseAll()
     }
     
     override func willMove(toParent parent: UIViewController?) {
@@ -300,6 +289,7 @@ class ProcessingImageViewController: UIViewController {
         }
     }
     
+    
     // MARK: - Animation processing functions
     func applyGrayscale(){
         DispatchQueue.global(qos: .background).async { [unowned self] in
@@ -308,9 +298,9 @@ class ProcessingImageViewController: UIViewController {
                 self.processingImageView.image = self.workingImage
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { [unowned self] in
-                self.findTopBounds()
+//                self.findTopBounds()
+                self.helpRequestDialog()
                 self.progressBar.progress += 0.07
-                
             })
         }
     }
@@ -318,7 +308,6 @@ class ProcessingImageViewController: UIViewController {
     func findTopBounds(){
         DispatchQueue.global(qos: .background).async { [unowned self] in
             if let image = self.capturedImage {
-                
                 let array = OpenCVWrapper.contour_python_bound_square(image, withThresh: Int32(1))
                 for elem in array {
                     if let rect = elem as? CGRect {
@@ -330,7 +319,6 @@ class ProcessingImageViewController: UIViewController {
                         }
                     }
                 }
-                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { [unowned self] in
                     self.findBestBound()
                     self.progressBar.progress += 0.07
@@ -342,13 +330,9 @@ class ProcessingImageViewController: UIViewController {
     func findBestBound(){
         // On finish
         // self.applyPartialGrayscale()
-        
         if let image = self.capturedImage {
-            
             autoreleasepool { () -> () in
                 ImageComparator.shared().findBestCropHistogramCompare(originalImage: image, bounds: self.selectedImageRect, completion: { [unowned self] (bestResult: Double, bestClass: String, croppedImage: UIImage, bestBound: CGRect) in
-                    
-//                    print("Color histogram result: \(bestResult)")
                     
                     self.privateThreadSafeQueue.sync { [unowned self] in
                         if self.bestResult < bestResult {
@@ -356,6 +340,7 @@ class ProcessingImageViewController: UIViewController {
                             self.bestClass = bestClass
                             self.bestResult = bestResult
                         }
+                        
                         DispatchQueue.main.async { [unowned self] in
                             self.processingImageView.image = croppedImage
                         }
@@ -367,18 +352,10 @@ class ProcessingImageViewController: UIViewController {
                         
                         if self.grayHistogramCompareFinished {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
-                                self.processingImageView.image = self.workingImage
-                                
-                                self.getPartialRGBClass()
-                                
-                                self.getBestBoundClass()
-                                
-                                self.getFullHistogramComparisonClass()
-                                self.getPartialHistogramClass()
-                                
-                                self.applyPartialGrayscale()
+                                self.processBestFoundBound()
                             })
                         }
+                        
                     }
                 }) { (msg: String) in
                     print(msg)
@@ -397,23 +374,17 @@ class ProcessingImageViewController: UIViewController {
                         }
                         
                         self.grayHistogramCompareFinished = true
+                        
                         DispatchQueue.main.async {
                             self.progressBar.progress += 0.07
                         }
                         
                         if self.colorHistogramCompareFinished {
+                            
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
-                                self.processingImageView.image = self.workingImage
-                                
-                                self.getBestBoundClass()
-                                
-                                self.getPartialRGBClass()
-                                
-                                self.getFullHistogramComparisonClass()
-                                self.getPartialHistogramClass()
-                                
-                                self.applyPartialGrayscale()
+                                self.processBestFoundBound()
                             })
+                            
                         }
                     }
                 }) { (msg: String) in
@@ -425,19 +396,36 @@ class ProcessingImageViewController: UIViewController {
         }
     }
     
+    func processBestFoundBound(){
+//        self.processingImageView.image = self.workingImage
+        DispatchQueue.main.async {
+            
+            self.getBestBoundClass()
+            
+            self.getPartialRGBClass()
+            
+            self.getFullHistogramComparisonClass()
+            
+            self.getPartialHistogramClass()
+            
+            self.applyPartialGrayscale()
+        }
+    }
+    
     func applyPartialGrayscale(){
         // On finish
         // self.animatePartialContours()
         
         autoreleasepool { () -> () in
             if let image = self.capturedImage {
+                
                 DispatchQueue.main.async { [unowned self] in
                     self.processingImageView.image = OpenCVWrapper.draw_color_mask(image, withBound: self.bestBound)
                 }
             }
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [unowned self] in
-                
-                self.processingImageView.image = OpenCVWrapper.draw_color_mask(self.workingImage, withBound: self.bestBound)
+                self.processingImageView.image = OpenCVWrapper.draw_color_mask(self.capturedImage!, withBound: self.bestBound)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
                     
                     self.progressBar.progress += 0.07
@@ -504,14 +492,13 @@ class ProcessingImageViewController: UIViewController {
         
         autoreleasepool { () -> () in
             if let image = self.capturedImage {
+                
                 let anim = ContourPartialCustomAnimation(targetView: self.processingImageView, image: image, bound: self.bestBound, completion: { [unowned self] in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [unowned self] in
-                        
                         self.progressBar.progress += 0.07
                         self.animateBoundAndCircleContours()
                     })
                 })
-                
                 self.customAnimationsQueue.async {
                     anim.start()
                 }
@@ -556,6 +543,16 @@ class ProcessingImageViewController: UIViewController {
             self.navigationController?.popViewController(animated: false)
             if let completion = self.parentReturn {
                 if self.foundClasses.count > 0 {
+                    
+                    self.processingImageView.image = nil
+                    self.capturedImage = nil
+                    self.workingImage = UIImage()
+                    self.tempImageHolder = UIImage()
+                    
+                    self.selectedImageRect = []
+                    self.backgroundImageView.image = nil
+                    
+                    ImageComparator.shared().releaseAll()
                     completion(self.foundClasses)
                 }
             }
@@ -570,4 +567,53 @@ class ProcessingImageViewController: UIViewController {
     }
     
     // MARK: - Other functions
+    
+    func helpRequestDialog(){
+        // Create the alert controller
+        let alertController = UIAlertController(title: "Help Request", message: "Would you like to help the detection algorithm by providing the area with coffee?", preferredStyle: .alert)
+        
+        // Create the actions
+        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+            UIAlertAction in
+            self.transitionToTheUserDrawBoundsController()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) {
+            UIAlertAction in
+            NSLog("Cancel Pressed")
+            self.continiueWithoutUserHelp()
+        }
+        
+        // Add the actions
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        // Present the controller
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func continiueWithoutUserHelp(){
+        self.findTopBounds()
+    }
+    
+    func transitionToTheUserDrawBoundsController(){
+        self.progressBar.progress += 0.14
+        if let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "UserDefineRectBoundController") as? UserDefineRectBoundController {
+            nextViewController.selectedImage = self.capturedImage!
+            nextViewController.parentReturn = { userBound in
+                if userBound.origin.x == 10000 && userBound.origin.y == 1000 {
+//                 self.bestBound = userBound
+                    self.continiueWithoutUserHelp()
+                } else {
+                    
+                    self.bestBound = userBound
+                    self.continiueAfterUserDefinedBound()
+                }
+            }
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        }
+    }
+    
+    func continiueAfterUserDefinedBound(){
+        self.processBestFoundBound()
+    }
 }
