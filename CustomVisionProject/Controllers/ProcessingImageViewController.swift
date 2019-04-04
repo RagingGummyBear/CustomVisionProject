@@ -440,25 +440,17 @@ class ProcessingImageViewController: UIViewController {
                 
                 ImageComparator.shared().findTheBestBackgroundWithoutCoffee(image: image, bestBound: self.bestBound, completion: { (result:Double, backgroundClass: String, backgroundImage: UIImage) in
                     
-                    
                     self.foundClasses.append(backgroundClass)
-                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [unowned self] in
-                        
-                        //                self.processingImageView.image = OpenCVWrapper.draw_color_mask_reversed(self.workingImage, withBound: self.bestBound)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
-                            
                             self.progressBar.progress += 0.07
                             self.animateFullContours()
                         })
                     }
-                    
                 }, error: { (msg:String) in
                     print("ProcessingImageViewController -> applyPartialGrayscaleReversed: Error while executing function with message: \(msg)")
                 })
             }
-            
-            
         }
     }
     
@@ -467,7 +459,6 @@ class ProcessingImageViewController: UIViewController {
             autoreleasepool { () -> () in
                 let anim = ContourLinesCustomAnimation(targetView: self.processingImageView, image: image, completion: { [unowned self] in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [unowned self] in
-                        
                         self.progressBar.progress += 0.07
                         self.animatePartialContours()
                     })
@@ -479,10 +470,7 @@ class ProcessingImageViewController: UIViewController {
         }
     }
     
-    func animatePartialContours(){
-        // On finish
-        // self.animateBoundAndCircleContours()
-        
+    func animatePartialContours(){        
         autoreleasepool { () -> () in
             if let image = self.capturedImage {
                 
@@ -500,9 +488,6 @@ class ProcessingImageViewController: UIViewController {
     }
     
     func animateBoundAndCircleContours(){
-        // On finish
-        // self.processingFinished()
-        
         autoreleasepool { () -> () in
             if let image = self.capturedImage {
                 let anim = ContourBoundCircleCustomAnimation(targetView: self.processingImageView, image: image, completion: { [unowned self] in

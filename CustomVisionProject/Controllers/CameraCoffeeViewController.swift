@@ -52,7 +52,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         if let img = self.debugImage {
             self.capturedImage = img
         } else {
-            let bundlePath = Bundle.main.path(forResource: "photo2", ofType: "jpg")
+            let bundlePath = Bundle.main.path(forResource: "coffee18", ofType: "jpg")
             self.capturedImage =  UIImage(contentsOfFile: bundlePath!)
         }
         self.transitionToImageProcessing()

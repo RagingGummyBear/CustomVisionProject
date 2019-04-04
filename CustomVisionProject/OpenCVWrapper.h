@@ -43,6 +43,31 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSMutableArray *) contour_python_bound_square: (UIImage *) image withThresh:(int) thresh; // USING
 
 + (UIImage *) get_color_content: (UIImage *) image; // TESTING
++ (UIImage *) get_color_content_with_range: (UIImage *) image withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector; // TESTING
+
++ (NSString *) get_color_content_class: (UIImage *) image withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector; // TESTING
+
+
++ (float) get_color_contour_size: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector;
+
+
++ (int) get_contour_size_light: (UIImage *) image withBound:(CGRect) bound;
++ (int) get_contour_size_casual: (UIImage *) image withBound:(CGRect) bound;
++ (int) get_contour_size_dark: (UIImage *) image withBound:(CGRect) bound;
++ (int) get_contour_size_fancy: (UIImage *) image withBound:(CGRect) bound;
++ (NSString *) get_yeeted: (UIImage *) image withBound:(CGRect) bound;
+
+
++ (NSString *) get_yeeted_background: (UIImage *) image withBound:(CGRect) bound;
++ (int) get_contour_size_background_red: (UIImage *) image withBound:(CGRect) bound;
++ (int) get_contour_size_background_green: (UIImage *) image withBound:(CGRect) bound;
++ (int) get_contour_size_background_blue: (UIImage *) image withBound:(CGRect) bound;
++ (int) get_contour_size_background_white: (UIImage *) image withBound:(CGRect) bound;
++ (int) get_contour_size_background_brown: (UIImage *) image withBound:(CGRect) bound;
++ (int) get_contour_size_background_dark: (UIImage *) image withBound:(CGRect) bound;
+
++ (UIImage *) get_color_contour_sizeRR: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector;
++ (float) get_color_contour_sizeR: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector;
 
 @end
 

@@ -298,19 +298,6 @@ class CombinedProcessingImageViewController: UIViewController {
     
     func createRect(){
         autoreleasepool {
-//            DispatchQueue.main.async {
-//                self.mainImageView.image = self.selectedImage
-//            }
-            
-            /*
-            let width = dr.x - tl.x + self.brushWidth * 2
-            let height = dr.y - tl.y + self.brushWidth * 2
-            
-            self.bestBound = CGRect(x: tl.x - self.brushWidth, y: tl.y - self.brushWidth, width: width, height: height)
-            
-            self.mainImageView.fitRectInView(rect: &self.bestBound)
-            */
-            
             DispatchQueue.main.sync {
                 self.mainImageView.image = self.selectedImage
                 
@@ -341,6 +328,9 @@ class CombinedProcessingImageViewController: UIViewController {
         
         self.createRect()
 
+        self.privateThreadSafeProcessingQueue.async {
+            self.getPartialCoffeClass()
+        }
         
         self.privateThreadSafeProcessingQueue.async {
             self.getBestBoundClass()
@@ -351,7 +341,7 @@ class CombinedProcessingImageViewController: UIViewController {
         }
         
         self.privateThreadSafeProcessingQueue.async {
-//            self.getPartialRGBClass()
+            self.getPartialRGBClass()
         }
         
         self.privateThreadSafeProcessingQueue.async {
@@ -361,19 +351,17 @@ class CombinedProcessingImageViewController: UIViewController {
         self.privateThreadSafeProcessingQueue.async {
             self.getPartialHistogramClass()
         }
+        
         self.applyGrayscale()
     }
     
     func getBestBoundClass(){
-        
         // Classify based on the sizes and location of the best bound
         guard let image = self.selectedImage else {
             return
         }
-        
         let centerX = image.size.width / 2
         let centerY = image.size.height / 2
-        
         // Size check
         var xSize = 0
         var ySize = 0
@@ -382,13 +370,11 @@ class CombinedProcessingImageViewController: UIViewController {
         } else {
             xSize = -1
         }
-        
         if self.bestBound.size.height > centerY {
             ySize = 1
         } else {
             ySize = -1
         }
-        
         if xSize > 0 && ySize > 0 {
             // coffee is bigger
             // more focused
@@ -404,16 +390,13 @@ class CombinedProcessingImageViewController: UIViewController {
         }
         
         // Position check
-        
         var xPos = 0
         var yPos = 0
-        
         if self.bestBound.origin.x > centerX {
             xPos = 1
         } else {
             xPos = -1
         }
-        
         if self.bestBound.origin.y > centerY {
             yPos = 1
         } else {
@@ -436,7 +419,6 @@ class CombinedProcessingImageViewController: UIViewController {
         DispatchQueue.main.async {
             self.progressBar.progress += 0.07
         }
-        
     }
     
     func getOverallRGBClass(){
@@ -524,6 +506,20 @@ class CombinedProcessingImageViewController: UIViewController {
         }
     }
 
+    func getPartialCoffeClass(){
+        if let image = self.selectedImage {
+            _ = CustomUtility.cropImage(imageToCrop: image, toRect: self.bestBound)
+            let bestClass = OpenCVWrapper.get_yeeted(self.selectedImage, withBound: self.bestBound);
+            
+            let bestBackgroundClass = OpenCVWrapper.get_yeeted_background(self.selectedImage, withBound: self.bestBound)
+            print(bestBackgroundClass)
+            self.foundClasses.append("yeeted_background_\(bestBackgroundClass)")
+            
+            print("Partial coffee class")
+            print(bestClass)
+            self.foundClasses.append("yeet_class_\(bestClass)")
+        }
+    }
     
     
     // MARK: - Animation processing functions
@@ -534,7 +530,6 @@ class CombinedProcessingImageViewController: UIViewController {
                 self.mainImageView.image = self.selectedImage
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
-                // Onto the next 1
                 self.progressBar.progress += 0.07
                 self.applyPartialGrayscale()
             })
@@ -542,8 +537,6 @@ class CombinedProcessingImageViewController: UIViewController {
     }
     
     func applyPartialGrayscale(){
-        // On finish
-        // self.animatePartialContours()
         autoreleasepool { () -> () in
             if let image = self.selectedImage {
                 
@@ -566,9 +559,6 @@ class CombinedProcessingImageViewController: UIViewController {
     }
     
     func applyPartialGrayscaleReversed(){
-        // On finish
-        // self.animatePartialContours()
-        // TODO: make the background comparison here
         autoreleasepool { () -> () in
             if let image = self.selectedImage {
                 DispatchQueue.main.async { [unowned self] in
@@ -576,13 +566,8 @@ class CombinedProcessingImageViewController: UIViewController {
                 }
                 
                 ImageComparator.shared().findTheBestBackgroundWithoutCoffee(image: image, bestBound: self.bestBound, completion: { (result:Double, backgroundClass: String, backgroundImage: UIImage) in
-                    
-                    
                     self.foundClasses.append(backgroundClass)
-                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [unowned self] in
-                        
-                        //                self.processingImageView.image = OpenCVWrapper.draw_color_mask_reversed(self.workingImage, withBound: self.bestBound)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
                             
                             self.progressBar.progress += 0.07
@@ -615,9 +600,6 @@ class CombinedProcessingImageViewController: UIViewController {
     }
     
     func animatePartialContours(){
-        // On finish
-        // self.animateBoundAndCircleContours()
-        
         autoreleasepool { () -> () in
             if let image = self.selectedImage {
                 
@@ -635,9 +617,6 @@ class CombinedProcessingImageViewController: UIViewController {
     }
     
     func animateBoundAndCircleContours(){
-        // On finish
-        // self.processingFinished()
-        
         autoreleasepool { () -> () in
             if let image = self.selectedImage {
                 let anim = ContourBoundCircleCustomAnimation(targetView: self.mainImageView, image: image, completion: { [unowned self] in
@@ -663,24 +642,8 @@ class CombinedProcessingImageViewController: UIViewController {
             self.transitionToFortuneDisplay()
         }
     }
-
-    
     
     // MARK: - Navigation
-    /*
-    func transitionToNextViewController(){
-     if let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewControllerIdentifier") as? UIViewController {
-         self.navigationController?.pushViewController(nextViewController, animated: true)
-     }
-    }
-     */
-    /*
-    func transitionBackMultiple() {
-        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
-    }
-    */
-
     func backToMainMenu(){
         self.navigationController?.popViewController(animated: false)
     }
