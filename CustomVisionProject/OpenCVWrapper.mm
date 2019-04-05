@@ -844,43 +844,47 @@ using namespace cv;
             drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
         }
     }
-    cout << "Found contours size:" << contoursSize << endl;
+//    cout << "Found contours size:" << contoursSize << endl;
     // return MatToUIImage(mask);
     return MatToUIImage(mask);
 }
 
 + (NSString *) get_yeeted: (UIImage *) image withBound:(CGRect) bound {
 //    cout << [self get_contour_size_light()];
-    float light_size = [self get_contour_size_light:image withBound:bound];
-    float casual_size = [self get_contour_size_casual:image withBound:bound];
-    float dark_size = [self get_contour_size_dark:image withBound:bound];
-    float fancy_size = [self get_contour_size_fancy:image withBound:bound];
-    fancy_size = 0;
+//    float light_size = [self get_contour_size_light:image withBound:bound];
+//    float casual_size = [self get_contour_size_casual:image withBound:bound];
+//    float dark_size = [self get_contour_size_dark:image withBound:bound];
+//    float fancy_size = [self get_contour_size_fancy:image withBound:bound];
     
-    if (light_size > casual_size && light_size > dark_size && light_size > fancy_size) {
-        return @"light_size";
+    // TODO: adjust it
+    float size_threshold = 2; // TEMP!
+    
+    float light_coffee_size = [self get_contour_size_light_coffee:image withBound:bound];
+    float dark_coffee_size = [self get_contour_size_dark_coffee:image withBound:bound];
+    
+//    cout << "Coffee color results: Light: " << light_coffee_size << " Dark: " << dark_coffee_size << endl;
+    
+//    cout << light_coffee_size << " " << dark_coffee_size << " " << endl;
+    if (light_coffee_size < size_threshold && dark_coffee_size < size_threshold) {
+        return @"yeet";
     }
     
-    if (casual_size > light_size && casual_size > dark_size && casual_size > fancy_size) {
-        return @"casual_size";
+    if (light_coffee_size < size_threshold){
+        return @"dark_coffee_yeet";
     }
     
-    if (dark_size > light_size && dark_size > casual_size && dark_size > fancy_size) {
-        return @"dark_size";
+    if (dark_coffee_size < size_threshold){
+        return @"light_coffee_yeet";
     }
     
-    if (fancy_size > light_size && fancy_size > casual_size && fancy_size > dark_size) {
-        return @"fancy_size";
+    if (light_coffee_size < dark_coffee_size){
+        return @"dark_coffee_yeet";
+    }
+    if (dark_coffee_size < light_coffee_size){
+        return @"light_coffee_yeet";
     }
     
-    cout << "PROBLEM!" << "\n"
-    << light_size << "\n"
-    << casual_size << "\n"
-    << dark_size << "\n"
-    << fancy_size << "\n"
-    << "End of problem" << "\n";
-    
-    return @"YEEET";
+    return @"YEEEET";
 }
 
 + (NSString *) get_yeeted_background: (UIImage *) image withBound:(CGRect) bound {
@@ -991,6 +995,45 @@ using namespace cv;
     return result;
 }
 
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+
++ (int) get_contour_size_light_coffee: (UIImage *) image withBound:(CGRect) bound  {
+    NSMutableArray *highEnd = [NSMutableArray array];
+    [highEnd addObject:@(115)];
+    [highEnd addObject:@(255)];
+    [highEnd addObject:@(220)];
+    
+    NSMutableArray *lowEnd = [NSMutableArray array];
+    [lowEnd addObject:@(80)];
+    [lowEnd addObject:@(90)];
+    [lowEnd addObject:@(72)];
+    
+    float result = [self get_color_contour_size:image withBound: bound  withLowRange:lowEnd withHighRange:highEnd];
+    
+    return result;
+}
+
++ (int) get_contour_size_dark_coffee: (UIImage *) image withBound:(CGRect) bound  {
+    NSMutableArray *highEnd = [NSMutableArray array];
+    [highEnd addObject:@(140)];
+    [highEnd addObject:@(220)];
+    [highEnd addObject:@(100)];
+    
+    NSMutableArray *lowEnd = [NSMutableArray array];
+    [lowEnd addObject:@(20)];
+    [lowEnd addObject:@(10)];
+    [lowEnd addObject:@(2)];
+    
+    float result = [self get_color_contour_size:image withBound: bound  withLowRange:lowEnd withHighRange:highEnd];
+    
+    return result;
+}
+
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
 
 + (int) get_contour_size_background_blue: (UIImage *) image withBound:(CGRect) bound  {
     NSMutableArray *highEnd = [NSMutableArray array];
@@ -1087,6 +1130,11 @@ using namespace cv;
 }
 
 
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+
+
 + (float) get_color_contour_sizeR: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector {
     
     Mat src; Mat src_gray; Mat temp; UIImageToMat(image, src);
@@ -1144,11 +1192,68 @@ using namespace cv;
     return contoursSize;
 }
 
-+ (UIImage *) get_color_contour_sizeRR: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector {
++ (float) get_color_contour_size: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector {
     
-    //////////////////////
-    RNG rng(12345);
-    //////////////////////
+    Mat src; Mat src_gray; Mat temp; UIImageToMat(image, src);
+    
+    // Convert image to gray and blur it
+    Mat src_blurred; GaussianBlur(src, src_blurred, cv::Size(5,5), 0);
+    Mat hsv; cvtColor( src_blurred, hsv, COLOR_BGR2HSV );
+    
+    cv::Mat result = cv::Mat::ones(src.rows, src.cols, CV_8U); // all 0
+    cv::Mat boundMask = cv::Mat::zeros(src.rows, src.cols, CV_8U); // all 0
+    boundMask(cv::Rect(bound.origin.x, bound.origin.y, bound.size.width, bound.size.height)) = Scalar(255,255,255);
+    
+    Vec3b lowerC = cv::Vec3b(1,1,1);
+    Vec3b upperC = cv::Vec3b(180,255,255);
+    
+    cvtColor(src, temp, COLOR_BGR2RGB);
+    cvtColor(temp, src, COLOR_RGB2BGR);
+    cvtColor(src, temp, COLOR_BGR2GRAY);
+    cvtColor(temp, temp, COLOR_GRAY2BGR);
+    
+    src.copyTo(result, boundMask);
+    GaussianBlur(result, src_blurred, cv::Size(5,5), 0);
+    cvtColor( src_blurred, hsv, COLOR_BGR2HSV );
+    
+    NSNumber *lowH = [lowVector objectAtIndex:0];
+    NSNumber *lowS = [lowVector objectAtIndex:1];
+    NSNumber *lowV = [lowVector objectAtIndex:2];
+    
+    NSNumber *highH = [highVector objectAtIndex:0];
+    NSNumber *highS = [highVector objectAtIndex:1];
+    NSNumber *highV = [highVector objectAtIndex:2];
+    
+    [lowH integerValue];
+    
+    lowerC = cv::Vec3b([lowH integerValue],[lowS integerValue],[lowV integerValue]); // BGR Values
+    upperC = cv::Vec3b([highH integerValue],[highS integerValue],[highV integerValue]); // BGR values
+    
+    Mat maskPrep; hsv.copyTo(maskPrep, boundMask);
+    Mat mask; inRange(maskPrep, lowerC, upperC, mask);
+    
+    inRange(hsv, lowerC, upperC, mask);
+    vector<vector<cv::Point> > contours;
+    vector<Vec4i> hierarchy;
+    
+    findContours(mask, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    float contoursSize = 0;
+    cvtColor(temp, src, COLOR_RGB2BGR);
+    
+    for( int i = 0; i< contours.size(); i++ ){
+        contoursSize += cv::contourArea(contours[i]);
+    }
+ 
+    if (contoursSize < src.cols * src.rows * 0.02) {
+        return 0;
+    }
+    
+    return contoursSize;
+//    return MatToUIImage(src_blurred);
+}
+
+//////////////////////////////////////////
++ (UIImage *) get_color_contour_sizeRR: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector {
     
     Mat src; Mat src_gray; Mat temp; UIImageToMat(image, src);
     
@@ -1201,31 +1306,38 @@ using namespace cv;
         contoursSize += cv::contourArea(contours[i]);
     }
     
-    cout << "Found contours size:" << contoursSize << endl;
+    //    cout << "Found contours size:" << contoursSize << endl;
 //    return contoursSize;
-    return MatToUIImage(hsv);
+    return MatToUIImage(boundMask);
 }
 
 
-+ (float) get_color_contour_size: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector {
++ (UIImage *) get_color_contour_sizeM: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector {
     // https://www.learnopencv.com/invisibility-cloak-using-color-detection-and-segmentation-with-opencv/
     
-    // //////////////////////////////// //
-    // TODO: this is not implemented!!! //
-    // //////////////////////////////// //
+    Mat src; Mat src_gray; Mat temp; UIImageToMat(image, src);
     
-    // cv::Mat boundMask = cv::Mat::zeros(src.rows, src.cols, CV_8U); // all 0
-    // boundMask(cv::Rect(bound.origin.x, bound.origin.y, bound.size.width, bound.size.height)) = Scalar(255,255,255);
-    
-    // //////////////////////////////// //
-    // //////////////////////////////// //
-    
-    Mat src; Mat src_gray; UIImageToMat(image, src);
-    Mat temp; cvtColor(src, temp, COLOR_BGR2RGB);
-    
+    // Convert image to gray and blur it
     Mat src_blurred; GaussianBlur(src, src_blurred, cv::Size(5,5), 0);
-    cv::medianBlur(src, src_blurred, 3);
     Mat hsv; cvtColor( src_blurred, hsv, COLOR_BGR2HSV );
+    
+    cv::Mat result = cv::Mat::ones(src.rows, src.cols, CV_8U); // all 0
+    cv::Mat boundMask = cv::Mat::zeros(src.rows, src.cols, CV_8U); // all 0
+    boundMask(cv::Rect(bound.origin.x, bound.origin.y, bound.size.width, bound.size.height)) = Scalar(255,255,255);
+    
+    Vec3b lowerC = cv::Vec3b(1,1,1);
+    Vec3b upperC = cv::Vec3b(180,255,255);
+    
+
+    
+    cvtColor(src, temp, COLOR_BGR2RGB);
+    cvtColor(temp, src, COLOR_RGB2BGR);
+    cvtColor(src, temp, COLOR_BGR2GRAY);
+    cvtColor(temp, temp, COLOR_GRAY2BGR);
+    
+    src.copyTo(result, boundMask);
+    GaussianBlur(result, src_blurred, cv::Size(5,5), 0);
+    cvtColor( src_blurred, hsv, COLOR_BGR2HSV );
     
     NSNumber *lowH = [lowVector objectAtIndex:0];
     NSNumber *lowS = [lowVector objectAtIndex:1];
@@ -1237,10 +1349,13 @@ using namespace cv;
     
     [lowH integerValue];
     
-    Vec3b lowerC = cv::Vec3b([lowH integerValue],[lowS integerValue],[lowV integerValue]); // BGR Values
-    Vec3b upperC = cv::Vec3b([highH integerValue],[highS integerValue],[highV integerValue]); // BGR values
+    lowerC = cv::Vec3b([lowH integerValue],[lowS integerValue],[lowV integerValue]); // BGR Values
+    upperC = cv::Vec3b([highH integerValue],[highS integerValue],[highV integerValue]); // BGR values
     
-    Mat mask; inRange(hsv, lowerC, upperC, mask);
+    Mat maskPrep; hsv.copyTo(maskPrep, boundMask);
+    Mat mask; inRange(maskPrep, lowerC, upperC, mask);
+    
+    inRange(hsv, lowerC, upperC, mask);
     vector<vector<cv::Point> > contours;
     vector<Vec4i> hierarchy;
     
@@ -1251,11 +1366,9 @@ using namespace cv;
     for( int i = 0; i< contours.size(); i++ ){
         contoursSize += cv::contourArea(contours[i]);
     }
-    
-    cout << "Found contours size:" << contoursSize << endl;
-    return contoursSize;
+//    cout << " THis be a wild thing : D " << contoursSize << endl;
+//    return contoursSize;
+    return MatToUIImage(src_blurred);
 }
-
-//////////////////////////////////////////
 
 @end

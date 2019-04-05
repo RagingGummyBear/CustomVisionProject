@@ -314,7 +314,6 @@ class CombinedProcessingImageViewController: UIViewController {
     }
     
     func startImageProcessing(){
-        print("GO Get em cowboy!")
         if self.processingStarted {
             return
         }
@@ -511,13 +510,7 @@ class CombinedProcessingImageViewController: UIViewController {
             _ = CustomUtility.cropImage(imageToCrop: image, toRect: self.bestBound)
             let bestClass = OpenCVWrapper.get_yeeted(self.selectedImage, withBound: self.bestBound);
             
-            let bestBackgroundClass = OpenCVWrapper.get_yeeted_background(self.selectedImage, withBound: self.bestBound)
-            print(bestBackgroundClass)
-            self.foundClasses.append("yeeted_background_\(bestBackgroundClass)")
-            
-            print("Partial coffee class")
-            print(bestClass)
-            self.foundClasses.append("yeet_class_\(bestClass)")
+            self.foundClasses.append("yeeted_class_\(bestClass)")
         }
     }
     
@@ -565,19 +558,29 @@ class CombinedProcessingImageViewController: UIViewController {
                     self.mainImageView.image = OpenCVWrapper.draw_color_mask_reversed(image, withBound: self.bestBound)
                 }
                 
-                ImageComparator.shared().findTheBestBackgroundWithoutCoffee(image: image, bestBound: self.bestBound, completion: { (result:Double, backgroundClass: String, backgroundImage: UIImage) in
-                    self.foundClasses.append(backgroundClass)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [unowned self] in
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
-                            
-                            self.progressBar.progress += 0.07
-                            self.animateFullContours()
-                        })
-                    }
+//                ImageComparator.shared().findTheBestBackgroundWithoutCoffee(image: image, bestBound: self.bestBound, completion: { (result:Double, backgroundClass: String, backgroundImage: UIImage) in
+//                    self.foundClasses.append(backgroundClass)
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [unowned self] in
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
+//                            
+//                            self.progressBar.progress += 0.07
+//                            self.animateFullContours()
+//                        })
+//                    }
+//                    
+//                }, error: { (msg:String) in
+//                    print("ProcessingImageViewController -> applyPartialGrayscaleReversed: Error while executing function with message: \(msg)")
+//                })
+                
+                self.privateThreadSafeAnimationsQueue.async {
+                    let bestBackgroundClass = OpenCVWrapper.get_yeeted_background(self.selectedImage, withBound: self.bestBound)
+                    self.foundClasses.append("yeeted_background_\(bestBackgroundClass)")
                     
-                }, error: { (msg:String) in
-                    print("ProcessingImageViewController -> applyPartialGrayscaleReversed: Error while executing function with message: \(msg)")
-                })
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
+                        self.progressBar.progress += 0.07
+                        self.animateFullContours()
+                    })
+                }
             }
         }
     }
@@ -649,10 +652,6 @@ class CombinedProcessingImageViewController: UIViewController {
     }
     
     func transitionToFortuneDisplay(){
-
-        print("YEEEE HAAAWWW")
-        print("Done with this wild work")
-        print("YEET")
 
         DispatchQueue.main.async {
             self.navigationController?.popViewController(animated: false)

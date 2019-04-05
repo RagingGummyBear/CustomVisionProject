@@ -48,15 +48,15 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *) get_color_content_class: (UIImage *) image withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector; // TESTING
 
 
-+ (float) get_color_contour_size: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector;
 
 
+
++ (NSString *) get_yeeted: (UIImage *) image withBound:(CGRect) bound;
 + (int) get_contour_size_light: (UIImage *) image withBound:(CGRect) bound;
 + (int) get_contour_size_casual: (UIImage *) image withBound:(CGRect) bound;
 + (int) get_contour_size_dark: (UIImage *) image withBound:(CGRect) bound;
 + (int) get_contour_size_fancy: (UIImage *) image withBound:(CGRect) bound;
-+ (NSString *) get_yeeted: (UIImage *) image withBound:(CGRect) bound;
-
++ (float) get_color_contour_size: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector;
 
 + (NSString *) get_yeeted_background: (UIImage *) image withBound:(CGRect) bound;
 + (int) get_contour_size_background_red: (UIImage *) image withBound:(CGRect) bound;
@@ -65,9 +65,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (int) get_contour_size_background_white: (UIImage *) image withBound:(CGRect) bound;
 + (int) get_contour_size_background_brown: (UIImage *) image withBound:(CGRect) bound;
 + (int) get_contour_size_background_dark: (UIImage *) image withBound:(CGRect) bound;
++ (float) get_color_contour_sizeR: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector;
 
 + (UIImage *) get_color_contour_sizeRR: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector;
-+ (float) get_color_contour_sizeR: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector;
++ (UIImage *) get_color_contour_sizeM: (UIImage *) image withBound:(CGRect) bound withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector;
 
 @end
 

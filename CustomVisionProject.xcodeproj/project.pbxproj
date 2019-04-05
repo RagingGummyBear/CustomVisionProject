@@ -90,6 +90,11 @@
 		7DCEFCB42213002C00F59A37 /* ImageFullDisplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB02213002B00F59A37 /* ImageFullDisplayCollectionViewCell.swift */; };
 		7DCEFCB52213002C00F59A37 /* ImageFullDisplayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB12213002B00F59A37 /* ImageFullDisplayCollectionViewCell.xib */; };
 		7DCEFCB62213002C00F59A37 /* ImageDisplayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB22213002C00F59A37 /* ImageDisplayCollectionViewCell.xib */; };
+		7DD589F522574B5400BD9DB3 /* waterFilled.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DD589F422574B5400BD9DB3 /* waterFilled.jpg */; };
+		7DD589F72257643B00BD9DB3 /* coffee19.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 7DD589F62257643B00BD9DB3 /* coffee19.JPG */; };
+		7DD589F92257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD589F82257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift */; };
+		7DD589FB2257A2B900BD9DB3 /* coffee20.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7DD589FA2257A2B900BD9DB3 /* coffee20.jpeg */; };
+		7DD589FD2257A2C500BD9DB3 /* coffee21.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7DD589FC2257A2C500BD9DB3 /* coffee21.jpeg */; };
 		7DE532DF22522FE90078A07C /* UserDefineRectBoundController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE532DE22522FE90078A07C /* UserDefineRectBoundController.swift */; };
 		7DE95F1E2255EFED005D4AA2 /* background_withoutcoffee_real_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE95F1D2255EFEC005D4AA2 /* background_withoutcoffee_real_1.png */; };
 		7DE95F202255F374005D4AA2 /* background_without_coffee_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DE95F1F2255F374005D4AA2 /* background_without_coffee_1.jpg */; };
@@ -239,6 +244,11 @@
 		7DCEFCB02213002B00F59A37 /* ImageFullDisplayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFullDisplayCollectionViewCell.swift; sourceTree = "<group>"; };
 		7DCEFCB12213002B00F59A37 /* ImageFullDisplayCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageFullDisplayCollectionViewCell.xib; sourceTree = "<group>"; };
 		7DCEFCB22213002C00F59A37 /* ImageDisplayCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDisplayCollectionViewCell.xib; sourceTree = "<group>"; };
+		7DD589F422574B5400BD9DB3 /* waterFilled.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = waterFilled.jpg; sourceTree = "<group>"; };
+		7DD589F62257643B00BD9DB3 /* coffee19.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffee19.JPG; sourceTree = "<group>"; };
+		7DD589F82257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingOpenCVTestingWithDrawingViewController.swift; sourceTree = "<group>"; };
+		7DD589FA2257A2B900BD9DB3 /* coffee20.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffee20.jpeg; sourceTree = "<group>"; };
+		7DD589FC2257A2C500BD9DB3 /* coffee21.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffee21.jpeg; sourceTree = "<group>"; };
 		7DE532DE22522FE90078A07C /* UserDefineRectBoundController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefineRectBoundController.swift; sourceTree = "<group>"; };
 		7DE95F1D2255EFEC005D4AA2 /* background_withoutcoffee_real_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_withoutcoffee_real_1.png; sourceTree = "<group>"; };
 		7DE95F1F2255F374005D4AA2 /* background_without_coffee_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_without_coffee_1.jpg; sourceTree = "<group>"; };
@@ -339,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				7D87CD3D2253A9A5001E9C69 /* OpenCVTestingViewController.swift */,
+				7DD589F82257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift */,
 			);
 			path = "Debug Controllers";
 			sourceTree = "<group>";
@@ -451,6 +462,9 @@
 				7D8CF2BF222D875400421CD1 /* coffee14.jpg */,
 				7D8CF2E8222D875500421CD1 /* coffee15.jpeg */,
 				7D8CF2FA222D875500421CD1 /* coffee18.jpg */,
+				7DD589F62257643B00BD9DB3 /* coffee19.JPG */,
+				7DD589FA2257A2B900BD9DB3 /* coffee20.jpeg */,
+				7DD589FC2257A2C500BD9DB3 /* coffee21.jpeg */,
 				7D8CF297222D875400421CD1 /* CoffeeUI */,
 				7D8CF2EA222D875500421CD1 /* dark_coffee */,
 				7D8CF2D0222D875400421CD1 /* fancy_coffee */,
@@ -615,6 +629,7 @@
 		7DE95F2522563CDB005D4AA2 /* LightDarkSorted */ = {
 			isa = PBXGroup;
 			children = (
+				7DD589F422574B5400BD9DB3 /* waterFilled.jpg */,
 				7DE95F3522563CEE005D4AA2 /* dark coffee */,
 				7DE95F2622563CEC005D4AA2 /* light coffee */,
 			);
@@ -820,7 +835,10 @@
 				7DE95F2422563551005D4AA2 /* background_without_coffee_7.jpg in Resources */,
 				7D1C0ED7224E0E2700A7C415 /* photo7.jpg in Resources */,
 				7D8CF307222D875500421CD1 /* coffeeOwl.jpg in Resources */,
+				7DD589FB2257A2B900BD9DB3 /* coffee20.jpeg in Resources */,
+				7DD589FD2257A2C500BD9DB3 /* coffee21.jpeg in Resources */,
 				7D8CF315222D875500421CD1 /* coffee13.jpg in Resources */,
+				7DD589F72257643B00BD9DB3 /* coffee19.JPG in Resources */,
 				7DE95F4B22563CEF005D4AA2 /* light_coffe_train_14.jpg in Resources */,
 				7DE95F4722563CEE005D4AA2 /* light_coffe_train_12.png in Resources */,
 				7DE95F5022563CEF005D4AA2 /* light_coffe_train_6.jpg in Resources */,
@@ -861,6 +879,7 @@
 				7D8CF322222D875500421CD1 /* fancy_coffee_1.jpg in Resources */,
 				7D8CF338222D875500421CD1 /* dark_coffee_3.jpg in Resources */,
 				7D8CF30E222D875500421CD1 /* blackSteamy.jpg in Resources */,
+				7DD589F522574B5400BD9DB3 /* waterFilled.jpg in Resources */,
 				7DE95F4C22563CEF005D4AA2 /* light_coffe_train_1.jpg in Resources */,
 				7D8CF31A222D875500421CD1 /* light_coffee_4.jpg in Resources */,
 			);
@@ -964,6 +983,7 @@
 				7D49D79322240C2F00ABC7F5 /* CameraCoffeeViewController.swift in Sources */,
 				7D49D7972224158800ABC7F5 /* ImageComparator.swift in Sources */,
 				7DCEFC712212FAEC00F59A37 /* AppDelegate.swift in Sources */,
+				7DD589F92257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift in Sources */,
 				7D49D78F2223FFD200ABC7F5 /* ProcessingImageViewController.swift in Sources */,
 				7DE532DF22522FE90078A07C /* UserDefineRectBoundController.swift in Sources */,
 				7D6240D52227F0B900A70D53 /* ContourLinesCustomAnimation.swift in Sources */,

@@ -52,7 +52,7 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         if let img = self.debugImage {
             self.capturedImage = img
         } else {
-            let bundlePath = Bundle.main.path(forResource: "coffee18", ofType: "jpg")
+            let bundlePath = Bundle.main.path(forResource: "coffee20", ofType: "jpeg")
             self.capturedImage =  UIImage(contentsOfFile: bundlePath!)
         }
         self.transitionToImageProcessing()
@@ -84,12 +84,10 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        
         UIView.animate(withDuration: 0.1) {
             self.overCameraImageView.alpha = 0
             self.backgroundImageView.alpha = 0
         }
-        
 //        self.navigationController?.navigationBar.prefersLargeTitles = true
 //        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
