@@ -45,6 +45,14 @@ class DrawingOpenCVTestingWithDrawingViewController: UIViewController {
         self.tempImageView.image = UIImage()
         self.createRect()
         
+        print(self.boundingRect)
+        self.mainImageView.image = OpenCVWrapper.find_contours(self.selectedImage, withBound: self.boundingRect, withThreshold: 40)
+        
+        
+        let complexity_class = OpenCVWrapper.find_contours_count(self.selectedImage, withBound: self.boundingRect, withThreshold: 40)
+        print(complexity_class)
+//        self.mainImageView.image = OpenCVWrapper.bounding_circles_squares(self.selectedImage, withThresh: 225)
+        
         /** Dark array **/
         let highEnd = NSMutableArray(array: [140, 22, 100])
         let lowEnd = NSMutableArray(array: [80, 10, 2])
@@ -56,7 +64,8 @@ class DrawingOpenCVTestingWithDrawingViewController: UIViewController {
 //        self.mainImageView.image = OpenCVWrapper.get_color_contour_sizeM(self.selectedImage, withBound: self.boundingRect, withLowRange: lowEnd, withHighRange: highEnd)
         let yeet = OpenCVWrapper.get_yeeted(self.selectedImage, withBound: self.boundingRect)
         print(yeet)
-        self.drawRect(tl: boundingRectPointTL, dr: boundingRectPointDR)
+//        self.drawRect(tl: boundingRectPointTL, dr: boundingRectPointDR)
+        
         // Draw the rect
     }
     
@@ -82,31 +91,12 @@ class DrawingOpenCVTestingWithDrawingViewController: UIViewController {
         self.mainImageView.image = OpenCVWrapper.get_color_contour_sizeRR(self.selectedImage, withBound: self.boundingRect, withLowRange: lowEnd, withHighRange: highEnd)
     }
     
-    /*
-     + (int) get_contour_size_light_coffee:
-     NSMutableArray *highEnd
-     [highEnd addObject:@(115)];
-     [highEnd addObject:@(255)];
-     [highEnd addObject:@(220)];
-     
-     NSMutableArray *lowEnd
-     [lowEnd addObject:@(80)];
-     [lowEnd addObject:@(90)];
-     [lowEnd addObject:@(72)];
-     
-     
-     + (int) get_contour_size_dark_coffee:
-     NSMutableArray *highEnd
-     [highEnd addObject:@(140)];
-     [highEnd addObject:@(220)];
-     [highEnd addObject:@(100)];
-     
-     NSMutableArray *lowEnd
-     [lowEnd addObject:@(80)];
-     [lowEnd addObject:@(10)];
-     [lowEnd addObject:@(2)];
-     */
     
+    @IBAction func helperSliderAction(_ sender: UISlider) {
+        self.createRect()
+        self.mainImageView.image = OpenCVWrapper.find_contours(self.selectedImage, withThresh: Int32(sender.value))
+        print(sender.value)
+    }
     
     // MARK: - View lifecycle
     override func viewDidLoad() {

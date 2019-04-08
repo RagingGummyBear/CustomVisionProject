@@ -25,12 +25,12 @@ class CombinedProcessingImageViewController: UIViewController {
     
     private var boundingRectPointTL = CGPoint(x: 10000, y: 10000)
     private var boundingRectPointDR = CGPoint(x: -1, y: -1)
-//    private var boundingRect = CGRect()
+    //    private var boundingRect = CGRect()
     
     private var displayingRect = false
     private var userCanDraw = false
     
-//    public var parentReturn: ((CGRect) -> ())?
+    //    public var parentReturn: ((CGRect) -> ())?
     
     // Processing view variables
     var privateThreadSafeAnimationsQueue = DispatchQueue.init(label: "com.seavus.imageprocessing.animations")
@@ -39,7 +39,7 @@ class CombinedProcessingImageViewController: UIViewController {
     var colorHistogramResult = -10.0
     var grayHistogramResult = -10.0
     
-//    var bestResult = -10.0
+    //    var bestResult = -10.0
     var bestClass = "N/A"
     var bestBound = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
     
@@ -73,7 +73,7 @@ class CombinedProcessingImageViewController: UIViewController {
     @IBAction func drawBoundingBox(_ sender: Any) {
         // Create the rect
         self.tempImageView.image = UIImage()
-//        self.drawRect(tl: boundingRectPointTL, dr: boundingRectPointDR)
+        //        self.drawRect(tl: boundingRectPointTL, dr: boundingRectPointDR)
         
         self.createRect()
         // Draw the rect
@@ -305,11 +305,10 @@ class CombinedProcessingImageViewController: UIViewController {
                 let height = self.boundingRectPointDR.y - self.boundingRectPointTL.y + self.brushWidth * 2
                 
                 self.bestBound = CGRect(x: self.boundingRectPointTL.x - self.brushWidth, y: self.boundingRectPointTL.y - self.brushWidth, width: width, height: height)
-            
+                
                 self.mainImageView.fitRectInView(rect: &self.bestBound)
                 self.scaleTheBoundingRect()
             }
-            
         }
     }
     
@@ -319,39 +318,42 @@ class CombinedProcessingImageViewController: UIViewController {
         }
         self.processingStarted = true
         
-        ImageComparator.shared().fillUpAll()
-        
-//        DispatchQueue.main.async {
-//            self.drawRect(tl: self.boundingRectPointTL, dr: self.boundingRectPointDR)
-//        }
-        
         self.createRect()
-
+        
+        // Coffee texture density
         self.privateThreadSafeProcessingQueue.async {
             self.getPartialCoffeClass()
         }
         
+        // Gets bound size + bound position class ( focus of the coffe )
         self.privateThreadSafeProcessingQueue.async {
             self.getBestBoundClass()
         }
         
+        // Random factor
         self.privateThreadSafeProcessingQueue.async {
             self.getOverallRGBClass()
         }
         
+        // Random factor
         self.privateThreadSafeProcessingQueue.async {
             self.getPartialRGBClass()
         }
         
+        // Get image texture complexity
         self.privateThreadSafeProcessingQueue.async {
-            self.getFullHistogramComparisonClass()
-        }
-        
-        self.privateThreadSafeProcessingQueue.async {
-            self.getPartialHistogramClass()
+            self.getCoffeeComplexityClass()
         }
         
         self.applyGrayscale()
+    }
+    
+    func getCoffeeComplexityClass(){
+        let coffeeClass = OpenCVWrapper.find_contours_count(self.selectedImage, withBound: self.bestBound, withThreshold: 40)
+        self.foundClasses.append("coffee_\(coffeeClass)")
+        DispatchQueue.main.async {
+            self.progressBar.progress += 0.09
+        }
     }
     
     func getBestBoundClass(){
@@ -416,7 +418,7 @@ class CombinedProcessingImageViewController: UIViewController {
         }
         
         DispatchQueue.main.async {
-            self.progressBar.progress += 0.07
+            self.progressBar.progress += 0.09
         }
     }
     
@@ -445,7 +447,7 @@ class CombinedProcessingImageViewController: UIViewController {
         }
         
         DispatchQueue.main.async {
-            self.progressBar.progress += 0.07
+            self.progressBar.progress += 0.09
         }
     }
     
@@ -474,43 +476,16 @@ class CombinedProcessingImageViewController: UIViewController {
         }
         
         DispatchQueue.main.async {
-            self.progressBar.progress += 0.07
+            self.progressBar.progress += 0.09
         }
     }
     
-    func getFullHistogramComparisonClass(){
-        // Histogram compare based on whole image
-        if let image = self.selectedImage {
-            ImageComparator.shared().findBestClassHistogramCompare(image: image, completion: { [unowned self] (result: Double, bestClass: String, bestImage: UIImage) in
-                self.foundClasses.append("hist-full-\(bestClass)")
-                
-                DispatchQueue.main.async {
-                    self.progressBar.progress += 0.07
-                }
-                }, error: nil)
-        }
-    }
-    
-    func getPartialHistogramClass(){
-        // Histogram compare based on best bound
-        if let image = self.selectedImage {
-            let croppedImage = CustomUtility.cropImage(imageToCrop: image, toRect: self.bestBound)
-            ImageComparator.shared().findBestClassHistogramCompare(image: croppedImage, completion: { [unowned self] (result: Double, bestClass: String, bestImage: UIImage) in
-                self.foundClasses.append("hist-partial-\(bestClass)")
-                
-                DispatchQueue.main.async {
-                    self.progressBar.progress += 0.07
-                }
-                }, error: nil)
-        }
-    }
-
     func getPartialCoffeClass(){
         if let image = self.selectedImage {
             _ = CustomUtility.cropImage(imageToCrop: image, toRect: self.bestBound)
             let bestClass = OpenCVWrapper.get_yeeted(self.selectedImage, withBound: self.bestBound);
             
-            self.foundClasses.append("yeeted_class_\(bestClass)")
+            self.foundClasses.append("\(bestClass)")
         }
     }
     
@@ -523,7 +498,7 @@ class CombinedProcessingImageViewController: UIViewController {
                 self.mainImageView.image = self.selectedImage
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
-                self.progressBar.progress += 0.07
+                self.progressBar.progress += 0.09
                 self.applyPartialGrayscale()
             })
         }
@@ -543,7 +518,7 @@ class CombinedProcessingImageViewController: UIViewController {
                 self.mainImageView.image = OpenCVWrapper.draw_color_mask(self.selectedImage!, withBound: self.bestBound)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
                     
-                    self.progressBar.progress += 0.07
+                    self.progressBar.progress += 0.09
                     
                     self.applyPartialGrayscaleReversed()
                 })
@@ -558,29 +533,31 @@ class CombinedProcessingImageViewController: UIViewController {
                     self.mainImageView.image = OpenCVWrapper.draw_color_mask_reversed(image, withBound: self.bestBound)
                 }
                 
-//                ImageComparator.shared().findTheBestBackgroundWithoutCoffee(image: image, bestBound: self.bestBound, completion: { (result:Double, backgroundClass: String, backgroundImage: UIImage) in
-//                    self.foundClasses.append(backgroundClass)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [unowned self] in
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
-//                            
-//                            self.progressBar.progress += 0.07
-//                            self.animateFullContours()
-//                        })
-//                    }
-//                    
-//                }, error: { (msg:String) in
-//                    print("ProcessingImageViewController -> applyPartialGrayscaleReversed: Error while executing function with message: \(msg)")
-//                })
+                //                ImageComparator.shared().findTheBestBackgroundWithoutCoffee(image: image, bestBound: self.bestBound, completion: { (result:Double, backgroundClass: String, backgroundImage: UIImage) in
+                //                    self.foundClasses.append(backgroundClass)
+                //                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [unowned self] in
+                //                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
+                //
+                //                            self.progressBar.progress += 0.09
+                //                            self.animateFullContours()
+                //                        })
+                //                    }
+                //
+                //                }, error: { (msg:String) in
+                //                    print("ProcessingImageViewController -> applyPartialGrayscaleReversed: Error while executing function with message: \(msg)")
+                //                })
                 
                 self.privateThreadSafeAnimationsQueue.async {
+                    // Getting the background color class
                     let bestBackgroundClass = OpenCVWrapper.get_yeeted_background(self.selectedImage, withBound: self.bestBound)
-                    self.foundClasses.append("yeeted_background_\(bestBackgroundClass)")
+                    self.foundClasses.append("background_class_\(bestBackgroundClass)")
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
-                        self.progressBar.progress += 0.07
+                        self.progressBar.progress += 0.09
                         self.animateFullContours()
                     })
                 }
+                
             }
         }
     }
@@ -591,7 +568,7 @@ class CombinedProcessingImageViewController: UIViewController {
                 let anim = ContourLinesCustomAnimation(targetView: self.mainImageView, image: image, completion: { [unowned self] in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [unowned self] in
                         
-                        self.progressBar.progress += 0.07
+                        self.progressBar.progress += 0.09
                         self.animatePartialContours()
                     })
                 })
@@ -608,7 +585,7 @@ class CombinedProcessingImageViewController: UIViewController {
                 
                 let anim = ContourPartialCustomAnimation(targetView: self.mainImageView, image: image, bound: self.bestBound, completion: { [unowned self] in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [unowned self] in
-                        self.progressBar.progress += 0.07
+                        self.progressBar.progress += 0.09
                         self.animateBoundAndCircleContours()
                     })
                 })
@@ -625,7 +602,7 @@ class CombinedProcessingImageViewController: UIViewController {
                 let anim = ContourBoundCircleCustomAnimation(targetView: self.mainImageView, image: image, completion: { [unowned self] in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [unowned self] in
                         
-                        self.progressBar.progress += 0.07
+                        self.progressBar.progress += 0.09
                         self.processingFinished()
                     })
                 })
@@ -652,16 +629,16 @@ class CombinedProcessingImageViewController: UIViewController {
     }
     
     func transitionToFortuneDisplay(){
-
+        
         DispatchQueue.main.async {
             self.navigationController?.popViewController(animated: false)
             if let completion = self.parentReturn {
                 if self.foundClasses.count > 0 {
-
+                    
                     self.mainImageView.image = nil
                     self.selectedImage = nil
-
-                    ImageComparator.shared().releaseAll()
+                    
+                    //                    ImageComparator.shared().releaseAll()
                     completion(self.foundClasses)
                 }
             }

@@ -9,11 +9,20 @@
         * HU Moments ~ semi good. Might be used to determine the possition of the mugg in the image
         * Feature matching ~ not very good, either doesnt detect or it detects not relateable features
         * Image simple thresholding ??? (Not sure how to use) 
-        * Image back propagation ??? (Not sure how to sue)
         * Image histogram compare on best bound and on whole image
         * Image grayscale histogram compare on best bound and on whole image
         * Use RGB overall values for random prediction ~ for this algorithm cut coffee images required
     - Use edge contours, grayscale, bounding contours, color range contours as animations to the original image during the processing 
+    
+### Classes detected:
+
+    - Coffee color density
+    - Background color
+    - Coffee texture complexity
+    - Coffee position in the image // based of the drawing bound
+    - Coffee bound size // based of drawing bound size
+    - RGB in the whole image // a random factor
+    - RGB in the bound image // abit less random factor ( r > g > b bias )
 
 ## Project structure:
 
@@ -37,24 +46,15 @@
         * ImageView with original image
         * Short description label
         * Long description about the fortune label
-        * Share button top right??? (allows the user to share the image with the short fortune text)
-        * Send like button on the bottom
+        * Like + share buttons
 
 ## Additional assets:
 
 ### CoreTraingingAssets:
-    - Make better recognition of coffee. Make a better guess if they are filled with coffee, out of coffee or clean muggs
-
-### ComparingAssets:
-    - Make assets with only coffee color from the top, side, angled
-    - Make assets with clean coffee mug too aid the CoreML?
-    - Make assets with better textures for comparison ???
-    - Get background assets with coffee on them
+    - Make better recognition of coffee.
+    - Requires images from far, angled and different cup color 
 
 ## TODO:
-    - Try to make better detection for the coffee color using OpenCV (so we can remove the comparison and reduce the cpu stress)
-    - YEET the background in the combined view controller
-    - Acquisition of new images for the classifier and new images for the histogram bounds compare
-    - Acquire images for background with coffee compare --- BIG MUST
+    - Acquire images for better coffee recognition
     
 ## BUGS:

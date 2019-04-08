@@ -204,6 +204,60 @@ using namespace cv;
     return MatToUIImage(src);
 }
 
++ (NSString *) find_contours_count: (UIImage *) image withBound:(CGRect) bound withThreshold:(int) max_thresh {
+    // Consts //
+    //    int thresh = 60;
+    int min_thresh = 25;
+    RNG rng(12345);
+    ////////////
+    
+    Mat src; Mat src_gray; UIImageToMat(image, src);
+    cvtColor( src, src_gray, COLOR_BGR2GRAY );
+    blur( src_gray, src_gray, cv::Size(3,3) );
+    
+    Mat canny_output;
+    vector<vector<cv::Point> > contours;
+    vector<Vec4i> hierarchy;
+    
+    // cv::Mat::zeros(src.size, CV_8u)
+    
+    cv::Mat boundMask = cv::Mat::zeros(src.rows, src.cols, CV_8U); // all 0
+    boundMask(cv::Rect(bound.origin.x, bound.origin.y, bound.size.width, bound.size.height)) = Scalar(255,255,255);
+    
+    // Detect edges using canny
+    Canny( src_gray, canny_output, min_thresh, max_thresh, 3 );
+    // Find contours
+    canny_output.copyTo(canny_output, boundMask);
+    
+    Mat temp; canny_output.copyTo(temp, boundMask);
+    findContours( temp, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
+    // Draw contours
+    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
+    
+    cvtColor(src, temp, COLOR_BGR2RGB);
+    cvtColor(temp, src, COLOR_RGB2BGR); // HACK for drawing colors
+    
+    // Scalar color = Scalar( 32, 194, 14); // HACKERGREEN
+    Scalar color = Scalar( 248, 152, 30); // COFFEEBROWN
+    for( int i = 0; i< contours.size(); i++ ){
+        // Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
+    }
+    
+    if(contours.size() < bound.size.width && contours.size() < bound.size.height){
+        return @"low_contour_complexity";
+    } else {
+        if(contours.size() > bound.size.width * 2 || contours.size() > bound.size.height * 2){
+            return @"high_contour_complexity";
+        } else {
+            return @"medium_contour_complexity";
+        }
+    }
+    
+    // This be unreachable :D
+    return @"contours.size()";
+}
+
 // USING
 + (double) compareUsingHistograms: (UIImage *) src withImage:(UIImage *) compare {
     Mat src_img, hsv_src; UIImageToMat(src, src_img);
@@ -582,7 +636,6 @@ using namespace cv;
     return MatToUIImage(temp);
 }
 
-// USING FOR TESTING
 + (UIImage *) bounding_circles_squares: (UIImage *) image withThresh:(int) thresh {
     //////////////////////
 //    int max_thresh = 255;
@@ -632,7 +685,6 @@ using namespace cv;
     return MatToUIImage(src);
 }
 
-// USING FOR TESTING
 + (UIImage *) bounding_circles_squares: (UIImage *) image withBound:(CGRect) bound withThresh:(int) thresh {
     //////////////////////
 //    int max_thresh = 255;
@@ -641,6 +693,9 @@ using namespace cv;
     
     Mat src; Mat src_gray; UIImageToMat(image, src);
     Mat temp; cvtColor(src, temp, COLOR_BGR2RGB);
+    
+    cout << "src.rows: " << src.rows << " src.cols: " << src.cols << endl;
+    cout << " origin.y: " << bound.origin.x << " origin.y: " << bound.origin.y << " size.width: " << bound.size.width << " size.height: " << bound.size.height << endl;
     
     cv::Mat boundMask = cv::Mat::zeros(src.rows, src.cols, CV_8U); // all 0
     boundMask(cv::Rect(bound.origin.x, bound.origin.y, bound.size.width, bound.size.height)) = Scalar(255,255,255);
@@ -652,8 +707,9 @@ using namespace cv;
     Mat threshold_output;
     vector<vector<cv::Point> > contours;
     vector<Vec4i> hierarchy;
-    
+        
     Mat croppedGray; src_gray.copyTo(croppedGray, boundMask);
+    return MatToUIImage(croppedGray);
     /// Detect edges using Threshold
     threshold( croppedGray, threshold_output, thresh, 255, THRESH_BINARY );
     /// Find contours
@@ -870,21 +926,22 @@ using namespace cv;
     }
     
     if (light_coffee_size < size_threshold){
-        return @"dark_coffee_yeet";
+        return @"coffee_class_dark";
     }
     
     if (dark_coffee_size < size_threshold){
-        return @"light_coffee_yeet";
+        return @"coffee_class_light";
     }
     
     if (light_coffee_size < dark_coffee_size){
-        return @"dark_coffee_yeet";
-    }
-    if (dark_coffee_size < light_coffee_size){
-        return @"light_coffee_yeet";
+        return @"coffee_class_dark";
     }
     
-    return @"YEEEET";
+    if (dark_coffee_size < light_coffee_size){
+        return @"coffee_class_light";
+    }
+    
+    return @"coffee_class_empty_notfound";
 }
 
 + (NSString *) get_yeeted_background: (UIImage *) image withBound:(CGRect) bound {

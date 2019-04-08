@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *) get_color_content_class: (UIImage *) image withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector; // TESTING
 
 
-
++ (NSString *) find_contours_count: (UIImage *) image withBound:(CGRect) bound withThreshold:(int) max_thresh;
 
 
 + (NSString *) get_yeeted: (UIImage *) image withBound:(CGRect) bound;
