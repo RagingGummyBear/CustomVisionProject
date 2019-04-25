@@ -15,7 +15,7 @@ class CombinedProcessingImageViewController: UIViewController {
     
     // Drawing view variables
     var lastPoint: CGPoint = .zero
-    var brushWidth: CGFloat = 20.0
+    var brushWidth: CGFloat = 40.0
     var opacity: CGFloat = 1.0
     var swiped = false
     
@@ -33,7 +33,7 @@ class CombinedProcessingImageViewController: UIViewController {
     //    public var parentReturn: ((CGRect) -> ())?
     
     // Processing view variables
-    var privateThreadSafeAnimationsQueue = DispatchQueue.init(label: "com.seavus.imageprocessing.animations")
+    var privateThreadSafeAnimationsQueue = DispatchQueue.init(label: "com.seavus.imageprocessing.animations") // Do not make this one .concurrent. It could cause problems
     var privateThreadSafeProcessingQueue = DispatchQueue.init(label: "com.seavus.imageprocessing.processing", attributes: .concurrent)
     
     var colorHistogramResult = -10.0
@@ -49,7 +49,7 @@ class CombinedProcessingImageViewController: UIViewController {
     var processingStarted = false
     
     public var foundClasses = [String]()
-    public var parentReturn : (([String]) -> ())?
+    public var parentReturn : (([String], UIImage) -> ())?
     
     
     // MARK: - IBOutlets references
@@ -80,8 +80,8 @@ class CombinedProcessingImageViewController: UIViewController {
     }
     
     @IBAction func clearAllDrawings(_ sender: Any) {
-        boundingRectPointTL = CGPoint(x: 10000, y: 10000)
-        boundingRectPointDR = CGPoint(x: -1, y: -1)
+        boundingRectPointTL = CGPoint(x: 10000, y: 10000) // out
+        boundingRectPointDR = CGPoint(x: -1, y: -1) // out
         self.mainImageView.image = self.selectedImage;
         self.drawingImage = self.selectedImage
         self.tempImageView.image = UIImage()
@@ -89,6 +89,11 @@ class CombinedProcessingImageViewController: UIViewController {
     
     @IBAction func doneButtonAction(_ sender: Any) {
         // transition back to the parent view and return the bounding rect
+        // Fully out
+        if(self.boundingRectPointTL.x == self.boundingRectPointTL.y && self.boundingRectPointDR.y == self.boundingRectPointDR.x){
+            return;
+        }
+        
         DispatchQueue.main.async {
             self.setupViewForProcessing()
         }
@@ -124,8 +129,9 @@ class CombinedProcessingImageViewController: UIViewController {
         self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
         
         self.mainImageView.image = self.selectedImage
+        
         self.drawingImage = self.mainImageView.image
-        self.setupViewForDrawing()
+        self.setupViewForDrawing() // singal to coordinator
     }
     
     func finalUISetup(){
@@ -229,9 +235,11 @@ class CombinedProcessingImageViewController: UIViewController {
             }
             
             // Merge tempImageView into mainImageView
-            UIGraphicsBeginImageContext(mainImageView.frame.size)
-            mainImageView.image?.draw(in: CGRect(x: 0, y: 0, width: mainImageView.frame.size.width, height: mainImageView.frame.size.height), blendMode: .normal, alpha: 1.0)
-            tempImageView.image?.draw(in: CGRect(x: 0, y: 0, width: mainImageView.frame.size.width, height: mainImageView.frame.size.height), blendMode: .normal, alpha: opacity)
+            UIGraphicsBeginImageContext(self.selectedImage.size)
+            mainImageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.selectedImage.size.width, height: self.selectedImage.size.height), blendMode: .normal, alpha: 1.0)
+            tempImageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.selectedImage.size.width, height: self.selectedImage.size.height), blendMode: .normal, alpha: opacity)
+            
+//            UIGraphicsBegingI
             mainImageView.image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             
@@ -248,14 +256,17 @@ class CombinedProcessingImageViewController: UIViewController {
                 return;
             }
             
+            let fromPointS = self.scalePointToImageSize(point: fromPoint)
+            let toPointS = self.scalePointToImageSize(point: toPoint)
+            
             // 1
-            UIGraphicsBeginImageContext(self.mainImageView.frame.size)
+            UIGraphicsBeginImageContext(self.selectedImage.size)
             let context = UIGraphicsGetCurrentContext()
-            tempImageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.mainImageView.frame.size.width, height: self.mainImageView.frame.size.height))
+            tempImageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.selectedImage.size.width, height: self.selectedImage.size.height), blendMode: .normal, alpha: opacity)
             
             // 2
-            context?.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y))
-            context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
+            context?.move(to: CGPoint(x: fromPointS.x, y: fromPointS.y))
+            context?.addLine(to: CGPoint(x: toPointS.x, y: toPointS.y))
             
             self.addedNewPoint(point: fromPoint)
             self.addedNewPoint(point: toPoint)
@@ -289,7 +300,6 @@ class CombinedProcessingImageViewController: UIViewController {
             if (point.y < self.boundingRectPointTL.y){
                 self.boundingRectPointTL.y = point.y
             }
-            
             if (point.y > self.boundingRectPointDR.y){
                 self.boundingRectPointDR.y = point.y
             }
@@ -301,10 +311,10 @@ class CombinedProcessingImageViewController: UIViewController {
             DispatchQueue.main.sync {
                 self.mainImageView.image = self.selectedImage
                 
-                let width = self.boundingRectPointDR.x - self.boundingRectPointTL.x + self.brushWidth * 2
-                let height = self.boundingRectPointDR.y - self.boundingRectPointTL.y + self.brushWidth * 2
+                let width = self.boundingRectPointDR.x - self.boundingRectPointTL.x + self.brushWidth
+                let height = self.boundingRectPointDR.y - self.boundingRectPointTL.y + self.brushWidth
                 
-                self.bestBound = CGRect(x: self.boundingRectPointTL.x - self.brushWidth, y: self.boundingRectPointTL.y - self.brushWidth, width: width, height: height)
+                self.bestBound = CGRect(x: self.boundingRectPointTL.x - self.brushWidth / 2, y: self.boundingRectPointTL.y - self.brushWidth / 2, width: width, height: height)
                 
                 self.mainImageView.fitRectInView(rect: &self.bestBound)
                 self.scaleTheBoundingRect()
@@ -316,6 +326,7 @@ class CombinedProcessingImageViewController: UIViewController {
         if self.processingStarted {
             return
         }
+        
         self.processingStarted = true
         
         self.createRect()
@@ -474,7 +485,6 @@ class CombinedProcessingImageViewController: UIViewController {
                 }
             }
         }
-        
         DispatchQueue.main.async {
             self.progressBar.progress += 0.09
         }
@@ -484,11 +494,9 @@ class CombinedProcessingImageViewController: UIViewController {
         if let image = self.selectedImage {
             _ = CustomUtility.cropImage(imageToCrop: image, toRect: self.bestBound)
             let bestClass = OpenCVWrapper.get_yeeted(self.selectedImage, withBound: self.bestBound);
-            
             self.foundClasses.append("\(bestClass)")
         }
     }
-    
     
     // MARK: - Animation processing functions
     func applyGrayscale(){
@@ -497,7 +505,7 @@ class CombinedProcessingImageViewController: UIViewController {
             DispatchQueue.main.async { [unowned self] in
                 self.mainImageView.image = self.selectedImage
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [unowned self] in
                 self.progressBar.progress += 0.09
                 self.applyPartialGrayscale()
             })
@@ -507,17 +515,13 @@ class CombinedProcessingImageViewController: UIViewController {
     func applyPartialGrayscale(){
         autoreleasepool { () -> () in
             if let image = self.selectedImage {
-                
                 DispatchQueue.main.async { [unowned self] in
-                    
                     self.mainImageView.image = OpenCVWrapper.draw_color_mask(image, withBound: self.bestBound)
                 }
             }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [unowned self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [unowned self] in
                 self.mainImageView.image = OpenCVWrapper.draw_color_mask(self.selectedImage!, withBound: self.bestBound)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
-                    
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [unowned self] in
                     self.progressBar.progress += 0.09
                     
                     self.applyPartialGrayscaleReversed()
@@ -532,32 +536,16 @@ class CombinedProcessingImageViewController: UIViewController {
                 DispatchQueue.main.async { [unowned self] in
                     self.mainImageView.image = OpenCVWrapper.draw_color_mask_reversed(image, withBound: self.bestBound)
                 }
-                
-                //                ImageComparator.shared().findTheBestBackgroundWithoutCoffee(image: image, bestBound: self.bestBound, completion: { (result:Double, backgroundClass: String, backgroundImage: UIImage) in
-                //                    self.foundClasses.append(backgroundClass)
-                //                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [unowned self] in
-                //                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
-                //
-                //                            self.progressBar.progress += 0.09
-                //                            self.animateFullContours()
-                //                        })
-                //                    }
-                //
-                //                }, error: { (msg:String) in
-                //                    print("ProcessingImageViewController -> applyPartialGrayscaleReversed: Error while executing function with message: \(msg)")
-                //                })
-                
                 self.privateThreadSafeAnimationsQueue.async {
                     // Getting the background color class
                     let bestBackgroundClass = OpenCVWrapper.get_yeeted_background(self.selectedImage, withBound: self.bestBound)
                     self.foundClasses.append("background_class_\(bestBackgroundClass)")
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: { [unowned self] in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [unowned self] in
                         self.progressBar.progress += 0.09
                         self.animateFullContours()
                     })
                 }
-                
             }
         }
     }
@@ -567,7 +555,6 @@ class CombinedProcessingImageViewController: UIViewController {
             autoreleasepool { () -> () in
                 let anim = ContourLinesCustomAnimation(targetView: self.mainImageView, image: image, completion: { [unowned self] in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [unowned self] in
-                        
                         self.progressBar.progress += 0.09
                         self.animatePartialContours()
                     })
@@ -600,7 +587,7 @@ class CombinedProcessingImageViewController: UIViewController {
         autoreleasepool { () -> () in
             if let image = self.selectedImage {
                 let anim = ContourBoundCircleCustomAnimation(targetView: self.mainImageView, image: image, completion: { [unowned self] in
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [unowned self] in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [unowned self] in
                         
                         self.progressBar.progress += 0.09
                         self.processingFinished()
@@ -634,16 +621,12 @@ class CombinedProcessingImageViewController: UIViewController {
             self.navigationController?.popViewController(animated: false)
             if let completion = self.parentReturn {
                 if self.foundClasses.count > 0 {
-                    
+                    completion(self.foundClasses, self.selectedImage)
                     self.mainImageView.image = nil
                     self.selectedImage = nil
-                    
-                    //                    ImageComparator.shared().releaseAll()
-                    completion(self.foundClasses)
                 }
             }
         }
-        
     }
     
     // MARK: - Other functions
@@ -707,8 +690,14 @@ class CombinedProcessingImageViewController: UIViewController {
         }
     }
     
-    deinit {
+    func scalePointToImageSize(point:CGPoint) -> CGPoint {
+        let originXRatio = point.x / self.mainImageView.frame.size.width
+        let originYRatio = point.y / self.mainImageView.frame.size.height
         
+        return CGPoint(x: self.selectedImage.size.width * originXRatio, y: self.selectedImage.size.height * originYRatio)
+    }
+    
+    deinit {
         self.releaseSomeMemory()
     }
     

@@ -76,10 +76,7 @@ class MainMenuViewController: UIViewController {
         return .lightContent
     }
     
-    func finalUISetup(){
-        // Here do all the resizing and constraint calculations
-        // In some cases apply the background gradient here
-        
+    func finalUISetup(){        
         self.pickRandomQuote()
         self.view.layer.removeAllAnimations()
         self.quoteLabel.layer.removeAllAnimations()
@@ -183,7 +180,9 @@ class MainMenuViewController: UIViewController {
         } else if segue.identifier == "ImageProcessingSegueIdentifier" {
             if let destination = segue.destination as? CombinedProcessingImageViewController {
                 destination.selectedImage = self.capturedImage
-                destination.parentReturn = {[unowned self]  (foundClasses: [String]) in
+                self.capturedImage = nil
+                destination.parentReturn = {[unowned self]  (foundClasses: [String], capturedImage: UIImage) in
+                    self.capturedImage = capturedImage
                     self.foundClasses = foundClasses
                     DispatchQueue.main.async {
                         self.transitionToYourFortune()
@@ -192,7 +191,7 @@ class MainMenuViewController: UIViewController {
             }
         } else if segue.identifier == "MainMenuToFortuneSeugeIdentifier" {
             if let destination = segue.destination as? YourFortuneViewController {
-                destination.capturedImage = self.capturedImage
+                destination.capturedImage = CustomUtility.imageWithWidth(sourceImage: self.capturedImage!, scaledToWidth: 480)
                 destination.foundClasses = self.foundClasses
                 
                 self.capturedImage = nil

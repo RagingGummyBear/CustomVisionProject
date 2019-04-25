@@ -31,7 +31,7 @@ class ProcessingImageViewController: UIViewController {
     var processingStarted = false
     
     public var foundClasses = [String]()
-    public var parentReturn : (([String]) -> ())?
+    public var parentReturn : (([String], UIImage) -> ())?
     
     // CustomAnimation references
     
@@ -531,7 +531,7 @@ class ProcessingImageViewController: UIViewController {
                     self.backgroundImageView.image = nil
                     
                     ImageComparator.shared().releaseAll()
-                    completion(self.foundClasses)
+                    completion(self.foundClasses, self.capturedImage!)
                 }
             }
         }

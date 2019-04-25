@@ -46,9 +46,10 @@ class OpenCVTestingViewController: UIViewController {
 
 //        self.mainImageView.image = OpenCVWrapper.get_color_contour_sizeRR(self.selectedImage, withBound: CGRect(x: 25, y: 25, width: 200, height: 200), withLowRange: lowerC, withHighRange: highC)
 ////
-        // let backgroundClass = OpenCVWrapper.get_yeeted_background(self.selectedImage, withBound: CGRect(x: 25, y: 25, width: 200, height: 200))
-        // print(backgroundClass)
-//
+//         let backgroundClass = OpenCVWrapper.get_yeeted_background(self.selectedImage, withBound: CGRect(x: 25, y: 25, width: 200, height: 200))
+//         print(backgroundClass)
+        
+        
 //        let foundClass = self.getSelectedImageColorClass()
 //        print(foundClass)
         

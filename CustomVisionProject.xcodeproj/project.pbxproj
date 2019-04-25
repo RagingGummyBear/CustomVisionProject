@@ -40,7 +40,12 @@
 		7D6240D7222819F600A70D53 /* ContourPartialCustomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6240D6222819F600A70D53 /* ContourPartialCustomAnimation.swift */; };
 		7D6240D922281C9E00A70D53 /* ContourBoundCircleCustomAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6240D822281C9E00A70D53 /* ContourBoundCircleCustomAnimation.swift */; };
 		7D6FDC6D22291DF5007F8CC4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6FDC6C22291DF5007F8CC4 /* Extensions.swift */; };
+		7D794D9E225B8C1700E09793 /* water_filled_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D794D9B225B8C1700E09793 /* water_filled_1.jpg */; };
+		7D794D9F225B8C1700E09793 /* water_filled_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D794D9C225B8C1700E09793 /* water_filled_3.jpg */; };
+		7D794DA0225B8C1700E09793 /* water_filled_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D794D9D225B8C1700E09793 /* water_filled_2.jpg */; };
+		7D794DA2225B8E3500E09793 /* water_filled_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D794DA1225B8E3500E09793 /* water_filled_4.jpg */; };
 		7D7BF8FE22533AE700F9CAF1 /* CombinedProcessingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7BF8FD22533AE700F9CAF1 /* CombinedProcessingImageViewController.swift */; };
+		7D82BB9B2271F4640081661B /* PhotoDrawingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D82BB9A2271F4640081661B /* PhotoDrawingService.swift */; };
 		7D87CD3E2253A9A5001E9C69 /* OpenCVTestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D87CD3D2253A9A5001E9C69 /* OpenCVTestingViewController.swift */; };
 		7D8CF300222D875500421CD1 /* steamyCoffe.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CF29A222D875400421CD1 /* steamyCoffe.jpg */; };
 		7D8CF307222D875500421CD1 /* coffeeOwl.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CF2A8222D875400421CD1 /* coffeeOwl.jpg */; };
@@ -66,6 +71,22 @@
 		7D8CF33B222D875500421CD1 /* dark_coffee_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CF2F7222D875500421CD1 /* dark_coffee_1.jpg */; };
 		7D8CF33D222D875500421CD1 /* coffee18.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CF2FA222D875500421CD1 /* coffee18.jpg */; };
 		7D8CF33F222D875500421CD1 /* coffee8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CF2FD222D875500421CD1 /* coffee8.jpg */; };
+		7D8D068C2271AC2F008C4B12 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D067F2271AC2E008C4B12 /* TableViewDataSource.swift */; };
+		7D8D068D2271AC2F008C4B12 /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06812271AC2F008C4B12 /* PersistentStorage.swift */; };
+		7D8D068E2271AC2F008C4B12 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06822271AC2F008C4B12 /* DataProvider.swift */; };
+		7D8D068F2271AC2F008C4B12 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06832271AC2F008C4B12 /* APIManager.swift */; };
+		7D8D06902271AC2F008C4B12 /* ExampleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06852271AC2F008C4B12 /* ExampleModel.swift */; };
+		7D8D06912271AC2F008C4B12 /* StoryboardedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06872271AC2F008C4B12 /* StoryboardedProtocol.swift */; };
+		7D8D06922271AC2F008C4B12 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06882271AC2F008C4B12 /* MainCoordinator.swift */; };
+		7D8D06932271AC2F008C4B12 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06892271AC2F008C4B12 /* CoordinatorProtocol.swift */; };
+		7D8D06942271AC2F008C4B12 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D068B2271AC2F008C4B12 /* MainViewController.swift */; };
+		7D8D06972271AE94008C4B12 /* PhotoTakeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06952271AE94008C4B12 /* PhotoTakeCoordinator.swift */; };
+		7D8D06982271AE94008C4B12 /* PhotoTakeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06962271AE94008C4B12 /* PhotoTakeViewController.swift */; };
+		7D8D069B2271B13E008C4B12 /* PhotoProcessCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06992271B13E008C4B12 /* PhotoProcessCoordinator.swift */; };
+		7D8D069C2271B13E008C4B12 /* PhotoProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D069A2271B13E008C4B12 /* PhotoProcessViewController.swift */; };
+		7D8D069F2271B170008C4B12 /* FortuneResultCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D069D2271B170008C4B12 /* FortuneResultCoordinator.swift */; };
+		7D8D06A02271B170008C4B12 /* FortuneResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D069E2271B170008C4B12 /* FortuneResultViewController.swift */; };
+		7D8D06A22271DA4A008C4B12 /* CameraCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06A12271DA49008C4B12 /* CameraCaptureService.swift */; };
 		7DB2830D222051D00015BD32 /* YourFortuneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB2830C222051D00015BD32 /* YourFortuneViewController.swift */; };
 		7DB6B31D221EEED600D3A208 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D42943D221D7F4300291794 /* OpenCVWrapper.mm */; };
 		7DBAFD332226CA7000BBC36C /* TextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBAFD322226CA7000BBC36C /* TextGenerator.swift */; };
@@ -78,7 +99,6 @@
 		7DC0993B2240E065004B4F57 /* background_without_coffee_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DC099362240E065004B4F57 /* background_without_coffee_4.jpg */; };
 		7DC0993D2240E155004B4F57 /* background_without_coffee_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DC0993C2240E155004B4F57 /* background_without_coffee_6.jpg */; };
 		7DCEFC712212FAEC00F59A37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFC702212FAEC00F59A37 /* AppDelegate.swift */; };
-		7DCEFC732212FAEC00F59A37 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFC722212FAEC00F59A37 /* ViewController.swift */; };
 		7DCEFC762212FAEC00F59A37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFC742212FAEC00F59A37 /* Main.storyboard */; };
 		7DCEFC792212FAEC00F59A37 /* CustomVisionProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFC772212FAEC00F59A37 /* CustomVisionProject.xcdatamodeld */; };
 		7DCEFC7B2212FAEF00F59A37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFC7A2212FAEF00F59A37 /* Assets.xcassets */; };
@@ -90,7 +110,6 @@
 		7DCEFCB42213002C00F59A37 /* ImageFullDisplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB02213002B00F59A37 /* ImageFullDisplayCollectionViewCell.swift */; };
 		7DCEFCB52213002C00F59A37 /* ImageFullDisplayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB12213002B00F59A37 /* ImageFullDisplayCollectionViewCell.xib */; };
 		7DCEFCB62213002C00F59A37 /* ImageDisplayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB22213002C00F59A37 /* ImageDisplayCollectionViewCell.xib */; };
-		7DD589F522574B5400BD9DB3 /* waterFilled.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DD589F422574B5400BD9DB3 /* waterFilled.jpg */; };
 		7DD589F72257643B00BD9DB3 /* coffee19.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 7DD589F62257643B00BD9DB3 /* coffee19.JPG */; };
 		7DD589F92257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD589F82257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift */; };
 		7DD589FB2257A2B900BD9DB3 /* coffee20.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7DD589FA2257A2B900BD9DB3 /* coffee20.jpeg */; };
@@ -188,7 +207,12 @@
 		7D6240D6222819F600A70D53 /* ContourPartialCustomAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContourPartialCustomAnimation.swift; sourceTree = "<group>"; };
 		7D6240D822281C9E00A70D53 /* ContourBoundCircleCustomAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContourBoundCircleCustomAnimation.swift; sourceTree = "<group>"; };
 		7D6FDC6C22291DF5007F8CC4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7D794D9B225B8C1700E09793 /* water_filled_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = water_filled_1.jpg; sourceTree = "<group>"; };
+		7D794D9C225B8C1700E09793 /* water_filled_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = water_filled_3.jpg; sourceTree = "<group>"; };
+		7D794D9D225B8C1700E09793 /* water_filled_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = water_filled_2.jpg; sourceTree = "<group>"; };
+		7D794DA1225B8E3500E09793 /* water_filled_4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = water_filled_4.jpg; sourceTree = "<group>"; };
 		7D7BF8FD22533AE700F9CAF1 /* CombinedProcessingImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedProcessingImageViewController.swift; sourceTree = "<group>"; };
+		7D82BB9A2271F4640081661B /* PhotoDrawingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDrawingService.swift; sourceTree = "<group>"; };
 		7D87CD3D2253A9A5001E9C69 /* OpenCVTestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenCVTestingViewController.swift; sourceTree = "<group>"; };
 		7D8CF29A222D875400421CD1 /* steamyCoffe.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = steamyCoffe.jpg; sourceTree = "<group>"; };
 		7D8CF2A8222D875400421CD1 /* coffeeOwl.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffeeOwl.jpg; sourceTree = "<group>"; };
@@ -214,6 +238,22 @@
 		7D8CF2F7222D875500421CD1 /* dark_coffee_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dark_coffee_1.jpg; sourceTree = "<group>"; };
 		7D8CF2FA222D875500421CD1 /* coffee18.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffee18.jpg; sourceTree = "<group>"; };
 		7D8CF2FD222D875500421CD1 /* coffee8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffee8.jpg; sourceTree = "<group>"; };
+		7D8D067F2271AC2E008C4B12 /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
+		7D8D06812271AC2F008C4B12 /* PersistentStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
+		7D8D06822271AC2F008C4B12 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		7D8D06832271AC2F008C4B12 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		7D8D06852271AC2F008C4B12 /* ExampleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleModel.swift; sourceTree = "<group>"; };
+		7D8D06872271AC2F008C4B12 /* StoryboardedProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardedProtocol.swift; sourceTree = "<group>"; };
+		7D8D06882271AC2F008C4B12 /* MainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		7D8D06892271AC2F008C4B12 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		7D8D068B2271AC2F008C4B12 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		7D8D06952271AE94008C4B12 /* PhotoTakeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTakeCoordinator.swift; sourceTree = "<group>"; };
+		7D8D06962271AE94008C4B12 /* PhotoTakeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTakeViewController.swift; sourceTree = "<group>"; };
+		7D8D06992271B13E008C4B12 /* PhotoProcessCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoProcessCoordinator.swift; sourceTree = "<group>"; };
+		7D8D069A2271B13E008C4B12 /* PhotoProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoProcessViewController.swift; sourceTree = "<group>"; };
+		7D8D069D2271B170008C4B12 /* FortuneResultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortuneResultCoordinator.swift; sourceTree = "<group>"; };
+		7D8D069E2271B170008C4B12 /* FortuneResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortuneResultViewController.swift; sourceTree = "<group>"; };
+		7D8D06A12271DA49008C4B12 /* CameraCaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureService.swift; sourceTree = "<group>"; };
 		7DB28305222017620015BD32 /* Workflow.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Workflow.md; sourceTree = "<group>"; };
 		7DB2830C222051D00015BD32 /* YourFortuneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourFortuneViewController.swift; sourceTree = "<group>"; };
 		7DBAFD322226CA7000BBC36C /* TextGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextGenerator.swift; sourceTree = "<group>"; };
@@ -227,7 +267,6 @@
 		7DC0993C2240E155004B4F57 /* background_without_coffee_6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_without_coffee_6.jpg; sourceTree = "<group>"; };
 		7DCEFC6D2212FAEC00F59A37 /* CustomVisionProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomVisionProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DCEFC702212FAEC00F59A37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7DCEFC722212FAEC00F59A37 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7DCEFC752212FAEC00F59A37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7DCEFC782212FAEC00F59A37 /* CustomVisionProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CustomVisionProject.xcdatamodel; sourceTree = "<group>"; };
 		7DCEFC7A2212FAEF00F59A37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -244,7 +283,6 @@
 		7DCEFCB02213002B00F59A37 /* ImageFullDisplayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFullDisplayCollectionViewCell.swift; sourceTree = "<group>"; };
 		7DCEFCB12213002B00F59A37 /* ImageFullDisplayCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageFullDisplayCollectionViewCell.xib; sourceTree = "<group>"; };
 		7DCEFCB22213002C00F59A37 /* ImageDisplayCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDisplayCollectionViewCell.xib; sourceTree = "<group>"; };
-		7DD589F422574B5400BD9DB3 /* waterFilled.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = waterFilled.jpg; sourceTree = "<group>"; };
 		7DD589F62257643B00BD9DB3 /* coffee19.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffee19.JPG; sourceTree = "<group>"; };
 		7DD589F82257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingOpenCVTestingWithDrawingViewController.swift; sourceTree = "<group>"; };
 		7DD589FA2257A2B900BD9DB3 /* coffee20.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffee20.jpeg; sourceTree = "<group>"; };
@@ -391,6 +429,17 @@
 			path = CustomAnimations;
 			sourceTree = "<group>";
 		};
+		7D794D9A225B8C1700E09793 /* empty cup */ = {
+			isa = PBXGroup;
+			children = (
+				7D794D9B225B8C1700E09793 /* water_filled_1.jpg */,
+				7D794D9D225B8C1700E09793 /* water_filled_2.jpg */,
+				7D794D9C225B8C1700E09793 /* water_filled_3.jpg */,
+				7D794DA1225B8E3500E09793 /* water_filled_4.jpg */,
+			);
+			path = "empty cup";
+			sourceTree = "<group>";
+		};
 		7D8CF296222D86F400421CD1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -473,6 +522,78 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		7D8D06702271A963008C4B12 /* MVC-CS */ = {
+			isa = PBXGroup;
+			children = (
+				7D8D06842271AC2F008C4B12 /* Models */,
+				7D8D06802271AC2E008C4B12 /* Services */,
+				7D8D06862271AC2F008C4B12 /* Coordinators */,
+				7D8D068A2271AC2F008C4B12 /* ViewControllers */,
+				7D8D067D2271AC2E008C4B12 /* Views */,
+			);
+			path = "MVC-CS";
+			sourceTree = "<group>";
+		};
+		7D8D067D2271AC2E008C4B12 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7D8D067E2271AC2E008C4B12 /* DataSources */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7D8D067E2271AC2E008C4B12 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				7D8D067F2271AC2E008C4B12 /* TableViewDataSource.swift */,
+			);
+			path = DataSources;
+			sourceTree = "<group>";
+		};
+		7D8D06802271AC2E008C4B12 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7D8D06812271AC2F008C4B12 /* PersistentStorage.swift */,
+				7D8D06822271AC2F008C4B12 /* DataProvider.swift */,
+				7D8D06832271AC2F008C4B12 /* APIManager.swift */,
+				7D8D06A12271DA49008C4B12 /* CameraCaptureService.swift */,
+				7D82BB9A2271F4640081661B /* PhotoDrawingService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7D8D06842271AC2F008C4B12 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7D8D06852271AC2F008C4B12 /* ExampleModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7D8D06862271AC2F008C4B12 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				7D8D06872271AC2F008C4B12 /* StoryboardedProtocol.swift */,
+				7D8D06892271AC2F008C4B12 /* CoordinatorProtocol.swift */,
+				7D8D06882271AC2F008C4B12 /* MainCoordinator.swift */,
+				7D8D06952271AE94008C4B12 /* PhotoTakeCoordinator.swift */,
+				7D8D06992271B13E008C4B12 /* PhotoProcessCoordinator.swift */,
+				7D8D069D2271B170008C4B12 /* FortuneResultCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		7D8D068A2271AC2F008C4B12 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				7D8D068B2271AC2F008C4B12 /* MainViewController.swift */,
+				7D8D06962271AE94008C4B12 /* PhotoTakeViewController.swift */,
+				7D8D069A2271B13E008C4B12 /* PhotoProcessViewController.swift */,
+				7D8D069E2271B170008C4B12 /* FortuneResultViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		7DC0992F2240E065004B4F57 /* backgrounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,6 +651,7 @@
 		7DCEFC6F2212FAEC00F59A37 /* CustomVisionProject */ = {
 			isa = PBXGroup;
 			children = (
+				7D8D06702271A963008C4B12 /* MVC-CS */,
 				7D8CF296222D86F400421CD1 /* Resources */,
 				7DCEFCBB221313BE00F59A37 /* CoreModels */,
 				7DCEFCA42212FBDB00F59A37 /* Utilities */,
@@ -537,7 +659,6 @@
 				7DCEFCA22212FBBC00F59A37 /* Models */,
 				7DCEFCA12212FBB000F59A37 /* Controllers */,
 				7DCEFC702212FAEC00F59A37 /* AppDelegate.swift */,
-				7DCEFC722212FAEC00F59A37 /* ViewController.swift */,
 				7DCEFC742212FAEC00F59A37 /* Main.storyboard */,
 				7DCEFC7A2212FAEF00F59A37 /* Assets.xcassets */,
 				7DCEFC7C2212FAEF00F59A37 /* LaunchScreen.storyboard */,
@@ -629,7 +750,7 @@
 		7DE95F2522563CDB005D4AA2 /* LightDarkSorted */ = {
 			isa = PBXGroup;
 			children = (
-				7DD589F422574B5400BD9DB3 /* waterFilled.jpg */,
+				7D794D9A225B8C1700E09793 /* empty cup */,
 				7DE95F3522563CEE005D4AA2 /* dark coffee */,
 				7DE95F2622563CEC005D4AA2 /* light coffee */,
 			);
@@ -809,6 +930,7 @@
 				7DCEFC7E2212FAEF00F59A37 /* LaunchScreen.storyboard in Resources */,
 				7DE95F4922563CEF005D4AA2 /* light_coffe_train_10.jpg in Resources */,
 				7DE95F202255F374005D4AA2 /* background_without_coffee_1.jpg in Resources */,
+				7D794DA2225B8E3500E09793 /* water_filled_4.jpg in Resources */,
 				7DE95F5722563CEF005D4AA2 /* dark_coffe_train_3.jpg in Resources */,
 				7DE95F4A22563CEF005D4AA2 /* light_coffe_train_11.jpg in Resources */,
 				7DE95F4F22563CEF005D4AA2 /* light_coffe_train_7.jpg in Resources */,
@@ -819,6 +941,7 @@
 				7D1C0EC9224E08AA00A7C415 /* photo1.jpg in Resources */,
 				7D1C0ED8224E0E2700A7C415 /* photo9.jpg in Resources */,
 				7D8CF30C222D875500421CD1 /* heartCoffee.jpg in Resources */,
+				7D794DA0225B8C1700E09793 /* water_filled_2.jpg in Resources */,
 				7D1C0ED5224E0E2700A7C415 /* photo3.jpg in Resources */,
 				7DCEFC7B2212FAEF00F59A37 /* Assets.xcassets in Resources */,
 				7D8CF334222D875500421CD1 /* dark_coffee_4.jpg in Resources */,
@@ -855,7 +978,9 @@
 				7DE95F1E2255EFED005D4AA2 /* background_withoutcoffee_real_1.png in Resources */,
 				7DC0993D2240E155004B4F57 /* background_without_coffee_6.jpg in Resources */,
 				7DE95F4E22563CEF005D4AA2 /* light_coffe_train_3.jpg in Resources */,
+				7D794D9E225B8C1700E09793 /* water_filled_1.jpg in Resources */,
 				7DE95F222255F9EC005D4AA2 /* photo10.jpg in Resources */,
+				7D794D9F225B8C1700E09793 /* water_filled_3.jpg in Resources */,
 				7DE95F4822563CEE005D4AA2 /* light_coffe_train_9.jpg in Resources */,
 				7DE95F5A22563CEF005D4AA2 /* dark_coffe_train_9.jpg in Resources */,
 				7DE95F6022563CEF005D4AA2 /* dark_coffe_train_15.jpg in Resources */,
@@ -879,7 +1004,6 @@
 				7D8CF322222D875500421CD1 /* fancy_coffee_1.jpg in Resources */,
 				7D8CF338222D875500421CD1 /* dark_coffee_3.jpg in Resources */,
 				7D8CF30E222D875500421CD1 /* blackSteamy.jpg in Resources */,
-				7DD589F522574B5400BD9DB3 /* waterFilled.jpg in Resources */,
 				7DE95F4C22563CEF005D4AA2 /* light_coffe_train_1.jpg in Resources */,
 				7D8CF31A222D875500421CD1 /* light_coffee_4.jpg in Resources */,
 			);
@@ -975,33 +1099,49 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D8D068C2271AC2F008C4B12 /* TableViewDataSource.swift in Sources */,
+				7D8D06A02271B170008C4B12 /* FortuneResultViewController.swift in Sources */,
 				7D6FDC6D22291DF5007F8CC4 /* Extensions.swift in Sources */,
 				7DCEFCB42213002C00F59A37 /* ImageFullDisplayCollectionViewCell.swift in Sources */,
-				7DCEFC732212FAEC00F59A37 /* ViewController.swift in Sources */,
 				7D49D79922242F8600ABC7F5 /* AboutViewController.swift in Sources */,
 				7DB2830D222051D00015BD32 /* YourFortuneViewController.swift in Sources */,
 				7D49D79322240C2F00ABC7F5 /* CameraCoffeeViewController.swift in Sources */,
 				7D49D7972224158800ABC7F5 /* ImageComparator.swift in Sources */,
 				7DCEFC712212FAEC00F59A37 /* AppDelegate.swift in Sources */,
+				7D8D06982271AE94008C4B12 /* PhotoTakeViewController.swift in Sources */,
 				7DD589F92257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift in Sources */,
 				7D49D78F2223FFD200ABC7F5 /* ProcessingImageViewController.swift in Sources */,
 				7DE532DF22522FE90078A07C /* UserDefineRectBoundController.swift in Sources */,
 				7D6240D52227F0B900A70D53 /* ContourLinesCustomAnimation.swift in Sources */,
+				7D8D06972271AE94008C4B12 /* PhotoTakeCoordinator.swift in Sources */,
+				7D8D068F2271AC2F008C4B12 /* APIManager.swift in Sources */,
+				7D8D069F2271B170008C4B12 /* FortuneResultCoordinator.swift in Sources */,
+				7D8D069B2271B13E008C4B12 /* PhotoProcessCoordinator.swift in Sources */,
 				7D6240D22227EB9300A70D53 /* CustomAnimation.swift in Sources */,
+				7D8D06942271AC2F008C4B12 /* MainViewController.swift in Sources */,
 				7D87CD3E2253A9A5001E9C69 /* OpenCVTestingViewController.swift in Sources */,
 				7DCEFC792212FAEC00F59A37 /* CustomVisionProject.xcdatamodeld in Sources */,
+				7D8D06922271AC2F008C4B12 /* MainCoordinator.swift in Sources */,
 				7DCEFCAE2212FFFC00F59A37 /* ImageData.swift in Sources */,
+				7D82BB9B2271F4640081661B /* PhotoDrawingService.swift in Sources */,
 				7DBAFD372226E7EA00BBC36C /* QuoteModel.swift in Sources */,
 				7DCEFCB32213002C00F59A37 /* ImageDisplayCollectionViewCell.swift in Sources */,
 				7D6240D922281C9E00A70D53 /* ContourBoundCircleCustomAnimation.swift in Sources */,
+				7D8D068E2271AC2F008C4B12 /* DataProvider.swift in Sources */,
 				7D429426221D523A00291794 /* CoffeePorscheClass.mlmodel in Sources */,
+				7D8D06A22271DA4A008C4B12 /* CameraCaptureService.swift in Sources */,
+				7D8D068D2271AC2F008C4B12 /* PersistentStorage.swift in Sources */,
 				7DBAFD332226CA7000BBC36C /* TextGenerator.swift in Sources */,
 				7D1B7E45224E47E5008B0FE2 /* DrawUIView.swift in Sources */,
+				7D8D06912271AC2F008C4B12 /* StoryboardedProtocol.swift in Sources */,
 				7D7BF8FE22533AE700F9CAF1 /* CombinedProcessingImageViewController.swift in Sources */,
+				7D8D06932271AC2F008C4B12 /* CoordinatorProtocol.swift in Sources */,
 				7D4890FC22298592000D4951 /* CustomUtility.swift in Sources */,
 				7D49D791222401EE00ABC7F5 /* MainMenuViewController.swift in Sources */,
 				7D6240D7222819F600A70D53 /* ContourPartialCustomAnimation.swift in Sources */,
+				7D8D069C2271B13E008C4B12 /* PhotoProcessViewController.swift in Sources */,
 				7D42943E221D7F4300291794 /* OpenCVWrapper.mm in Sources */,
+				7D8D06902271AC2F008C4B12 /* ExampleModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

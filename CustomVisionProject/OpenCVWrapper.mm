@@ -1079,7 +1079,7 @@ using namespace cv;
     [highEnd addObject:@(100)];
     
     NSMutableArray *lowEnd = [NSMutableArray array];
-    [lowEnd addObject:@(20)];
+    [lowEnd addObject:@(102)];
     [lowEnd addObject:@(10)];
     [lowEnd addObject:@(2)];
     
@@ -1301,7 +1301,7 @@ using namespace cv;
         contoursSize += cv::contourArea(contours[i]);
     }
  
-    if (contoursSize < src.cols * src.rows * 0.02) {
+    if (contoursSize < bound.size.width * bound.size.height * 0.1) {
         return 0;
     }
     
