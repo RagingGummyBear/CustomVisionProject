@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fvx-YF-3x9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -591,7 +591,7 @@
                         <color key="tintColor" name="NavigationText"/>
                         <color key="barTintColor" name="TextBackground"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="21"/>
+                            <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="20"/>
                             <color key="textColor" name="NavigationText"/>
                         </textAttributes>
                     </navigationBar>
@@ -1043,7 +1043,7 @@
             </objects>
             <point key="canvasLocation" x="-3120.289855072464" y="-927.71739130434787"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Start Menu-->
         <scene sceneID="dO7-0V-zjv">
             <objects>
                 <viewController storyboardIdentifier="MainViewController" id="fIQ-G0-2Yj" customClass="MainViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -1070,7 +1070,7 @@
                                     <fragment content="If this is coffee, please bring me some tea; but if this is tea, please bring me some coffee.  Abraham Lincoln">
                                         <attributes>
                                             <color key="NSBackgroundColor" red="0.27703747153282166" green="0.14881050586700439" blue="0.071193613111972809" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="NSColor" red="0.97219663858413696" green="0.5966530442237854" blue="0.11631364375352859" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="NSColor" red="0.97254901960784312" green="0.59607843137254901" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="18" name="AmericanTypewriter-Semibold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -1137,7 +1137,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RcH-6u-dpQ"/>
                     </view>
-                    <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="6Gq-yw-naS">
+                    <navigationItem key="navigationItem" title="Start Menu" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="6Gq-yw-naS">
                         <barButtonItem key="backBarButtonItem" title="Back" id="mWt-Mt-HLH"/>
                     </navigationItem>
                     <connections>
@@ -1205,7 +1205,7 @@
             </objects>
             <point key="canvasLocation" x="-3578" y="3200"/>
         </scene>
-        <!--Shoot photo-->
+        <!--Coffee Shot-->
         <scene sceneID="2uh-f1-z5t">
             <objects>
                 <viewController storyboardIdentifier="PhotoTakeViewController" id="Tb5-EB-865" customClass="PhotoTakeViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -1282,9 +1282,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cvH-vb-K3M"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Shoot photo" id="Drf-AT-YPy">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="CCU-1I-fhA"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Coffee Shot" id="eiV-Xh-WRD"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="debugImage" value="photo1.jpg"/>
                     </userDefinedRuntimeAttributes>
@@ -1300,7 +1298,7 @@
             </objects>
             <point key="canvasLocation" x="-2699" y="2481"/>
         </scene>
-        <!--Your result-->
+        <!--Your Fortune-->
         <scene sceneID="1IY-6G-Q4f">
             <objects>
                 <viewController storyboardIdentifier="FortuneResultViewController" id="nmg-O5-VQT" customClass="FortuneResultViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -1344,6 +1342,9 @@
                                                 <state key="normal" title="Send like">
                                                     <color key="titleColor" name="TextBackground"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="sendLikeButtonAction:" destination="nmg-O5-VQT" eventType="touchUpInside" id="7oU-0Y-Ytz"/>
+                                                </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qXZ-tE-c90">
                                                 <rect key="frame" x="90" y="24" width="420" height="350"/>
@@ -1388,6 +1389,9 @@
                                 <state key="normal" title="Share">
                                     <color key="titleColor" name="TextBackground"/>
                                 </state>
+                                <connections>
+                                    <action selector="shareButtonAction:" destination="nmg-O5-VQT" eventType="touchUpInside" id="eG1-yi-7HF"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qG3-17-857">
                                 <rect key="frame" x="0.0" y="20" width="600" height="834"/>
@@ -1414,16 +1418,28 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5FD-95-fRD"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Your result" id="Chg-3z-80p">
-                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="TcE-C6-rcv"/>
+                    <navigationItem key="navigationItem" title="Your Fortune" id="Chg-3z-80p">
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="TcE-C6-rcv">
+                            <connections>
+                                <action selector="doneNavigationBarButton:" destination="nmg-O5-VQT" id="Bfz-pJ-Tif"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <size key="freeformSize" width="600" height="900"/>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="8Dt-Xa-2Yf" id="MJl-TD-3gk"/>
+                        <outlet property="fullDescriptionLabel" destination="Uxr-dE-1YV" id="IdH-ub-0yZ"/>
+                        <outlet property="originalImageView" destination="qXZ-tE-c90" id="an7-XJ-uGe"/>
+                        <outlet property="sendLikeButton" destination="jiV-kW-Pei" id="j73-98-J4r"/>
+                        <outlet property="shareButton" destination="TCa-Va-4H6" id="pih-me-m2M"/>
+                        <outlet property="shortDescriptionLabel" destination="q1p-N4-00v" id="kdR-Ba-XSW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="doQ-gE-KOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-749" y="2548"/>
         </scene>
-        <!--Draw around the coffee-->
+        <!--Photo Processing-->
         <scene sceneID="Cvc-kL-qVJ">
             <objects>
                 <viewController storyboardIdentifier="PhotoProcessViewController" id="LcJ-HO-SbG" customClass="PhotoProcessViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -1452,7 +1468,7 @@
                                     <color key="titleColor" name="NavigationText"/>
                                 </state>
                                 <connections>
-                                    <action selector="clearButtonAction:" destination="LcJ-HO-SbG" eventType="touchUpInside" id="BcX-EP-XJM"/>
+                                    <action selector="clearAllDrawings:" destination="LcJ-HO-SbG" eventType="touchUpInside" id="63R-Gz-ITr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bx3-A9-y7O">
@@ -1465,7 +1481,7 @@
                                     <color key="titleColor" name="NavigationText"/>
                                 </state>
                                 <connections>
-                                    <action selector="doneButtonAction:" destination="LcJ-HO-SbG" eventType="touchUpInside" id="2cu-Oi-knf"/>
+                                    <action selector="doneButtonAction:" destination="LcJ-HO-SbG" eventType="touchUpInside" id="zoI-KX-mu1"/>
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="i2f-ke-KL4">
@@ -1511,13 +1527,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wea-u3-Tx8"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Draw around the coffee" id="aWt-9u-Hck"/>
+                    <navigationItem key="navigationItem" title="Photo Processing" id="nCD-sz-qKy"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="photo1.jpg"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="backgroundImageView" destination="qfb-B3-ITU" id="ZXq-D7-swo"/>
-                        <outlet property="clearButton" destination="3HS-w5-wKT" id="SSc-dE-Ger"/>
+                        <outlet property="clearButton" destination="3HS-w5-wKT" id="ycM-Q3-7Am"/>
                         <outlet property="doneButton" destination="bx3-A9-y7O" id="f8W-kq-rgi"/>
                         <outlet property="mainImageView" destination="3M7-I4-o61" id="2dt-zF-4LQ"/>
                         <outlet property="processingStatusLabel" destination="kya-7J-X3B" id="67A-I6-QW1"/>

@@ -13,11 +13,33 @@ class FortuneResultViewController: UIViewController, Storyboarded {
     // MARK: - Custom references and variables
     weak var coordinator: FortuneResultCoordinator? // Don't remove
     public let navigationBarHidden = false
+    
+    public var capturedImage: UIImage?
+    public var foundClasses = [String]()
 
+    private var textGenerator = TextGenerator()
+    
     // MARK: - IBOutlets references
+    @IBOutlet weak var originalImageView: UIImageView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var shortDescriptionLabel: UILabel!
+    @IBOutlet weak var fullDescriptionLabel: UILabel!
+    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var sendLikeButton: UIButton!
 
     // MARK: - IBOutlets actions
-
+    @IBAction func doneNavigationBarButton(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func shareButtonAction(_ sender: Any) {
+        self.coordinator?.shareImage()
+    }
+    
+    @IBAction func sendLikeButtonAction(_ sender: Any) {
+        
+    }
+    
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,17 +56,39 @@ class FortuneResultViewController: UIViewController, Storyboarded {
             self.finalUISetup()
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIView.animate(withDuration: 0.1) {
+            self.backgroundImageView.alpha = 0
+        }
+    }
 
     // MARK: - UI Functions
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+            return .lightContent
+        }
+        return .lightContent
+    }
+    
     func initalUISetup(){
         // Change label's text, etc.
+        let bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
+        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
+        // Change label's text, etc.
+        self.textGenerator.foundClasses = self.foundClasses
+        self.textGenerator.generateShortText { (result: String) in
+        }
+        self.originalImageView.image = self.capturedImage
     }
 
     func finalUISetup(){
-        // Here do all the resizing and constraint calculations
-        // In some cases apply the background gradient here
+        DispatchQueue.main.async {
+            self.shortDescriptionLabel.text = self.coordinator?.generateShortDescription()
+            self.fullDescriptionLabel.text = self.coordinator?.generateLongDescription()
+        }
     }
 
     // MARK: - Other functions
-    // Remember keep the logic and processing in the coordinator
 }

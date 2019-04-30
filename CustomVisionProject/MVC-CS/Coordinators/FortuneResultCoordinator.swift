@@ -25,6 +25,13 @@ class FortuneResultCoordinator:NSObject, Coordinator {
 
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    
+    
+    private var textGenerator = TextGenerator()
+    
+    public var foundClasses: [String]!
+    public var capturedImage: UIImage!
+    
 
     // MARK: - Initialization
     init(navigationController: UINavigationController) {
@@ -33,9 +40,12 @@ class FortuneResultCoordinator:NSObject, Coordinator {
 
     // MARK: - Protocol implementation
     func start(){
+        self.textGenerator.foundClasses = self.foundClasses
         self.navigationController.delegate = self // This line is a must do not remove
         self.viewController = FortuneResultViewController.instantiate()
         self.viewController.coordinator = self
+        self.viewController.capturedImage = capturedImage
+        self.viewController.foundClasses = foundClasses
         self.navigationController.setNavigationBarHidden(self.viewController.navigationBarHidden, animated: true)
         self.navigationController.pushViewController(self.viewController, animated: true)
     }
@@ -44,7 +54,6 @@ class FortuneResultCoordinator:NSObject, Coordinator {
         self.navigationController.delegate = self // This line is a must do not remove
 
         // Do coordinator parsing //
-
         // ////////////////////// //
 
         // Default code used for removing of child coordinators // TODO: refactor it
@@ -60,37 +69,33 @@ class FortuneResultCoordinator:NSObject, Coordinator {
         return self.dataProvider
     }
 
-    /* **************************************** */
-    // Examples // Remove them after inspecting //
-    // func start() {
-    //     navigationController.delegate = self
-    //     let vc = BuyViewController.instantiate()
-    //     vc.coordinator = self
-    //     navigationController.pushViewController(vc, animated: true)
-    //     // we'll add code here
-    // }
-    /* **************************************** */
-
     // MARK: - Transition functions
     // These are the functions that can be called by the view controller as well
 
-    /* **************************************** */
-    // Examples // Remove them after inspecting //
-    // func buySubscription(to productType: Int) {
-    //     let child = BuyCoordinator(navigationController: navigationController)
-    //     child.parentCoordinator = self
-    //     childCoordinators.append(child)
-    //     child.start(to: productType)
-    // }
-    /* **************************************** */
-
+    
+    
     // MARK: - Logic functions
     // These are the functions that may be called by the viewcontroller. Example: Request for data, update data, etc.
 
+    func shareImage() {
+        let img = self.viewController.originalImageView.image
+        let messageStr = self.viewController.shortDescriptionLabel.text
+        let activityViewController:UIActivityViewController = UIActivityViewController(activityItems:  [img!, messageStr!], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [UIActivity.ActivityType.print, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.copyToPasteboard, UIActivity.ActivityType.addToReadingList, UIActivity.ActivityType.postToVimeo]
+        self.viewController.present(activityViewController, animated: true, completion: nil)
+    }
+    
 
     // MARK: - Others
-
-
+    
+    func generateShortDescription() -> String {
+        return textGenerator.generateClassText()
+    }
+    
+    func generateLongDescription() -> String {
+        return textGenerator.generateBingDebugText()
+    }
+    
     /* ************************************************************* */
     // Sadly I don't know how to put this code into the protocol :( //
     /* ************************************************************* */

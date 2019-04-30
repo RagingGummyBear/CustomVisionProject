@@ -45,7 +45,6 @@ class PhotoTakeCoordinator:NSObject, Coordinator, CameraPhotoTakeDelegate {
         self.viewController.coordinator = self
         self.navigationController.setNavigationBarHidden(self.viewController.navigationBarHidden, animated: true)
         self.navigationController.pushViewController(self.viewController, animated: true)
-        
     }
 
     func childPop(_ child: Coordinator?){
@@ -67,7 +66,7 @@ class PhotoTakeCoordinator:NSObject, Coordinator, CameraPhotoTakeDelegate {
     internal func getDataProvider() -> DataProvider {
         return self.dataProvider
     }
-
+    
     // MARK: - Transition functions
     // These are the functions that can be called by the view controller as well
 //    func photoCapturedTransition(){
@@ -77,7 +76,7 @@ class PhotoTakeCoordinator:NSObject, Coordinator, CameraPhotoTakeDelegate {
     
     // MARK: - Logic functions
     // These are the functions that may be called by the viewcontroller. Example: Request for data, update data, etc.
-
+    
     func startCameraSetup(){
         self.cameraCaptureService = CameraCaptureService(cameraPhotoTakeDelegate: self,
             cameraPreviewImageView: self.viewController.cameraPreviewImageView, overCameraImageView: self.viewController.overCameraImageView, captureButton: self.viewController.takePhotoButton, coffeeIndicatorLabel: self.viewController.coffeeIndicatorLabel)
@@ -91,9 +90,19 @@ class PhotoTakeCoordinator:NSObject, Coordinator, CameraPhotoTakeDelegate {
     func photoTaken(photo: UIImage) {
         self.photoTaken = true
         self.capturedPhoto = photo
-        print(photo)
         DispatchQueue.main.async {
             
+            self.navigationController.popViewController(animated: true)
+        }
+    }
+    
+    func setupFailed(){
+        self.photoTaken = true
+        
+        let bundlePath = Bundle.main.path(forResource: "photo4", ofType: "jpg")
+        self.capturedPhoto = UIImage(contentsOfFile: bundlePath!)
+        
+        DispatchQueue.main.async {
             self.navigationController.popViewController(animated: true)
         }
     }

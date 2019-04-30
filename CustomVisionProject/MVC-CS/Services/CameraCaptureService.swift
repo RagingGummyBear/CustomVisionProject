@@ -58,6 +58,7 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
         
         if self.videoDevice == nil {
             self.session?.commitConfiguration()
+            self.cameraPhotoTakeDelegate.setupFailed()
             return
         }
         do {
@@ -117,7 +118,6 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
     }
     
     func setupPreview(){
-        
         self.previewLayer = AVCaptureVideoPreviewLayer(session: self.session!)
         
         self.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
@@ -177,9 +177,7 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
             guard let imageData = photo.fileDataRepresentation()
                 else { return }
             let image = UIImage(data: imageData)
-            
             self.session?.stopRunning()
-            
             self.cameraPhotoTakeDelegate.photoTaken(photo: (image?.updateImageOrientionUpSide())!)
         }
     }
@@ -187,10 +185,10 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
     deinit {
         self.session?.commitConfiguration()
         self.session?.stopRunning() // https://www.youtube.com/watch?v=W6oQUDFV2C0
-        print("Camera deInited")
     }
 }
 
 public protocol CameraPhotoTakeDelegate: class {
     func photoTaken(photo: UIImage)
+    func setupFailed()
 }

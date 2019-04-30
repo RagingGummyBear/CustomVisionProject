@@ -216,7 +216,7 @@ class CombinedProcessingImageViewController: UIViewController {
             if let touch = touches.first {
                 let currentPoint = touch.location(in: mainImageView)
                 drawLineFrom(fromPoint: lastPoint, toPoint: currentPoint)
-                // 7
+                
                 lastPoint = currentPoint
             }
         }
@@ -239,7 +239,6 @@ class CombinedProcessingImageViewController: UIViewController {
             mainImageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.selectedImage.size.width, height: self.selectedImage.size.height), blendMode: .normal, alpha: 1.0)
             tempImageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.selectedImage.size.width, height: self.selectedImage.size.height), blendMode: .normal, alpha: opacity)
             
-//            UIGraphicsBegingI
             mainImageView.image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             

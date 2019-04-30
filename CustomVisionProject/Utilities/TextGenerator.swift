@@ -38,6 +38,42 @@ class TextGenerator {
         }
     }
     
+    public func generateShortText() -> String {
+        var result = ""
+        for className in self.foundClasses {
+            if className != self.foundClasses.first {
+                if className == self.foundClasses.last {
+                    result.append(" and ")
+                } else {
+                    result.append(", ")
+                }
+            }
+            if className.contains("bound"){
+                result.append(self.short_bound(className: className))
+            } else if className.contains("rgb"){
+                result.append(self.short_rgb(className: className))
+            } else if className.contains("hist"){
+                result.append(self.short_hist(className: className))
+            } else if className.contains("background"){
+                result.append(self.short_background(className: className))
+            }
+        }
+        return result
+    }
+    
+    public func generateClassText() -> String {
+        var shortLabel = ""
+        for foundClass in self.foundClasses {
+            shortLabel += foundClass + ", "
+        }
+        
+        return shortLabel
+    }
+    
+    public func generateBingDebugText() -> String {
+        return "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin a sem non dignissim. Aenean non tincidunt ligula, vitae vestibulum libero. Curabitur vel justo ac lorem iaculis placerat eu sit amet justo. In a erat lorem. Suspendisse condimentum vitae magna a malesuada. Nullam finibus iaculis rhoncus. Aenean imperdiet blandit mauris, vel eleifend sapien vehicula ut. Nunc mollis porta lectus. Integer ut nibh ante. Vivamus quis risus nec ex fermentum maximus vel ut erat. In a malesuada justo. Vivamus viverra eget enim nec tincidunt.\nInteger elementum odio maximus maximus placerat. In hac habitasse platea dictumst. Integer facilisis iaculis est a interdum. Quisque commodo mollis pretium. Ut in lorem dapibus, viverra arcu vel, dapibus mi. Vivamus accumsan mauris a nisl sagittis egestas. Phasellus tristique venenatis odio eu facilisis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer velit ligula, imperdiet in posuere et, ornare pulvinar est. Nam dui dolor, sodales vel interdum at, vehicula ac enim. Phasellus mollis ut nunc ut tristique."
+    }
+    
     public func generateLongText() -> String {
         return "To be implemented"
     }

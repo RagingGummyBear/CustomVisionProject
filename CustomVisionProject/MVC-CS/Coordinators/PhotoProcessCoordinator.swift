@@ -31,6 +31,7 @@ class PhotoProcessCoordinator:NSObject, Coordinator {
     // MARK: - Custom properties
     var photoProcessed = true
     var capturedPhoto: UIImage!
+    var foundClasses = [String]()
 
     // MARK: - Initialization
     init(navigationController: UINavigationController) {

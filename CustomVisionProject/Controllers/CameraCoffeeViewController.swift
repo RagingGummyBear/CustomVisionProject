@@ -44,7 +44,6 @@ class CameraCoffeeViewController: UIViewController, AVCapturePhotoCaptureDelegat
         self.photoTaken = true
         
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-//        settings.flashMode = .auto
         stillImageOutput.capturePhoto(with: settings, delegate: self)
     }
     

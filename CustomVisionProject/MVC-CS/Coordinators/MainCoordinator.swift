@@ -25,6 +25,14 @@ class MainCoordinator:NSObject, Coordinator {
     // MARK: - Initialization
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        super.init()
+        self.setupNavigationController()
+    }
+    
+    func setupNavigationController(){
+        self.navigationController.navigationBar.barTintColor = UIColor.uicolorFromHex(rgbValue: 0x391F0F)
+        self.navigationController.navigationBar.tintColor = UIColor.uicolorFromHex(rgbValue: 0xF8981E)
+        self.navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "AmericanTypewriter-Semibold", size: 20)!, NSAttributedString.Key.foregroundColor:UIColor.uicolorFromHex(rgbValue: 0xF8981E)]
     }
 
     // MARK: - Protocol implementation
@@ -48,7 +56,7 @@ class MainCoordinator:NSObject, Coordinator {
             }
         } else if let photoProcessCoordinator = child as? PhotoProcessCoordinator {
             if photoProcessCoordinator.photoProcessed {
-                self.goToFortuneResult()
+                self.goToFortuneResult(photo: photoProcessCoordinator.capturedPhoto, foundClasses: photoProcessCoordinator.foundClasses)
             }
         }
         // ////////////////////// //
@@ -82,10 +90,12 @@ class MainCoordinator:NSObject, Coordinator {
         child.start()
     }
     
-    func goToFortuneResult() {
+    func goToFortuneResult(photo: UIImage, foundClasses: [String]) {
         let child = FortuneResultCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
         childCoordinators.append(child)
+        child.foundClasses = foundClasses
+        child.capturedImage = photo
         child.start()
     }
     

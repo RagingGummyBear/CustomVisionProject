@@ -39,6 +39,13 @@ class MainViewController: UIViewController, Storyboarded {
     }
 
     // MARK: - UI Functions
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+            return .lightContent
+        }
+        return .lightContent
+    }
+    
     func initalUISetup(){
         // Change label's text, etc.
         
@@ -48,6 +55,7 @@ class MainViewController: UIViewController, Storyboarded {
     }
 
     func finalUISetup(){
+        
     }
     
 //    override var preferredStatusBarStyle: UIStatusBarStyle {
