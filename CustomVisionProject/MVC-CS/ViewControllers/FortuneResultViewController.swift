@@ -16,8 +16,6 @@ class FortuneResultViewController: UIViewController, Storyboarded {
     
     public var capturedImage: UIImage?
     public var foundClasses = [String]()
-
-    private var textGenerator = TextGenerator()
     
     // MARK: - IBOutlets references
     @IBOutlet weak var originalImageView: UIImageView!
@@ -65,21 +63,12 @@ class FortuneResultViewController: UIViewController, Storyboarded {
     }
 
     // MARK: - UI Functions
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-            return .lightContent
-        }
-        return .lightContent
-    }
     
     func initalUISetup(){
         // Change label's text, etc.
         let bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
         self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
         // Change label's text, etc.
-        self.textGenerator.foundClasses = self.foundClasses
-        self.textGenerator.generateShortText { (result: String) in
-        }
         self.originalImageView.image = self.capturedImage
     }
 

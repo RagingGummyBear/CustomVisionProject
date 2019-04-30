@@ -56,5 +56,6 @@
 
 ## TODO:
     - Acquire images for better coffee recognition
-    
+    - Fix the quotes to change on swipe
+    - Fix the memory leak UGH!!!
 ## BUGS:

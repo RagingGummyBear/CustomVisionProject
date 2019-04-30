@@ -604,12 +604,6 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
     }
     
     // MARK: - Other functions
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-            return .lightContent
-        }
-        return .lightContent
-    }
     
     func drawRect(tl: CGPoint, dr: CGPoint) {
         if self.displayingRect {

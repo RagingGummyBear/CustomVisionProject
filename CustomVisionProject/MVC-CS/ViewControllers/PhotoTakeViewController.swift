@@ -46,9 +46,6 @@ class PhotoTakeViewController: UIViewController, Storyboarded {
     }
 
     // MARK: - UI Functions
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
     
     func initalUISetup(){
         // Change label's text, etc.
