@@ -11,7 +11,7 @@ import Foundation
 class PhotoDrawingService {
     
     var lastPoint: CGPoint = .zero
-    var brushWidth: CGFloat = 40.0
+    var brushWidth: CGFloat = 50.0
     var opacity: CGFloat = 1.0
     var swiped = false
     

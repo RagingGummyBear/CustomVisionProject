@@ -1,15 +1,15 @@
 //
-//  PhotoProcessViewController.swift
+//  BackupPhotoProcess.swift
 //  CustomVisionProject
 //
-//  Created by Seavus on 4/25/19.
+//  Created by Seavus on 5/2/19.
 //  Copyright © 2019 Seavus. All rights reserved.
 //
 
 import UIKit
 
-class PhotoProcessViewController: UIViewController, Storyboarded {
-
+class BackupPhotoProcess: UIViewController {
+    
     // MARK: - Custom references and variables
     public var selectedImage: UIImage!
     public weak var coordinator: PhotoProcessCoordinator!
@@ -71,7 +71,7 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
     
     // MARK: - IBInspectable
     var drawingColor: UIColor = UIColor(named: "NavigationText")!
-//    var boundingRectColor: UIColor = UIColor(red: 0.30, green: 1, blue: 0.20, alpha: 1)  // ( 32, 194, 14)
+    //    var boundingRectColor: UIColor = UIColor(red: 0.30, green: 1, blue: 0.20, alpha: 1)  // ( 32, 194, 14)
     var boundingRectColor: UIColor = UIColor(named: "NavigationText")!
     
     // MARK: - IBOutlets actions
@@ -79,7 +79,7 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
         // Create the rect
         self.tempImageView.image = UIImage()
         
-//         self.coordinator.getDrawingRect()
+        //         self.coordinator.getDrawingRect()
         self.createRect()
         
         // Draw the rect
@@ -133,7 +133,7 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
         
         bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
         self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
-
+        
         self.mainImageView.image = self.selectedImage
         
         self.drawingImage = self.mainImageView.image
@@ -296,8 +296,8 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
             // 2
             context?.move(to: CGPoint(x: fromPointS.x, y: fromPointS.y))
             context?.addLine(to: CGPoint(x: toPointS.x, y: toPointS.y))
-//            context?.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y))
-//            context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
+            //            context?.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y))
+            //            context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
             
             // 3
             context?.setLineCap(.round)
@@ -323,7 +323,7 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
                 self.mainImageView.image = self.selectedImage
                 
                 self.bestBound = self.coordinator.getDrawingRect()
-//                self.mainImageView.fitRectInView(rect: &self.bestBound)
+                //                self.mainImageView.fitRectInView(rect: &self.bestBound)
                 
                 if self.bestBound.origin.x < 0 {
                     self.bestBound.origin.x = 0
@@ -643,7 +643,7 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
         DispatchQueue.main.async {
             self.coordinator.foundClasses = self.foundClasses
             self.coordinator.photoProcessed = true
-            self.navigationController?.popViewController(animated: true)            
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -711,7 +711,7 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
             self.bestBound.size.width += self.bestBound.origin.x
             return self.bestBound.origin.x = 0
         }
-
+        
         if self.bestBound.origin.y < 0 {
             self.bestBound.size.height += self.bestBound.origin.y
             return self.bestBound.origin.y = 0
@@ -748,7 +748,7 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
             originYRatio = (point.y - self.excessY) / self.aspectFit.height
         }
         
-//        let originYRatio = (point.y - self.excessY) / self.mainImageView.frame.size.height
+        //        let originYRatio = (point.y - self.excessY) / self.mainImageView.frame.size.height
         
         return CGPoint(x: self.selectedImage.size.width * originXRatio, y: self.selectedImage.size.height * originYRatio)
     }

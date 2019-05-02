@@ -178,7 +178,9 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
                 else { return }
             let image = UIImage(data: imageData)
             self.session?.stopRunning()
-            self.cameraPhotoTakeDelegate.photoTaken(photo: (image?.updateImageOrientionUpSide())!)
+            if let img =  image, let orientedImg = img.updateImageOrientionUpSide() {
+                self.cameraPhotoTakeDelegate.photoTaken(photo: orientedImg)
+            }
         }
     }
     

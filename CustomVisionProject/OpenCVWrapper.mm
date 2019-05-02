@@ -591,8 +591,8 @@ using namespace cv;
     cv::Mat boundMask = cv::Mat::zeros(src.rows, src.cols, CV_8U); // all 0
     boundMask(cv::Rect(bound.origin.x, bound.origin.y, bound.size.width, bound.size.height)) = Scalar(255,255,255);
     
-    Vec3b lowerC = cv::Vec3b(57,11,81); // BGR Values
-    Vec3b upperC = cv::Vec3b(230,220,240); // BGR values
+    Vec3b lowerC = cv::Vec3b(1,1,1); // BGR Values
+    Vec3b upperC = cv::Vec3b(255,255,255); // BGR values
     
     Mat maskPrep; hsv.copyTo(maskPrep, boundMask);
     Mat mask; inRange(maskPrep, lowerC, upperC, mask);
@@ -604,6 +604,7 @@ using namespace cv;
     
     src.copyTo(temp, mask);
     return MatToUIImage(temp);
+//    return MatToUIImage(mask);
 }
 
 // USING
@@ -622,8 +623,8 @@ using namespace cv;
     boundMask(cv::Rect(bound.origin.x, bound.origin.y, bound.size.width, bound.size.height)) = Scalar(255,255,255);
     boundMask = 255 - boundMask;
     
-    Vec3b lowerC = cv::Vec3b(57,11,81); // BGR Values
-    Vec3b upperC = cv::Vec3b(230,220,240); // BGR values
+    Vec3b lowerC = cv::Vec3b(1,1,1); // BGR Values
+    Vec3b upperC = cv::Vec3b(255,255,255); // BGR values
     
     Mat maskPrep; hsv.copyTo(maskPrep, boundMask);
     Mat mask; inRange(maskPrep, lowerC, upperC, mask);
@@ -709,7 +710,7 @@ using namespace cv;
     vector<Vec4i> hierarchy;
         
     Mat croppedGray; src_gray.copyTo(croppedGray, boundMask);
-    return MatToUIImage(croppedGray);
+//    return MatToUIImage(croppedGray);
     /// Detect edges using Threshold
     threshold( croppedGray, threshold_output, thresh, 255, THRESH_BINARY );
     /// Find contours

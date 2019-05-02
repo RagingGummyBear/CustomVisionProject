@@ -75,9 +75,19 @@ class PhotoProcessCoordinator:NSObject, Coordinator {
 
     // MARK: - Logic functions
     // These are the functions that may be called by the viewcontroller. Example: Request for data, update data, etc.
-
-    
-    // MARK: - Others
+    func CGSizeAspectFit(aspectRatio: CGSize, boundingSize: CGSize) -> CGSize
+    {
+        var aspectFitSize = CGSize(width: boundingSize.width, height: boundingSize.height);
+        let mW = boundingSize.width / aspectRatio.width;
+        let mH = boundingSize.height / aspectRatio.height;
+        if( mH < mW ){
+            aspectFitSize.width = mH * aspectRatio.width;
+        }
+        else if( mW < mH ){
+            aspectFitSize.height = mW * aspectRatio.height;
+        }
+        return aspectFitSize;
+    }
     
     func canFinishDrawing() -> Bool {
         return self.photoDrawingService.canFinishDrawing()
