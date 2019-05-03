@@ -20,7 +20,6 @@
 		7D1C0ED7224E0E2700A7C415 /* photo7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D1C0ECF224E0E2700A7C415 /* photo7.jpg */; };
 		7D1C0ED8224E0E2700A7C415 /* photo9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D1C0ED0224E0E2700A7C415 /* photo9.jpg */; };
 		7D1C0ED9224E0E2700A7C415 /* photo2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D1C0ED1224E0E2700A7C415 /* photo2.jpg */; };
-		7D429426221D523A00291794 /* CoffeePorscheClass.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7D429425221D523900291794 /* CoffeePorscheClass.mlmodel */; };
 		7D429428221D7DBE00291794 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429427221D7DBD00291794 /* opencv2.framework */; };
 		7D42942A221D7E0D00291794 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429429221D7E0D00291794 /* AssetsLibrary.framework */; };
 		7D429432221D7E2B00291794 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429431221D7E2B00291794 /* Accelerate.framework */; };
@@ -87,6 +86,7 @@
 		7D8D069F2271B170008C4B12 /* FortuneResultCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D069D2271B170008C4B12 /* FortuneResultCoordinator.swift */; };
 		7D8D06A02271B170008C4B12 /* FortuneResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D069E2271B170008C4B12 /* FortuneResultViewController.swift */; };
 		7D8D06A22271DA4A008C4B12 /* CameraCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06A12271DA49008C4B12 /* CameraCaptureService.swift */; };
+		7DAED83C227C7F4D0025476D /* CoffeePorscheClass.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7DAED83B227C7F4D0025476D /* CoffeePorscheClass.mlmodel */; };
 		7DB2830D222051D00015BD32 /* YourFortuneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB2830C222051D00015BD32 /* YourFortuneViewController.swift */; };
 		7DB6B31D221EEED600D3A208 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D42943D221D7F4300291794 /* OpenCVWrapper.mm */; };
 		7DBAFD332226CA7000BBC36C /* TextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBAFD322226CA7000BBC36C /* TextGenerator.swift */; };
@@ -181,7 +181,6 @@
 		7D1C0ECF224E0E2700A7C415 /* photo7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo7.jpg; sourceTree = "<group>"; };
 		7D1C0ED0224E0E2700A7C415 /* photo9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo9.jpg; sourceTree = "<group>"; };
 		7D1C0ED1224E0E2700A7C415 /* photo2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo2.jpg; sourceTree = "<group>"; };
-		7D429425221D523900291794 /* CoffeePorscheClass.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CoffeePorscheClass.mlmodel; sourceTree = "<group>"; };
 		7D429427221D7DBD00291794 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../opencv2.framework; sourceTree = "<group>"; };
 		7D429429221D7E0D00291794 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		7D42942B221D7E1400291794 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -254,6 +253,7 @@
 		7D8D069D2271B170008C4B12 /* FortuneResultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortuneResultCoordinator.swift; sourceTree = "<group>"; };
 		7D8D069E2271B170008C4B12 /* FortuneResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortuneResultViewController.swift; sourceTree = "<group>"; };
 		7D8D06A12271DA49008C4B12 /* CameraCaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureService.swift; sourceTree = "<group>"; };
+		7DAED83B227C7F4D0025476D /* CoffeePorscheClass.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CoffeePorscheClass.mlmodel; sourceTree = "<group>"; };
 		7DB28305222017620015BD32 /* Workflow.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Workflow.md; sourceTree = "<group>"; };
 		7DB2830C222051D00015BD32 /* YourFortuneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourFortuneViewController.swift; sourceTree = "<group>"; };
 		7DBAFD322226CA7000BBC36C /* TextGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextGenerator.swift; sourceTree = "<group>"; };
@@ -594,6 +594,14 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		7DAED83A227C7F3B0025476D /* CoreML */ = {
+			isa = PBXGroup;
+			children = (
+				7DAED83B227C7F4D0025476D /* CoffeePorscheClass.mlmodel */,
+			);
+			path = CoreML;
+			sourceTree = "<group>";
+		};
 		7DC0992F2240E065004B4F57 /* backgrounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -652,8 +660,8 @@
 			isa = PBXGroup;
 			children = (
 				7D8D06702271A963008C4B12 /* MVC-CS */,
+				7DAED83A227C7F3B0025476D /* CoreML */,
 				7D8CF296222D86F400421CD1 /* Resources */,
-				7DCEFCBB221313BE00F59A37 /* CoreModels */,
 				7DCEFCA42212FBDB00F59A37 /* Utilities */,
 				7DCEFCA32212FBC700F59A37 /* Views */,
 				7DCEFCA22212FBBC00F59A37 /* Models */,
@@ -737,14 +745,6 @@
 				7D4890FB22298592000D4951 /* CustomUtility.swift */,
 			);
 			path = Utilities;
-			sourceTree = "<group>";
-		};
-		7DCEFCBB221313BE00F59A37 /* CoreModels */ = {
-			isa = PBXGroup;
-			children = (
-				7D429425221D523900291794 /* CoffeePorscheClass.mlmodel */,
-			);
-			path = CoreModels;
 			sourceTree = "<group>";
 		};
 		7DE95F2522563CDB005D4AA2 /* LightDarkSorted */ = {
@@ -1120,6 +1120,7 @@
 				7D6240D22227EB9300A70D53 /* CustomAnimation.swift in Sources */,
 				7D8D06942271AC2F008C4B12 /* MainViewController.swift in Sources */,
 				7D87CD3E2253A9A5001E9C69 /* OpenCVTestingViewController.swift in Sources */,
+				7DAED83C227C7F4D0025476D /* CoffeePorscheClass.mlmodel in Sources */,
 				7DCEFC792212FAEC00F59A37 /* CustomVisionProject.xcdatamodeld in Sources */,
 				7D8D06922271AC2F008C4B12 /* MainCoordinator.swift in Sources */,
 				7DCEFCAE2212FFFC00F59A37 /* ImageData.swift in Sources */,
@@ -1128,7 +1129,6 @@
 				7DCEFCB32213002C00F59A37 /* ImageDisplayCollectionViewCell.swift in Sources */,
 				7D6240D922281C9E00A70D53 /* ContourBoundCircleCustomAnimation.swift in Sources */,
 				7D8D068E2271AC2F008C4B12 /* DataProvider.swift in Sources */,
-				7D429426221D523A00291794 /* CoffeePorscheClass.mlmodel in Sources */,
 				7D8D06A22271DA4A008C4B12 /* CameraCaptureService.swift in Sources */,
 				7D8D068D2271AC2F008C4B12 /* PersistentStorage.swift in Sources */,
 				7DBAFD332226CA7000BBC36C /* TextGenerator.swift in Sources */,

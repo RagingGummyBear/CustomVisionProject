@@ -68,10 +68,6 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
     
     // MARK: - Transition functions
     // These are the functions that can be called by the view controller as well
-//    func photoCapturedTransition(){
-//        self.photoTaken = true
-//        self.navigationController.popViewController(animated: true)
-//    }
     
     // MARK: - Logic functions
     // These are the functions that may be called by the viewcontroller. Example: Request for data, update data, etc.
@@ -89,16 +85,17 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
         self.photoTaken = true
         self.capturedPhoto = photo
         DispatchQueue.main.async {
-            
             self.navigationController.popViewController(animated: true)
         }
     }
     
     func setupFailed(){
-        self.photoTaken = true
         
+        self.photoTaken = true // This should be false
+        /* *** Only for debug *** */
         let bundlePath = Bundle.main.path(forResource: "photo4", ofType: "jpg")
         self.capturedPhoto = UIImage(contentsOfFile: bundlePath!)
+        /* ********************** */
         
         DispatchQueue.main.async {
             self.navigationController.popViewController(animated: true)
@@ -114,19 +111,6 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
     func captureButtonDisable(){
         self.viewController.takePhotoButton.isEnabled = false
         self.viewController.coffeeIndicatorLabel.text = "Coffee not detected"
-    }
-    
-    func hideOverImageView(){
-//        if self.overCameraImageView == nil {
-//            return
-//        }
-//        if self.overCameraImageView.alpha == 1 {
-//            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn , animations: {
-//                self.overCameraImageView.alpha = 0
-//            }, completion: {(completed : Bool) in
-//                self.overCameraImageView.image = nil
-//            })
-//        }
     }
     
     func getCameraPreviewFrame() -> CGRect {

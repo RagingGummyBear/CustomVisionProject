@@ -18,10 +18,10 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
 //    weak var overCameraImageView: UIImageView!
     
     // MARK: - Your class properties
-    public var coordinator: PhotoTakeCoordinator!
+    public weak var coordinator: PhotoTakeCoordinator!
     private var session: AVCaptureSession?
-    private var previewLayer: AVCaptureVideoPreviewLayer!
-    private var videoDevice: AVCaptureDevice? = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
+    private weak var previewLayer: AVCaptureVideoPreviewLayer!
+    private weak var videoDevice: AVCaptureDevice? = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
     lazy private var model = try? VNCoreMLModel(for: CoffeePorscheClass().model)
     private var stillImageOutput: AVCapturePhotoOutput!
     
@@ -125,11 +125,9 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
         }
-        
         guard let model = self.model else {
             return
         }
-        
         let request = VNCoreMLRequest(model: model) { (finishedRequest, error) in
             if let error = error {
                 print(error)
@@ -140,10 +138,12 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
             }
             
             DispatchQueue.main.async {
-                if results[0].identifier == "coffee" {
-                    self.coordinator.captureButtonEnable()
-                } else {
-                    self.coordinator.captureButtonDisable()
+                if self.coordinator != nil {
+                    if results[0].identifier == "coffee" {
+                        self.coordinator.captureButtonEnable()
+                    } else {
+                        self.coordinator.captureButtonDisable()
+                    }
                 }
             }
         }
@@ -161,7 +161,7 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
             }
         }
     }
-    
+        
     deinit {
         self.session?.commitConfiguration()
         self.session?.stopRunning() // https://www.youtube.com/watch?v=W6oQUDFV2C0

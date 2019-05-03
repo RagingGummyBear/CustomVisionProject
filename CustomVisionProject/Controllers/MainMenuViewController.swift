@@ -33,7 +33,6 @@ class MainMenuViewController: UIViewController {
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         DispatchQueue.main.async {
             self.initalUISetup()
         }
@@ -49,7 +48,6 @@ class MainMenuViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        self.viewDidDisappear(animated)
         self.displayNavigationBar()
     }
     
@@ -57,7 +55,6 @@ class MainMenuViewController: UIViewController {
         super.viewDidDisappear(animated)
         self.displayNavigationBar()
     }
-    
     
     // MARK: - UI Functions
     func initalUISetup(){

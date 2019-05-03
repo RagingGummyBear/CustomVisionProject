@@ -978,15 +978,18 @@ using namespace cv;
         return @"brown_size";
     }
     
-    cout << "Was its ze Problim?!" << endl
-    << "red_size: " << red_size << endl
-    << "blue_size: " << blue_size << endl
-    << "green_size: " << green_size << endl
-    << "white_size: " << white_size << endl
-    << "dark_size: " << dark_size << endl
-    << "brown_size: " << brown_size << endl;
+//    cout << "Was its ze Problim?!" << endl
+//    << "red_size: " << red_size << endl
+//    << "blue_size: " << blue_size << endl
+//    << "green_size: " << green_size << endl
+//    << "white_size: " << white_size << endl
+//    << "dark_size: " << dark_size << endl
+//    << "brown_size: " << brown_size << endl
+//    << "Maybe whole picture is selected with the bounding rect?" << endl;
     
-    return @"YEEET2";
+    cout << "Error? Hmmm 🤔🤔🤔" << endl;
+    
+    return @"yeeted";
 }
 
 + (int) get_contour_size_light: (UIImage *) image withBound:(CGRect) bound  {

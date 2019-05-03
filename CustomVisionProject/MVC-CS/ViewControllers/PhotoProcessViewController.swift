@@ -290,10 +290,32 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
             
             self.coordinator.aspectFit = self.aspectFit
             self.bestBound = self.coordinator.getDrawingRect()
+            self.preDrawSizeCheck()
             
             self.drawRect()
             
             self.scaleTheBoundingRect()
+        }
+    }
+    
+    func preDrawSizeCheck (){
+        let excessX = (self.mainImageView.frame.size.width - aspectFit.width) / 2
+        let excessY = (self.mainImageView.frame.size.height - aspectFit.height) / 2
+        
+        if self.bestBound.origin.x < excessX {
+            self.bestBound.origin.x = excessX
+        }
+
+        if self.bestBound.origin.y < excessY {
+            self.bestBound.origin.y = excessY
+        }
+
+        if self.bestBound.origin.x + self.bestBound.width > self.aspectFit.width + excessX {
+            self.bestBound.size.width = self.aspectFit.width + excessX - self.bestBound.origin.x   // <<<< ---- FIX THIS AS-AP  <<<< -----
+        }
+
+        if self.bestBound.origin.y + self.bestBound.height > self.aspectFit.height + excessY {
+            self.bestBound.size.height = self.aspectFit.height + excessY - self.bestBound.origin.y   // <<<< ---- FIX THIS AS-AP  <<<< -----
         }
     }
     
@@ -476,6 +498,7 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
         autoreleasepool {
             self.mainImageView.image = self.selectedImage
             var drawRect = CGRect(origin: self.bestBound.origin, size: self.bestBound.size)
+            /*
             if drawRect.origin.x < self.excessX {
                 drawRect.origin.x = self.excessX
             }
@@ -491,6 +514,7 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
             if drawRect.origin.y + drawRect.size.height > self.aspectFit.height + self.excessY {
                 drawRect.size.height = self.aspectFit.height - drawRect.origin.y + self.excessY
             }
+            */
             
             UIGraphicsBeginImageContext(self.mainImageView.frame.size)
             let context = UIGraphicsGetCurrentContext()

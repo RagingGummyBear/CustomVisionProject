@@ -170,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CustomVisionProject/AppDelegate.swift"
-            timestampString = "578314187.977055"
+            timestampString = "578584087.843744"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1"
@@ -185,13 +185,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CustomVisionProject/MVC-CS/Services/PhotoDrawingService.swift"
-            timestampString = "578502613.4033951"
+            filePath = "CustomVisionProject/MVC-CS/ViewControllers/PhotoProcessViewController.swift"
+            timestampString = "578584087.844246"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "canFinishDrawing()"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
+            landmarkName = "preDrawSizeCheck()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CustomVisionProject/MVC-CS/ViewControllers/PhotoProcessViewController.swift"
+            timestampString = "578584087.844942"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
+            landmarkName = "preDrawSizeCheck()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -70,13 +70,14 @@ class FortuneResultViewController: UIViewController, Storyboarded {
         self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
         // Change label's text, etc.
         self.originalImageView.image = self.capturedImage
-    }
-
-    func finalUISetup(){
         DispatchQueue.main.async {
             self.shortDescriptionLabel.text = self.coordinator?.generateShortDescription()
             self.fullDescriptionLabel.text = self.coordinator?.generateLongDescription()
         }
+    }
+
+    func finalUISetup(){
+
     }
 
     // MARK: - Other functions

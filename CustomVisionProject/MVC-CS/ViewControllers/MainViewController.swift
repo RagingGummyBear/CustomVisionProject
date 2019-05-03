@@ -49,7 +49,6 @@ class MainViewController: UIViewController, Storyboarded {
     }
 
     func setQuote(quote:QuoteModel){
-        
         self.quoteLabel.layer.removeAllAnimations()
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
             self.quoteLabel.alpha = 0.0
@@ -73,11 +72,7 @@ class MainViewController: UIViewController, Storyboarded {
         guard let touchPoint = touches.first else { return }
 
         if self.quoteLabel.frame.contains(touchPoint.location(in: self.view)) {
-            if self.quoteLabel.alpha == (1.0) {
-                return
-            }
-            self.quoteLabel.layer.removeAllAnimations()
-            self.coordinator?.userPressedQuoteLabel()
+            self.coordinator?.userRequestNewQuote()
         }
     }
 }

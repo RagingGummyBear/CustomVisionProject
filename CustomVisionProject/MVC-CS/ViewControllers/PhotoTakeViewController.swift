@@ -37,14 +37,12 @@ class PhotoTakeViewController: UIViewController, Storyboarded {
             self.initalUISetup()
         }
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         DispatchQueue.main.async {
             self.finalUISetup()
         }
-        
         if self.overCameraImageView.alpha == 1 {
             UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn , animations: {
                 self.overCameraImageView.alpha = 0
@@ -53,9 +51,8 @@ class PhotoTakeViewController: UIViewController, Storyboarded {
             })
         }
     }
-
-    // MARK: - UI Functions
     
+    // MARK: - UI Functions
     func initalUISetup(){
         // Change label's text, etc.
         
@@ -86,8 +83,6 @@ class PhotoTakeViewController: UIViewController, Storyboarded {
     func getCameraPreviewFrame() -> CGRect {
         return self.cameraPreviewImageView.frame
     }
-
-    
     
     // MARK: - Other functions
     // Remember keep the logic and processing in the coordinator

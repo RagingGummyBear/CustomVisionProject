@@ -27,7 +27,6 @@ class PhotoDrawingService {
     }
     
     func canFinishDrawing() -> Bool {
-        
         return self.boundingRectPointTL.x != self.boundingRectPointTL.y && self.boundingRectPointDR.y != self.boundingRectPointDR.x
     }
     

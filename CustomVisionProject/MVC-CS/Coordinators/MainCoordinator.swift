@@ -103,6 +103,7 @@ class MainCoordinator:NSObject, Coordinator {
     // These are the functions that may be called by the viewcontroller. Example: Request for data, update data, etc.
 
     func startSendingQuotes(){
+
         if let timer = quoteTimer {
             timer.invalidate()
         }
@@ -123,6 +124,10 @@ class MainCoordinator:NSObject, Coordinator {
     }
 
     // MARK: - Others
+    
+    public func userRequestNewQuote(){
+        self.startSendingQuotes()
+    }
 
     private func pickRandomQuote() -> QuoteModel? {
         if let path = Bundle.main.path(forResource: "wittyCoffeeQuotes", ofType: "json") {
