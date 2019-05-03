@@ -497,7 +497,10 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
         self.displayingRect = false
         autoreleasepool {
             self.mainImageView.image = self.selectedImage
-            var drawRect = CGRect(origin: self.bestBound.origin, size: self.bestBound.size)
+            
+            /* ************************************* */
+            /* Check the code bellow it it is needed */
+            /* VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV */
             /*
             if drawRect.origin.x < self.excessX {
                 drawRect.origin.x = self.excessX
@@ -515,7 +518,9 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
                 drawRect.size.height = self.aspectFit.height - drawRect.origin.y + self.excessY
             }
             */
+            /* ************************************* */
             
+            let drawRect = CGRect(origin: self.bestBound.origin, size: self.bestBound.size)
             UIGraphicsBeginImageContext(self.mainImageView.frame.size)
             let context = UIGraphicsGetCurrentContext()
             tempImageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.mainImageView.frame.size.width, height: self.mainImageView.frame.size.height))

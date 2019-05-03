@@ -846,7 +846,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Flk-1I-GI8">
                                 <rect key="frame" x="18" y="683" width="48" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="48" id="2XD-34-paU"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="48" id="2XD-34-paU"/>
                                     <constraint firstAttribute="height" constant="35" id="USQ-4Y-hmm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="17"/>
@@ -907,6 +907,7 @@
                             <constraint firstAttribute="trailing" secondItem="W2W-Lu-y3X" secondAttribute="trailing" id="pxe-Kw-IJe"/>
                             <constraint firstItem="yAt-cy-zMd" firstAttribute="bottom" secondItem="GU7-nL-GnK" secondAttribute="bottom" constant="18" id="qO7-eS-nyj"/>
                             <constraint firstItem="Flk-1I-GI8" firstAttribute="leading" secondItem="yAt-cy-zMd" secondAttribute="leading" constant="18" id="quy-Sr-RHL"/>
+                            <constraint firstItem="GU7-nL-GnK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Flk-1I-GI8" secondAttribute="trailing" constant="8" symbolic="YES" id="rSO-EW-UOV"/>
                             <constraint firstItem="q1Y-Ze-GUk" firstAttribute="height" secondItem="FKB-MA-hGz" secondAttribute="height" id="sS7-FW-MWN"/>
                             <constraint firstItem="yAt-cy-zMd" firstAttribute="bottom" secondItem="Y7T-vM-R9h" secondAttribute="bottom" id="xXe-p4-4h1"/>
                         </constraints>
@@ -1101,9 +1102,6 @@
                                 <color key="tintColor" name="TextBackground"/>
                                 <state key="normal" title="Discover your fortune"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.cornerRadius">
-                                        <size key="value" width="0.0" height="0.0"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>

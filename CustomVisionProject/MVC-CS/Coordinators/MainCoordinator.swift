@@ -101,7 +101,6 @@ class MainCoordinator:NSObject, Coordinator {
     
     // MARK: - Logic functions
     // These are the functions that may be called by the viewcontroller. Example: Request for data, update data, etc.
-
     func startSendingQuotes(){
 
         if let timer = quoteTimer {
@@ -118,13 +117,8 @@ class MainCoordinator:NSObject, Coordinator {
             }
         })
     }
-    
-    func userPressedQuoteLabel(){
-        
-    }
 
     // MARK: - Others
-    
     public func userRequestNewQuote(){
         self.startSendingQuotes()
     }
