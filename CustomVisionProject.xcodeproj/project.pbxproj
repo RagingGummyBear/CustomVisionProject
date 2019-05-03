@@ -81,6 +81,8 @@
 		7D8D06A02271B170008C4B12 /* FortuneResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D069E2271B170008C4B12 /* FortuneResultViewController.swift */; };
 		7D8D06A22271DA4A008C4B12 /* CameraCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D06A12271DA49008C4B12 /* CameraCaptureService.swift */; };
 		7DAED83C227C7F4D0025476D /* CoffeePorscheClass.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7DAED83B227C7F4D0025476D /* CoffeePorscheClass.mlmodel */; };
+		7DAED840227C94990025476D /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAED83E227C94990025476D /* AboutViewController.swift */; };
+		7DAED842227C94D60025476D /* AboutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAED841227C94D60025476D /* AboutCoordinator.swift */; };
 		7DB6B31D221EEED600D3A208 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D42943D221D7F4300291794 /* OpenCVWrapper.mm */; };
 		7DBAFD332226CA7000BBC36C /* TextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBAFD322226CA7000BBC36C /* TextGenerator.swift */; };
 		7DBAFD352226E78700BBC36C /* wittyCoffeeQuotes.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DBAFD342226E78600BBC36C /* wittyCoffeeQuotes.json */; };
@@ -240,6 +242,8 @@
 		7D8D069E2271B170008C4B12 /* FortuneResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortuneResultViewController.swift; sourceTree = "<group>"; };
 		7D8D06A12271DA49008C4B12 /* CameraCaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureService.swift; sourceTree = "<group>"; };
 		7DAED83B227C7F4D0025476D /* CoffeePorscheClass.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CoffeePorscheClass.mlmodel; sourceTree = "<group>"; };
+		7DAED83E227C94990025476D /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		7DAED841227C94D60025476D /* AboutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutCoordinator.swift; sourceTree = "<group>"; };
 		7DB28305222017620015BD32 /* Workflow.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Workflow.md; sourceTree = "<group>"; };
 		7DBAFD322226CA7000BBC36C /* TextGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextGenerator.swift; sourceTree = "<group>"; };
 		7DBAFD342226E78600BBC36C /* wittyCoffeeQuotes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = wittyCoffeeQuotes.json; sourceTree = "<group>"; };
@@ -547,6 +551,7 @@
 				7D8D06952271AE94008C4B12 /* PhotoTakeCoordinator.swift */,
 				7D8D06992271B13E008C4B12 /* PhotoProcessCoordinator.swift */,
 				7D8D069D2271B170008C4B12 /* FortuneResultCoordinator.swift */,
+				7DAED841227C94D60025476D /* AboutCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -559,6 +564,7 @@
 				7D8D06962271AE94008C4B12 /* PhotoTakeViewController.swift */,
 				7D8D069A2271B13E008C4B12 /* PhotoProcessViewController.swift */,
 				7D8D069E2271B170008C4B12 /* FortuneResultViewController.swift */,
+				7DAED83E227C94990025476D /* AboutViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1074,8 +1080,10 @@
 				7D8D06912271AC2F008C4B12 /* StoryboardedProtocol.swift in Sources */,
 				7D8D06932271AC2F008C4B12 /* CoordinatorProtocol.swift in Sources */,
 				7D4890FC22298592000D4951 /* CustomUtility.swift in Sources */,
+				7DAED842227C94D60025476D /* AboutCoordinator.swift in Sources */,
 				7D6240D7222819F600A70D53 /* ContourPartialCustomAnimation.swift in Sources */,
 				7D8D069C2271B13E008C4B12 /* PhotoProcessViewController.swift in Sources */,
+				7DAED840227C94990025476D /* AboutViewController.swift in Sources */,
 				7D42943E221D7F4300291794 /* OpenCVWrapper.mm in Sources */,
 				7D8D06902271AC2F008C4B12 /* ExampleModel.swift in Sources */,
 			);

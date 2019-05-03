@@ -99,6 +99,14 @@ class MainCoordinator:NSObject, Coordinator {
         child.start()
     }
     
+    
+    func goToAbout(){
+        let child = AboutCoordinator(navigationController: navigationController)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
+    }
+    
     // MARK: - Logic functions
     // These are the functions that may be called by the viewcontroller. Example: Request for data, update data, etc.
     func startSendingQuotes(){

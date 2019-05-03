@@ -35,13 +35,12 @@ class FortuneResultViewController: UIViewController, Storyboarded {
     }
     
     @IBAction func sendLikeButtonAction(_ sender: Any) {
-        
+       print("Thanks for the like")
     }
     
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         DispatchQueue.main.async {
             self.initalUISetup()
         }
@@ -71,9 +70,6 @@ class FortuneResultViewController: UIViewController, Storyboarded {
     // MARK: - UI Functions
     
     func initalUISetup(){
-        // Change label's text, etc.
-
-        // Change label's text, etc.
         self.originalImageView.image = self.capturedImage
         DispatchQueue.main.async {
             self.shortDescriptionLabel.text = self.coordinator?.generateShortDescription()

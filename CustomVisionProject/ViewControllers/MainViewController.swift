@@ -19,6 +19,10 @@ class MainViewController: UIViewController, Storyboarded {
         self.coordinator?.goToPhotoTake()
     }
     
+    @IBAction func aboutTransition(_ sender: Any) {
+        self.coordinator?.goToAbout()
+    }
+    
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

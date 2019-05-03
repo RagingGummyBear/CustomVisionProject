@@ -80,7 +80,6 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         DispatchQueue.main.async {
             self.initalUISetup()
         }
@@ -104,12 +103,11 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
     
     // MARK: - UI Functions
     func initalUISetup(){
-        // Change label's text, etc.
-        
+        self.navigationItem.title = "Draw around your coffee"
         self.mainImageView.image = self.selectedImage
         
         self.drawingImage = self.mainImageView.image
-        self.setupViewForDrawing() // singal to coordinator
+        self.setupViewForDrawing()
     }
     
     func setupViewForDrawing(){
@@ -125,8 +123,6 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
     }
     
     func finalUISetup(){
-        // Here do all the resizing and constraint calculations
-        // In some cases apply the background gradient here
         if let img = self.selectedImage {
             self.workingImage = img
             self.mainImageView.image = img
@@ -157,7 +153,7 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
     
     func setupViewForProcessing(){
         // TODO: adjust the title
-        
+        self.navigationItem.title = "Processing"
         self.userCanDraw = false
         // Display: Processing bar + processing label
         // Hide Clear,done buttons + navbar back button

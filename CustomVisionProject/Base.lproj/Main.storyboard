@@ -344,7 +344,7 @@
             </objects>
             <point key="canvasLocation" x="-3578" y="1406"/>
         </scene>
-        <!--Start Menu-->
+        <!--Main View Controller-->
         <scene sceneID="dO7-0V-zjv">
             <objects>
                 <viewController storyboardIdentifier="MainViewController" id="fIQ-G0-2Yj" customClass="MainViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -358,7 +358,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ApplicationLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Dhc-uX-jIY">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ApplicationLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Dhc-uX-jIY">
                                 <rect key="frame" x="124.33333333333333" y="40" width="165.33333333333337" height="165.66666666666666"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Dhc-uX-jIY" secondAttribute="height" id="avL-HF-Vdw"/>
@@ -391,6 +391,9 @@
                                 <state key="normal" title="About">
                                     <color key="titleColor" name="NavigationText"/>
                                 </state>
+                                <connections>
+                                    <action selector="aboutTransition:" destination="fIQ-G0-2Yj" eventType="touchUpInside" id="OXE-xo-uAO"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCA-QH-2I6">
                                 <rect key="frame" x="82.666666666666671" y="561.66666666666663" width="248.66666666666663" height="124.33333333333337"/>
@@ -438,7 +441,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RcH-6u-dpQ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Start Menu" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="6Gq-yw-naS">
+                    <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="6Gq-yw-naS">
                         <barButtonItem key="backBarButtonItem" title="Back" id="mWt-Mt-HLH"/>
                     </navigationItem>
                     <connections>
@@ -737,7 +740,7 @@
             </objects>
             <point key="canvasLocation" x="-749" y="2548"/>
         </scene>
-        <!--Photo Processing-->
+        <!--Preparing-->
         <scene sceneID="Cvc-kL-qVJ">
             <objects>
                 <viewController storyboardIdentifier="PhotoProcessViewController" id="LcJ-HO-SbG" customClass="PhotoProcessViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -825,7 +828,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wea-u3-Tx8"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Photo Processing" id="nCD-sz-qKy"/>
+                    <navigationItem key="navigationItem" title="Preparing" id="nCD-sz-qKy"/>
                     <connections>
                         <outlet property="backgroundImageView" destination="qfb-B3-ITU" id="ZXq-D7-swo"/>
                         <outlet property="clearButton" destination="3HS-w5-wKT" id="ycM-Q3-7Am"/>
