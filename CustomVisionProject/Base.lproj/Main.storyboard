@@ -1528,9 +1528,6 @@
                         <viewLayoutGuide key="safeArea" id="wea-u3-Tx8"/>
                     </view>
                     <navigationItem key="navigationItem" title="Photo Processing" id="nCD-sz-qKy"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="photo1.jpg"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="backgroundImageView" destination="qfb-B3-ITU" id="ZXq-D7-swo"/>
                         <outlet property="clearButton" destination="3HS-w5-wKT" id="ycM-Q3-7Am"/>

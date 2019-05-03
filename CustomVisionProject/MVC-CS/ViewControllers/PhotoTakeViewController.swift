@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class PhotoTakeViewController: UIViewController, Storyboarded {
 
@@ -43,6 +44,14 @@ class PhotoTakeViewController: UIViewController, Storyboarded {
         DispatchQueue.main.async {
             self.finalUISetup()
         }
+        
+        if self.overCameraImageView.alpha == 1 {
+            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn , animations: {
+                self.overCameraImageView.alpha = 0
+            }, completion: {(completed : Bool) in
+                self.overCameraImageView.image = nil
+            })
+        }
     }
 
     // MARK: - UI Functions
@@ -69,7 +78,17 @@ class PhotoTakeViewController: UIViewController, Storyboarded {
         // In some cases apply the background gradient here
         self.applyRoundCorner(self.takePhotoButton)
     }
+    
+    func setCameraPreviewLayer(previewLayer: AVCaptureVideoPreviewLayer){
+        self.cameraPreviewImageView.layer.addSublayer(previewLayer)
+    }
+    
+    func getCameraPreviewFrame() -> CGRect {
+        return self.cameraPreviewImageView.frame
+    }
 
+    
+    
     // MARK: - Other functions
     // Remember keep the logic and processing in the coordinator
 }

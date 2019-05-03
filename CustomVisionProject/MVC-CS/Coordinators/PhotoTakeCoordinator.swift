@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
-class PhotoTakeCoordinator:NSObject, Coordinator, CameraPhotoTakeDelegate {
+class PhotoTakeCoordinator:NSObject, Coordinator {
 
     // MARK: - Class properties
     lazy var dataProvider = { () -> DataProvider in
@@ -27,11 +28,9 @@ class PhotoTakeCoordinator:NSObject, Coordinator, CameraPhotoTakeDelegate {
     var navigationController: UINavigationController
     
     // MARK: - Custom properties
-    
     var photoTaken = false
     var capturedPhoto: UIImage!
     var cameraCaptureService: CameraCaptureService!
-    
 
     // MARK: - Initialization
     init(navigationController: UINavigationController) {
@@ -78,8 +77,7 @@ class PhotoTakeCoordinator:NSObject, Coordinator, CameraPhotoTakeDelegate {
     // These are the functions that may be called by the viewcontroller. Example: Request for data, update data, etc.
     
     func startCameraSetup(){
-        self.cameraCaptureService = CameraCaptureService(cameraPhotoTakeDelegate: self,
-            cameraPreviewImageView: self.viewController.cameraPreviewImageView, overCameraImageView: self.viewController.overCameraImageView, captureButton: self.viewController.takePhotoButton, coffeeIndicatorLabel: self.viewController.coffeeIndicatorLabel)
+        self.cameraCaptureService = CameraCaptureService(coordinator: self)
         self.cameraCaptureService.setupCamera()
     }
     
@@ -108,7 +106,37 @@ class PhotoTakeCoordinator:NSObject, Coordinator, CameraPhotoTakeDelegate {
     }
 
     // MARK: - Others
-
+    func captureButtonEnable(){
+        self.viewController.takePhotoButton.isEnabled = true
+        self.viewController.coffeeIndicatorLabel.text = "Coffee detected"
+    }
+    
+    func captureButtonDisable(){
+        self.viewController.takePhotoButton.isEnabled = false
+        self.viewController.coffeeIndicatorLabel.text = "Coffee not detected"
+    }
+    
+    func hideOverImageView(){
+//        if self.overCameraImageView == nil {
+//            return
+//        }
+//        if self.overCameraImageView.alpha == 1 {
+//            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn , animations: {
+//                self.overCameraImageView.alpha = 0
+//            }, completion: {(completed : Bool) in
+//                self.overCameraImageView.image = nil
+//            })
+//        }
+    }
+    
+    func getCameraPreviewFrame() -> CGRect {
+        return self.viewController.getCameraPreviewFrame()
+    }
+    
+    func setCameraPreviewLayer(previewLayer: AVCaptureVideoPreviewLayer){
+        self.viewController.setCameraPreviewLayer(previewLayer: previewLayer)
+    }
+    
 
     /* ************************************************************* */
     // Sadly I don't know how to put this code into the protocol :( //

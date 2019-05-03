@@ -33,13 +33,9 @@ class CombinedProcessingImageViewController: UIViewController {
     //    public var parentReturn: ((CGRect) -> ())?
     
     // Processing view variables
-    var privateThreadSafeAnimationsQueue = DispatchQueue.init(label: "com.seavus.imageprocessing.animations") // Do not make this one .concurrent. It could cause problems
+    var privateThreadSafeAnimationsQueue = DispatchQueue.init(label: "com.seavus.imageprocessing.animations") // Do not make this one .concurrent
     var privateThreadSafeProcessingQueue = DispatchQueue.init(label: "com.seavus.imageprocessing.processing", attributes: .concurrent)
     
-    var colorHistogramResult = -10.0
-    var grayHistogramResult = -10.0
-    
-    //    var bestResult = -10.0
     var bestClass = "N/A"
     var bestBound = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
     

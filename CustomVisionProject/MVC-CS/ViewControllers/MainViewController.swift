@@ -30,18 +30,15 @@ class MainViewController: UIViewController, Storyboarded {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         DispatchQueue.main.async {
             self.finalUISetup()
         }
-        
         self.coordinator?.startSendingQuotes()
     }
 
     // MARK: - UI Functions
     func initalUISetup(){
         // Change label's text, etc.
-        
         self.quoteLabel.alpha = 0
         let bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
         self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
@@ -50,15 +47,6 @@ class MainViewController: UIViewController, Storyboarded {
     func finalUISetup(){
         
     }
-    
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-//            return .lightContent
-//        }
-//        statusBarView.backgroundColor = UIColor(named: "BackgroundBrown")
-//        return .lightContent
-//    }
-    
 
     func setQuote(quote:QuoteModel){
         

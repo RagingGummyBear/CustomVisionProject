@@ -14,21 +14,11 @@ import Vision
 class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
 
     // MARK: - UI classes
-    weak var cameraPhotoTakeDelegate:CameraPhotoTakeDelegate!
-    weak var cameraPreviewImageView: UIImageView!
-    weak var overCameraImageView: UIImageView!
-    weak var captureButton: UIButton!
-    weak var coffeeIndicatorLabel: UILabel!
-
-    public init(cameraPhotoTakeDelegate:CameraPhotoTakeDelegate, cameraPreviewImageView: UIImageView, overCameraImageView: UIImageView, captureButton: UIButton, coffeeIndicatorLabel: UILabel) {
-        self.cameraPhotoTakeDelegate = cameraPhotoTakeDelegate
-        self.cameraPreviewImageView = cameraPreviewImageView
-        self.overCameraImageView = overCameraImageView
-        self.captureButton = captureButton
-        self.coffeeIndicatorLabel = coffeeIndicatorLabel
-    }
+//    weak var cameraPreviewImageView: UIImageView!
+//    weak var overCameraImageView: UIImageView!
     
     // MARK: - Your class properties
+    public var coordinator: PhotoTakeCoordinator!
     private var session: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer!
     private var videoDevice: AVCaptureDevice? = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
@@ -37,6 +27,10 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
     
     private let videoDataOutputQueue = DispatchQueue.init(label: "com.seavus.customvision.videoOutput")
     private var bufferSize = CGSize(width: 0.0, height: 0.0)
+    
+    public init(coordinator: PhotoTakeCoordinator) {
+        self.coordinator = coordinator
+    }
     
     // MARK: - Your functions
     func capturePhotoAction(){
@@ -51,14 +45,13 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
         self.session = AVCaptureSession()
         self.session!.beginConfiguration()
         //        self.session!.sessionPreset = .vga640x480 // Model image size is smaller.
-        
-        self.session!.sessionPreset = .hd1920x1080 // Model image size is smaller.
+        self.session!.sessionPreset = .hd1920x1080
         
         self.videoDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
         
         if self.videoDevice == nil {
             self.session?.commitConfiguration()
-            self.cameraPhotoTakeDelegate.setupFailed()
+            self.coordinator.setupFailed()
             return
         }
         do {
@@ -121,10 +114,10 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
         self.previewLayer = AVCaptureVideoPreviewLayer(session: self.session!)
         
         self.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        self.previewLayer.frame = self.cameraPreviewImageView.layer.bounds
+        self.previewLayer.frame = self.coordinator.getCameraPreviewFrame()
         
         self.previewLayer.connection?.videoOrientation = .portrait
-        self.cameraPreviewImageView.layer.addSublayer(previewLayer)
+        self.coordinator.setCameraPreviewLayer(previewLayer: previewLayer)
     }
     
     // MARK: - Logic functions
@@ -147,24 +140,10 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
             }
             
             DispatchQueue.main.async {
-                if self.overCameraImageView == nil {
-                    return
-                }
-                if self.overCameraImageView.alpha == 1 {
-                    UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn , animations: {
-                        self.overCameraImageView.alpha = 0
-                    }, completion: {(completed : Bool) in
-                        self.overCameraImageView.image = nil
-                    })
-                }
-                
-                //                self.coffeeIndicatorLabel.text = results[0].identifier
                 if results[0].identifier == "coffee" {
-                    self.coffeeIndicatorLabel.text = "Coffee detected"
-                    self.captureButton.isEnabled = true
+                    self.coordinator.captureButtonEnable()
                 } else {
-                    self.coffeeIndicatorLabel.text = "Coffee not detected"
-                    self.captureButton.isEnabled = false
+                    self.coordinator.captureButtonDisable()
                 }
             }
         }
@@ -173,13 +152,12 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         DispatchQueue.global(qos: .userInitiated).async {
-            
             guard let imageData = photo.fileDataRepresentation()
                 else { return }
             let image = UIImage(data: imageData)
             self.session?.stopRunning()
             if let img =  image, let orientedImg = img.updateImageOrientionUpSide() {
-                self.cameraPhotoTakeDelegate.photoTaken(photo: orientedImg)
+                self.coordinator.photoTaken(photo: orientedImg)
             }
         }
     }
@@ -188,9 +166,4 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
         self.session?.commitConfiguration()
         self.session?.stopRunning() // https://www.youtube.com/watch?v=W6oQUDFV2C0
     }
-}
-
-public protocol CameraPhotoTakeDelegate: class {
-    func photoTaken(photo: UIImage)
-    func setupFailed()
 }
