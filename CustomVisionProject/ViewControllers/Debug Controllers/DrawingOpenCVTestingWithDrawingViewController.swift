@@ -1,14 +1,15 @@
+
 //
-//  UserDefineRectBoundController.swift
+//  DrawingOpenCVTestingWithDrawingViewController.swift
 //  CustomVisionProject
 //
-//  Created by Seavus on 4/1/19.
+//  Created by Seavus on 4/5/19.
 //  Copyright © 2019 Seavus. All rights reserved.
 //
 
 import UIKit
 
-class UserDefineRectBoundController: UIViewController {
+class DrawingOpenCVTestingWithDrawingViewController: UIViewController {
     
     // MARK: - Custom references and variables
     var lastPoint: CGPoint = .zero
@@ -16,7 +17,7 @@ class UserDefineRectBoundController: UIViewController {
     var opacity: CGFloat = 1.0
     var swiped = false
     
-    public var selectedImage: UIImage!
+//    public var selectedImage: UIImage!
     private var drawingImage: UIImage!
     private var rectDisplayImage: UIImage!
     
@@ -36,11 +37,33 @@ class UserDefineRectBoundController: UIViewController {
     var drawingColor: UIColor = UIColor(named: "NavigationText")!
     var boundingRectColor: UIColor = UIColor(red: 0.30, green: 1, blue: 0.20, alpha: 1)  // ( 32, 194, 14)
     
+    @IBInspectable var selectedImage: UIImage!
+    
     // MARK: - IBOutlets actions
     @IBAction func drawBoundingBox(_ sender: Any) {
         // Create the rect
         self.tempImageView.image = UIImage()
-        self.drawRect(tl: boundingRectPointTL, dr: boundingRectPointDR)
+        self.createRect()
+        
+        print(self.boundingRect)
+        self.mainImageView.image = OpenCVWrapper.find_contours(self.selectedImage, withBound: self.boundingRect, withThreshold: 40)
+        
+        
+        let complexity_class = OpenCVWrapper.find_contours_count(self.selectedImage, withBound: self.boundingRect, withThreshold: 40)
+        print(complexity_class)
+//        self.mainImageView.image = OpenCVWrapper.bounding_circles_squares(self.selectedImage, withThresh: 225)
+        
+        /** Dark array **/
+        
+        /** Light Array **/
+        //        let highEnd = NSMutableArray(array: [115, 255, 220])
+        //        let lowEnd = NSMutableArray(array: [80, 90, 72])
+        
+//        self.mainImageView.image = OpenCVWrapper.get_color_contour_sizeM(self.selectedImage, withBound: self.boundingRect, withLowRange: lowEnd, withHighRange: highEnd)
+        let yeet = OpenCVWrapper.get_yeeted(self.selectedImage, withBound: self.boundingRect)
+        print(yeet)
+//        self.drawRect(tl: boundingRectPointTL, dr: boundingRectPointDR)
+        
         // Draw the rect
     }
     
@@ -54,15 +77,29 @@ class UserDefineRectBoundController: UIViewController {
     
     @IBAction func doneButtonAction(_ sender: Any) {
         print("UserDefineRectBoundController -> doneButtonAction: I am yet to be implemented!!!")
-        // transition back to the parent view and return the bounding rect
-        self.transitionBackToImageProcessing()
+        
+        /** Dark array **/
+        let highEnd = NSMutableArray(array: [140, 22, 100])
+        let lowEnd = NSMutableArray(array: [80, 10, 2])
+        
+        /** Light Array **/
+//        let highEnd = NSMutableArray(array: [115, 255, 220])
+//        let lowEnd = NSMutableArray(array: [80, 90, 72])
+        
+        self.mainImageView.image = OpenCVWrapper.get_color_contour_sizeRR(self.selectedImage, withBound: self.boundingRect, withLowRange: lowEnd, withHighRange: highEnd)
+    }
+    
+    
+    @IBAction func helperSliderAction(_ sender: UISlider) {
+        self.createRect()
+        self.mainImageView.image = OpenCVWrapper.find_contours(self.selectedImage, withThresh: Int32(sender.value))
+        print(sender.value)
     }
     
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        ImageComparator.shared().fillUpAll()
+        // ImageComparator.shared().fillUpAll()
         // Do any additional setup after loading the view.
         DispatchQueue.main.async {
             self.initalUISetup()
@@ -75,7 +112,7 @@ class UserDefineRectBoundController: UIViewController {
             self.finalUISetup()
         }
     }
-        
+    
     // MARK: - UI Functions
     func initalUISetup(){
         // Change label's text, etc.
@@ -200,6 +237,16 @@ class UserDefineRectBoundController: UIViewController {
         }
     }
     
+    func createRect(){
+        self.mainImageView.image = self.selectedImage
+        let width = self.boundingRectPointDR.x - self.boundingRectPointTL.x + self.brushWidth * 2
+        let height = self.boundingRectPointDR.y - self.boundingRectPointTL.y + self.brushWidth * 2
+        self.boundingRect = CGRect(x: self.boundingRectPointTL.x - self.brushWidth, y: self.boundingRectPointTL.y - self.brushWidth, width: width, height: height)
+        self.mainImageView.fitRectInView(rect: &self.boundingRect)
+        self.scaleTheBoundingRect()
+        
+    }
+    
     func drawRect(tl: CGPoint, dr: CGPoint) {
         if self.displayingRect {
             return
@@ -213,7 +260,7 @@ class UserDefineRectBoundController: UIViewController {
             
             self.boundingRect = CGRect(x: tl.x - self.brushWidth, y: tl.y - self.brushWidth, width: width, height: height)
             
-            self.mainImageView.fitRectInView(rect: &self.boundingRect)
+//            self.mainImageView.fitRectInView(rect: &self.boundingRect)
             
             // 1
             UIGraphicsBeginImageContext(self.mainImageView.frame.size)
@@ -238,43 +285,27 @@ class UserDefineRectBoundController: UIViewController {
             UIGraphicsEndImageContext()
         }
     }
-
-// MARK: - Navigation
-/*
- func transitionToNextViewController(){
- if let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewControllerIdentifier") as? UIViewController {
- self.navigationController?.pushViewController(nextViewController, animated: true)
- }
- }
- */
-/*
- func transitionBackMultiple() {
- let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
- self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
- }
- */
     
-    func transitionBackToImageProcessing(){
-        self.drawRect(tl: boundingRectPointTL, dr: boundingRectPointDR)
-        DispatchQueue.main.async {
-            self.navigationController?.popViewController(animated: true)
-            if let completion = self.parentReturn {
-                self.scaleTheBoundingRect()
-                completion(self.boundingRect)
-            }
-        }
-    }
-
-// MARK: - Other functions}
+    // MARK: - Other functions}
     
     func scaleTheBoundingRect(){
-        let scaleX = self.selectedImage.size.width / (self.mainImageView.frame.size.width - self.mainImageView.frame.origin.x)
-        let scaleY = self.selectedImage.size.height / (self.mainImageView.frame.size.height - self.mainImageView.frame.origin.y)
+        let scaleX = self.selectedImage.size.width / self.mainImageView.frame.size.width
+        let scaleY = self.selectedImage.size.height / self.mainImageView.frame.size.height
+        
+        let originXRatio = self.boundingRect.origin.x / self.mainImageView.frame.size.width
+        let originYRatio = self.boundingRect.origin.y / self.mainImageView.frame.size.height
         
         self.boundingRect.size.width *= scaleX
-        self.boundingRect.origin.x *= scaleX
-        
         self.boundingRect.size.height *= scaleY
-        self.boundingRect.origin.y *= scaleY
+        
+        self.boundingRect.origin.x = self.selectedImage.size.width * originXRatio
+        self.boundingRect.origin.y = self.selectedImage.size.height * originYRatio
+        
+        if self.boundingRect.origin.x + self.boundingRect.size.width > self.selectedImage.size.width {
+            self.boundingRect.size.width = self.selectedImage.size.width - self.boundingRect.origin.x
+        }
+        if self.boundingRect.size.height + self.boundingRect.origin.y > self.selectedImage.size.height {
+            self.boundingRect.size.height = self.selectedImage.size.height - self.boundingRect.origin.y
+        }
     }
 }

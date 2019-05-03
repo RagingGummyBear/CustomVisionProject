@@ -20,7 +20,7 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
     // MARK: - Your class properties
     public weak var coordinator: PhotoTakeCoordinator!
     private var session: AVCaptureSession?
-    private weak var previewLayer: AVCaptureVideoPreviewLayer!
+//    private weak var previewLayer: AVCaptureVideoPreviewLayer!
     private weak var videoDevice: AVCaptureDevice? = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
     lazy private var model = try? VNCoreMLModel(for: CoffeePorscheClass().model)
     private var stillImageOutput: AVCapturePhotoOutput!
@@ -44,8 +44,11 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
         
         self.session = AVCaptureSession()
         self.session!.beginConfiguration()
-        //        self.session!.sessionPreset = .vga640x480 // Model image size is smaller.
-        self.session!.sessionPreset = .hd1920x1080
+        // self.session!.sessionPreset = .vga640x480 // <<< --- ugly
+        // self.session!.sessionPreset = .hd1280x720 // <<< --- lowest
+         self.session!.sessionPreset = .high // <<< --- this looks cool
+        // self.session!.sessionPreset = .hd1920x1080 // <<< --- demanding
+//         self.session?.sessionPreset = .hd4K3840x2160 // <<< --- Fantasy
         
         self.videoDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
         
@@ -111,12 +114,12 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
     }
     
     func setupPreview(){
-        self.previewLayer = AVCaptureVideoPreviewLayer(session: self.session!)
+        let previewLayer = AVCaptureVideoPreviewLayer(session: self.session!)
         
-        self.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        self.previewLayer.frame = self.coordinator.getCameraPreviewFrame()
+        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        previewLayer.frame = self.coordinator.getCameraPreviewFrame()
         
-        self.previewLayer.connection?.videoOrientation = .portrait
+        previewLayer.connection?.videoOrientation = .portrait
         self.coordinator.setCameraPreviewLayer(previewLayer: previewLayer)
     }
     

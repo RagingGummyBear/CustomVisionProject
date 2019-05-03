@@ -94,8 +94,6 @@ class OpenCVTestingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let lowerC = NSMutableArray(array: [214,21,11])
-        
 //        OpenCVWrapper.get_color_content_(with_range: self.selectedImage, withLowRange: lowerC, withHighRange: lowerC)
         // Do any additional setup after loading the view.
         self.mainImageView.image = self.selectedImage

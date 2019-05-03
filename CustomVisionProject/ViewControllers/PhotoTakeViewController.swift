@@ -38,6 +38,15 @@ class PhotoTakeViewController: UIViewController, Storyboarded {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        var bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
+        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
+        
+        bundlePath = Bundle.main.path(forResource: "yingyangcoffee", ofType: "jpg")
+        self.overCameraImageView.image = UIImage(contentsOfFile: bundlePath!)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         DispatchQueue.main.async {
@@ -56,11 +65,7 @@ class PhotoTakeViewController: UIViewController, Storyboarded {
     func initalUISetup(){
         // Change label's text, etc.
         
-        var bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
-        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
-        
-        bundlePath = Bundle.main.path(forResource: "yingyangcoffee", ofType: "jpg")
-        self.overCameraImageView.image = UIImage(contentsOfFile: bundlePath!)
+
 //        self.setupCamera()
         self.coordinator?.startCameraSetup()
     }

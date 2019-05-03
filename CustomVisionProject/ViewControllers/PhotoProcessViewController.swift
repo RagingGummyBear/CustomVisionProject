@@ -1,42 +1,44 @@
 //
-//  CombinedProcessingImageViewController.swift
+//  PhotoProcessViewController.swift
 //  CustomVisionProject
 //
-//  Created by Seavus on 4/2/19.
+//  Created by Seavus on 4/25/19.
 //  Copyright © 2019 Seavus. All rights reserved.
 //
 
 import UIKit
 
-class CombinedProcessingImageViewController: UIViewController {
+class PhotoProcessViewController: UIViewController, Storyboarded {
     
     // MARK: - Custom references and variables
     public var selectedImage: UIImage!
+    public weak var coordinator: PhotoProcessCoordinator!
+    public var navigationBarHidden = false
     
     // Drawing view variables
     var lastPoint: CGPoint = .zero
     var brushWidth: CGFloat = 40.0
     var opacity: CGFloat = 1.0
-    var swiped = false
+    var touchMoved = false
+    
+    var excessX = CGFloat(0.0)
+    var excessY = CGFloat(0.0)
+    lazy var aspectFit = self.coordinator.CGSizeAspectFit(aspectRatio: self.selectedImage.size, boundingSize: self.mainImageView.frame.size)
     
     private var drawingImage: UIImage!
     private var rectDisplayImage: UIImage!
     private var workingImage: UIImage!
     
-    private var boundingRectPointTL = CGPoint(x: 10000, y: 10000)
-    private var boundingRectPointDR = CGPoint(x: -1, y: -1)
     //    private var boundingRect = CGRect()
     
     private var displayingRect = false
     private var userCanDraw = false
     
-    //    public var parentReturn: ((CGRect) -> ())?
-    
     // Processing view variables
-    var privateThreadSafeAnimationsQueue = DispatchQueue.init(label: "com.seavus.imageprocessing.animations") // Do not make this one .concurrent
-    var privateThreadSafeProcessingQueue = DispatchQueue.init(label: "com.seavus.imageprocessing.processing", attributes: .concurrent)
+    var privateThreadSafeAnimationsQueue = DispatchQueue.init(label: "com.seavus.imageprocessing.animations") // Do not make this one .concurrent. It could cause problems
+
     
-    var bestClass = "N/A"
+    //    var bestResult = -10.0
     var bestBound = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
     
     var colorHistogramCompareFinished = false
@@ -46,7 +48,6 @@ class CombinedProcessingImageViewController: UIViewController {
     
     public var foundClasses = [String]()
     public var parentReturn : (([String], UIImage) -> ())?
-    
     
     // MARK: - IBOutlets references
     @IBOutlet weak var mainImageView: UIImageView!
@@ -63,39 +64,16 @@ class CombinedProcessingImageViewController: UIViewController {
     
     // MARK: - IBInspectable
     var drawingColor: UIColor = UIColor(named: "NavigationText")!
-    var boundingRectColor: UIColor = UIColor(red: 0.30, green: 1, blue: 0.20, alpha: 1)  // ( 32, 194, 14)
+    //    var boundingRectColor: UIColor = UIColor(red: 0.30, green: 1, blue: 0.20, alpha: 1)  // ( 32, 194, 14)
+    var boundingRectColor: UIColor = UIColor(named: "NavigationText")!
     
     // MARK: - IBOutlets actions
-    @IBAction func drawBoundingBox(_ sender: Any) {
-        // Create the rect
-        self.tempImageView.image = UIImage()
-        //        self.drawRect(tl: boundingRectPointTL, dr: boundingRectPointDR)
-        
-        self.createRect()
-        // Draw the rect
-    }
-    
     @IBAction func clearAllDrawings(_ sender: Any) {
-        boundingRectPointTL = CGPoint(x: 10000, y: 10000) // out
-        boundingRectPointDR = CGPoint(x: -1, y: -1) // out
-        self.mainImageView.image = self.selectedImage;
-        self.drawingImage = self.selectedImage
-        self.tempImageView.image = UIImage()
+        self.coordinator.clearAllDrawingsAction()
     }
     
     @IBAction func doneButtonAction(_ sender: Any) {
-        // transition back to the parent view and return the bounding rect
-        // Fully out
-        if(self.boundingRectPointTL.x == self.boundingRectPointTL.y && self.boundingRectPointDR.y == self.boundingRectPointDR.x){
-            return;
-        }
-        
-        DispatchQueue.main.async {
-            self.setupViewForProcessing()
-        }
-        self.privateThreadSafeProcessingQueue.async {
-            self.startImageProcessing()
-        }
+        self.coordinator.doneDrawingAction()
     }
     
     // MARK: - View lifecycle
@@ -108,6 +86,15 @@ class CombinedProcessingImageViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        var bundlePath = Bundle.main.path(forResource: "coffeeOwl", ofType: "jpg")
+        self.splashScreenUIImage.image = UIImage(contentsOfFile: bundlePath!)
+        
+        bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
+        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         DispatchQueue.main.async {
@@ -118,16 +105,23 @@ class CombinedProcessingImageViewController: UIViewController {
     // MARK: - UI Functions
     func initalUISetup(){
         // Change label's text, etc.
-        var bundlePath = Bundle.main.path(forResource: "coffeeOwl", ofType: "jpg")
-        self.splashScreenUIImage.image = UIImage(contentsOfFile: bundlePath!)
-        
-        bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
-        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
         
         self.mainImageView.image = self.selectedImage
         
         self.drawingImage = self.mainImageView.image
         self.setupViewForDrawing() // singal to coordinator
+    }
+    
+    func setupViewForDrawing(){
+        
+        // Setup Title
+        self.userCanDraw = true
+        self.progressBar.isHidden = true
+        self.processingStatusLabel.isHidden = true
+        
+        self.clearButton.isHidden = false
+        self.doneButton.isHidden = false
+        self.navigationItem.setHidesBackButton(false, animated: false)
     }
     
     func finalUISetup(){
@@ -136,29 +130,30 @@ class CombinedProcessingImageViewController: UIViewController {
         if let img = self.selectedImage {
             self.workingImage = img
             self.mainImageView.image = img
+            
             UIView.transition(with: self.splashScreenUIImage, duration: 0.3, options: .transitionFlipFromTop, animations: {
                 self.splashScreenUIImage.alpha = 0
             }, completion: { (completed: Bool) in
                 self.splashScreenUIImage.image = nil
             })
+            
+            // Ugly code. Used to make the drawing TempImageView same size as the MainImageView
+            let emptyImg = UIImage()
+            UIGraphicsBeginImageContext(CGSize(width: img.size.width, height: img.size.height))
+            emptyImg.draw(in: CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height))
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.tempImageView.image = newImage
+            // /* *************************************** */ //
+            
         } else {
             self.backToMainMenu()
         }
+        
+        self.calculateExcess()
     }
     
-    func setupViewForDrawing(){
-        // TODO: adjust the title
-        
-        self.userCanDraw = true
-        self.progressBar.isHidden = true
-        self.processingStatusLabel.isHidden = true
-        
-        self.clearButton.isHidden = false
-        self.doneButton.isHidden = false
-        self.navigationItem.setHidesBackButton(false, animated: false)
-        // Display: Clear, done buttons display + back button
-        // Hide Processing bar + processing label
-    }
+    
     
     func setupViewForProcessing(){
         // TODO: adjust the title
@@ -175,10 +170,6 @@ class CombinedProcessingImageViewController: UIViewController {
         self.processingStatusLabel.isHidden = false
     }
     
-    func checkUITouch(touch: UITouch) -> Bool {
-        return self.mainImageView.frame.contains(touch.location(in: self.mainImageView))
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if !self.userCanDraw {
             return
@@ -188,16 +179,15 @@ class CombinedProcessingImageViewController: UIViewController {
             if(!self.mainImageView.checkIfPointInView(point: touches.first!.location(in: self.mainImageView))){
                 return
             }
-            
             self.mainImageView.image = self.drawingImage
             self.displayingRect = false
             
-            swiped = false
+            self.touchMoved = false
             self.tempImageView.image = UIImage()
             
             if let touch = touches.first {
-                lastPoint = touch.location(in: self.mainImageView)
-                self.addedNewPoint(point: lastPoint)
+                self.lastPoint = touch.location(in: self.mainImageView)
+                self.coordinator.userTouchBegin(location: lastPoint)
             }
         }
     }
@@ -208,12 +198,12 @@ class CombinedProcessingImageViewController: UIViewController {
         }
         
         autoreleasepool {
-            swiped = true
+            touchMoved = true
             if let touch = touches.first {
-                let currentPoint = touch.location(in: mainImageView)
-                drawLineFrom(fromPoint: lastPoint, toPoint: currentPoint)
+                let currentPoint = touch.location(in: self.mainImageView)
+                self.drawLineFrom(fromPoint: self.lastPoint, toPoint: currentPoint)
                 
-                lastPoint = currentPoint
+                self.lastPoint = currentPoint
             }
         }
     }
@@ -224,10 +214,10 @@ class CombinedProcessingImageViewController: UIViewController {
         }
         
         autoreleasepool {
-            if !swiped {
+            if !self.touchMoved {
                 // draw a single point
-                self.addedNewPoint(point: lastPoint)
-                drawLineFrom(fromPoint: lastPoint, toPoint: lastPoint)
+                self.coordinator.userTouchEnd(location: self.lastPoint)
+                self.drawLineFrom(fromPoint: self.lastPoint, toPoint: self.lastPoint)
             }
             
             // Merge tempImageView into mainImageView
@@ -239,13 +229,26 @@ class CombinedProcessingImageViewController: UIViewController {
             UIGraphicsEndImageContext()
             
             tempImageView.image = nil
-            
             self.drawingImage = self.mainImageView.image
         }
     }
     
     // MARK: - Logic functions
+    func clearAllDrawings(){
+        self.mainImageView.image = self.selectedImage;
+        self.drawingImage = self.selectedImage
+        self.tempImageView.image = UIImage()
+    }
+    
+    func calculateExcess(){
+        let aspectFit = self.coordinator.CGSizeAspectFit(aspectRatio: self.selectedImage.size, boundingSize: self.mainImageView.frame.size)
+        
+        self.excessX = (self.mainImageView.frame.size.width - aspectFit.width) / 2
+        self.excessY = (self.mainImageView.frame.size.height - aspectFit.height) / 2
+    }
+    
     func drawLineFrom(fromPoint: CGPoint, toPoint: CGPoint) {
+        
         autoreleasepool {
             if(!self.mainImageView.checkIfPointInView(point: toPoint)){
                 return;
@@ -253,6 +256,9 @@ class CombinedProcessingImageViewController: UIViewController {
             
             let fromPointS = self.scalePointToImageSize(point: fromPoint)
             let toPointS = self.scalePointToImageSize(point: toPoint)
+            
+            self.coordinator.userTouchMoved(location: fromPoint)
+            self.coordinator.userTouchMoved(location: toPoint)
             
             // 1
             UIGraphicsBeginImageContext(self.selectedImage.size)
@@ -263,13 +269,10 @@ class CombinedProcessingImageViewController: UIViewController {
             context?.move(to: CGPoint(x: fromPointS.x, y: fromPointS.y))
             context?.addLine(to: CGPoint(x: toPointS.x, y: toPointS.y))
             
-            self.addedNewPoint(point: fromPoint)
-            self.addedNewPoint(point: toPoint)
-            
             // 3
             context?.setLineCap(.round)
             context?.setLineWidth(brushWidth)
-            context?.setStrokeColor(self.drawingColor.cgColor);
+            context?.setStrokeColor(self.drawingColor.cgColor)
             context?.setBlendMode(.normal)
             
             // 4
@@ -284,39 +287,78 @@ class CombinedProcessingImageViewController: UIViewController {
         }
     }
     
-    func addedNewPoint(point: CGPoint){
-        if(self.mainImageView.checkIfPointInView(point: point)){
-            if (point.x < self.boundingRectPointTL.x){
-                self.boundingRectPointTL.x = point.x
-            }
-            if (point.x > self.boundingRectPointDR.x){
-                self.boundingRectPointDR.x = point.x
-            }
-            if (point.y < self.boundingRectPointTL.y){
-                self.boundingRectPointTL.y = point.y
-            }
-            if (point.y > self.boundingRectPointDR.y){
-                self.boundingRectPointDR.y = point.y
-            }
-        }
-    }
-    
     func createRect(){
         autoreleasepool {
-            DispatchQueue.main.sync {
-                self.mainImageView.image = self.selectedImage
-                
-                let width = self.boundingRectPointDR.x - self.boundingRectPointTL.x + self.brushWidth
-                let height = self.boundingRectPointDR.y - self.boundingRectPointTL.y + self.brushWidth
-                
-                self.bestBound = CGRect(x: self.boundingRectPointTL.x - self.brushWidth / 2, y: self.boundingRectPointTL.y - self.brushWidth / 2, width: width, height: height)
-                
-                self.mainImageView.fitRectInView(rect: &self.bestBound)
-                self.scaleTheBoundingRect()
-            }
+            self.mainImageView.image = self.selectedImage
+            
+            self.coordinator.aspectFit = self.aspectFit
+            self.bestBound = self.coordinator.getDrawingRect()
+            self.preDrawSizeCheck()
+            
+            self.drawRect()
+            
+            self.scaleTheBoundingRect()
         }
     }
     
+    func preDrawSizeCheck (){
+        let excessX = (self.mainImageView.frame.size.width - aspectFit.width) / 2
+        let excessY = (self.mainImageView.frame.size.height - aspectFit.height) / 2
+        
+        if self.bestBound.origin.x < excessX {
+            self.bestBound.origin.x = excessX
+        }
+
+        if self.bestBound.origin.y < excessY {
+            self.bestBound.origin.y = excessY
+        }
+
+        if self.bestBound.origin.x + self.bestBound.width > self.aspectFit.width + excessX {
+            self.bestBound.size.width = self.aspectFit.width + excessX - self.bestBound.origin.x   // <<<< ---- FIX THIS AS-AP  <<<< -----
+        }
+
+        if self.bestBound.origin.y + self.bestBound.height > self.aspectFit.height + excessY {
+            self.bestBound.size.height = self.aspectFit.height + excessY - self.bestBound.origin.y   // <<<< ---- FIX THIS AS-AP  <<<< -----
+        }
+    }
+    
+    func scaleTheBoundingRect(){
+        let aspectFit = self.coordinator.CGSizeAspectFit(aspectRatio: self.selectedImage.size, boundingSize: self.mainImageView.frame.size)
+        
+        let scaleX = self.selectedImage.size.width / aspectFit.width
+        let scaleY = self.selectedImage.size.height / aspectFit.height
+        
+        let excessX = (self.mainImageView.frame.size.width - aspectFit.width) / 2
+        let excessY = (self.mainImageView.frame.size.height - aspectFit.height) / 2
+        
+        self.bestBound.size.width *= scaleX
+        self.bestBound.size.height *= scaleY
+        
+        self.bestBound.origin.x = (self.bestBound.origin.x - excessX) * scaleX
+        self.bestBound.origin.y = (self.bestBound.origin.y - excessY) * scaleY
+        
+        if self.bestBound.origin.x < 0 {
+            self.bestBound.size.width += self.bestBound.origin.x
+            return self.bestBound.origin.x = 0
+        }
+        
+        if self.bestBound.origin.y < 0 {
+            self.bestBound.size.height += self.bestBound.origin.y
+            return self.bestBound.origin.y = 0
+        }
+        
+        if self.bestBound.origin.x + self.bestBound.size.width > self.selectedImage.size.width {
+            self.bestBound.size.width = self.selectedImage.size.width - self.bestBound.origin.x
+        }
+        
+        if self.bestBound.size.height + self.bestBound.origin.y > self.selectedImage.size.height {
+            self.bestBound.size.height = self.selectedImage.size.height - self.bestBound.origin.y
+        }
+        
+        self.coordinator.setBestBound(bestBound: self.bestBound)
+    }
+    
+    // MARK - Finished drawing
     func startImageProcessing(){
         if self.processingStarted {
             return
@@ -326,171 +368,9 @@ class CombinedProcessingImageViewController: UIViewController {
         
         self.createRect()
         
-        // Coffee texture density
-        self.privateThreadSafeProcessingQueue.async {
-            self.getPartialCoffeClass()
-        }
-        
-        // Gets bound size + bound position class ( focus of the coffe )
-        self.privateThreadSafeProcessingQueue.async {
-            self.getBestBoundClass()
-        }
-        
-        // Random factor
-        self.privateThreadSafeProcessingQueue.async {
-            self.getOverallRGBClass()
-        }
-        
-        // Random factor
-        self.privateThreadSafeProcessingQueue.async {
-            self.getPartialRGBClass()
-        }
-        
-        // Get image texture complexity
-        self.privateThreadSafeProcessingQueue.async {
-            self.getCoffeeComplexityClass()
-        }
+        self.coordinator.startImageProcessing()
         
         self.applyGrayscale()
-    }
-    
-    func getCoffeeComplexityClass(){
-        let coffeeClass = OpenCVWrapper.find_contours_count(self.selectedImage, withBound: self.bestBound, withThreshold: 40)
-        self.foundClasses.append("coffee_\(coffeeClass)")
-        DispatchQueue.main.async {
-            self.progressBar.progress += 0.09
-        }
-    }
-    
-    func getBestBoundClass(){
-        // Classify based on the sizes and location of the best bound
-        guard let image = self.selectedImage else {
-            return
-        }
-        let centerX = image.size.width / 2
-        let centerY = image.size.height / 2
-        // Size check
-        var xSize = 0
-        var ySize = 0
-        if self.bestBound.size.width > centerX {
-            xSize = 1
-        } else {
-            xSize = -1
-        }
-        if self.bestBound.size.height > centerY {
-            ySize = 1
-        } else {
-            ySize = -1
-        }
-        if xSize > 0 && ySize > 0 {
-            // coffee is bigger
-            // more focused
-            self.foundClasses.append("bound-size-big")
-        } else if xSize < 0 && ySize < 0 {
-            // coffee is smaller
-            // more objective
-            self.foundClasses.append("bound-size-small")
-        } else {
-            // coffee is mixed
-            // more creative
-            self.foundClasses.append("bound-size-mixed")
-        }
-        
-        // Position check
-        var xPos = 0
-        var yPos = 0
-        if self.bestBound.origin.x > centerX {
-            xPos = 1
-        } else {
-            xPos = -1
-        }
-        if self.bestBound.origin.y > centerY {
-            yPos = 1
-        } else {
-            yPos = -1
-        }
-        if xPos > 0 && yPos > 0 {
-            // bot right
-            self.foundClasses.append("bound-pos-bot-right")
-        } else if xPos < 0 && yPos > 0 {
-            // bot left
-            self.foundClasses.append("bound-pos-bot-left")
-        } else if xPos > 0 && yPos < 0 {
-            // up right
-            self.foundClasses.append("bound-pos-up-right")
-        } else if xPos < 0 && yPos < 0 {
-            // up left
-            self.foundClasses.append("bound-pos-up-left")
-        }
-        
-        DispatchQueue.main.async {
-            self.progressBar.progress += 0.09
-        }
-    }
-    
-    func getOverallRGBClass(){
-        // RGB values based on the whole image
-        if let image = self.selectedImage {
-            let array = OpenCVWrapper.find_rgb_values(image)
-            
-            let blue = array[0] as? Double ?? 0
-            let green = array[1] as? Double ?? 0
-            let red = array[2] as? Double ?? 0
-            
-            if blue > green {
-                if blue > red {
-                    self.foundClasses.append("rgb-full-blue")
-                } else {
-                    self.foundClasses.append("rgb-full-red")
-                }
-            } else {
-                if green > red {
-                    self.foundClasses.append("rgb-full-green")
-                } else {
-                    self.foundClasses.append("rgb-full-red")
-                }
-            }
-        }
-        
-        DispatchQueue.main.async {
-            self.progressBar.progress += 0.09
-        }
-    }
-    
-    func getPartialRGBClass(){
-        // RGB values based on best bound
-        if let image = self.selectedImage {
-            let array = OpenCVWrapper.find_rgb_values(image,withBound: self.bestBound)
-            
-            let blue = array[0] as? Double ?? 0
-            let green = array[1] as? Double ?? 0
-            let red = array[2] as? Double ?? 0
-            
-            if blue > green {
-                if blue > red {
-                    self.foundClasses.append("rgb-partial-blue")
-                } else {
-                    self.foundClasses.append("rgb-partial-red")
-                }
-            } else {
-                if green > red {
-                    self.foundClasses.append("rgb-partial-green")
-                } else {
-                    self.foundClasses.append("rgb-partial-red")
-                }
-            }
-        }
-        DispatchQueue.main.async {
-            self.progressBar.progress += 0.09
-        }
-    }
-    
-    func getPartialCoffeClass(){
-        if let image = self.selectedImage {
-            _ = CustomUtility.cropImage(imageToCrop: image, toRect: self.bestBound)
-            let bestClass = OpenCVWrapper.get_yeeted(self.selectedImage, withBound: self.bestBound);
-            self.foundClasses.append("\(bestClass)")
-        }
     }
     
     // MARK: - Animation processing functions
@@ -518,7 +398,6 @@ class CombinedProcessingImageViewController: UIViewController {
                 self.mainImageView.image = OpenCVWrapper.draw_color_mask(self.selectedImage!, withBound: self.bestBound)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [unowned self] in
                     self.progressBar.progress += 0.09
-                    
                     self.applyPartialGrayscaleReversed()
                 })
             }
@@ -532,10 +411,6 @@ class CombinedProcessingImageViewController: UIViewController {
                     self.mainImageView.image = OpenCVWrapper.draw_color_mask_reversed(image, withBound: self.bestBound)
                 }
                 self.privateThreadSafeAnimationsQueue.async {
-                    // Getting the background color class
-                    let bestBackgroundClass = OpenCVWrapper.get_yeeted_background(self.selectedImage, withBound: self.bestBound)
-                    self.foundClasses.append("background_class_\(bestBackgroundClass)")
-                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [unowned self] in
                         self.progressBar.progress += 0.09
                         self.animateFullContours()
@@ -564,7 +439,6 @@ class CombinedProcessingImageViewController: UIViewController {
     func animatePartialContours(){
         autoreleasepool { () -> () in
             if let image = self.selectedImage {
-                
                 let anim = ContourPartialCustomAnimation(targetView: self.mainImageView, image: image, bound: self.bestBound, completion: { [unowned self] in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [unowned self] in
                         self.progressBar.progress += 0.09
@@ -607,25 +481,19 @@ class CombinedProcessingImageViewController: UIViewController {
     
     // MARK: - Navigation
     func backToMainMenu(){
-        self.navigationController?.popViewController(animated: false)
+        self.coordinator.requestReturnToMainMenu()
     }
     
     func transitionToFortuneDisplay(){
-        
         DispatchQueue.main.async {
-            self.navigationController?.popViewController(animated: false)
-            if let completion = self.parentReturn {
-                if self.foundClasses.count > 0 {
-                    completion(self.foundClasses, self.selectedImage)
-                    self.mainImageView.image = nil
-                    self.selectedImage = nil
-                }
-            }
+            // TODO: change it so it doesnt have to provide found classes
+            self.coordinator.transitionToFortuneDisplay(foundClasses: self.foundClasses)
         }
     }
     
     // MARK: - Other functions
-    func drawRect(tl: CGPoint, dr: CGPoint) {
+    
+    func drawRect() {
         if self.displayingRect {
             return
         }
@@ -633,61 +501,71 @@ class CombinedProcessingImageViewController: UIViewController {
         autoreleasepool {
             self.mainImageView.image = self.selectedImage
             
-            let width = dr.x - tl.x + self.brushWidth * 2
-            let height = dr.y - tl.y + self.brushWidth * 2
+            /* ************************************* */
+            /* Check the code bellow it it is needed */
+            /* VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV */
+            /*
+            if drawRect.origin.x < self.excessX {
+                drawRect.origin.x = self.excessX
+            }
             
-            self.bestBound = CGRect(x: tl.x - self.brushWidth, y: tl.y - self.brushWidth, width: width, height: height)
+            if drawRect.origin.y < self.excessY {
+                drawRect.origin.y = self.excessY
+            }
             
-            self.mainImageView.fitRectInView(rect: &self.bestBound)
+            if drawRect.origin.x + drawRect.size.width > self.aspectFit.width + self.excessX {
+                drawRect.size.width = self.aspectFit.width - drawRect.origin.x + self.excessX
+            }
             
-            // 1
+            if drawRect.origin.y + drawRect.size.height > self.aspectFit.height + self.excessY {
+                drawRect.size.height = self.aspectFit.height - drawRect.origin.y + self.excessY
+            }
+            */
+            /* ************************************* */
+            
+            let drawRect = CGRect(origin: self.bestBound.origin, size: self.bestBound.size)
             UIGraphicsBeginImageContext(self.mainImageView.frame.size)
             let context = UIGraphicsGetCurrentContext()
             tempImageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.mainImageView.frame.size.width, height: self.mainImageView.frame.size.height))
             
-            // 2
-            context?.addRect(bestBound)
+            context?.addRect(drawRect)
             
-            // 3
             context?.setLineCap(.round)
             context?.setLineWidth(5)
-            context?.setStrokeColor(self.boundingRectColor.cgColor);
+            context?.setStrokeColor(self.boundingRectColor.cgColor)
             context?.setBlendMode(.normal)
             
-            // 4
             context?.strokePath()
             
-            // 5
             tempImageView.image = UIGraphicsGetImageFromCurrentImageContext()
             tempImageView.alpha = opacity
             UIGraphicsEndImageContext()
         }
     }
     
-    func scaleTheBoundingRect(){
-        let scaleX = self.selectedImage.size.width / self.mainImageView.frame.size.width
-        let scaleY = self.selectedImage.size.height / self.mainImageView.frame.size.height
-        
-        let originXRatio = self.bestBound.origin.x / self.mainImageView.frame.size.width
-        let originYRatio = self.bestBound.origin.y / self.mainImageView.frame.size.height
-        
-        self.bestBound.size.width *= scaleX
-        self.bestBound.size.height *= scaleY
-        
-        self.bestBound.origin.x = self.selectedImage.size.width * originXRatio
-        self.bestBound.origin.y = self.selectedImage.size.height * originYRatio
-        
-        if self.bestBound.origin.x + self.bestBound.size.width > self.selectedImage.size.width {
-            self.bestBound.size.width = self.selectedImage.size.width - self.bestBound.origin.x
-        }
-        if self.bestBound.size.height + self.bestBound.origin.y > self.selectedImage.size.height {
-            self.bestBound.size.height = self.selectedImage.size.height - self.bestBound.origin.y
-        }
-    }
+
     
     func scalePointToImageSize(point:CGPoint) -> CGPoint {
-        let originXRatio = point.x / self.mainImageView.frame.size.width
-        let originYRatio = point.y / self.mainImageView.frame.size.height
+        var originXRatio = CGFloat(0)
+        if point.x - self.excessX < 0 {
+            originXRatio = 0
+        } else if point.x - self.excessX > self.aspectFit.width {
+            originXRatio = self.aspectFit.width
+        }
+        else {
+            originXRatio = (point.x - self.excessX) / self.aspectFit.width
+        }
+        
+        var originYRatio = CGFloat(0)
+        
+        if point.y - self.excessY < 0 {
+            originYRatio = 0.0
+        } else if point.y - self.excessY > self.aspectFit.height {
+            originYRatio = self.aspectFit.height
+        }
+        else {
+            originYRatio = (point.y - self.excessY) / self.aspectFit.height
+        }
         
         return CGPoint(x: self.selectedImage.size.width * originXRatio, y: self.selectedImage.size.height * originYRatio)
     }
