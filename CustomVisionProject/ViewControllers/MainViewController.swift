@@ -45,7 +45,7 @@ class MainViewController: UIViewController, Storyboarded {
         // Change label's text, etc.
         self.quoteLabel.alpha = 0
         let bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
-        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
+//        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
     }
 
     func finalUISetup(){

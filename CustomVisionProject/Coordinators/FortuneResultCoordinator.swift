@@ -48,6 +48,9 @@ class FortuneResultCoordinator:NSObject, Coordinator {
         self.viewController.foundClasses = foundClasses
         self.navigationController.setNavigationBarHidden(self.viewController.navigationBarHidden, animated: true)
         self.navigationController.pushViewController(self.viewController, animated: true)
+        if !self.viewController.navigationBarHidden {
+            UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
+        }
     }
 
     func childPop(_ child: Coordinator?){

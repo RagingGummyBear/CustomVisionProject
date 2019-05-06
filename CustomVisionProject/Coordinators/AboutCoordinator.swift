@@ -33,10 +33,14 @@ class AboutCoordinator:NSObject, Coordinator {
 
     // MARK: - Protocol implementation
     func start(){
+        self.navigationController.isNavigationBarHidden = self.viewController.navigationBarHidden
         self.navigationController.delegate = self // This line is a must do not remove
         self.viewController = AboutViewController.instantiate()
         self.viewController.coordinator = self
         self.navigationController.pushViewController(self.viewController, animated: true)
+        if !self.viewController.navigationBarHidden {
+            UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
+        }
     }
 
     func childPop(_ child: Coordinator?){

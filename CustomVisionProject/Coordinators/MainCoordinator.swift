@@ -30,9 +30,16 @@ class MainCoordinator:NSObject, Coordinator {
     }
     
     func setupNavigationController(){
-        self.navigationController.navigationBar.barTintColor = UIColor.uicolorFromHex(rgbValue: 0x391F0F)
-        self.navigationController.navigationBar.tintColor = UIColor.uicolorFromHex(rgbValue: 0xF8981E)
-        self.navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "AmericanTypewriter-Semibold", size: 20)!, NSAttributedString.Key.foregroundColor:UIColor.uicolorFromHex(rgbValue: 0xF8981E)]
+//        self.navigationController.navigationBar.barTintColor = UIColor.uicolorFromHex(rgbValue: 0x391F0F)
+//        self.navigationController.navigationBar.tintColor = UIColor.uicolorFromHex(rgbValue: 0xF8981E)
+//        self.navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "AmericanTypewriter-Semibold", size: 20)!, NSAttributedString.Key.foregroundColor:UIColor.uicolorFromHex(rgbValue: 0xF8981E)]
+        
+        self.navigationController.navigationBar.barTintColor = UIColor.init(named: "Pale green")
+        self.navigationController.navigationBar.tintColor = UIColor.init(named: "Text Light Color")
+        self.navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "AmericanTypewriter-Semibold", size: 20)!, NSAttributedString.Key.foregroundColor: UIColor.init(named: "Text Light Color")!]
+    
+        UIApplication.shared.statusBarView?.backgroundColor = UIColor.init(named: "Pale green")
+        
     }
 
     // MARK: - Protocol implementation
@@ -46,9 +53,9 @@ class MainCoordinator:NSObject, Coordinator {
 
     func childPop(_ child: Coordinator?){
         self.navigationController.delegate = self // This line is a must do not remove
-        
         self.navigationController.setNavigationBarHidden(self.viewController.navigationBarHidden, animated: true)
-
+        UIApplication.shared.statusBarView?.backgroundColor = UIColor.init(named: "Pale green")
+        
         // Do coordinator parsing //
         if let photoTakeCoordinator = child as? PhotoTakeCoordinator {
             if photoTakeCoordinator.photoTaken {

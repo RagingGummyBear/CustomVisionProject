@@ -49,7 +49,7 @@ class FortuneResultViewController: UIViewController, Storyboarded {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
-        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
+//        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
     }
     
     override func viewDidAppear(_ animated: Bool) {
