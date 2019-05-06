@@ -12,6 +12,7 @@ class AboutViewController: UIViewController, Storyboarded {
 
     // MARK: - Custom references and variables
     weak var coordinator: AboutCoordinator? // Don't remove
+    public let navigationBarHidden = false
 
     // MARK: - IBOutlets references
 

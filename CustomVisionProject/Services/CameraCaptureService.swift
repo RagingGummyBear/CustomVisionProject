@@ -6,16 +6,11 @@
 //  Copyright © 2019 Seavus. All rights reserved.
 //
 
-import UIKit
 import AVFoundation
 import CoreML
 import Vision
 
 class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
-
-    // MARK: - UI classes
-//    weak var cameraPreviewImageView: UIImageView!
-//    weak var overCameraImageView: UIImageView!
     
     // MARK: - Your class properties
     public weak var coordinator: PhotoTakeCoordinator!
@@ -118,7 +113,6 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
         
         previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         previewLayer.frame = self.coordinator.getCameraPreviewFrame()
-        
         previewLayer.connection?.videoOrientation = .portrait
         self.coordinator.setCameraPreviewLayer(previewLayer: previewLayer)
     }

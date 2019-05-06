@@ -208,9 +208,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ySo-SD-u8b"/>
                     </view>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="water_filled_4.jpg"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="highHUISlider" destination="ihM-I9-Ses" id="7lD-OL-cf6"/>
                         <outlet property="highHValueLabel" destination="IFw-PC-7Le" id="3p2-X9-aZk"/>
@@ -332,9 +329,6 @@
                         <viewLayoutGuide key="safeArea" id="CJd-Kc-b8E"/>
                     </view>
                     <navigationItem key="navigationItem" title="Draw around the coffee Testing" id="2h0-yJ-wWE"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="water_filled_1.jpg"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="mainImageView" destination="ZrW-5v-MBH" id="Uah-OZ-xI8"/>
                         <outlet property="tempImageView" destination="jqL-JK-hUt" id="xwk-ft-7Hg"/>
@@ -849,8 +843,6 @@
         <image name="ApplicationLogo" width="1200" height="1551"/>
         <image name="blackSteamy.jpg" width="1024" height="576"/>
         <image name="photo1.jpg" width="3024" height="4032"/>
-        <image name="water_filled_1.jpg" width="3024" height="4032"/>
-        <image name="water_filled_4.jpg" width="3024" height="4032"/>
         <namedColor name="BackgroundBrown">
             <color red="0.28627450980392155" green="0.1803921568627451" blue="0.10980392156862745" alpha="0.80400002002716064" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

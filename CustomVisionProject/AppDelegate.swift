@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        print("We are having memory WARNING!!!!")
+        print("We are having a memory WARNING!!!!")
     }
 }
 

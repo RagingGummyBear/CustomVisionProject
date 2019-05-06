@@ -121,24 +121,7 @@ class PhotoProcessCoordinator:NSObject, Coordinator {
     }
     
     func getDrawingRect() -> CGRect {
-        /* *** Needed offset here? *** */
         self.bestBound = self.photoDrawingService.getRect()
-        
-//        if self.bestBound.origin.x < 0 {
-//            self.bestBound.origin.x = 0
-//        }
-//        
-//        if self.bestBound.origin.y < 0 {
-//            self.bestBound.origin.y = 0
-//        }
-//        
-//        if self.bestBound.origin.x + self.bestBound.width > self.aspectFit.width {
-//            self.bestBound.size.width = self.aspectFit.width - self.bestBound.origin.x   // <<<< ---- FIX THIS AS-AP  <<<< -----
-//        }
-//        
-//        if self.bestBound.origin.y + self.bestBound.height > self.aspectFit.height {
-//            self.bestBound.size.height = self.aspectFit.height - self.bestBound.origin.y   // <<<< ---- FIX THIS AS-AP  <<<< -----
-//        }
         
         return self.bestBound
     }
