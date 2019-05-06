@@ -134,7 +134,7 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
                 return
             }
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [unowned self] in
                 if self.coordinator != nil {
                     if results[0].identifier == "coffee" {
                         self.coordinator.captureButtonEnable()
@@ -148,7 +148,7 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
     }
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
             guard let imageData = photo.fileDataRepresentation()
                 else { return }
             let image = UIImage(data: imageData)

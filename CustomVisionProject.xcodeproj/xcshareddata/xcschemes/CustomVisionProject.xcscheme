@@ -48,6 +48,16 @@
                ReferencedContainer = "container:CustomVisionProject.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7DB92216228036D8000E1C2F"
+               BuildableName = "CustomVisionProjectUnitTests.xctest"
+               BlueprintName = "CustomVisionProjectUnitTests"
+               ReferencedContainer = "container:CustomVisionProject.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
