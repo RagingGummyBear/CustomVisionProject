@@ -14,7 +14,7 @@
         <!--OpenCV Testing View Controller-->
         <scene sceneID="PD3-Pr-9x0">
             <objects>
-                <viewController storyboardIdentifier="OpenCVTestingViewController" id="YH4-TH-NhV" customClass="OpenCVTestingViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OpenCVTestingViewController" id="YH4-TH-NhV" customClass="OpenCVTestingViewController" customModule="OpenCVTestingViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wzc-Io-muC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -231,7 +231,7 @@
         <!--Draw around the coffee Testing-->
         <scene sceneID="s7W-sf-NWd">
             <objects>
-                <viewController storyboardIdentifier="DrawingOpenCVTestingWithDrawingViewController" id="9bT-J5-khH" customClass="DrawingOpenCVTestingWithDrawingViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DrawingOpenCVTestingWithDrawingViewController" id="9bT-J5-khH" customClass="DrawingOpenCVTestingWithDrawingViewController" customModule="DrawingOpenCVTestingWithDrawingViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9jp-0k-Uwu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
