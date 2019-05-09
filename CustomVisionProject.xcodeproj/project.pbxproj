@@ -391,15 +391,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7D1B7E3E224E26A0008B0FE2 /* Debug Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				7D87CD3D2253A9A5001E9C69 /* OpenCVTestingViewController.swift */,
-				7DD589F82257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift */,
-			);
-			path = "Debug Controllers";
-			sourceTree = "<group>";
-		};
 		7D1B7E43224E47C1008B0FE2 /* DebugViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,31 +608,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		7D8D06862271AC2F008C4B12 /* Coordinators */ = {
+		7D8D06862271AC2F008C4B12 /* BaseProtocols */ = {
 			isa = PBXGroup;
 			children = (
 				7D8D06872271AC2F008C4B12 /* StoryboardedProtocol.swift */,
 				7D8D06892271AC2F008C4B12 /* CoordinatorProtocol.swift */,
-				7D8D06882271AC2F008C4B12 /* MainCoordinator.swift */,
-				7D8D06952271AE94008C4B12 /* PhotoTakeCoordinator.swift */,
-				7D8D06992271B13E008C4B12 /* PhotoProcessCoordinator.swift */,
-				7D8D069D2271B170008C4B12 /* FortuneResultCoordinator.swift */,
-				7DAED841227C94D60025476D /* AboutCoordinator.swift */,
 			);
-			path = Coordinators;
-			sourceTree = "<group>";
-		};
-		7D8D068A2271AC2F008C4B12 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				7D1B7E3E224E26A0008B0FE2 /* Debug Controllers */,
-				7D8D068B2271AC2F008C4B12 /* MainViewController.swift */,
-				7D8D06962271AE94008C4B12 /* PhotoTakeViewController.swift */,
-				7D8D069A2271B13E008C4B12 /* PhotoProcessViewController.swift */,
-				7D8D069E2271B170008C4B12 /* FortuneResultViewController.swift */,
-				7DAED83E227C94990025476D /* AboutViewController.swift */,
-			);
-			path = ViewControllers;
+			path = BaseProtocols;
 			sourceTree = "<group>";
 		};
 		7DAED83A227C7F3B0025476D /* CoreML */ = {
@@ -692,6 +665,73 @@
 			path = withoutCoffee;
 			sourceTree = "<group>";
 		};
+		7DCA9D3E2284362A00E423F5 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				7DCA9D44228436F000E423F5 /* AboutScreen */,
+				7DCA9D43228436D400E423F5 /* ProcessingResultScreen */,
+				7DCA9D42228436BD00E423F5 /* PhotoProcessingScreen */,
+				7DCA9D412284366800E423F5 /* PhotoCaptureScreen */,
+				7DCA9D402284365300E423F5 /* MainScreen */,
+				7DCA9D3F2284364100E423F5 /* DebugScreens */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		7DCA9D3F2284364100E423F5 /* DebugScreens */ = {
+			isa = PBXGroup;
+			children = (
+				7D87CD3D2253A9A5001E9C69 /* OpenCVTestingViewController.swift */,
+				7DD589F82257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift */,
+			);
+			path = DebugScreens;
+			sourceTree = "<group>";
+		};
+		7DCA9D402284365300E423F5 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7D8D06882271AC2F008C4B12 /* MainCoordinator.swift */,
+				7D8D068B2271AC2F008C4B12 /* MainViewController.swift */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		7DCA9D412284366800E423F5 /* PhotoCaptureScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7D8D06952271AE94008C4B12 /* PhotoTakeCoordinator.swift */,
+				7D8D06962271AE94008C4B12 /* PhotoTakeViewController.swift */,
+			);
+			path = PhotoCaptureScreen;
+			sourceTree = "<group>";
+		};
+		7DCA9D42228436BD00E423F5 /* PhotoProcessingScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7D8D06992271B13E008C4B12 /* PhotoProcessCoordinator.swift */,
+				7D8D069A2271B13E008C4B12 /* PhotoProcessViewController.swift */,
+			);
+			path = PhotoProcessingScreen;
+			sourceTree = "<group>";
+		};
+		7DCA9D43228436D400E423F5 /* ProcessingResultScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7D8D069D2271B170008C4B12 /* FortuneResultCoordinator.swift */,
+				7D8D069E2271B170008C4B12 /* FortuneResultViewController.swift */,
+			);
+			path = ProcessingResultScreen;
+			sourceTree = "<group>";
+		};
+		7DCA9D44228436F000E423F5 /* AboutScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7DAED841227C94D60025476D /* AboutCoordinator.swift */,
+				7DAED83E227C94990025476D /* AboutViewController.swift */,
+			);
+			path = AboutScreen;
+			sourceTree = "<group>";
+		};
 		7DCEFC642212FAEC00F59A37 = {
 			isa = PBXGroup;
 			children = (
@@ -725,8 +765,8 @@
 				7DCEFCA32212FBC700F59A37 /* Views */,
 				7D8D06842271AC2F008C4B12 /* Models */,
 				7D8D06802271AC2E008C4B12 /* Services */,
-				7D8D06862271AC2F008C4B12 /* Coordinators */,
-				7D8D068A2271AC2F008C4B12 /* ViewControllers */,
+				7D8D06862271AC2F008C4B12 /* BaseProtocols */,
+				7DCA9D3E2284362A00E423F5 /* Screens */,
 				7DCEFC702212FAEC00F59A37 /* AppDelegate.swift */,
 				7DCEFC742212FAEC00F59A37 /* Main.storyboard */,
 				7DCEFC7A2212FAEF00F59A37 /* Assets.xcassets */,
@@ -890,14 +930,16 @@
 					};
 					7DCEFC6C2212FAEC00F59A37 = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 					};
 					7DCEFC832212FAEF00F59A37 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = 7DCEFC6C2212FAEC00F59A37;
 					};
 					7DCEFC8E2212FAEF00F59A37 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = 7DCEFC6C2212FAEC00F59A37;
 					};
 				};

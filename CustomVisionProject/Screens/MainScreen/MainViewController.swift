@@ -7,6 +7,7 @@ class MainViewController: UIViewController, Storyboarded {
     // MARK: - Custom references and variables
     weak var coordinator: MainCoordinator? // Don't remove
     public let navigationBarHidden = true
+    var quoteNotificationRunning = false
 
     // MARK: - IBOutlets references
     @IBOutlet weak var discoverFortuneButton: UIButton!
@@ -54,6 +55,10 @@ class MainViewController: UIViewController, Storyboarded {
 
     func setQuote(quote:QuoteModel){
         self.quoteLabel.layer.removeAllAnimations()
+        if self.quoteLabel.alpha < 0.5 {
+            
+        }
+        self.quoteNotificationRunning = true
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
             self.quoteLabel.alpha = 0.0
         }) { (finished: Bool) in
@@ -62,8 +67,8 @@ class MainViewController: UIViewController, Storyboarded {
 
                 UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
                     self.quoteLabel.alpha = 1
-                }) { (finished: Bool) in
-                    
+                }) { [weak self] (finished: Bool) in
+                    self?.quoteNotificationRunning = false
                 }
             }
         }
@@ -73,8 +78,11 @@ class MainViewController: UIViewController, Storyboarded {
     // MARK: - Other functions
     // Remember keep the logic and processing in the coordinator
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if self.quoteNotificationRunning {
+            return
+        }
         guard let touchPoint = touches.first else { return }
-
+        
         if self.quoteLabel.frame.contains(touchPoint.location(in: self.view)) {
             self.coordinator?.userRequestNewQuote()
         }

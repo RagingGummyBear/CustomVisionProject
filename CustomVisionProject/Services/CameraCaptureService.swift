@@ -134,12 +134,12 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
                 return
             }
             
-            DispatchQueue.main.async { [unowned self] in
-                if self.coordinator != nil {
+            DispatchQueue.main.async { [weak self] in
+                if self?.coordinator != nil {
                     if results[0].identifier == "coffee" {
-                        self.coordinator.captureButtonEnable()
+                        self?.coordinator.captureButtonEnable()
                     } else {
-                        self.coordinator.captureButtonDisable()
+                        self?.coordinator.captureButtonDisable()
                     }
                 }
             }

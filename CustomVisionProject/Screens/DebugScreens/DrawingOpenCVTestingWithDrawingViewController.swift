@@ -286,7 +286,7 @@ class DrawingOpenCVTestingWithDrawingViewController: UIViewController {
         }
     }
     
-    // MARK: - Other functions}
+    // MARK: - Other functions
     
     func scaleTheBoundingRect(){
         let scaleX = self.selectedImage.size.width / self.mainImageView.frame.size.width

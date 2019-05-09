@@ -50,8 +50,11 @@ using namespace cv;
 + (UIImage *) find_contours: (UIImage *) image withThresh:(int) thresh {
     // Consts //
     //    int thresh = 60;
+    int paint_weight = 2.5;
     RNG rng(12345);
     ////////////
+    
+    paint_weight *= thresh / 25;
     
     Mat src; Mat src_gray; UIImageToMat(image, src);
     cvtColor( src, src_gray, COLOR_BGR2GRAY );
@@ -78,7 +81,7 @@ using namespace cv;
     for( int i = 0; i< contours.size(); i++ )
     {
         // Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-        drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
+        drawContours( src, contours, i, color, paint_weight, 8, hierarchy, 0, cv::Point() );
     }
     return MatToUIImage(src);
 }
@@ -109,8 +112,6 @@ using namespace cv;
     findContours(mask1, contours1, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
     findContours(mask2, contours2, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
     
-    //    cout << contours1.size() << "\n";
-    //    cout << contours2.size() << "\n";
     //    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I1, 0);
     //    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I2, 0);
     //    double resut = matchShapes(contours1, contours2, CONTOURS_MATCH_I3, 0);
@@ -152,7 +153,6 @@ using namespace cv;
     
     return result;
 }
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // /////////////////// //
@@ -163,8 +163,11 @@ using namespace cv;
     // Consts //
     //    int thresh = 60;
     int min_thresh = 25;
+    int paint_weight = 2;
     RNG rng(12345);
     ////////////
+    
+    paint_weight *= max_thresh / min_thresh;
     
     Mat src; Mat src_gray; UIImageToMat(image, src);
     cvtColor( src, src_gray, COLOR_BGR2GRAY );
@@ -173,8 +176,6 @@ using namespace cv;
     Mat canny_output;
     vector<vector<cv::Point> > contours;
     vector<Vec4i> hierarchy;
-    
-    // cv::Mat::zeros(src.size, CV_8u)
     
     cv::Mat boundMask = cv::Mat::zeros(src.rows, src.cols, CV_8U); // all 0
     boundMask(cv::Rect(bound.origin.x, bound.origin.y, bound.size.width, bound.size.height)) = Scalar(255,255,255);
@@ -189,18 +190,15 @@ using namespace cv;
     // Draw contours
     Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
     
-    
     cvtColor(src, temp, COLOR_BGR2RGB);
     cvtColor(temp, src, COLOR_RGB2BGR); // HACK for drawing colors
-    
     
     // Scalar color = Scalar( 32, 194, 14); // HACKERGREEN
     Scalar color = Scalar( 248, 152, 30); // COFFEEBROWN
     for( int i = 0; i< contours.size(); i++ ){
         // Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-        drawContours( src, contours, i, color, 2, 8, hierarchy, 0, cv::Point() );
+        drawContours( src, contours, i, color, paint_weight, 8, hierarchy, 0, cv::Point() );
     }
-    
     return MatToUIImage(src);
 }
 
@@ -680,8 +678,8 @@ using namespace cv;
 
     for( int i = 0; i< contours.size(); i++ )
     {
-        rectangle( src, boundRect[i].tl(), boundRect[i].br(), rectangleColor, 2, 8, 0 );
-        circle( src, center[i], (int)radius[i], circleColor, 2, 8, 0 );
+        rectangle( src, boundRect[i].tl(), boundRect[i].br(), rectangleColor, 3, 8, 0 );
+        circle( src, center[i], (int)radius[i], circleColor, 3, 8, 0 );
     }
     return MatToUIImage(src);
 }
