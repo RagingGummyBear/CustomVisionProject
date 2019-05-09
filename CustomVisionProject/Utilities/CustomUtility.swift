@@ -40,11 +40,6 @@ class CustomUtility {
         return newImage!
     }
     
-    
-    class func cropImage(){
-        
-    }
-    
     class func cropImage(imageToCrop:UIImage, toRect rect:CGRect) -> UIImage {
         let imageRef:CGImage = imageToCrop.cgImage!.cropping(to: rect)!
         let cropped:UIImage = UIImage(cgImage:imageRef)

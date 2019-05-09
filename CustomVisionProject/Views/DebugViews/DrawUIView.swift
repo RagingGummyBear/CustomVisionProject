@@ -18,7 +18,6 @@ class DrawUIView: UIImageView {
     // MARK: Drawing a path
     override func draw(_ rect: CGRect) {
         // 4. Redraw whole rect, ignoring parameter. Please note we always invalidate whole view.
-        let context = UIGraphicsGetCurrentContext()
         self.drawColor.setStroke()
         self.path.lineWidth = self.drawWidth
         self.path.lineCapStyle = .round

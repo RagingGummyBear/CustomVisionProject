@@ -20,36 +20,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIImage *) bounding_circles_squares: (UIImage *) image withThresh:(int) thresh;
 
-+ (double) compareUsingContoursMatch: (UIImage *) src withImage:(UIImage *) compare;
-
 + (UIImage *) bounding_circles_squares: (UIImage *) image withBound:(CGRect) bound withThresh:(int) thresh;
 
-+ (NSMutableArray *) find_rgb_values: (UIImage *) image withBound: (CGRect) bound; // USING
-+ (NSMutableArray *) find_rgb_values: (UIImage *) image; // USING
++ (NSMutableArray *) find_rgb_values: (UIImage *) image withBound: (CGRect) bound;
++ (NSMutableArray *) find_rgb_values: (UIImage *) image;
 
-+ (UIImage *) draw_color_mask: (UIImage *) image withBound:(CGRect) bound; // USING
-+ (UIImage *) draw_color_mask_reversed: (UIImage *) image withBound:(CGRect) bound; // USING
++ (UIImage *) draw_color_mask: (UIImage *) image withBound:(CGRect) bound;
++ (UIImage *) draw_color_mask_reversed: (UIImage *) image withBound:(CGRect) bound;
 + (UIImage *) draw_color_mask_reversed_void: (UIImage *) image withBound:(CGRect) bound;
 
-+ (UIImage *) find_contours: (UIImage *) image withThresh:(int) thresh; // USING
-+ (UIImage *) find_contours: (UIImage *) image withBound:(CGRect) bound withThreshold:(int) max_thresh; // USING
++ (UIImage *) find_contours: (UIImage *) image withThresh:(int) thresh;
++ (UIImage *) find_contours: (UIImage *) image withBound:(CGRect) bound withThreshold:(int) max_thresh;
 
-+ (double) compareUsingHistograms: (UIImage *) src withImage:(UIImage *) compare; // USING
-+ (double) compareUsingGrayScaleHistograms: (UIImage *) src withImage:(UIImage *) compare; // USING
-+ (double) compareUsingHistograms: (UIImage *) src withBound:(CGRect) bound withImage:(UIImage *) compare; // USING
-
-+ (double) compareUsingHistograms: (UIImage *) src withBound:(CGRect) bound withImage:(UIImage *) compare withBound:(CGRect) comapreBound; // USING, Maybe in future - expected use in background compare with coffee
-
-+ (NSMutableArray *) contour_python_bound_square: (UIImage *) image withThresh:(int) thresh; // USING
-
-+ (UIImage *) get_color_content: (UIImage *) image; // TESTING
-+ (UIImage *) get_color_content_with_range: (UIImage *) image withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector; // TESTING
-
-+ (NSString *) get_color_content_class: (UIImage *) image withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector; // TESTING
-
++ (UIImage *) get_color_content: (UIImage *) image;
++ (UIImage *) get_color_content_with_range: (UIImage *) image withLowRange: (NSMutableArray *) lowVector withHighRange: (NSMutableArray *) highVector;
 
 + (NSString *) find_contours_count: (UIImage *) image withBound:(CGRect) bound withThreshold:(int) max_thresh;
-
 
 + (NSString *) get_yeeted: (UIImage *) image withBound:(CGRect) bound;
 + (int) get_contour_size_light: (UIImage *) image withBound:(CGRect) bound;
