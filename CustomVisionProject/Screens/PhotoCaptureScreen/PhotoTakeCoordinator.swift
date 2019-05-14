@@ -61,6 +61,10 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
             }
         }
     }
+    
+    func shouldHideNavigationBar() -> Bool{
+        return self.viewController.navigationBarHidden
+    }
 
     internal func getDataProvider() -> DataProvider {
         return self.dataProvider
@@ -87,6 +91,10 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
         DispatchQueue.main.async {
             self.navigationController.popViewController(animated: true)
         }
+    }
+    
+    func useDebugPhoto(){
+        self.setupFailed()
     }
     
     func setupFailed(){
@@ -138,6 +146,7 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
         }
 
         if let parent = self.parentCoordinator {
+            self.navigationController.setToolbarHidden(parent.shouldHideNavigationBar(), animated: true)
             parent.childPop(self)
         }
     }

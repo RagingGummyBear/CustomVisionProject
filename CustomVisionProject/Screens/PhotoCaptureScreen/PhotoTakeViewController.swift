@@ -29,6 +29,11 @@ class PhotoTakeViewController: UIViewController, Storyboarded {
         self.coordinator?.takePhoto()
     }
     
+    @IBAction func debugPhotoAction(_ sender: Any) {
+        // Signal the coordinator to use the debug photo
+        self.coordinator?.useDebugPhoto()
+    }
+    
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +46,7 @@ class PhotoTakeViewController: UIViewController, Storyboarded {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         var bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
-//        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
+        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
         
         bundlePath = Bundle.main.path(forResource: "yingyangcoffee", ofType: "jpg")
         self.overCameraImageView.image = UIImage(contentsOfFile: bundlePath!)

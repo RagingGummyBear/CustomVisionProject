@@ -110,13 +110,10 @@ using namespace cv;
             r += maskedSrc.at<cv::Vec3b>(y,x)[2];
         }
     }
-    
     NSMutableArray *result = [NSMutableArray array];
-    
     [result addObject:@(r)];
     [result addObject:@(g)];
     [result addObject:@(b)];
-    
     return result;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -546,7 +543,7 @@ using namespace cv;
     
 //    cout << light_coffee_size << " " << dark_coffee_size << " " << endl;
     if (light_coffee_size < size_threshold && dark_coffee_size < size_threshold) {
-        return @"yeet";
+        return @"coffee_class_water";
     }
     
     if (light_coffee_size < size_threshold){
@@ -612,7 +609,7 @@ using namespace cv;
     
     cout << "Error? Hmmm 🤔🤔🤔" << endl;
     
-    return @"yeeted";
+    return @"bad_size";
 }
 
 + (int) get_contour_size_light: (UIImage *) image withBound:(CGRect) bound  {

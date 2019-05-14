@@ -55,7 +55,6 @@
     - Requires images from far, angled and different cup color 
 
 ## TODO:
-    - Acquire images for better coffee recognition
-    - Fix the quotes to change on swipe
-    - Fix the memory leak UGH!!!
-## BUGS:
+
+    - Logo
+    - Improve the text generator

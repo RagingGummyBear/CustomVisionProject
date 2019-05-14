@@ -91,7 +91,7 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
         self.splashScreenUIImage.image = UIImage(contentsOfFile: bundlePath!)
         
         bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
-//        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
+        self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
     }
     
     override func viewDidAppear(_ animated: Bool) {

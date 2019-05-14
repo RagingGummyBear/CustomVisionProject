@@ -64,6 +64,10 @@ class PhotoProcessCoordinator:NSObject, Coordinator {
         }
     }
 
+    func shouldHideNavigationBar() -> Bool{
+        return self.viewController.navigationBarHidden
+    }
+    
     internal func getDataProvider() -> DataProvider {
         return self.dataProvider
     }
@@ -226,17 +230,25 @@ class PhotoProcessCoordinator:NSObject, Coordinator {
         }
         
         // Position check
-        var xPos = 0
-        var yPos = 0
+        var xPos = 0.0
+        var yPos = 0.0
         if self.bestBound.origin.x > centerX {
             xPos = 1
         } else {
-            xPos = -1
+            if centerX - CGFloat(self.bestBound.origin.x) > self.bestBound.size.width / 2 {
+                xPos = -1
+            } else {
+                xPos = 1
+            }
         }
         if self.bestBound.origin.y > centerY {
             yPos = 1
         } else {
-            yPos = -1
+            if centerY - CGFloat(self.bestBound.origin.y) > self.bestBound.size.height / 2 {
+                yPos = -1
+            } else {
+                yPos = 1
+            }
         }
         if xPos > 0 && yPos > 0 {
             // bot right

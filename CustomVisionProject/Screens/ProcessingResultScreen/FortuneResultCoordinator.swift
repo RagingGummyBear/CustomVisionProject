@@ -65,6 +65,10 @@ class FortuneResultCoordinator:NSObject, Coordinator {
         }
     }
 
+    func shouldHideNavigationBar() -> Bool{
+        return self.viewController.navigationBarHidden
+    }
+    
     internal func getDataProvider() -> DataProvider {
         return self.dataProvider
     }

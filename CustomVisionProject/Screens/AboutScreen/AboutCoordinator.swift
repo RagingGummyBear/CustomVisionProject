@@ -36,6 +36,7 @@ class AboutCoordinator:NSObject, Coordinator {
         self.navigationController.delegate = self // This line is a must do not remove
         self.viewController = AboutViewController.instantiate()
         self.viewController.coordinator = self
+        self.navigationController.setNavigationBarHidden(self.viewController.navigationBarHidden, animated: true)
         self.navigationController.pushViewController(self.viewController, animated: true)
     }
 
@@ -54,34 +55,20 @@ class AboutCoordinator:NSObject, Coordinator {
             }
         }
     }
+    
+    func shouldHideNavigationBar() -> Bool{
+        return self.viewController.navigationBarHidden
+    }
 
     internal func getDataProvider() -> DataProvider {
         return self.dataProvider
     }
 
-    /* **************************************** */
-    // Examples // Remove them after inspecting //
-    // func start() {
-    //     navigationController.delegate = self
-    //     let vc = BuyViewController.instantiate()
-    //     vc.coordinator = self
-    //     navigationController.pushViewController(vc, animated: true)
-    //     // we'll add code here
-    // }
-    /* **************************************** */
 
     // MARK: - Transition functions
     // These are the functions that can be called by the view controller as well
 
-    /* **************************************** */
-    // Examples // Remove them after inspecting //
-    // func buySubscription(to productType: Int) {
-    //     let child = BuyCoordinator(navigationController: navigationController)
-    //     child.parentCoordinator = self
-    //     childCoordinators.append(child)
-    //     child.start(to: productType)
-    // }
-    /* **************************************** */
+
 
     // MARK: - Logic functions
     // These are the functions that may be called by the viewcontroller. Example: Request for data, update data, etc.
@@ -91,9 +78,15 @@ class AboutCoordinator:NSObject, Coordinator {
 
 
     /* ************************************************************* */
-    // Sadly I don't know how to put this code into the protocol :( //
+    // Sadly I don't know how to put this code into the protocol :(  //
     /* ************************************************************* */
-
+    
+    // func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+    //     if let parent = self.parentCoordinator , self.viewController != viewController {
+    //         self.navigationController.setNavigationBarHidden(parent.shouldHideNavigationBar(), animated: true)
+    //     }
+    // }
+    
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         // Read the view controller we’re moving from.
         guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {

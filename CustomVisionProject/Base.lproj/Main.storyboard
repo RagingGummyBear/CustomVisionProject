@@ -454,54 +454,127 @@
             <objects>
                 <viewController storyboardIdentifier="AboutViewController" id="nH9-qI-d5D" customClass="AboutViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="k5i-vh-n6G">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="835"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In development" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNH-8P-lgj">
-                                <rect key="frame" x="148" y="36" width="118" height="21"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTO-uN-DE8">
+                                <rect key="frame" x="0.0" y="20" width="414" height="815"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJr-gY-CkW" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="819.33333333333337"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDP-HU-jiu">
+                                                <rect key="frame" x="24" y="205.33333333333334" width="366" height="25.666666666666657"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="What does it do?">
+                                                        <attributes>
+                                                            <font key="NSFont" size="22" name="Arial-BoldMT"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ApplicationLogo" translatesAutoresizingMaskIntoConstraints="NO" id="cvd-T6-n4S">
+                                                <rect key="frame" x="150" y="73.333333333333329" width="114" height="107.99999999999999"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="108" id="NDU-mt-1TE"/>
+                                                    <constraint firstAttribute="width" constant="114" id="WWq-TZ-Fp5"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In development" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AfJ-Sr-jlB">
+                                                <rect key="frame" x="137" y="24" width="140" height="25.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8dE-NJ-81s">
+                                                <rect key="frame" x="16" y="239.00000000000003" width="382" height="81.333333333333343"/>
+                                                <string key="text">  To determine your fortune (mood) the application analizes the coffee texture, color, the background and adds a random element based on the image.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How to use?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1on-Ic-Amc">
+                                                <rect key="frame" x="24" y="352.33333333333331" width="366" height="24.666666666666686"/>
+                                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNM-gK-vdf">
+                                                <rect key="frame" x="16" y="385" width="382" height="243.66666666666663"/>
+                                                <mutableString key="text">  From the Main Menu using the fortune button transition to the "Coffee Capture" screen.    Here you can take a photo from a coffee. Use the label (text) bellow the capture image as indicator for when you are able to take a photo (You can only take photo when there is coffee present).    After you take a photo you will be asked to draw a circle around the coffee area. And then the processing will start.   In the end you will be presented with the results from the analysis.</mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Technical information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vU5-h3-wB0">
+                                                <rect key="frame" x="24" y="660.66666666666663" width="366" height="25"/>
+                                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMi-yY-ctb">
+                                                <rect key="frame" x="16" y="693.66666666666663" width="382" height="101.66666666666663"/>
+                                                <string key="text">The application was written in SWIFT. For the image processing it uses OpenCV(C++) with a bridging header for SWIFT. For the coffee detection we are using CoreML model trained using Custom Vision.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="AfJ-Sr-jlB" firstAttribute="centerX" secondItem="gJr-gY-CkW" secondAttribute="centerX" id="04w-nO-1ZB"/>
+                                            <constraint firstItem="8dE-NJ-81s" firstAttribute="leading" secondItem="gJr-gY-CkW" secondAttribute="leading" constant="16" id="1ja-RO-iaw"/>
+                                            <constraint firstItem="CDP-HU-jiu" firstAttribute="top" secondItem="cvd-T6-n4S" secondAttribute="bottom" constant="24" id="2FS-Oz-2Om"/>
+                                            <constraint firstAttribute="trailing" secondItem="8dE-NJ-81s" secondAttribute="trailing" constant="16" id="2OH-0Z-8Qs"/>
+                                            <constraint firstItem="CNM-gK-vdf" firstAttribute="leading" secondItem="gJr-gY-CkW" secondAttribute="leading" constant="16" id="7zd-t3-BHj"/>
+                                            <constraint firstItem="NMi-yY-ctb" firstAttribute="leading" secondItem="gJr-gY-CkW" secondAttribute="leading" constant="16" id="889-xa-mUJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="CDP-HU-jiu" secondAttribute="trailing" constant="24" id="8Wx-Hb-yTh"/>
+                                            <constraint firstItem="NMi-yY-ctb" firstAttribute="top" secondItem="vU5-h3-wB0" secondAttribute="bottom" constant="8" id="BPS-MG-SWq"/>
+                                            <constraint firstAttribute="trailing" secondItem="vU5-h3-wB0" secondAttribute="trailing" constant="24" id="Bq4-zw-InE"/>
+                                            <constraint firstItem="1on-Ic-Amc" firstAttribute="top" secondItem="8dE-NJ-81s" secondAttribute="bottom" constant="32" id="Fik-ia-WoI"/>
+                                            <constraint firstAttribute="trailing" secondItem="CNM-gK-vdf" secondAttribute="trailing" constant="16" id="QIk-L2-j0y"/>
+                                            <constraint firstItem="1on-Ic-Amc" firstAttribute="leading" secondItem="gJr-gY-CkW" secondAttribute="leading" constant="24" id="T2p-V7-TPu"/>
+                                            <constraint firstItem="CNM-gK-vdf" firstAttribute="top" secondItem="1on-Ic-Amc" secondAttribute="bottom" constant="8" id="VBM-uX-PBv"/>
+                                            <constraint firstItem="AfJ-Sr-jlB" firstAttribute="top" secondItem="gJr-gY-CkW" secondAttribute="top" constant="24" id="Xij-i7-fUU"/>
+                                            <constraint firstItem="vU5-h3-wB0" firstAttribute="leading" secondItem="gJr-gY-CkW" secondAttribute="leading" constant="24" id="YrE-Zn-eqy"/>
+                                            <constraint firstAttribute="trailing" secondItem="NMi-yY-ctb" secondAttribute="trailing" constant="16" id="bEV-EB-FXp"/>
+                                            <constraint firstItem="cvd-T6-n4S" firstAttribute="centerX" secondItem="gJr-gY-CkW" secondAttribute="centerX" id="eRe-0n-VYX"/>
+                                            <constraint firstItem="vU5-h3-wB0" firstAttribute="top" secondItem="CNM-gK-vdf" secondAttribute="bottom" constant="32" id="f2R-fs-U7r"/>
+                                            <constraint firstItem="CDP-HU-jiu" firstAttribute="leading" secondItem="gJr-gY-CkW" secondAttribute="leading" constant="24" id="hPv-gn-kn1"/>
+                                            <constraint firstItem="AfJ-Sr-jlB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gJr-gY-CkW" secondAttribute="leading" id="piT-xK-gRz"/>
+                                            <constraint firstItem="8dE-NJ-81s" firstAttribute="top" secondItem="CDP-HU-jiu" secondAttribute="bottom" constant="8" id="rVA-Eq-qxb"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AfJ-Sr-jlB" secondAttribute="trailing" id="vFd-2H-J1w"/>
+                                            <constraint firstAttribute="trailing" secondItem="1on-Ic-Amc" secondAttribute="trailing" constant="24" id="viC-Yu-1BY"/>
+                                            <constraint firstAttribute="bottom" secondItem="NMi-yY-ctb" secondAttribute="bottom" constant="24" id="xUc-AW-rHI"/>
+                                            <constraint firstItem="cvd-T6-n4S" firstAttribute="top" secondItem="AfJ-Sr-jlB" secondAttribute="bottom" constant="24" id="zVW-QA-luC"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="L3p-rF-HbR"/>
+                                    <constraint firstItem="gJr-gY-CkW" firstAttribute="width" secondItem="xTO-uN-DE8" secondAttribute="width" id="0Xe-9U-o06"/>
+                                    <constraint firstAttribute="trailing" secondItem="gJr-gY-CkW" secondAttribute="trailing" id="8cV-h4-MGI"/>
+                                    <constraint firstAttribute="bottom" secondItem="gJr-gY-CkW" secondAttribute="bottom" id="RFg-Wv-X9T"/>
+                                    <constraint firstItem="gJr-gY-CkW" firstAttribute="top" secondItem="xTO-uN-DE8" secondAttribute="top" id="VEH-D0-99W"/>
+                                    <constraint firstItem="gJr-gY-CkW" firstAttribute="leading" secondItem="xTO-uN-DE8" secondAttribute="leading" id="f7l-iS-SuY"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.88110723349999998" green="0.0" blue="0.041211885480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ais-Wk-ejt">
-                                <rect key="frame" x="16" y="73" width="382" height="647"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Make a disclaimer of close to random results">
-                                        <attributes>
-                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="NSFont" metaFont="system" size="17"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ApplicationLogo" translatesAutoresizingMaskIntoConstraints="NO" id="2fz-pc-96e">
-                                <rect key="frame" x="132" y="109" width="151" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="0h0-2o-TRV" firstAttribute="bottom" secondItem="Ais-Wk-ejt" secondAttribute="bottom" constant="16" id="28J-6L-CtS"/>
-                            <constraint firstItem="0h0-2o-TRV" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uNH-8P-lgj" secondAttribute="trailing" id="9Dj-sn-pMV"/>
-                            <constraint firstItem="uNH-8P-lgj" firstAttribute="top" secondItem="0h0-2o-TRV" secondAttribute="top" constant="16" id="APS-ON-dh8"/>
-                            <constraint firstItem="Ais-Wk-ejt" firstAttribute="top" secondItem="uNH-8P-lgj" secondAttribute="bottom" constant="16" id="DrI-NI-YKD"/>
-                            <constraint firstItem="Ais-Wk-ejt" firstAttribute="leading" secondItem="0h0-2o-TRV" secondAttribute="leading" constant="16" id="KJY-xN-BDp"/>
-                            <constraint firstItem="0h0-2o-TRV" firstAttribute="trailing" secondItem="Ais-Wk-ejt" secondAttribute="trailing" constant="16" id="PL5-FM-Vt2"/>
-                            <constraint firstItem="uNH-8P-lgj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0h0-2o-TRV" secondAttribute="leading" id="oXt-yc-jSg"/>
-                            <constraint firstItem="uNH-8P-lgj" firstAttribute="centerX" secondItem="k5i-vh-n6G" secondAttribute="centerX" id="wAJ-rh-Hwm"/>
+                            <constraint firstItem="0h0-2o-TRV" firstAttribute="bottom" secondItem="xTO-uN-DE8" secondAttribute="bottom" id="2yd-vy-3An"/>
+                            <constraint firstItem="xTO-uN-DE8" firstAttribute="leading" secondItem="0h0-2o-TRV" secondAttribute="leading" id="j7W-SK-eMf"/>
+                            <constraint firstItem="xTO-uN-DE8" firstAttribute="top" secondItem="0h0-2o-TRV" secondAttribute="top" id="jT5-2L-Ni5"/>
+                            <constraint firstItem="0h0-2o-TRV" firstAttribute="trailing" secondItem="xTO-uN-DE8" secondAttribute="trailing" id="qnL-Ae-Vx6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0h0-2o-TRV"/>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="ac8-nl-W6f"/>
+                    <size key="freeformSize" width="414" height="835"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c7c-ja-M0j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3578" y="3200"/>
+            <point key="canvasLocation" x="-3578" y="3291"/>
         </scene>
         <!--Coffee Shot-->
         <scene sceneID="2uh-f1-z5t">
@@ -541,6 +614,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efl-co-XVA">
                                 <rect key="frame" x="8" y="698" width="119" height="30"/>
                                 <state key="normal" title="Debug image"/>
+                                <connections>
+                                    <action selector="debugPhotoAction:" destination="Tb5-EB-865" eventType="touchUpInside" id="8WG-No-it6"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1BK-nh-JuU">
                                 <rect key="frame" x="0.0" y="20" width="414" height="716"/>

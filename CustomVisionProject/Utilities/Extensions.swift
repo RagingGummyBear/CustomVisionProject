@@ -98,9 +98,7 @@ extension UIView {
             rect.size.height = self.frame.height
         }
     }
-    
 }
-
 
 extension UIColor {
     static func uicolorFromHex(rgbValue:UInt32)->UIColor{
