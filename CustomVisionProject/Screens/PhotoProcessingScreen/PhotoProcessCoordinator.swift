@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PromiseKit
 
 class PhotoProcessCoordinator:NSObject, Coordinator {
 
@@ -30,7 +31,10 @@ class PhotoProcessCoordinator:NSObject, Coordinator {
     
     // MARK: - Custom properties
     var photoProcessed = false
+    
+    var fetchPhotoFromData = false
     var capturedPhoto: UIImage!
+    
     var bestBound = CGRect(x: 0.0, y: 0.0, width: 1, height: 1)
     var foundClasses = [String]()
     var aspectFit = CGSize(width: 0,height: 0)
@@ -50,6 +54,13 @@ class PhotoProcessCoordinator:NSObject, Coordinator {
         self.viewController.selectedImage = capturedPhoto
         self.navigationController.setNavigationBarHidden(self.viewController.navigationBarHidden, animated: true)
         self.navigationController.pushViewController(self.viewController, animated: true)
+        
+        if self.capturedPhoto == nil {
+            if !self.fetchPhotoFromData {
+                self.requestReturnToMainMenu()
+            }
+        }
+
     }
 
     func childPop(_ child: Coordinator?){
@@ -64,7 +75,7 @@ class PhotoProcessCoordinator:NSObject, Coordinator {
         }
     }
 
-    func shouldHideNavigationBar() -> Bool{
+    func shouldHideNavigationBar() -> Bool {
         return self.viewController.navigationBarHidden
     }
     
@@ -148,13 +159,24 @@ class PhotoProcessCoordinator:NSObject, Coordinator {
         if(!self.canFinishDrawing()){
             return;
         }
-        
         self.viewController.setupViewForProcessing()
         self.viewController.startImageProcessing()
     }
     
-    // MARK - Processing functions
+    func requestCapturedPhoto() -> Promise<UIImage> {
+        return Promise { seal in
+            self.dataProvider.getMediumQualityCaptured().done { (capturedPhoto: UIImage) in
+                self.capturedPhoto = capturedPhoto
+                seal.fulfill(capturedPhoto)
+            }.catch { (error: Error) in
+                seal.reject(error)
+                print(error)
+                self.requestReturnToMainMenu()
+            }
+        }
+    }
     
+    // MARK - Processing functions
     func startImageProcessing(){
         // Coffee texture density
         self.privateThreadSafeProcessingQueue.async {

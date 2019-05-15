@@ -11,7 +11,9 @@ import UIKit
 class PhotoProcessViewController: UIViewController, Storyboarded {
     
     // MARK: - Custom references and variables
-    public var selectedImage: UIImage!
+    public lazy var selectedImage: UIImage! = {
+        return self.coordinator.capturedPhoto
+    }() // Figure out why selectedImage and workingImage
     public weak var coordinator: PhotoProcessCoordinator!
     public var navigationBarHidden = false
     
@@ -27,7 +29,7 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
     
     private var drawingImage: UIImage!
     private var rectDisplayImage: UIImage!
-    private var workingImage: UIImage!
+//    private var workingImage: UIImage!
     
     //    private var boundingRect = CGRect()
     
@@ -104,9 +106,6 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
     // MARK: - UI Functions
     func initalUISetup(){
         self.navigationItem.title = "Draw around your coffee"
-        self.mainImageView.image = self.selectedImage
-        
-        self.drawingImage = self.mainImageView.image
         self.setupViewForDrawing()
     }
     
@@ -123,30 +122,44 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
     }
     
     func finalUISetup(){
-        if let img = self.selectedImage {
-            self.workingImage = img
-            self.mainImageView.image = img
+        
+        self.coordinator.requestCapturedPhoto().done { [unowned self] (selectedImage: UIImage) in
+            self.selectedImage = selectedImage
+            // Use these after the promise success
+            self.mainImageView.image = self.selectedImage
+            self.drawingImage = self.mainImageView.image
             
-            UIView.transition(with: self.splashScreenUIImage, duration: 0.3, options: .transitionFlipFromTop, animations: {
-                self.splashScreenUIImage.alpha = 0
-            }, completion: { (completed: Bool) in
-                self.splashScreenUIImage.image = nil
-            })
+            // Use these after the promise success
+            self.mainImageView.image = self.selectedImage
+            self.drawingImage = self.mainImageView.image
             
-            // Ugly code. Used to make the drawing TempImageView same size as the MainImageView
-            let emptyImg = UIImage()
-            UIGraphicsBeginImageContext(CGSize(width: img.size.width, height: img.size.height))
-            emptyImg.draw(in: CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height))
-            let newImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            self.tempImageView.image = newImage
-            // /* *************************************** */ //
-            
-        } else {
-            self.backToMainMenu()
+            if let img = self.selectedImage {
+                self.mainImageView.image = img
+                
+                UIView.transition(with: self.splashScreenUIImage, duration: 0.3, options: .transitionFlipFromTop, animations: {
+                    self.splashScreenUIImage.alpha = 0
+                }, completion: { (completed: Bool) in
+                    self.splashScreenUIImage.image = nil
+                })
+                
+                // Ugly code. Used to make the drawing TempImageView same size as the MainImageView
+                let emptyImg = UIImage()
+                UIGraphicsBeginImageContext(CGSize(width: img.size.width, height: img.size.height))
+                emptyImg.draw(in: CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height))
+                let newImage = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                self.tempImageView.image = newImage
+                // /* *************************************** */ //
+                
+            } else {
+                self.backToMainMenu()
+            }
+            self.calculateExcess()
+        } .catch { (error: Error) in
+            // Dont transition back to the mainmenu, the coordinator is responsible for that
+            print(error)
         }
         
-        self.calculateExcess()
     }
     
     
@@ -372,9 +385,10 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
     // MARK: - Animation processing functions
     func applyGrayscale(){
         DispatchQueue.global(qos: .background).async { [unowned self] in
-            self.workingImage = OpenCVWrapper.makeGray(self.selectedImage)
+            let temp = OpenCVWrapper.makeGray(self.selectedImage)
             DispatchQueue.main.async { [unowned self] in
-                self.mainImageView.image = self.selectedImage
+//                self.mainImageView.image = self.selectedImage
+                self.mainImageView.image = temp
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [unowned self] in
                 self.progressBar.progress += 0.09
@@ -539,8 +553,6 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
         }
     }
     
-
-    
     func scalePointToImageSize(point:CGPoint) -> CGPoint {
         var originXRatio = CGFloat(0)
         if point.x - self.excessX < 0 {
@@ -571,13 +583,13 @@ class PhotoProcessViewController: UIViewController, Storyboarded {
     }
     
     func releaseSomeMemory(){
-        self.mainImageView.image = nil
-        self.tempImageView.image = nil
+        self.mainImageView?.image = nil
+        self.tempImageView?.image = nil
         
-        self.backgroundImageView.image = nil
+        self.backgroundImageView?.image = nil
         self.backgroundImageView = nil
         // vvvvvvvvvvvvvvVVVVVVVvvvvv bad name!!!!
-        self.splashScreenUIImage.image = nil // <- BADNAME!!!
+        self.splashScreenUIImage?.image = nil // <- BADNAME!!!
         self.splashScreenUIImage = nil
     }
 }

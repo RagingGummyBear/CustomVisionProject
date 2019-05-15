@@ -6,6 +6,7 @@ target 'CustomVisionProject' do
   use_frameworks!
 
   # Pods for CustomVisionProject
+  pod "PromiseKit"
 
   target 'CustomVisionProjectTests' do
     inherit! :search_paths

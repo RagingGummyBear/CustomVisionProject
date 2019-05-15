@@ -15,7 +15,6 @@ class FortuneResultViewController: UIViewController, Storyboarded {
     public let navigationBarHidden = false
     
     public var capturedImage: UIImage?
-    public var foundClasses = [String]()
     
     // MARK: - IBOutlets references
     @IBOutlet weak var originalImageView: UIImageView!
@@ -36,6 +35,7 @@ class FortuneResultViewController: UIViewController, Storyboarded {
     
     @IBAction func sendLikeButtonAction(_ sender: Any) {
        print("Thanks for the like")
+        self.coordinator?.requestSaveCapturedImage()
     }
     
     // MARK: - View lifecycle
@@ -70,7 +70,14 @@ class FortuneResultViewController: UIViewController, Storyboarded {
     // MARK: - UI Functions
     
     func initalUISetup(){
-        self.originalImageView.image = self.capturedImage
+        self.coordinator?.requestThumbnailCaptureImage()
+            .done({ (result: UIImage) in
+                self.originalImageView.image = result
+            })
+            .catch({ (error: Error) in
+                print(error)
+                // Heh cant win them all
+            })
         DispatchQueue.main.async {
             self.shortDescriptionLabel.text = self.coordinator?.generateShortDescription()
             self.fullDescriptionLabel.text = self.coordinator?.generateLongDescription()

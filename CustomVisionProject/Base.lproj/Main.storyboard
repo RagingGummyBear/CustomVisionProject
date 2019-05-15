@@ -454,11 +454,11 @@
             <objects>
                 <viewController storyboardIdentifier="AboutViewController" id="nH9-qI-d5D" customClass="AboutViewController" customModule="CustomVisionProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="k5i-vh-n6G">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="835"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="917"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTO-uN-DE8">
-                                <rect key="frame" x="0.0" y="20" width="414" height="815"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="897"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJr-gY-CkW" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="819.33333333333337"/>
@@ -502,7 +502,7 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNM-gK-vdf">
                                                 <rect key="frame" x="16" y="385" width="382" height="243.66666666666663"/>
-                                                <mutableString key="text">  From the Main Menu using the fortune button transition to the "Coffee Capture" screen.    Here you can take a photo from a coffee. Use the label (text) bellow the capture image as indicator for when you are able to take a photo (You can only take photo when there is coffee present).    After you take a photo you will be asked to draw a circle around the coffee area. And then the processing will start.   In the end you will be presented with the results from the analysis.</mutableString>
+                                                <string key="text">  From the Main Menu using the fortune button transition to the "Coffee Capture" screen.    Here you can take a photo from a coffee. Use the label (text) bellow the capture image as indicator for when you are able to take a photo (You can only take photo when there is coffee present).    After you take a photo you will be asked to draw a circle around the coffee area. And then the processing will start.   In the end you will be presented with the results from the analysis.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -538,6 +538,7 @@
                                             <constraint firstItem="CNM-gK-vdf" firstAttribute="top" secondItem="1on-Ic-Amc" secondAttribute="bottom" constant="8" id="VBM-uX-PBv"/>
                                             <constraint firstItem="AfJ-Sr-jlB" firstAttribute="top" secondItem="gJr-gY-CkW" secondAttribute="top" constant="24" id="Xij-i7-fUU"/>
                                             <constraint firstItem="vU5-h3-wB0" firstAttribute="leading" secondItem="gJr-gY-CkW" secondAttribute="leading" constant="24" id="YrE-Zn-eqy"/>
+                                            <constraint firstAttribute="bottom" secondItem="NMi-yY-ctb" secondAttribute="bottom" constant="24" id="aPh-QT-gZb"/>
                                             <constraint firstAttribute="trailing" secondItem="NMi-yY-ctb" secondAttribute="trailing" constant="16" id="bEV-EB-FXp"/>
                                             <constraint firstItem="cvd-T6-n4S" firstAttribute="centerX" secondItem="gJr-gY-CkW" secondAttribute="centerX" id="eRe-0n-VYX"/>
                                             <constraint firstItem="vU5-h3-wB0" firstAttribute="top" secondItem="CNM-gK-vdf" secondAttribute="bottom" constant="32" id="f2R-fs-U7r"/>
@@ -546,7 +547,6 @@
                                             <constraint firstItem="8dE-NJ-81s" firstAttribute="top" secondItem="CDP-HU-jiu" secondAttribute="bottom" constant="8" id="rVA-Eq-qxb"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AfJ-Sr-jlB" secondAttribute="trailing" id="vFd-2H-J1w"/>
                                             <constraint firstAttribute="trailing" secondItem="1on-Ic-Amc" secondAttribute="trailing" constant="24" id="viC-Yu-1BY"/>
-                                            <constraint firstAttribute="bottom" secondItem="NMi-yY-ctb" secondAttribute="bottom" constant="24" id="xUc-AW-rHI"/>
                                             <constraint firstItem="cvd-T6-n4S" firstAttribute="top" secondItem="AfJ-Sr-jlB" secondAttribute="bottom" constant="24" id="zVW-QA-luC"/>
                                         </constraints>
                                     </view>
@@ -570,7 +570,7 @@
                         <viewLayoutGuide key="safeArea" id="0h0-2o-TRV"/>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="ac8-nl-W6f"/>
-                    <size key="freeformSize" width="414" height="835"/>
+                    <size key="freeformSize" width="414" height="917"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c7c-ja-M0j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -660,7 +660,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f3k-uo-JmJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2699" y="2481"/>
+            <point key="canvasLocation" x="-2684" y="2481"/>
         </scene>
         <!--Your Fortune-->
         <scene sceneID="1IY-6G-Q4f">
@@ -703,11 +703,11 @@
                                                     <constraint firstAttribute="height" constant="30" id="N95-cL-L8K"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="17"/>
-                                                <state key="normal" title="Send like">
+                                                <state key="normal" title="Save and Send like 👍">
                                                     <color key="titleColor" name="TextBackground"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="sendLikeButtonAction:" destination="nmg-O5-VQT" eventType="touchUpInside" id="7oU-0Y-Ytz"/>
+                                                    <action selector="sendLikeButtonAction:" destination="nmg-O5-VQT" eventType="touchUpInside" id="CrX-Lc-fLe"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qXZ-tE-c90">
@@ -794,14 +794,14 @@
                         <outlet property="backgroundImageView" destination="8Dt-Xa-2Yf" id="MJl-TD-3gk"/>
                         <outlet property="fullDescriptionLabel" destination="Uxr-dE-1YV" id="IdH-ub-0yZ"/>
                         <outlet property="originalImageView" destination="qXZ-tE-c90" id="an7-XJ-uGe"/>
-                        <outlet property="sendLikeButton" destination="jiV-kW-Pei" id="j73-98-J4r"/>
+                        <outlet property="sendLikeButton" destination="jiV-kW-Pei" id="IO7-pA-XKA"/>
                         <outlet property="shareButton" destination="TCa-Va-4H6" id="pih-me-m2M"/>
                         <outlet property="shortDescriptionLabel" destination="q1p-N4-00v" id="kdR-Ba-XSW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="doQ-gE-KOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-749" y="2548"/>
+            <point key="canvasLocation" x="-797" y="2548"/>
         </scene>
         <!--Preparing-->
         <scene sceneID="Cvc-kL-qVJ">
@@ -905,7 +905,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W9F-G2-jUd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1823" y="2481"/>
+            <point key="canvasLocation" x="-1794" y="2481"/>
         </scene>
     </scenes>
     <resources>

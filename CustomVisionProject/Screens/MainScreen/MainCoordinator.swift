@@ -52,11 +52,11 @@ class MainCoordinator:NSObject, Coordinator {
         // Do coordinator parsing //
         if let photoTakeCoordinator = child as? PhotoTakeCoordinator {
             if photoTakeCoordinator.photoTaken {
-                self.goToPhotoProcess(photo: photoTakeCoordinator.capturedPhoto)
+                self.goToPhotoProcess()
             }
         } else if let photoProcessCoordinator = child as? PhotoProcessCoordinator {
             if photoProcessCoordinator.photoProcessed {
-                self.goToFortuneResult(photo: photoProcessCoordinator.capturedPhoto, foundClasses: photoProcessCoordinator.foundClasses)
+                self.goToFortuneResult(foundClasses: photoProcessCoordinator.foundClasses)
             }
         }
         // ////////////////////// //
@@ -94,12 +94,19 @@ class MainCoordinator:NSObject, Coordinator {
         child.start()
     }
     
-    func goToFortuneResult(photo: UIImage, foundClasses: [String]) {
+    func goToPhotoProcess() {
+        let child = PhotoProcessCoordinator(navigationController: navigationController)
+        child.parentCoordinator = self
+        child.fetchPhotoFromData = true
+        childCoordinators.append(child)
+        child.start()
+    }
+    
+    func goToFortuneResult(foundClasses: [String]) {
         let child = FortuneResultCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.foundClasses = foundClasses
-        child.capturedImage = photo
         child.start()
     }
     

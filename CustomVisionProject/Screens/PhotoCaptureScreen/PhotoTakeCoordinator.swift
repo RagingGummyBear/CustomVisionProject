@@ -29,7 +29,6 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
     
     // MARK: - Custom properties
     var photoTaken = false
-    var capturedPhoto: UIImage!
     var cameraCaptureService: CameraCaptureService!
 
     // MARK: - Initialization
@@ -48,7 +47,7 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
 
     func childPop(_ child: Coordinator?){
         self.navigationController.delegate = self // This line is a must do not remove
-
+        self.navigationController.setNavigationBarHidden(self.viewController.navigationBarHidden, animated: true)
         // Do coordinator parsing //
 
         // ////////////////////// //
@@ -86,10 +85,15 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
     }
     
     func photoTaken(photo: UIImage) {
-        self.photoTaken = true
-        self.capturedPhoto = photo
-        DispatchQueue.main.async {
-            self.navigationController.popViewController(animated: true)
+        self.dataProvider.saveCapturedPhoto(uiImage: photo).done { (saved: Bool) in
+            if saved {
+                self.photoTaken = true
+                DispatchQueue.main.async {
+                    self.navigationController.popViewController(animated: true)
+                }
+            }
+        }.catch { (error: Error) in
+            print(error)
         }
     }
     
@@ -102,12 +106,19 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
         self.photoTaken = true // This should be false
         /* *** Only for debug *** */
         let bundlePath = Bundle.main.path(forResource: "photo4", ofType: "jpg")
-        self.capturedPhoto = UIImage(contentsOfFile: bundlePath!)
-        /* ********************** */
+        self.dataProvider.saveCapturedPhoto(uiImage: UIImage(contentsOfFile: bundlePath!)!)
+            .done { (saved: Bool) in
+                if saved {
+                    self.photoTaken = true
+                    DispatchQueue.main.async {
+                        self.navigationController.popViewController(animated: true)
+                    }
+                }
+            }.catch { (error: Error) in
+                print(error)
+            }
         
-        DispatchQueue.main.async {
-            self.navigationController.popViewController(animated: true)
-        }
+        /* ********************** */
     }
 
     // MARK: - Others
@@ -142,6 +153,11 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
 
         // Check whether our view controller array already contains that view controller. If it does it means we’re pushing a different view controller on top rather than popping it, so exit.
         if navigationController.viewControllers.contains(fromViewController) {
+            return
+        }
+        
+        if fromViewController != self.viewController {
+            
             return
         }
 

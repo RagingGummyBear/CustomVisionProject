@@ -3,26 +3,10 @@
 ## Image processing: 
 
 ### Using algorithms:
-    - Use find contour bounds to get 3 images crops to get the cup best +
-    - Use histogram/feature detection/or other to determine best image crop + ( histogram score: 7/10 )
-    - Use multiple additional algorithms to get the subclasses for the image:
-        * HU Moments ~ semi good. Might be used to determine the possition of the mugg in the image
-        * Feature matching ~ not very good, either doesnt detect or it detects not relateable features
-        * Image simple thresholding ??? (Not sure how to use) 
-        * Image histogram compare on best bound and on whole image
-        * Image grayscale histogram compare on best bound and on whole image
-        * Use RGB overall values for random prediction ~ for this algorithm cut coffee images required
-    - Use edge contours, grayscale, bounding contours, color range contours as animations to the original image during the processing 
+
     
 ### Classes detected:
 
-    - Coffee color density
-    - Background color
-    - Coffee texture complexity
-    - Coffee position in the image // based of the drawing bound
-    - Coffee bound size // based of drawing bound size
-    - RGB in the whole image // a random factor
-    - RGB in the bound image // abit less random factor ( r > g > b bias )
 
 ## Project structure:
 
@@ -54,7 +38,11 @@
     - Make better recognition of coffee.
     - Requires images from far, angled and different cup color 
 
-## TODO:
-
+### TODO:
     - Logo
     - Improve the text generator
+
+## Future:
+    - Use persistent storage. Lower the memory usage by saving the UIImage in the persistent storage with 3 stages (High quality, Medium quality, and thumbnail)
+    - Save to persistent storage liked photos with the found classes for it
+    - Make a view to display all of the previous liked photos

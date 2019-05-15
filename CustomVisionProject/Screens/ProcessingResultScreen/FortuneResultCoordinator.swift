@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PromiseKit
 
 class FortuneResultCoordinator:NSObject, Coordinator {
 
@@ -30,8 +31,6 @@ class FortuneResultCoordinator:NSObject, Coordinator {
     private var textGenerator = TextGenerator()
     
     public var foundClasses: [String]!
-    public var capturedImage: UIImage!
-    
 
     // MARK: - Initialization
     init(navigationController: UINavigationController) {
@@ -40,14 +39,17 @@ class FortuneResultCoordinator:NSObject, Coordinator {
 
     // MARK: - Protocol implementation
     func start(){
-        self.textGenerator.foundClasses = self.foundClasses
         self.navigationController.delegate = self // This line is a must do not remove
         self.viewController = FortuneResultViewController.instantiate()
         self.viewController.coordinator = self
-        self.viewController.capturedImage = capturedImage
-        self.viewController.foundClasses = foundClasses
         self.navigationController.setNavigationBarHidden(self.viewController.navigationBarHidden, animated: true)
         self.navigationController.pushViewController(self.viewController, animated: true)
+        
+        if self.foundClasses.count == 0 {
+            self.requestReturnToMainMenu()
+        } else {
+            self.textGenerator.foundClasses = self.foundClasses
+        }
     }
 
     func childPop(_ child: Coordinator?){
@@ -75,8 +77,9 @@ class FortuneResultCoordinator:NSObject, Coordinator {
 
     // MARK: - Transition functions
     // These are the functions that can be called by the view controller as well
-
-    
+    func requestReturnToMainMenu(){
+        self.navigationController.popViewController(animated: true)
+    }
     
     // MARK: - Logic functions
     // These are the functions that may be called by the viewcontroller. Example: Request for data, update data, etc.
@@ -93,16 +96,48 @@ class FortuneResultCoordinator:NSObject, Coordinator {
     // MARK: - Others
     
     func generateShortDescription() -> String {
-        return textGenerator.generateClassText()
+//        return textGenerator.generateShortText()
+        return textGenerator.generateShortTextSync()
     }
     
     func generateLongDescription() -> String {
         return textGenerator.generateBingDebugText()
     }
     
-    /* ************************************************************* */
+    func requestThumbnailCaptureImage() -> Promise<UIImage> {
+        return Promise { [unowned self] seal in
+            self.dataProvider.getThumbnailQualityCaptured()
+                .done({ (result: UIImage) in
+                    seal.fulfill(result)
+                })
+                .catch({ [unowned self] (error: Error) in
+                    self.dataProvider.getHighQualityCaptured()
+                        .done({ (result:UIImage) in
+                            seal.fulfill(result)
+                        })
+                        .catch({ (error: Error) in
+                            seal.reject(error)
+                        })
+                })
+        }
+    }
+    
+    func requestSaveCapturedImage(){
+        self.dataProvider.moveCapturedToSaved(foundClasses: self.foundClasses)
+            .done { (result: Bool) in
+                if !result {
+                    
+                    return
+                }
+            }
+            .catch { (error: Error) in
+                print(error)
+            }
+    }
+    
+    /* ************************************************************ */
     // Sadly I don't know how to put this code into the protocol :( //
-    /* ************************************************************* */
+    /* ************************************************************ */
 
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         // Read the view controller we’re moving from.
