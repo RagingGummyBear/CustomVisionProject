@@ -36,4 +36,30 @@ public class DataProvider {
     public func moveCapturedToSaved(foundClasses: [String]) -> Promise<Bool> {
         return this.persistentStorage.moveCapturedToSaved(foundClasses: foundClasses)
     }
+    
+    public func requestAllCoffeeModels() -> Promise<[LikedCoffeeModel]> {
+        return this.persistentStorage.readAllCoffeeModels()
+    }
+    
+    public func requestCoffeeModel(withId uuid: String) -> Promise<LikedCoffeeModel> {
+        return this.persistentStorage.readCoffeeModel(uuid: uuid)
+    }
+    
+    public func fetchThumbnailPhoto(fromModel: LikedCoffeeModel) -> Promise<UIImage> {
+        return this.persistentStorage.fetchThumbnailPhoto(fromModel: fromModel)
+    }
+    
+    public func fetchHighQualityPhoto(fromModel: LikedCoffeeModel) -> Promise<UIImage> {
+        return this.persistentStorage.fetchHighQualityPhoto(fromModel: fromModel)
+    }
+    
+    public func fetchMediumQualityPhoto(fromModel: LikedCoffeeModel) -> Promise<UIImage> {
+        return this.persistentStorage.fetchMediumQualityPhoto(fromModel: fromModel)
+    }
+    
+    public func removeLikedCoffee(withModel: LikedCoffeeModel) -> Promise<LikedCoffeeModel> {
+        return Promise { seal in
+            
+        }
+    }
 }

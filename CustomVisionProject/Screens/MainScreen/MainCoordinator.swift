@@ -46,7 +46,6 @@ class MainCoordinator:NSObject, Coordinator {
 
     func childPop(_ child: Coordinator?){
         self.navigationController.delegate = self // This line is a must do not remove
-
         self.navigationController.setNavigationBarHidden(self.viewController.navigationBarHidden, animated: true)
 
         // Do coordinator parsing //
@@ -113,6 +112,13 @@ class MainCoordinator:NSObject, Coordinator {
     
     func goToAbout(){
         let child = AboutCoordinator(navigationController: navigationController)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
+    }
+    
+    func goToLikedPhotos(){
+        let child = LikedCoffeeCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start()

@@ -148,13 +148,13 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
     }
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let imageData = photo.fileDataRepresentation()
                 else { return }
             let image = UIImage(data: imageData)
-            self.session?.stopRunning()
+            self?.session?.stopRunning()
             if let img =  image, let orientedImg = img.updateImageOrientionUpSide() {
-                self.coordinator.photoTaken(photo: orientedImg)
+                self?.coordinator.photoTaken(photo: orientedImg)
             }
         }
     }

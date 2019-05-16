@@ -9,7 +9,7 @@ class PersistentStorage {
     let saveLoadQueue = DispatchQueue.init(label: "com.seavus.customvision.persistent-storage")
     var captureSaveWorkItem: DispatchWorkItem?
     
-    // MARK: - Functions
+    // MARK: - Captured Photo Functions
     public func hasCapturedPhoto() -> Promise<Bool> {
         return Promise { resolve in
             let capturePhotoDirectory = self.getCapturedPhotoURL()
@@ -23,7 +23,6 @@ class PersistentStorage {
                 && FileManager.default.fileExists(atPath: thumbnail.path))
         }
     }
-    
     
     public func saveCapturedPhoto(uiImage: UIImage) -> Promise<Bool> {
         return Promise {[unowned self] seal in
@@ -94,7 +93,7 @@ class PersistentStorage {
                 } else {
                     seal.reject(NSError(domain: "DataProvider -> getHighQualityCapture: no image capture", code: 404, userInfo: nil))
                 }
-            }) .catch({ (error: Error) in
+            }).catch({ (error: Error) in
                 seal.reject(error)
             })
         }
@@ -143,7 +142,6 @@ class PersistentStorage {
     }
     
     public func moveCapturedToSaved(foundClasses: [String]) -> Promise<Bool> {
-        
         return Promise { [unowned self] seal in
             self.hasCapturedPhoto().done({ (result: Bool) in
                 if !result {
@@ -162,22 +160,189 @@ class PersistentStorage {
                     let toDirectoryThumbnail = self.getSaveDirectoryForPhoto(photoDirectoryName: uuid).appendingPathComponent("thumbnail_quality.jpeg")
                     let fromDirectoryThumbnail = self.getCapturedPhotoURL().appendingPathComponent("thumbnail_quality.jpeg")
                     
-                    seal.fulfill(true)
                     do {
                         try FileManager.default.moveItem(at: fromDirectoryHigh, to: toDirectoryHigh)
                         try FileManager.default.moveItem(at: fromDirectoryMedium, to: toDirectoryMedium)
                         try FileManager.default.moveItem(at: fromDirectoryThumbnail, to: toDirectoryThumbnail)
+                        
+                        let date = Date()
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "dd/MM/yyyy"
+                        
+                        let likedCoffeeModel = LikedCoffeeModel(saveDirectoryName: uuid, savedDate: dateFormatter.string(from: date), foundClasses: foundClasses)
+                        
+                        self.saveCoffeeModel(coffeeModel: likedCoffeeModel).done({ (result: Bool) in
+                            seal.fulfill(result)
+                        }).catch({ (error: Error) in
+                            seal.reject(error)
+                        })
                     } catch let error {
                         print(error)
                         seal.reject(error)
                     }
                 }
-                
             }).catch({ (error: Error) in
                 seal.reject(error)
             })
         }
     }
+    
+    // MARK: - Liked Coffee Model Functions
+    public func readCoffeeModel(uuid:String) -> Promise<LikedCoffeeModel> {
+        return Promise { seal in
+            self.readAllCoffeeModels().done({ (models: [LikedCoffeeModel]) in
+                if let model = models.first(where: { (elem: LikedCoffeeModel) -> Bool in
+                    return elem.saveDirectoryName == uuid
+                }) {
+                    seal.fulfill(model)
+                } else {
+                    seal.reject(NSError(domain: "PersistentStorage -> readCoffeeModel: Requested model not found", code: 404, userInfo: nil))
+                }
+            }) .catch({ (error: Error) in
+                seal.reject(error)
+            })
+        }
+    }
+    
+    public func readAllCoffeeModels() -> Promise<[LikedCoffeeModel]> {
+        return Promise { seal in
+            do {
+                let data = try Data(contentsOf: self.getLikedCoffeeDataURL())
+                do {
+                    let elements = try JSONDecoder().decode([LikedCoffeeModel].self, from: data)
+                    seal.fulfill(elements)
+                } catch let error {
+                    seal.reject(error)
+                }
+            } catch let err {
+                seal.reject(err)
+            }
+        }
+    }
+    
+    private func saveCoffeeModel(coffeeModel: LikedCoffeeModel) -> Promise<Bool> {
+        return Promise { seal in
+            self.readAllCoffeeModels().done({ (result: [LikedCoffeeModel]) in
+                
+                if result.contains(where: { (elem: LikedCoffeeModel) -> Bool in
+                    return elem.saveDirectoryName == coffeeModel.saveDirectoryName
+                }) {
+                    seal.fulfill(false)
+                    return
+                }
+                
+                var newArray = result
+                newArray.insert(coffeeModel, at: 0)
+                
+                self.saveCoffeeModels(coffeeModels: newArray).done({ (result: Bool) in
+                    seal.fulfill(result)
+                }) .catch({ (error: Error) in
+                    seal.reject(error)
+                })
+            }).catch({ (error: Error) in
+                seal.reject(error)
+            })
+        }
+    }
+    
+    private func saveCoffeeModels(coffeeModels: [LikedCoffeeModel]) -> Promise<Bool> {
+        return Promise { seal in
+            do {
+                let archiveData = try JSONEncoder().encode(coffeeModels)
+                try archiveData.write(to: self.getLikedCoffeeDataURL())
+                seal.fulfill(true)
+            } catch let err {
+                seal.reject(err)
+            }
+        }
+    }
+    
+    private func removeCoffeeModel(coffeeModel: LikedCoffeeModel) -> Promise<Bool> {
+        return self.removeCoffeeModel(withId: coffeeModel.saveDirectoryName)
+    }
+    
+    private func removeCoffeeModel(withId: String) -> Promise<Bool> {
+        return Promise { seal in
+            self.readAllCoffeeModels().done({ (models: [LikedCoffeeModel]) in
+                var newArray = models
+                
+                newArray.removeAll(where: { (elem: LikedCoffeeModel) -> Bool in
+                    return elem.saveDirectoryName == withId
+                })
+                
+                if newArray.count < models.count {
+                    self.saveCoffeeModels(coffeeModels: newArray).done({ (result: Bool) in
+                        seal.fulfill(result)
+                    }) .catch({ (error: Error) in
+                        seal.reject(error)
+                    })
+                } else {
+                    seal.fulfill(false)
+                }
+            }) .catch({ (error: Error) in
+                seal.reject(error)
+            })
+        }
+    }
+    
+    // MARK: - Saved Photo Functions
+    func fetchThumbnailPhoto(fromModel: LikedCoffeeModel) -> Promise<UIImage> {
+        return Promise { seal in
+            let savedPhotoDirectory = self.getSaveDirectoryForPhoto(photoDirectoryName: fromModel.saveDirectoryName).appendingPathComponent("thumbnail_quality.jpeg")
+            let image = UIImage(contentsOfFile: savedPhotoDirectory.path)
+            if let img = image {
+                seal.fulfill(img)
+            } else {
+                seal.reject(NSError(domain: "DataProvider -> getHighQualityCapture: image not found", code: 404, userInfo: nil))
+            }
+        }
+    }
+    
+    func fetchHighQualityPhoto(fromModel: LikedCoffeeModel) -> Promise<UIImage> {
+        return Promise { seal in
+            let savedPhotoDirectory = self.getSaveDirectoryForPhoto(photoDirectoryName: fromModel.saveDirectoryName).appendingPathComponent("high_quality.jpeg")
+            let image = UIImage(contentsOfFile: savedPhotoDirectory.path)
+            if let img = image {
+                seal.fulfill(img)
+            } else {
+                seal.reject(NSError(domain: "DataProvider -> getHighQualityCapture: image not found", code: 404, userInfo: nil))
+            }
+        }
+    }
+    
+    func fetchMediumQualityPhoto(fromModel: LikedCoffeeModel) -> Promise<UIImage> {
+        return Promise { seal in
+            let savedPhotoDirectory = self.getSaveDirectoryForPhoto(photoDirectoryName: fromModel.saveDirectoryName).appendingPathComponent("medium_quality.jpeg")
+            let image = UIImage(contentsOfFile: savedPhotoDirectory.path)
+            if let img = image {
+                seal.fulfill(img)
+            } else {
+                seal.reject(NSError(domain: "DataProvider -> getHighQualityCapture: image not found", code: 404, userInfo: nil))
+            }
+        }
+    }
+    
+    // MARK: - URL generation functions
+    private func getLikedCoffeeDataURL() -> URL {
+        let path = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        var documentsDirectoryURL = path.appendingPathComponent("likedCoffee")
+        if !FileManager.default.fileExists(atPath: documentsDirectoryURL.path) {
+            _ = try? FileManager.default.createDirectory(at: documentsDirectoryURL, withIntermediateDirectories: true, attributes: nil)
+        }
+        documentsDirectoryURL = documentsDirectoryURL.appendingPathComponent("likedCoffeeArray.likedcoffeemodel")
+        if !FileManager.default.fileExists(atPath: documentsDirectoryURL.path) {
+            FileManager.default.createFile(atPath: documentsDirectoryURL.path, contents: nil, attributes: nil)
+            do {
+                let elems = [LikedCoffeeModel]()
+                let archiveData = try JSONEncoder().encode(elems)
+                try archiveData.write(to: documentsDirectoryURL)
+            } catch let error {
+                print(error)
+            }
+        }
+        return documentsDirectoryURL
+    }
+    
     
     private func getCapturedPhotoURL() -> URL {
         let path = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
@@ -207,7 +372,7 @@ class PersistentStorage {
     }
     
     private func generateImageName() -> String {
-        var photoDirector = self.getSavedPhotoDirectory()
+        let photoDirector = self.getSavedPhotoDirectory()
         
         var flag = true
         

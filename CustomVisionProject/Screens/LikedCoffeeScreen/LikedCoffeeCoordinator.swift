@@ -1,16 +1,16 @@
 //
-//  PhotoTakeCoordinator.swift
+//  LikedCoffeeCoordinator.swift
 //  CustomVisionProject
 //
-//  Created by Seavus on 4/25/19.
+//  Created by Seavus on 5/16/19.
 //  Copyright © 2019 Seavus. All rights reserved.
 //
 
 import Foundation
 import UIKit
-import AVFoundation
+import PromiseKit
 
-class PhotoTakeCoordinator:NSObject, Coordinator {
+class LikedCoffeeCoordinator:NSObject, Coordinator, PhotoFetchProtocol {
 
     // MARK: - Class properties
     lazy var dataProvider = { () -> DataProvider in
@@ -22,14 +22,10 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
     }()
 
     weak var parentCoordinator: Coordinator?
-    weak var viewController: PhotoTakeViewController!
+    weak var viewController: LikedCoffeeViewController!
 
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-    
-    // MARK: - Custom properties
-    var photoTaken = false
-    var cameraCaptureService: CameraCaptureService!
 
     // MARK: - Initialization
     init(navigationController: UINavigationController) {
@@ -39,7 +35,7 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
     // MARK: - Protocol implementation
     func start(){
         self.navigationController.delegate = self // This line is a must do not remove
-        self.viewController = PhotoTakeViewController.instantiate()
+        self.viewController = LikedCoffeeViewController.instantiate()
         self.viewController.coordinator = self
         self.navigationController.setNavigationBarHidden(self.viewController.navigationBarHidden, animated: true)
         self.navigationController.pushViewController(self.viewController, animated: true)
@@ -48,6 +44,7 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
     func childPop(_ child: Coordinator?){
         self.navigationController.delegate = self // This line is a must do not remove
         self.navigationController.setNavigationBarHidden(self.viewController.navigationBarHidden, animated: true)
+
         // Do coordinator parsing //
 
         // ////////////////////// //
@@ -60,89 +57,41 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
             }
         }
     }
-    
-    func shouldHideNavigationBar() -> Bool{
-        return self.viewController.navigationBarHidden
-    }
 
     internal func getDataProvider() -> DataProvider {
         return self.dataProvider
     }
-    
+
     // MARK: - Transition functions
     // These are the functions that can be called by the view controller as well
-    
+
+
     // MARK: - Logic functions
     // These are the functions that may be called by the viewcontroller. Example: Request for data, update data, etc.
-    
-    func startCameraSetup(){
-        self.cameraCaptureService = CameraCaptureService(coordinator: self)
-        self.cameraCaptureService.setupCamera()
+    func fetchThumbnailPhoto(fromModel: LikedCoffeeModel) -> Promise<UIImage> {
+        return self.dataProvider.fetchThumbnailPhoto(fromModel: fromModel)
     }
     
-    func takePhoto(){
-        self.cameraCaptureService.capturePhotoAction()
+    func fetchHighQualityPhoto(fromModel: LikedCoffeeModel) -> Promise<UIImage> {
+        return self.dataProvider.fetchHighQualityPhoto(fromModel: fromModel)
     }
     
-    func photoTaken(photo: UIImage) {
-        self.dataProvider.saveCapturedPhoto(uiImage: photo).done { (saved: Bool) in
-            if saved {
-                self.photoTaken = true
-                DispatchQueue.main.async {
-                    self.navigationController.popViewController(animated: true)
-                }
-            }
-        }.catch { (error: Error) in
-            print(error)
-        }
-    }
-    
-    func useDebugPhoto(){
-        self.setupFailed()
-    }
-    
-    func setupFailed(){
-        
-        self.photoTaken = true // This should be false
-        /* *** Only for debug *** */
-        let bundlePath = Bundle.main.path(forResource: "photo4", ofType: "jpg")
-        self.dataProvider.saveCapturedPhoto(uiImage: UIImage(contentsOfFile: bundlePath!)!)
-            .done { (saved: Bool) in
-                if saved {
-                    self.photoTaken = true
-                    DispatchQueue.main.async {
-                        self.navigationController.popViewController(animated: true)
-                    }
-                }
-            }.catch { (error: Error) in
-                print(error)
-            }
-        
-        /* ********************** */
+    func fetchMediumQualityPhoto(fromModel: LikedCoffeeModel) -> Promise<UIImage> {
+        return self.dataProvider.fetchMediumQualityPhoto(fromModel: fromModel)
     }
 
+    func requestAllLikedCoffeeModels() -> Promise<[LikedCoffeeModel]> {
+        return self.dataProvider.requestAllCoffeeModels()
+    }
+    
     // MARK: - Others
-    func captureButtonEnable(){
-        self.viewController.takePhotoButton.isEnabled = true
-        self.viewController.coffeeIndicatorLabel.text = "Coffee detected"
-    }
-    
-    func captureButtonDisable(){
-        self.viewController.takePhotoButton.isEnabled = false
-        self.viewController.coffeeIndicatorLabel.text = "Coffee not detected"
-    }
-    
-    func getCameraPreviewFrame() -> CGRect {
-        return self.viewController.getCameraPreviewFrame()
-    }
-    
-    func setCameraPreviewLayer(previewLayer: AVCaptureVideoPreviewLayer){
-        self.viewController.setCameraPreviewLayer(previewLayer: previewLayer)
+    func shouldHideNavigationBar() -> Bool {
+        return self.viewController.navigationBarHidden
     }
 
-    /* ************************************************************* */
+    /* ************************************************************ */
     // Sadly I don't know how to put this code into the protocol :( //
-    /* ************************************************************* */
+    /* ************************************************************ */
 
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         // Read the view controller we’re moving from.

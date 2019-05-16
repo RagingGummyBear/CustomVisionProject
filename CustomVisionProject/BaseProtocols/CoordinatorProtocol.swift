@@ -10,6 +10,4 @@ public protocol Coordinator: NSObject, UINavigationControllerDelegate {
     func start() // This is not too important function
     func getDataProvider() -> DataProvider
     func childPop(_ child: Coordinator?)
-    
-    func shouldHideNavigationBar() -> Bool
 }

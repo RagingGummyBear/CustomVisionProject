@@ -23,6 +23,9 @@ class MainViewController: UIViewController, Storyboarded {
     @IBAction func aboutTransition(_ sender: Any) {
         self.coordinator?.goToAbout()
     }
+    @IBAction func likedPhotosButtonAction(_ sender: Any) {
+        self.coordinator?.goToLikedPhotos()
+    }
     
     // MARK: - View lifecycle
     override func viewDidLoad() {

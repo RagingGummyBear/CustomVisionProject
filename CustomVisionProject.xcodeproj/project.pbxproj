@@ -10,7 +10,6 @@
 		2DA0DA6973BE8F5927EBBBC8 /* Pods_CustomVisionProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2CEB12F4E85DD6EBEC8AC7E /* Pods_CustomVisionProject.framework */; };
 		5D6F3A91D0BFFA8F6CFF6BB4 /* Pods_CustomVisionProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 704202BBACD397A7F8E56900 /* Pods_CustomVisionProjectUITests.framework */; };
 		691D18D93B56A27477219217 /* Pods_CustomVisionProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F219DD96B0DD5063755D43AE /* Pods_CustomVisionProjectTests.framework */; };
-		7D1B7E45224E47E5008B0FE2 /* DrawUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B7E44224E47E5008B0FE2 /* DrawUIView.swift */; };
 		7D429428221D7DBE00291794 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429427221D7DBD00291794 /* opencv2.framework */; };
 		7D42942A221D7E0D00291794 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429429221D7E0D00291794 /* AssetsLibrary.framework */; };
 		7D429432221D7E2B00291794 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D429431221D7E2B00291794 /* Accelerate.framework */; };
@@ -115,6 +114,12 @@
 		7DAED83C227C7F4D0025476D /* CoffeePorscheClass.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7DAED83B227C7F4D0025476D /* CoffeePorscheClass.mlmodel */; };
 		7DAED840227C94990025476D /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAED83E227C94990025476D /* AboutViewController.swift */; };
 		7DAED842227C94D60025476D /* AboutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAED841227C94D60025476D /* AboutCoordinator.swift */; };
+		7DB3E881228D438000BF0592 /* LikedCoffeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB3E880228D438000BF0592 /* LikedCoffeeModel.swift */; };
+		7DB3E885228D57BE00BF0592 /* LikedCoffeeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB3E883228D57BE00BF0592 /* LikedCoffeeCoordinator.swift */; };
+		7DB3E886228D57BE00BF0592 /* LikedCoffeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB3E884228D57BE00BF0592 /* LikedCoffeeViewController.swift */; };
+		7DB3E888228D5FC900BF0592 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB3E887228D5FC900BF0592 /* CollectionViewDataSource.swift */; };
+		7DB3E88A228D642000BF0592 /* PhotoFetchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB3E889228D642000BF0592 /* PhotoFetchProtocol.swift */; };
+		7DB3E88C228D81E100BF0592 /* CollectionViewFlowLayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB3E88B228D81E100BF0592 /* CollectionViewFlowLayoutDelegate.swift */; };
 		7DB6B31D221EEED600D3A208 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D42943D221D7F4300291794 /* OpenCVWrapper.mm */; };
 		7DB9221A228036D9000E1C2F /* CustomVisionProjectUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB92219228036D9000E1C2F /* CustomVisionProjectUnitTests.swift */; };
 		7DB9222222803704000E1C2F /* YUnOWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9222122803704000E1C2F /* YUnOWork.swift */; };
@@ -133,10 +138,7 @@
 		7DCEFC7E2212FAEF00F59A37 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFC7C2212FAEF00F59A37 /* LaunchScreen.storyboard */; };
 		7DCEFC892212FAEF00F59A37 /* CustomVisionProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFC882212FAEF00F59A37 /* CustomVisionProjectTests.swift */; };
 		7DCEFC942212FAEF00F59A37 /* CustomVisionProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFC932212FAEF00F59A37 /* CustomVisionProjectUITests.swift */; };
-		7DCEFCAE2212FFFC00F59A37 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFCAD2212FFFC00F59A37 /* ImageData.swift */; };
 		7DCEFCB32213002C00F59A37 /* ImageDisplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFCAF2213002B00F59A37 /* ImageDisplayCollectionViewCell.swift */; };
-		7DCEFCB42213002C00F59A37 /* ImageFullDisplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB02213002B00F59A37 /* ImageFullDisplayCollectionViewCell.swift */; };
-		7DCEFCB52213002C00F59A37 /* ImageFullDisplayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB12213002B00F59A37 /* ImageFullDisplayCollectionViewCell.xib */; };
 		7DCEFCB62213002C00F59A37 /* ImageDisplayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEFCB22213002C00F59A37 /* ImageDisplayCollectionViewCell.xib */; };
 		7DD589F72257643B00BD9DB3 /* coffee19.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 7DD589F62257643B00BD9DB3 /* coffee19.JPG */; };
 		7DD589F92257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD589F82257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift */; };
@@ -174,7 +176,6 @@
 		1263D47B05DD0CFD0DB0E333 /* Pods-CustomVisionProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomVisionProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomVisionProject/Pods-CustomVisionProject.debug.xcconfig"; sourceTree = "<group>"; };
 		4D1F8FE3BD67A844F503477E /* Pods-CustomVisionProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomVisionProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomVisionProjectTests/Pods-CustomVisionProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		704202BBACD397A7F8E56900 /* Pods_CustomVisionProjectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomVisionProjectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7D1B7E44224E47E5008B0FE2 /* DrawUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawUIView.swift; sourceTree = "<group>"; };
 		7D429427221D7DBD00291794 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../opencv2.framework; sourceTree = "<group>"; };
 		7D429429221D7E0D00291794 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		7D42942B221D7E1400291794 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -286,6 +287,12 @@
 		7DAED83E227C94990025476D /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		7DAED841227C94D60025476D /* AboutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutCoordinator.swift; sourceTree = "<group>"; };
 		7DB28305222017620015BD32 /* Workflow.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Workflow.md; sourceTree = "<group>"; };
+		7DB3E880228D438000BF0592 /* LikedCoffeeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedCoffeeModel.swift; sourceTree = "<group>"; };
+		7DB3E883228D57BE00BF0592 /* LikedCoffeeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedCoffeeCoordinator.swift; sourceTree = "<group>"; };
+		7DB3E884228D57BE00BF0592 /* LikedCoffeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedCoffeeViewController.swift; sourceTree = "<group>"; };
+		7DB3E887228D5FC900BF0592 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
+		7DB3E889228D642000BF0592 /* PhotoFetchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFetchProtocol.swift; sourceTree = "<group>"; };
+		7DB3E88B228D81E100BF0592 /* CollectionViewFlowLayoutDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewFlowLayoutDelegate.swift; sourceTree = "<group>"; };
 		7DB92217228036D8000E1C2F /* CustomVisionProjectUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomVisionProjectUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DB92219228036D9000E1C2F /* CustomVisionProjectUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVisionProjectUnitTests.swift; sourceTree = "<group>"; };
 		7DB9221B228036D9000E1C2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -311,10 +318,7 @@
 		7DCEFC8F2212FAEF00F59A37 /* CustomVisionProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomVisionProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DCEFC932212FAEF00F59A37 /* CustomVisionProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVisionProjectUITests.swift; sourceTree = "<group>"; };
 		7DCEFC952212FAEF00F59A37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7DCEFCAD2212FFFC00F59A37 /* ImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
 		7DCEFCAF2213002B00F59A37 /* ImageDisplayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDisplayCollectionViewCell.swift; sourceTree = "<group>"; };
-		7DCEFCB02213002B00F59A37 /* ImageFullDisplayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFullDisplayCollectionViewCell.swift; sourceTree = "<group>"; };
-		7DCEFCB12213002B00F59A37 /* ImageFullDisplayCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageFullDisplayCollectionViewCell.xib; sourceTree = "<group>"; };
 		7DCEFCB22213002C00F59A37 /* ImageDisplayCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDisplayCollectionViewCell.xib; sourceTree = "<group>"; };
 		7DD589F62257643B00BD9DB3 /* coffee19.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffee19.JPG; sourceTree = "<group>"; };
 		7DD589F82257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingOpenCVTestingWithDrawingViewController.swift; sourceTree = "<group>"; };
@@ -389,14 +393,6 @@
 				704202BBACD397A7F8E56900 /* Pods_CustomVisionProjectUITests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7D1B7E43224E47C1008B0FE2 /* DebugViews */ = {
-			isa = PBXGroup;
-			children = (
-				7D1B7E44224E47E5008B0FE2 /* DrawUIView.swift */,
-			);
-			path = DebugViews;
 			sourceTree = "<group>";
 		};
 		7D6240D32227F09B00A70D53 /* CustomAnimations */ = {
@@ -581,6 +577,7 @@
 			isa = PBXGroup;
 			children = (
 				7D8D067F2271AC2E008C4B12 /* TableViewDataSource.swift */,
+				7DB3E887228D5FC900BF0592 /* CollectionViewDataSource.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
@@ -602,9 +599,9 @@
 			isa = PBXGroup;
 			children = (
 				7DAED83A227C7F3B0025476D /* CoreML */,
-				7DCEFCAD2212FFFC00F59A37 /* ImageData.swift */,
 				7DBAFD362226E7EA00BBC36C /* QuoteModel.swift */,
 				7D8D06852271AC2F008C4B12 /* ExampleModel.swift */,
+				7DB3E880228D438000BF0592 /* LikedCoffeeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -614,6 +611,7 @@
 			children = (
 				7D8D06872271AC2F008C4B12 /* StoryboardedProtocol.swift */,
 				7D8D06892271AC2F008C4B12 /* CoordinatorProtocol.swift */,
+				7DB3E889228D642000BF0592 /* PhotoFetchProtocol.swift */,
 			);
 			path = BaseProtocols;
 			sourceTree = "<group>";
@@ -624,6 +622,15 @@
 				7DAED83B227C7F4D0025476D /* CoffeePorscheClass.mlmodel */,
 			);
 			path = CoreML;
+			sourceTree = "<group>";
+		};
+		7DB3E882228D577300BF0592 /* LikedCoffeeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7DB3E883228D57BE00BF0592 /* LikedCoffeeCoordinator.swift */,
+				7DB3E884228D57BE00BF0592 /* LikedCoffeeViewController.swift */,
+			);
+			path = LikedCoffeeScreen;
 			sourceTree = "<group>";
 		};
 		7DB92218228036D9000E1C2F /* CustomVisionProjectUnitTests */ = {
@@ -669,6 +676,7 @@
 		7DCA9D3E2284362A00E423F5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				7DB3E882228D577300BF0592 /* LikedCoffeeScreen */,
 				7DCA9D44228436F000E423F5 /* AboutScreen */,
 				7DCA9D43228436D400E423F5 /* ProcessingResultScreen */,
 				7DCA9D42228436BD00E423F5 /* PhotoProcessingScreen */,
@@ -805,11 +813,9 @@
 			isa = PBXGroup;
 			children = (
 				7D8D067E2271AC2E008C4B12 /* DataSources */,
-				7D1B7E43224E47C1008B0FE2 /* DebugViews */,
 				7DCEFCAF2213002B00F59A37 /* ImageDisplayCollectionViewCell.swift */,
 				7DCEFCB22213002C00F59A37 /* ImageDisplayCollectionViewCell.xib */,
-				7DCEFCB02213002B00F59A37 /* ImageFullDisplayCollectionViewCell.swift */,
-				7DCEFCB12213002B00F59A37 /* ImageFullDisplayCollectionViewCell.xib */,
+				7DB3E88B228D81E100BF0592 /* CollectionViewFlowLayoutDelegate.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1027,7 +1033,6 @@
 				7DD589FD2257A2C500BD9DB3 /* coffee21.jpeg in Resources */,
 				7D8CF315222D875500421CD1 /* coffee13.jpg in Resources */,
 				7DD589F72257643B00BD9DB3 /* coffee19.JPG in Resources */,
-				7DCEFCB52213002C00F59A37 /* ImageFullDisplayCollectionViewCell.xib in Resources */,
 				7DBAFD352226E78700BBC36C /* wittyCoffeeQuotes.json in Resources */,
 				7D7E79FE228015F8008143E9 /* dark_coffe_train_4.jpg in Resources */,
 				7D8CF32D222D875500421CD1 /* coffee7.jpg in Resources */,
@@ -1187,10 +1192,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DB3E886228D57BE00BF0592 /* LikedCoffeeViewController.swift in Sources */,
 				7D8D068C2271AC2F008C4B12 /* TableViewDataSource.swift in Sources */,
 				7D8D06A02271B170008C4B12 /* FortuneResultViewController.swift in Sources */,
 				7D6FDC6D22291DF5007F8CC4 /* Extensions.swift in Sources */,
-				7DCEFCB42213002C00F59A37 /* ImageFullDisplayCollectionViewCell.swift in Sources */,
 				7DCEFC712212FAEC00F59A37 /* AppDelegate.swift in Sources */,
 				7D8D06982271AE94008C4B12 /* PhotoTakeViewController.swift in Sources */,
 				7DD589F92257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift in Sources */,
@@ -1198,13 +1203,13 @@
 				7D8D06972271AE94008C4B12 /* PhotoTakeCoordinator.swift in Sources */,
 				7D8D068F2271AC2F008C4B12 /* APIManager.swift in Sources */,
 				7D8D069F2271B170008C4B12 /* FortuneResultCoordinator.swift in Sources */,
+				7DB3E885228D57BE00BF0592 /* LikedCoffeeCoordinator.swift in Sources */,
 				7D8D069B2271B13E008C4B12 /* PhotoProcessCoordinator.swift in Sources */,
 				7D6240D22227EB9300A70D53 /* CustomAnimation.swift in Sources */,
 				7D8D06942271AC2F008C4B12 /* MainViewController.swift in Sources */,
 				7D87CD3E2253A9A5001E9C69 /* OpenCVTestingViewController.swift in Sources */,
 				7DAED83C227C7F4D0025476D /* CoffeePorscheClass.mlmodel in Sources */,
 				7D8D06922271AC2F008C4B12 /* MainCoordinator.swift in Sources */,
-				7DCEFCAE2212FFFC00F59A37 /* ImageData.swift in Sources */,
 				7D82BB9B2271F4640081661B /* PhotoDrawingService.swift in Sources */,
 				7DBAFD372226E7EA00BBC36C /* QuoteModel.swift in Sources */,
 				7DCEFCB32213002C00F59A37 /* ImageDisplayCollectionViewCell.swift in Sources */,
@@ -1213,16 +1218,19 @@
 				7D8D06A22271DA4A008C4B12 /* CameraCaptureService.swift in Sources */,
 				7D8D068D2271AC2F008C4B12 /* PersistentStorage.swift in Sources */,
 				7DBAFD332226CA7000BBC36C /* TextGenerator.swift in Sources */,
-				7D1B7E45224E47E5008B0FE2 /* DrawUIView.swift in Sources */,
 				7D8D06912271AC2F008C4B12 /* StoryboardedProtocol.swift in Sources */,
+				7DB3E881228D438000BF0592 /* LikedCoffeeModel.swift in Sources */,
 				7D8D06932271AC2F008C4B12 /* CoordinatorProtocol.swift in Sources */,
 				7D4890FC22298592000D4951 /* CustomUtility.swift in Sources */,
 				7DAED842227C94D60025476D /* AboutCoordinator.swift in Sources */,
 				7D6240D7222819F600A70D53 /* ContourPartialCustomAnimation.swift in Sources */,
 				7D8D069C2271B13E008C4B12 /* PhotoProcessViewController.swift in Sources */,
 				7DAED840227C94990025476D /* AboutViewController.swift in Sources */,
+				7DB3E888228D5FC900BF0592 /* CollectionViewDataSource.swift in Sources */,
 				7D42943E221D7F4300291794 /* OpenCVWrapper.mm in Sources */,
+				7DB3E88C228D81E100BF0592 /* CollectionViewFlowLayoutDelegate.swift in Sources */,
 				7D8D06902271AC2F008C4B12 /* ExampleModel.swift in Sources */,
+				7DB3E88A228D642000BF0592 /* PhotoFetchProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
