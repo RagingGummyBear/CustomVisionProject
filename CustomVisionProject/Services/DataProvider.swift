@@ -57,9 +57,7 @@ public class DataProvider {
         return this.persistentStorage.fetchMediumQualityPhoto(fromModel: fromModel)
     }
     
-    public func removeLikedCoffee(withModel: LikedCoffeeModel) -> Promise<LikedCoffeeModel> {
-        return Promise { seal in
-            
-        }
+    public func removeLikedCoffee(coffeeModel: LikedCoffeeModel) -> Promise<Bool> {
+        return this.persistentStorage.deleteLikedCoffee(coffeeModel: coffeeModel)
     }
 }

@@ -26,6 +26,8 @@ class LikedCoffeeCoordinator:NSObject, Coordinator, PhotoFetchProtocol {
 
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    
+    var textGenerator = TextGenerator()
 
     // MARK: - Initialization
     init(navigationController: UINavigationController) {
@@ -88,11 +90,36 @@ class LikedCoffeeCoordinator:NSObject, Coordinator, PhotoFetchProtocol {
     func shouldHideNavigationBar() -> Bool {
         return self.viewController.navigationBarHidden
     }
+    
+    func requestShortDescription(coffeeModel: LikedCoffeeModel) -> String {
+        textGenerator.foundClasses = coffeeModel.foundClasses
+        return textGenerator.generateShortTextSync()
+    }
+    
+    func requestFullDescription(coffeeModel: LikedCoffeeModel) -> String {
+        return textGenerator.generateBingDebugText()
+    }
+    
+    func requestRemoveSelectedCoffee(coffeeModel: LikedCoffeeModel){
+        self.dataProvider.removeLikedCoffee(coffeeModel: coffeeModel).done { (result: Bool) in
+            if result {
+                self.dataProvider.requestAllCoffeeModels().done({ (models: [LikedCoffeeModel]) in
+                    self.viewController.newCoffeeModelsData(models: models)
+                }).catch({ (error: Error) in
+                    print(error)
+                })
+            }
+        } .catch { (error: Error) in
+            print(error)
+        }
+        // 1. signal the dataProvider to remove the model and the photos
+        // 2. get the new list from dataProvider
+        // 3. signal the viewController of the changes
+    }
 
     /* ************************************************************ */
     // Sadly I don't know how to put this code into the protocol :( //
     /* ************************************************************ */
-
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         // Read the view controller we’re moving from.
         guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {

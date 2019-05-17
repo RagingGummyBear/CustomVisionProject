@@ -322,6 +322,42 @@ class PersistentStorage {
         }
     }
     
+    public func deleteLikedCoffee( coffeeModel: LikedCoffeeModel) -> Promise<Bool> {
+        return Promise { seal in
+            self.removeCoffeeModel(coffeeModel: coffeeModel).done({ (result: Bool) in
+
+                let savedPhotoDirectoryH = self.getSaveDirectoryForPhoto(photoDirectoryName: coffeeModel.saveDirectoryName).appendingPathComponent("high_quality.jpeg")
+                let savedPhotoDirectoryM = self.getSaveDirectoryForPhoto(photoDirectoryName: coffeeModel.saveDirectoryName).appendingPathComponent("medium_quality.jpeg")
+                let savedPhotoDirectoryT = self.getSaveDirectoryForPhoto(photoDirectoryName: coffeeModel.saveDirectoryName).appendingPathComponent("thumbnail_quality.jpeg")
+                
+                do {
+                    try FileManager.default.removeItem(at: savedPhotoDirectoryH)
+                } catch let error {
+                    seal.reject(error)
+                    return
+                }
+                
+                do {
+                    try FileManager.default.removeItem(at: savedPhotoDirectoryM)
+                } catch let error {
+                    seal.reject(error)
+                    return
+                }
+                
+                do {
+                    try FileManager.default.removeItem(at: savedPhotoDirectoryT)
+                } catch let error {
+                    seal.reject(error)
+                    return
+                }
+                seal.fulfill(true)
+            }).catch({ (error: Error) in
+                seal.reject(error)
+            })
+        }
+    }
+    
+    
     // MARK: - URL generation functions
     private func getLikedCoffeeDataURL() -> URL {
         let path = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)

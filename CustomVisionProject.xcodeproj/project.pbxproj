@@ -114,6 +114,8 @@
 		7DAED83C227C7F4D0025476D /* CoffeePorscheClass.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7DAED83B227C7F4D0025476D /* CoffeePorscheClass.mlmodel */; };
 		7DAED840227C94990025476D /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAED83E227C94990025476D /* AboutViewController.swift */; };
 		7DAED842227C94D60025476D /* AboutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DAED841227C94D60025476D /* AboutCoordinator.swift */; };
+		7DB159AB228E9594000E6F58 /* VerticalCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB159AA228E9594000E6F58 /* VerticalCollectionLayout.swift */; };
+		7DB159AD228E9E24000E6F58 /* HorizontalCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB159AC228E9E24000E6F58 /* HorizontalCollectionLayout.swift */; };
 		7DB3E881228D438000BF0592 /* LikedCoffeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB3E880228D438000BF0592 /* LikedCoffeeModel.swift */; };
 		7DB3E885228D57BE00BF0592 /* LikedCoffeeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB3E883228D57BE00BF0592 /* LikedCoffeeCoordinator.swift */; };
 		7DB3E886228D57BE00BF0592 /* LikedCoffeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB3E884228D57BE00BF0592 /* LikedCoffeeViewController.swift */; };
@@ -286,6 +288,8 @@
 		7DAED83B227C7F4D0025476D /* CoffeePorscheClass.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CoffeePorscheClass.mlmodel; sourceTree = "<group>"; };
 		7DAED83E227C94990025476D /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		7DAED841227C94D60025476D /* AboutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutCoordinator.swift; sourceTree = "<group>"; };
+		7DB159AA228E9594000E6F58 /* VerticalCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionLayout.swift; sourceTree = "<group>"; };
+		7DB159AC228E9E24000E6F58 /* HorizontalCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCollectionLayout.swift; sourceTree = "<group>"; };
 		7DB28305222017620015BD32 /* Workflow.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Workflow.md; sourceTree = "<group>"; };
 		7DB3E880228D438000BF0592 /* LikedCoffeeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedCoffeeModel.swift; sourceTree = "<group>"; };
 		7DB3E883228D57BE00BF0592 /* LikedCoffeeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedCoffeeCoordinator.swift; sourceTree = "<group>"; };
@@ -624,6 +628,15 @@
 			path = CoreML;
 			sourceTree = "<group>";
 		};
+		7DB159A9228E956C000E6F58 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				7DB159AA228E9594000E6F58 /* VerticalCollectionLayout.swift */,
+				7DB159AC228E9E24000E6F58 /* HorizontalCollectionLayout.swift */,
+			);
+			path = Layouts;
+			sourceTree = "<group>";
+		};
 		7DB3E882228D577300BF0592 /* LikedCoffeeScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,6 +825,7 @@
 		7DCEFCA32212FBC700F59A37 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7DB159A9228E956C000E6F58 /* Layouts */,
 				7D8D067E2271AC2E008C4B12 /* DataSources */,
 				7DCEFCAF2213002B00F59A37 /* ImageDisplayCollectionViewCell.swift */,
 				7DCEFCB22213002C00F59A37 /* ImageDisplayCollectionViewCell.xib */,
@@ -1198,6 +1212,7 @@
 				7D6FDC6D22291DF5007F8CC4 /* Extensions.swift in Sources */,
 				7DCEFC712212FAEC00F59A37 /* AppDelegate.swift in Sources */,
 				7D8D06982271AE94008C4B12 /* PhotoTakeViewController.swift in Sources */,
+				7DB159AD228E9E24000E6F58 /* HorizontalCollectionLayout.swift in Sources */,
 				7DD589F92257731600BD9DB3 /* DrawingOpenCVTestingWithDrawingViewController.swift in Sources */,
 				7D6240D52227F0B900A70D53 /* ContourLinesCustomAnimation.swift in Sources */,
 				7D8D06972271AE94008C4B12 /* PhotoTakeCoordinator.swift in Sources */,
@@ -1217,6 +1232,7 @@
 				7D8D068E2271AC2F008C4B12 /* DataProvider.swift in Sources */,
 				7D8D06A22271DA4A008C4B12 /* CameraCaptureService.swift in Sources */,
 				7D8D068D2271AC2F008C4B12 /* PersistentStorage.swift in Sources */,
+				7DB159AB228E9594000E6F58 /* VerticalCollectionLayout.swift in Sources */,
 				7DBAFD332226CA7000BBC36C /* TextGenerator.swift in Sources */,
 				7D8D06912271AC2F008C4B12 /* StoryboardedProtocol.swift in Sources */,
 				7DB3E881228D438000BF0592 /* LikedCoffeeModel.swift in Sources */,

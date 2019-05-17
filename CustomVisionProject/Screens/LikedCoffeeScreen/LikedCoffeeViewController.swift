@@ -24,8 +24,22 @@ class LikedCoffeeViewController: UIViewController, Storyboarded {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var fullDescriptionLabel: UILabel!
+    @IBOutlet weak var shortDescriptionLabel: UILabel!
+    
     // MARK: - IBOutlets actions
-
+    @IBAction func starPhotoButtonAction(_ sender: Any) {
+        print("Unbelivable it became true")
+    }
+    
+    @IBAction func removePhotoButtonAction(_ sender: Any) {
+        print("Peace out!")
+        if let selectedModel = self.selectedCoffeeModel {
+            self.coordinator?.requestRemoveSelectedCoffee(coffeeModel: selectedModel)
+        }
+    }
+    
+    
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +60,6 @@ class LikedCoffeeViewController: UIViewController, Storyboarded {
     // MARK: - UI Functions
     func initalUISetup(){
         self.registerCollectionViewCells()
-        
         let bundlePath = Bundle.main.path(forResource: "blackSteamy", ofType: "jpg")
         self.backgroundImageView.image = UIImage(contentsOfFile: bundlePath!)
         
@@ -72,6 +85,8 @@ class LikedCoffeeViewController: UIViewController, Storyboarded {
         if let model = self.selectedCoffeeModel {
             self.coordinator?.fetchHighQualityPhoto(fromModel: model).done({ (image: UIImage) in
                 DispatchQueue.main.async {
+                    self.shortDescriptionLabel.text = self.coordinator?.requestShortDescription(coffeeModel: self.selectedCoffeeModel!)
+                    self.fullDescriptionLabel.text = self.coordinator?.requestFullDescription(coffeeModel: self.selectedCoffeeModel!)
                     self.mainImageView.image = image
                 }
             }).catch({ (error: Error) in
@@ -84,43 +99,41 @@ class LikedCoffeeViewController: UIViewController, Storyboarded {
         self.dataSource = CollectionViewDataSource.make(for: self.allLikedCoffeeModels, photoFetch: self.coordinator!, reuseIdentifier: "likedPhotoImageCollectionView")
         self.collectionView.dataSource = self.dataSource
         
-        self.itemsPerRow = 4.0
         self.collectionView.delegate = self
         self.collectionView.reloadData()
     }
 
     // MARK: - Other functions
     // Remember keep the logic and processing in the coordinator
-    private var itemsPerRow: CGFloat = 4
-    private let sectionInsetsMiddle = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 0)
-    private let sectionInsetsFirst = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
-    private let sectionInsetsLast = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+    func newCoffeeModelsData(models:[LikedCoffeeModel]){
+        self.allLikedCoffeeModels = models
+        if !models.contains(where: { (elem: LikedCoffeeModel) -> Bool in
+            return elem.saveDirectoryName == self.selectedCoffeeModel?.saveDirectoryName
+        }) {
+            if models.count > 0 {
+                self.selectedCoffeeModel = models[0]
+                self.refreshMainImage()
+            }
+        }
+        self.dataSource.models = models
+        
+        self.collectionView.reloadData()
+        self.collectionView.invalidateIntrinsicContentSize()
+        self.collectionView.setCollectionViewLayout(HorizontalCollectionLayout(), animated: false)
+        print("Hallow")
+    }
+    
+    func requestRemoveSelectedPhoto(){
+        
+    }
+    
 }
 
-extension LikedCoffeeViewController : UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Int(self.itemsPerRow)
+extension LikedCoffeeViewController : UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedCoffeeModel = self.allLikedCoffeeModels[indexPath.row]
+        DispatchQueue.global().async {
+            self.refreshMainImage()
+        }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.frame.width - 10 * (self.itemsPerRow + 1)) / self.itemsPerRow
-        return CGSize(width: width, height: collectionView.frame.height)
-    }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        print("here \(section)")
-//        if section == 0 {
-//            return sectionInsetsFirst
-//        } else if section == self.allLikedCoffeeModels.count - 2 {
-//            return sectionInsetsLast
-//        }
-//        print("sectionNum: \(section) and max : \(self.allLikedCoffeeModels.count)")
-//        return sectionInsetsMiddle
-//    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        print("Hallo")
-        return 8
-    }
-    
 }

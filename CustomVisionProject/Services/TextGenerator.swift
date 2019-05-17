@@ -113,7 +113,7 @@ class TextGenerator {
 
     
     // MARK: - Contour_complexity
-    public func generateShortContourComplexity(className: String) -> String {
+    private func generateShortContourComplexity(className: String) -> String {
         // coffee_low_contour_complexity, coffee_high_contour_complexity, coffee_medium_contour_complexity
         if className.contains("low") {
             return "Coffee texture is with low complexity"
@@ -126,7 +126,7 @@ class TextGenerator {
     }
     
     // MARK: - Bound-size
-    public func generateShortBoundSize(className: String) -> String {
+    private func generateShortBoundSize(className: String) -> String {
         if className.contains("big"){
             return "Big bounding size" // If the user selected correctly the coffee takes bigger portion of the screen
         } else if className.contains("mixed") {
@@ -138,7 +138,7 @@ class TextGenerator {
     }
     
     // MARK: - Bound-pos
-    public func generateShortBoundPos(className: String) -> String {
+    private func generateShortBoundPos(className: String) -> String {
         if className.contains("bot-right") {
             return "Coffee position is in the bottom-right part of the image"
         } else if className.contains("bot-left") {
@@ -153,7 +153,7 @@ class TextGenerator {
     }
     
     // MARK: - Rgb-full
-    public func generateShortRgbFull(className: String) -> String {
+    private func generateShortRgbFull(className: String) -> String {
         if className.contains("blue") {
             return "Highest full photo pixel color value is blue"
         } else if className.contains("red") {
@@ -165,7 +165,7 @@ class TextGenerator {
     }
     
     // MARK: - Rgb-partial
-    public func generateShortRgbPartial(className: String) -> String {
+    private func generateShortRgbPartial(className: String) -> String {
         if className.contains("blue") {
             return "Highest partial photo pixel color value is blue"
         } else if className.contains("red") {
@@ -177,7 +177,7 @@ class TextGenerator {
     }
     
     // MARK: - Coffee_class
-    public func generateShortCoffeeClass(className: String) -> String {
+    private func generateShortCoffeeClass(className: String) -> String {
         if className.contains("dark") {
             return "The coffee has dark color"
         } else if className.contains("light") {
@@ -189,7 +189,7 @@ class TextGenerator {
     }
     
     // MARK: - Background_class
-    public func generateShortBackgroundClass(className: String) -> String {
+    private func generateShortBackgroundClass(className: String) -> String {
         if className.contains("red") {
             return "The background has red color"
         } else if className.contains("green") {
