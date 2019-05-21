@@ -158,6 +158,11 @@ class CameraCaptureService : NSObject, AVCapturePhotoCaptureDelegate, AVCaptureV
             }
         }
     }
+    
+    func stop(){
+        self.session?.commitConfiguration()
+        self.session?.stopRunning()
+    }
         
     deinit {
         self.session?.commitConfiguration()

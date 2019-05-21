@@ -11,6 +11,8 @@ import UIKit
 import PromiseKit
 
 class LikedCoffeeCoordinator:NSObject, Coordinator, PhotoFetchProtocol {
+    
+    var popupBuilder = PopUpBuilder()
 
     // MARK: - Class properties
     lazy var dataProvider = { () -> DataProvider in
@@ -100,11 +102,13 @@ class LikedCoffeeCoordinator:NSObject, Coordinator, PhotoFetchProtocol {
         return textGenerator.generateBingDebugText()
     }
     
-    func requestRemoveSelectedCoffee(coffeeModel: LikedCoffeeModel){
+    private func requestRemoveSelectedCoffee(coffeeModel: LikedCoffeeModel){
         self.dataProvider.removeLikedCoffee(coffeeModel: coffeeModel).done { (result: Bool) in
             if result {
                 self.dataProvider.requestAllCoffeeModels().done({ (models: [LikedCoffeeModel]) in
                     self.viewController.newCoffeeModelsData(models: models)
+                    let popup = self.popupBuilder.okSimplePopup(title: "Removed coffee photo and data", message: "The selected coffee photo and data were removed!😭\nBut HEY! You get more memory now!🤟🤟")
+                    self.viewController.presentPopup(popupDialog: popup)
                 }).catch({ (error: Error) in
                     print(error)
                 })
@@ -112,11 +116,27 @@ class LikedCoffeeCoordinator:NSObject, Coordinator, PhotoFetchProtocol {
         } .catch { (error: Error) in
             print(error)
         }
-        // 1. signal the dataProvider to remove the model and the photos
-        // 2. get the new list from dataProvider
-        // 3. signal the viewController of the changes
     }
 
+    func starButtonPressed(){
+        let popup = popupBuilder.okSimplePopup(title: "IT BECAME TRUE?", message: "IT is quite shocking that I can foretell the future! Shocking I know! 😎🔮")
+        self.viewController.presentPopup(popupDialog: popup)
+    }
+    
+    func removeSelectedButtonPressed(){
+        let popup = popupBuilder.areYouSurePopup(title: "⚠️Remove selected⚠️", message: "Are you sure you want to remove the selected coffee shot? It will the photo and all of the data associated with it!") {
+            self.removeSelectedCoffee()
+        }
+        self.viewController.presentPopup(popupDialog: popup)
+    }
+    
+    private func removeSelectedCoffee(){
+        print("GONNA REMOVE IT WHEN I GET IMPLEMENTED OK!?!?!?")
+        if let mode = self.viewController.selectedCoffeeModel {
+            self.requestRemoveSelectedCoffee(coffeeModel: mode)
+        }
+    }
+    
     /* ************************************************************ */
     // Sadly I don't know how to put this code into the protocol :( //
     /* ************************************************************ */

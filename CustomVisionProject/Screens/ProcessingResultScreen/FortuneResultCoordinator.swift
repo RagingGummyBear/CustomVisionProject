@@ -31,6 +31,8 @@ class FortuneResultCoordinator:NSObject, Coordinator {
     private var textGenerator = TextGenerator()
     
     public var foundClasses: [String]!
+    
+    var popupBuilder = PopUpBuilder()
 
     // MARK: - Initialization
     init(navigationController: UINavigationController) {
@@ -125,14 +127,27 @@ class FortuneResultCoordinator:NSObject, Coordinator {
     func requestSaveCapturedImage(){
         self.dataProvider.moveCapturedToSaved(foundClasses: self.foundClasses)
             .done { (result: Bool) in
-                if !result {
-                    
-                    return
+                if result {
+//                    let popup = self.popupBuilder.okSimplePopup(title: "Photo saved! 👌", message: "Your coffee photo and data were saved. You can access them at any time and share them! 🤩")
+//                    self.viewController.presentPopup(popupDialog: popup)
+                    self.viewController.toastMessage(message: "Your coffee photo and data were saved. You can access them at any time and share them! 🤩")
+                } else {
+//                    let popup = self.popupBuilder.okSimplePopup(title: "Photo not saved! 😕", message: "Your coffee photo and data were not saved. You probably already saved them. 🤷‍♂️")
+//                    self.viewController.presentPopup(popupDialog: popup)
+                    self.viewController.toastMessage(message: "Your coffee photo and data were not saved. You probably already saved them. 🤷‍♂️")
                 }
             }
             .catch { (error: Error) in
+//                let popup = self.popupBuilder.okSimplePopup(title: "Photo not saved! 😕", message: "Your coffee photo and data were not saved. You probably already saved them. 🤷‍♂️")
+//                self.viewController.presentPopup(popupDialog: popup)
+                self.viewController.toastMessage(message: "Your coffee photo and data were not saved. You probably already saved them. 🤷‍♂️")
                 print(error)
             }
+    }
+    
+    func sendLikeButtonPressed(){
+        let popup = self.popupBuilder.likeThankPopup()
+        self.viewController.presentPopup(popupDialog: popup)
     }
     
     /* ************************************************************ */

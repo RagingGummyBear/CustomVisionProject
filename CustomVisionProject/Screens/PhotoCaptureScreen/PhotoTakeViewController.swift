@@ -68,10 +68,6 @@ class PhotoTakeViewController: UIViewController, Storyboarded {
     
     // MARK: - UI Functions
     func initalUISetup(){
-        // Change label's text, etc.
-        
-
-//        self.setupCamera()
         self.coordinator?.startCameraSetup()
     }
 

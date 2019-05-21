@@ -22,21 +22,21 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GjU-gv-0uv">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x5p-Kf-RxC">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x5p-Kf-RxC">
+                                <rect key="frame" x="4" y="4" width="192" height="192"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="x5p-Kf-RxC" firstAttribute="top" secondItem="GjU-gv-0uv" secondAttribute="top" id="118-Mg-hc0"/>
-                            <constraint firstAttribute="trailing" secondItem="x5p-Kf-RxC" secondAttribute="trailing" id="BNL-V8-sSX"/>
-                            <constraint firstItem="x5p-Kf-RxC" firstAttribute="leading" secondItem="GjU-gv-0uv" secondAttribute="leading" id="IR9-Hk-x9o"/>
-                            <constraint firstAttribute="bottom" secondItem="x5p-Kf-RxC" secondAttribute="bottom" id="jNH-wx-fPm"/>
+                            <constraint firstItem="x5p-Kf-RxC" firstAttribute="top" secondItem="GjU-gv-0uv" secondAttribute="top" constant="4" id="118-Mg-hc0"/>
+                            <constraint firstAttribute="trailing" secondItem="x5p-Kf-RxC" secondAttribute="trailing" constant="4" id="BNL-V8-sSX"/>
+                            <constraint firstItem="x5p-Kf-RxC" firstAttribute="leading" secondItem="GjU-gv-0uv" secondAttribute="leading" constant="4" id="IR9-Hk-x9o"/>
+                            <constraint firstAttribute="bottom" secondItem="x5p-Kf-RxC" secondAttribute="bottom" constant="4" id="jNH-wx-fPm"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
-            <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="GjU-gv-0uv" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9wc-3G-Igk"/>
                 <constraint firstItem="GjU-gv-0uv" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="BFY-Lg-rua"/>
@@ -48,7 +48,7 @@
             <connections>
                 <outlet property="displayUIImageView" destination="x5p-Kf-RxC" id="NSm-tH-I4N"/>
             </connections>
-            <point key="canvasLocation" x="252" y="224.88755622188907"/>
+            <point key="canvasLocation" x="251.19999999999999" y="224.88755622188907"/>
         </collectionViewCell>
     </objects>
 </document>

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Spring
+import PopupDialog
 
 class LikedCoffeeViewController: UIViewController, Storyboarded {
 
@@ -18,8 +20,12 @@ class LikedCoffeeViewController: UIViewController, Storyboarded {
     var selectedCoffeeModel: LikedCoffeeModel?
     
     var dataSource: CollectionViewDataSource<LikedCoffeeModel>!
+    public var selectedCell:ImageDisplayCollectionViewCell?
 
     // MARK: - IBOutlets references
+    @IBOutlet weak var starPhotoButton: PopAnimatedButton!
+    @IBOutlet weak var removePhotoButton: PopAnimatedButton!
+    
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -27,15 +33,17 @@ class LikedCoffeeViewController: UIViewController, Storyboarded {
     @IBOutlet weak var fullDescriptionLabel: UILabel!
     @IBOutlet weak var shortDescriptionLabel: UILabel!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     // MARK: - IBOutlets actions
     @IBAction func starPhotoButtonAction(_ sender: Any) {
         print("Unbelivable it became true")
+        self.coordinator?.starButtonPressed()
     }
     
     @IBAction func removePhotoButtonAction(_ sender: Any) {
-        print("Peace out!")
         if let selectedModel = self.selectedCoffeeModel {
-            self.coordinator?.requestRemoveSelectedCoffee(coffeeModel: selectedModel)
+//            self.coordinator?.requestRemoveSelectedCoffee(coffeeModel: selectedModel)
+            self.coordinator?.removeSelectedButtonPressed()
         }
     }
     
@@ -66,6 +74,7 @@ class LikedCoffeeViewController: UIViewController, Storyboarded {
         self.coordinator?.requestAllLikedCoffeeModels().done({ [unowned self] (models: [LikedCoffeeModel]) in
             self.allLikedCoffeeModels = models
             self.selectedCoffeeModel = models.first
+            self.setSelectedCell(index: IndexPath(row: 0, section: 0))
             self.refreshMainImage()
             self.setupCollectionView()
         }).catch({ (error: Error) in
@@ -88,6 +97,7 @@ class LikedCoffeeViewController: UIViewController, Storyboarded {
                     self.shortDescriptionLabel.text = self.coordinator?.requestShortDescription(coffeeModel: self.selectedCoffeeModel!)
                     self.fullDescriptionLabel.text = self.coordinator?.requestFullDescription(coffeeModel: self.selectedCoffeeModel!)
                     self.mainImageView.image = image
+                    self.scrollView.setContentOffset(.zero, animated: true)
                 }
             }).catch({ (error: Error) in
                 print(error)
@@ -112,6 +122,7 @@ class LikedCoffeeViewController: UIViewController, Storyboarded {
         }) {
             if models.count > 0 {
                 self.selectedCoffeeModel = models[0]
+                self.setSelectedCell(index: IndexPath(row: 0, section: 0))
                 self.refreshMainImage()
             }
         }
@@ -120,20 +131,39 @@ class LikedCoffeeViewController: UIViewController, Storyboarded {
         self.collectionView.reloadData()
         self.collectionView.invalidateIntrinsicContentSize()
         self.collectionView.setCollectionViewLayout(HorizontalCollectionLayout(), animated: false)
-        print("Hallow")
     }
     
     func requestRemoveSelectedPhoto(){
         
     }
     
+    func presentPopup(popupDialog: PopupDialog){
+        self.present(popupDialog, animated: true)
+    }
+    
 }
 
 extension LikedCoffeeViewController : UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedCoffeeModel = self.allLikedCoffeeModels[indexPath.row]
+        self.collectionView.scrollToItem(at: indexPath, at: [.centeredVertically, .centeredHorizontally], animated: true)
         DispatchQueue.global().async {
             self.refreshMainImage()
+            self.setSelectedCell(index: indexPath)
+        }
+    }
+    
+    func setSelectedCell(index:IndexPath){
+        DispatchQueue.main.async {
+            let prevIndexPath = IndexPath(row: self.dataSource.getSelectedModel(), section: 0)
+            self.dataSource.setSelectedModel(index: index.row)
+            if prevIndexPath.row > -1 && index.row != prevIndexPath.row {
+                self.collectionView.reloadItems(at: [index, prevIndexPath])
+            } else {
+                self.collectionView.reloadItems(at: [index])
+            }
         }
     }
 }
+

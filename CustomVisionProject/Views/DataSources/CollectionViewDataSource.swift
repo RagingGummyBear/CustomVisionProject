@@ -9,8 +9,9 @@
 import Foundation
 
 class CollectionViewDataSource<Model>: NSObject, UICollectionViewDataSource {
-    typealias CellConfigurator = (Model, UICollectionViewCell) -> Void
+    typealias CellConfigurator = (Model, UICollectionViewCell, Bool) -> Void
     var models: [Model]
+    var selectedModel = -1
     
     private let reuseIdentifier: String
     private let cellConfigurator: CellConfigurator
@@ -29,40 +30,38 @@ class CollectionViewDataSource<Model>: NSObject, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let model = models[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(
+        let cell = collectionView.dequeueReusableCell (
             withReuseIdentifier: reuseIdentifier,
             for: indexPath
         )
-        cellConfigurator(model, cell)
+        cellConfigurator(model, cell, (indexPath.row == self.selectedModel))
         return cell
+    }
+    
+    func setSelectedModel(index: Int){
+        self.selectedModel = index
+    }
+    
+    func getSelectedModel() -> Int {
+        return self.selectedModel
     }
 }
 
-extension CollectionViewDataSource where Model == ExampleModel {
-    static func make(for models: [ExampleModel],
-                     reuseIdentifier: String = "userDataCell") -> CollectionViewDataSource {
-        return CollectionViewDataSource(
-            models: models,
-            reuseIdentifier: reuseIdentifier
-        ) { (model, cell) in
-//            cell.textLabel?.text = model.title
-//            cell.detailTextLabel?.text = model.description
-//            if let cell = cell as? ImageDisplayCollectionViewCell {
-//                cell.displayUIImageView.image = image
-//            }
-        }
-    }
-}
 
 extension CollectionViewDataSource where Model == LikedCoffeeModel {
     static func make(for models: [LikedCoffeeModel], photoFetch: PhotoFetchProtocol, reuseIdentifier:String = "ImageDisplayCollectionViewCell") -> CollectionViewDataSource {
-        return CollectionViewDataSource(models: models, reuseIdentifier: reuseIdentifier, cellConfigurator: { (model, cell) in
+        return CollectionViewDataSource(models: models, reuseIdentifier: reuseIdentifier, cellConfigurator: { (model, cell, selected) in
             if let cell = cell as? ImageDisplayCollectionViewCell {
                 photoFetch.fetchThumbnailPhoto(fromModel: model).done({ (image: UIImage) in
                     cell.displayUIImageView.image = image
                 }).catch({ (error: Error) in
                     print(error)
                 })
+                if selected {
+                    cell.backgroundColor = UIColor.init(named: "NavigationText")
+                } else {
+                    cell.backgroundColor = UIColor.clear
+                }
             }
         })
     }

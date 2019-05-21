@@ -83,7 +83,7 @@ class MainCoordinator:NSObject, Coordinator {
          child.parentCoordinator = self
          childCoordinators.append(child)
          child.start()
-     }
+    }
     
     func goToPhotoProcess(photo: UIImage) {
         let child = PhotoProcessCoordinator(navigationController: navigationController)

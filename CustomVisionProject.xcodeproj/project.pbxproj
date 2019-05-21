@@ -148,6 +148,8 @@
 		7DD589FD2257A2C500BD9DB3 /* coffee21.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7DD589FC2257A2C500BD9DB3 /* coffee21.jpeg */; };
 		7DE95F202255F374005D4AA2 /* background_without_coffee_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DE95F1F2255F374005D4AA2 /* background_without_coffee_1.jpg */; };
 		7DE95F2422563551005D4AA2 /* background_without_coffee_7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DE95F2322563551005D4AA2 /* background_without_coffee_7.jpg */; };
+		7DF211472292B2CE0089F15F /* HighlightedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF211462292B2CE0089F15F /* HighlightedButton.swift */; };
+		7DF211492292D7000089F15F /* PopUpBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF211482292D7000089F15F /* PopUpBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -330,6 +332,8 @@
 		7DD589FC2257A2C500BD9DB3 /* coffee21.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffee21.jpeg; sourceTree = "<group>"; };
 		7DE95F1F2255F374005D4AA2 /* background_without_coffee_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_without_coffee_1.jpg; sourceTree = "<group>"; };
 		7DE95F2322563551005D4AA2 /* background_without_coffee_7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_without_coffee_7.jpg; sourceTree = "<group>"; };
+		7DF211462292B2CE0089F15F /* HighlightedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedButton.swift; sourceTree = "<group>"; };
+		7DF211482292D7000089F15F /* PopUpBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpBuilder.swift; sourceTree = "<group>"; };
 		93AE9C98A6A405336B983FDC /* Pods-CustomVisionProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomVisionProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomVisionProjectUITests/Pods-CustomVisionProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		995570936FAC9F55963F7B05 /* Pods-CustomVisionProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomVisionProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomVisionProjectTests/Pods-CustomVisionProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A5735B047315C8E9D2598F7D /* Pods-CustomVisionProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomVisionProjectUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomVisionProjectUITests/Pods-CustomVisionProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -825,6 +829,7 @@
 		7DCEFCA32212FBC700F59A37 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7DF211452292B2B00089F15F /* CustomComponents */,
 				7DB159A9228E956C000E6F58 /* Layouts */,
 				7D8D067E2271AC2E008C4B12 /* DataSources */,
 				7DCEFCAF2213002B00F59A37 /* ImageDisplayCollectionViewCell.swift */,
@@ -840,8 +845,17 @@
 				7D6240D32227F09B00A70D53 /* CustomAnimations */,
 				7D6FDC6C22291DF5007F8CC4 /* Extensions.swift */,
 				7D4890FB22298592000D4951 /* CustomUtility.swift */,
+				7DF211482292D7000089F15F /* PopUpBuilder.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		7DF211452292B2B00089F15F /* CustomComponents */ = {
+			isa = PBXGroup;
+			children = (
+				7DF211462292B2CE0089F15F /* HighlightedButton.swift */,
+			);
+			path = CustomComponents;
 			sourceTree = "<group>";
 		};
 		890235195C18303A3FE33210 /* Pods */ = {
@@ -1112,13 +1126,21 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-CustomVisionProject/Pods-CustomVisionProject-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
+				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1207,6 +1229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DB3E886228D57BE00BF0592 /* LikedCoffeeViewController.swift in Sources */,
+				7DF211472292B2CE0089F15F /* HighlightedButton.swift in Sources */,
 				7D8D068C2271AC2F008C4B12 /* TableViewDataSource.swift in Sources */,
 				7D8D06A02271B170008C4B12 /* FortuneResultViewController.swift in Sources */,
 				7D6FDC6D22291DF5007F8CC4 /* Extensions.swift in Sources */,
@@ -1247,6 +1270,7 @@
 				7DB3E88C228D81E100BF0592 /* CollectionViewFlowLayoutDelegate.swift in Sources */,
 				7D8D06902271AC2F008C4B12 /* ExampleModel.swift in Sources */,
 				7DB3E88A228D642000BF0592 /* PhotoFetchProtocol.swift in Sources */,
+				7DF211492292D7000089F15F /* PopUpBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

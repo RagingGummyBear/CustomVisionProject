@@ -7,6 +7,9 @@ target 'CustomVisionProject' do
 
   # Pods for CustomVisionProject
   pod "PromiseKit"
+  pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
+  pod 'PopupDialog'
+  pod 'Toast-Swift'
 
   target 'CustomVisionProjectTests' do
     inherit! :search_paths

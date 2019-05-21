@@ -375,13 +375,24 @@
                                     </fragment>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" name="NavigationText"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1VJ-nK-uv3">
                                 <rect key="frame" x="16" y="688" width="60" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="BJ2-bh-nt0"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="17"/>
                                 <state key="normal" title="About">
                                     <color key="titleColor" name="NavigationText"/>
                                 </state>
@@ -389,8 +400,8 @@
                                     <action selector="aboutTransition:" destination="fIQ-G0-2Yj" eventType="touchUpInside" id="OXE-xo-uAO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCA-QH-2I6">
-                                <rect key="frame" x="82.666666666666671" y="561.66666666666663" width="248.66666666666663" height="124.33333333333337"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCA-QH-2I6" customClass="PopAnimatedButton" customModule="CustomVisionProject" customModuleProvider="target">
+                                <rect key="frame" x="82.666666666666671" y="539.66666666666663" width="248.66666666666663" height="124.33333333333337"/>
                                 <color key="backgroundColor" name="NavigationText"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="iCA-QH-2I6" secondAttribute="height" multiplier="2:1" id="vLw-j0-qge"/>
@@ -406,7 +417,7 @@
                                         <real key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" name="NavigationText"/>
+                                        <color key="value" name="TextBackground"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -414,7 +425,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fw-mH-FOZ">
-                                <rect key="frame" x="317" y="698" width="89" height="30"/>
+                                <rect key="frame" x="293" y="688" width="105" height="32"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="17"/>
                                 <state key="normal" title="Liked photos">
                                     <color key="titleColor" name="NavigationText"/>
                                 </state>
@@ -426,7 +438,7 @@
                         <color key="backgroundColor" name="TextBackground"/>
                         <constraints>
                             <constraint firstItem="Dhc-uX-jIY" firstAttribute="width" secondItem="RcH-6u-dpQ" secondAttribute="width" multiplier="0.4" id="0Mh-SE-wSz"/>
-                            <constraint firstItem="RcH-6u-dpQ" firstAttribute="bottom" secondItem="2fw-mH-FOZ" secondAttribute="bottom" constant="8" id="8fd-fI-YrF"/>
+                            <constraint firstItem="RcH-6u-dpQ" firstAttribute="bottom" secondItem="2fw-mH-FOZ" secondAttribute="bottom" constant="16" id="8fd-fI-YrF"/>
                             <constraint firstItem="Dhc-uX-jIY" firstAttribute="centerX" secondItem="Jc1-wy-tpM" secondAttribute="centerX" id="9e2-SS-94n"/>
                             <constraint firstItem="iCA-QH-2I6" firstAttribute="width" secondItem="RcH-6u-dpQ" secondAttribute="width" multiplier="0.6" id="A9I-KD-MKR"/>
                             <constraint firstItem="znv-Ik-3VR" firstAttribute="trailing" secondItem="Jc1-wy-tpM" secondAttribute="trailing" id="BvK-YS-pDA"/>
@@ -435,9 +447,9 @@
                             <constraint firstItem="RcH-6u-dpQ" firstAttribute="bottom" secondItem="1VJ-nK-uv3" secondAttribute="bottom" constant="16" id="Tcm-L8-fnR"/>
                             <constraint firstItem="znv-Ik-3VR" firstAttribute="bottom" secondItem="RcH-6u-dpQ" secondAttribute="bottom" id="UCA-w8-WGg"/>
                             <constraint firstItem="iCA-QH-2I6" firstAttribute="centerX" secondItem="Dhc-uX-jIY" secondAttribute="centerX" id="XIb-DF-ig0"/>
-                            <constraint firstItem="RcH-6u-dpQ" firstAttribute="bottom" secondItem="iCA-QH-2I6" secondAttribute="bottom" constant="50" id="YAE-ic-P6h"/>
+                            <constraint firstItem="RcH-6u-dpQ" firstAttribute="bottom" secondItem="iCA-QH-2I6" secondAttribute="bottom" constant="72" id="YAE-ic-P6h"/>
                             <constraint firstItem="znv-Ik-3VR" firstAttribute="leading" secondItem="RcH-6u-dpQ" secondAttribute="leading" id="YpU-pq-6UF"/>
-                            <constraint firstAttribute="trailing" secondItem="2fw-mH-FOZ" secondAttribute="trailing" constant="8" id="ZXn-gD-hHX"/>
+                            <constraint firstAttribute="trailing" secondItem="2fw-mH-FOZ" secondAttribute="trailing" constant="16" id="ZXn-gD-hHX"/>
                             <constraint firstItem="RcH-6u-dpQ" firstAttribute="trailing" secondItem="AvM-MI-xDL" secondAttribute="trailing" constant="24" id="aT7-Ug-9wu"/>
                             <constraint firstItem="AvM-MI-xDL" firstAttribute="leading" secondItem="RcH-6u-dpQ" secondAttribute="leading" constant="24" id="cmJ-Tt-EVU"/>
                             <constraint firstItem="RcH-6u-dpQ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1VJ-nK-uv3" secondAttribute="trailing" symbolic="YES" id="iPM-Bc-fMv"/>
@@ -585,7 +597,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c7c-ja-M0j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4546" y="2554"/>
+            <point key="canvasLocation" x="-4338" y="2554"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="bVA-Aa-0Um">
@@ -613,11 +625,11 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dqk-zn-KSQ" userLabel="Background Image View">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wyp-Pr-dhz">
-                                <rect key="frame" x="0.0" y="20" width="414" height="596"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="Wyp-Pr-dhz">
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TN9-n7-yos" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="579.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="689.33333333333337"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1qo-RT-Zo9">
                                                 <rect key="frame" x="24" y="24" width="366" height="368"/>
@@ -625,30 +637,74 @@
                                                     <constraint firstAttribute="width" secondItem="1qo-RT-Zo9" secondAttribute="height" multiplier="183:184" id="y9t-B3-g1Q"/>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BmO-V0-eiT">
-                                                <rect key="frame" x="16" y="497.66666666666663" width="382" height="30"/>
-                                                <state key="normal" title="Remove photo"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BmO-V0-eiT" customClass="PopAnimatedButton" customModule="CustomVisionProject" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="500.66666666666663" width="382" height="33"/>
+                                                <color key="backgroundColor" name="NavigationText"/>
+                                                <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="18"/>
+                                                <state key="normal" title="Remove photo">
+                                                    <color key="titleColor" name="TextBackground"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="force">
+                                                        <real key="value" value="0.25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" name="TextBackground"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="removePhotoButtonAction:" destination="yB2-c6-qxR" eventType="touchUpInside" id="Lcw-Kv-tGH"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKU-IZ-xR7">
-                                                <rect key="frame" x="16" y="451.66666666666669" width="382" height="30"/>
-                                                <state key="normal" title="Star photo"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKU-IZ-xR7" customClass="PopAnimatedButton" customModule="CustomVisionProject" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="451.66666666666669" width="382" height="33"/>
+                                                <color key="backgroundColor" name="NavigationText"/>
+                                                <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="18"/>
+                                                <state key="normal" title="Star photo">
+                                                    <color key="titleColor" name="TextBackground"/>
+                                                </state>
+                                                <state key="selected">
+                                                    <color key="titleColor" name="Pale green"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="pop"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="force">
+                                                        <real key="value" value="0.25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" name="TextBackground"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="starPhotoButtonAction:" destination="yB2-c6-qxR" eventType="touchUpInside" id="wIQ-5J-XQ3"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x9r-XD-SY5">
                                                 <rect key="frame" x="16" y="416" width="382" height="19.666666666666686"/>
-                                                <color key="backgroundColor" red="0.22352941176470589" green="0.12156862745098039" blue="0.058823529411764705" alpha="0.74943814212328763" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.22352941176470589" green="0.12156862745098039" blue="0.058823529411764705" alpha="0.90006956335616439" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="17"/>
                                                 <color key="textColor" name="NavigationText"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqf-me-a9r">
-                                                <rect key="frame" x="16" y="543.66666666666663" width="382" height="19.666666666666629"/>
-                                                <color key="backgroundColor" red="0.22352941179999999" green="0.1215686275" blue="0.058823529409999999" alpha="0.74943814210000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <rect key="frame" x="16" y="549.66666666666663" width="382" height="19.666666666666629"/>
+                                                <color key="backgroundColor" red="0.22352941179999999" green="0.1215686275" blue="0.058823529409999999" alpha="0.90065817634657552" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="17"/>
                                                 <color key="textColor" name="NavigationText"/>
                                                 <nil key="highlightedColor"/>
@@ -656,7 +712,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="Yqf-me-a9r" secondAttribute="bottom" constant="16" id="0gA-r4-BR4"/>
+                                            <constraint firstAttribute="bottom" secondItem="Yqf-me-a9r" secondAttribute="bottom" constant="120" id="0gA-r4-BR4"/>
                                             <constraint firstAttribute="trailing" secondItem="x9r-XD-SY5" secondAttribute="trailing" constant="16" id="0q1-Um-ggK"/>
                                             <constraint firstAttribute="trailing" secondItem="Yqf-me-a9r" secondAttribute="trailing" constant="16" id="29O-gs-bLz"/>
                                             <constraint firstItem="yKU-IZ-xR7" firstAttribute="top" secondItem="x9r-XD-SY5" secondAttribute="bottom" constant="16" id="3bp-z4-k8V"/>
@@ -684,10 +740,10 @@
                                 </constraints>
                             </scrollView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gPy-AQ-euu">
-                                <rect key="frame" x="0.0" y="616" width="414" height="120"/>
+                                <rect key="frame" x="0.0" y="636" width="414" height="100"/>
                                 <color key="backgroundColor" name="TextBackground"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="bVC-Z6-UBK"/>
+                                    <constraint firstAttribute="height" constant="100" id="bVC-Z6-UBK"/>
                                 </constraints>
                                 <collectionViewLayout key="collectionViewLayout" id="c1y-tW-rcB" customClass="HorizontalCollectionLayout" customModule="CustomVisionProject" customModuleProvider="target"/>
                                 <cells>
@@ -758,11 +814,11 @@
                             <constraint firstItem="gPy-AQ-euu" firstAttribute="leading" secondItem="MrX-G8-jqQ" secondAttribute="leading" id="PaY-ri-zRp"/>
                             <constraint firstItem="gPy-AQ-euu" firstAttribute="trailing" secondItem="MrX-G8-jqQ" secondAttribute="trailing" id="PhR-Gc-k1S"/>
                             <constraint firstItem="dqk-zn-KSQ" firstAttribute="top" secondItem="0OR-LH-fzs" secondAttribute="top" id="UV0-sc-Opv"/>
+                            <constraint firstItem="Wyp-Pr-dhz" firstAttribute="bottom" secondItem="MrX-G8-jqQ" secondAttribute="bottom" id="dCh-JD-RJI"/>
                             <constraint firstItem="gPy-AQ-euu" firstAttribute="bottom" secondItem="MrX-G8-jqQ" secondAttribute="bottom" id="efV-EJ-OSJ"/>
                             <constraint firstItem="dqk-zn-KSQ" firstAttribute="leading" secondItem="MrX-G8-jqQ" secondAttribute="leading" id="fca-Jr-OrP"/>
                             <constraint firstItem="Wyp-Pr-dhz" firstAttribute="trailing" secondItem="MrX-G8-jqQ" secondAttribute="trailing" id="lOv-6n-58h"/>
                             <constraint firstItem="Wyp-Pr-dhz" firstAttribute="top" secondItem="MrX-G8-jqQ" secondAttribute="top" id="nGp-Ug-ajc"/>
-                            <constraint firstItem="gPy-AQ-euu" firstAttribute="top" secondItem="Wyp-Pr-dhz" secondAttribute="bottom" id="sk2-R1-du9"/>
                             <constraint firstItem="Wyp-Pr-dhz" firstAttribute="leading" secondItem="MrX-G8-jqQ" secondAttribute="leading" id="zzL-Nm-QVw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MrX-G8-jqQ"/>
@@ -776,12 +832,15 @@
                         <outlet property="collectionView" destination="gPy-AQ-euu" id="9s7-0y-89Y"/>
                         <outlet property="fullDescriptionLabel" destination="Yqf-me-a9r" id="4vn-Sg-h2m"/>
                         <outlet property="mainImageView" destination="1qo-RT-Zo9" id="vHu-RN-xbk"/>
+                        <outlet property="removePhotoButton" destination="BmO-V0-eiT" id="Wq0-bi-tNw"/>
+                        <outlet property="scrollView" destination="Wyp-Pr-dhz" id="kqt-EZ-JiA"/>
                         <outlet property="shortDescriptionLabel" destination="x9r-XD-SY5" id="WDh-VD-go7"/>
+                        <outlet property="starPhotoButton" destination="yKU-IZ-xR7" id="Z1P-A8-WIr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S0K-Bq-hl7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3578.2608695652175" y="3248.6413043478265"/>
+            <point key="canvasLocation" x="-3578" y="3302"/>
         </scene>
         <!--Coffee Shot-->
         <scene sceneID="2uh-f1-z5t">
@@ -825,7 +884,7 @@
                                     <action selector="debugPhotoAction:" destination="Tb5-EB-865" eventType="touchUpInside" id="8WG-No-it6"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1BK-nh-JuU">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="1BK-nh-JuU">
                                 <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <gestureRecognizers/>
                             </imageView>
@@ -884,7 +943,7 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="826"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZL-qu-ZLn" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="596"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="642"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Short description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q1p-N4-00v">
                                                 <rect key="frame" x="16" y="398" width="568" height="128"/>
@@ -903,18 +962,54 @@
                                                 <color key="textColor" name="NavigationText"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jiV-kW-Pei">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jiV-kW-Pei" customClass="PopAnimatedButton" customModule="CustomVisionProject" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="558" width="568" height="30"/>
                                                 <color key="backgroundColor" name="NavigationText"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="N95-cL-L8K"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="17"/>
-                                                <state key="normal" title="Save and Send like 👍">
+                                                <state key="normal" title="Save">
                                                     <color key="titleColor" name="TextBackground"/>
                                                 </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" name="TextBackground"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="sendLikeButtonAction:" destination="nmg-O5-VQT" eventType="touchUpInside" id="CrX-Lc-fLe"/>
+                                                    <action selector="saveCoffeeButtonAction:" destination="nmg-O5-VQT" eventType="touchUpInside" id="iX4-yI-1ec"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcI-0z-SGw" customClass="PopAnimatedButton" customModule="CustomVisionProject" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="604" width="568" height="30"/>
+                                                <color key="backgroundColor" name="NavigationText"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="MqA-8n-J8n"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="17"/>
+                                                <state key="normal" title="Send like 👍">
+                                                    <color key="titleColor" name="TextBackground"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" name="TextBackground"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="sendLikeButtonAction:" destination="nmg-O5-VQT" eventType="touchUpInside" id="z5K-9C-rMD"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qXZ-tE-c90">
@@ -936,9 +1031,12 @@
                                             <constraint firstItem="Uxr-dE-1YV" firstAttribute="leading" secondItem="FZL-qu-ZLn" secondAttribute="leading" constant="16" id="IVh-5O-4Kr"/>
                                             <constraint firstItem="qXZ-tE-c90" firstAttribute="centerX" secondItem="FZL-qu-ZLn" secondAttribute="centerX" id="ZTJ-Bi-5FV"/>
                                             <constraint firstAttribute="trailing" secondItem="q1p-N4-00v" secondAttribute="trailing" constant="16" id="cle-QH-J7B"/>
+                                            <constraint firstAttribute="trailing" secondItem="lcI-0z-SGw" secondAttribute="trailing" constant="16" id="h5c-AI-dlj"/>
                                             <constraint firstItem="Uxr-dE-1YV" firstAttribute="top" secondItem="q1p-N4-00v" secondAttribute="bottom" constant="16" id="icO-3m-TTN"/>
+                                            <constraint firstAttribute="bottom" secondItem="lcI-0z-SGw" secondAttribute="bottom" constant="8" id="keD-Z4-L2g"/>
                                             <constraint firstItem="q1p-N4-00v" firstAttribute="leading" secondItem="FZL-qu-ZLn" secondAttribute="leading" constant="16" id="moh-QP-4lI"/>
-                                            <constraint firstAttribute="bottom" secondItem="jiV-kW-Pei" secondAttribute="bottom" constant="8" id="xam-tq-bSd"/>
+                                            <constraint firstItem="lcI-0z-SGw" firstAttribute="top" secondItem="jiV-kW-Pei" secondAttribute="bottom" constant="16" id="zJy-Jk-9rV"/>
+                                            <constraint firstItem="lcI-0z-SGw" firstAttribute="leading" secondItem="FZL-qu-ZLn" secondAttribute="leading" constant="16" id="zUf-G5-l5S"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -950,7 +1048,7 @@
                                     <constraint firstAttribute="trailing" secondItem="FZL-qu-ZLn" secondAttribute="trailing" id="zlg-Gg-15N"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TCa-Va-4H6">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TCa-Va-4H6" customClass="PopAnimatedButton" customModule="CustomVisionProject" customModuleProvider="target">
                                 <rect key="frame" x="16" y="854" width="568" height="30"/>
                                 <color key="backgroundColor" name="NavigationText"/>
                                 <constraints>
@@ -960,6 +1058,17 @@
                                 <state key="normal" title="Share">
                                     <color key="titleColor" name="TextBackground"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" name="TextBackground"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="shareButtonAction:" destination="nmg-O5-VQT" eventType="touchUpInside" id="eG1-yi-7HF"/>
                                 </connections>
@@ -1001,14 +1110,14 @@
                         <outlet property="backgroundImageView" destination="8Dt-Xa-2Yf" id="MJl-TD-3gk"/>
                         <outlet property="fullDescriptionLabel" destination="Uxr-dE-1YV" id="IdH-ub-0yZ"/>
                         <outlet property="originalImageView" destination="qXZ-tE-c90" id="an7-XJ-uGe"/>
-                        <outlet property="sendLikeButton" destination="jiV-kW-Pei" id="IO7-pA-XKA"/>
+                        <outlet property="sendLikeButton" destination="lcI-0z-SGw" id="SoJ-HJ-oR1"/>
                         <outlet property="shareButton" destination="TCa-Va-4H6" id="pih-me-m2M"/>
                         <outlet property="shortDescriptionLabel" destination="q1p-N4-00v" id="kdR-Ba-XSW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="doQ-gE-KOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-757" y="2548"/>
+            <point key="canvasLocation" x="-781.15942028985512" y="2546.739130434783"/>
         </scene>
         <!--Preparing-->
         <scene sceneID="Cvc-kL-qVJ">
@@ -1057,6 +1166,7 @@
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="i2f-ke-KL4">
                                 <rect key="frame" x="0.0" y="673" width="414" height="2"/>
+                                <color key="tintColor" name="NavigationText"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Processing image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kya-7J-X3B">
                                 <rect key="frame" x="18" y="693" width="378" height="20"/>
@@ -1112,7 +1222,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W9F-G2-jUd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1767" y="2481"/>
+            <point key="canvasLocation" x="-1806" y="2481"/>
         </scene>
     </scenes>
     <resources>
@@ -1124,6 +1234,9 @@
         </namedColor>
         <namedColor name="NavigationText">
             <color red="0.97254901960784312" green="0.59607843137254901" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Pale green">
+            <color red="0.10588235294117647" green="0.792156862745098" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TextBackground">
             <color red="0.22352941176470589" green="0.12156862745098039" blue="0.058823529411764705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

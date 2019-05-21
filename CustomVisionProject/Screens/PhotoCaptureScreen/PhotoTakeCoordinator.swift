@@ -98,6 +98,7 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
     }
     
     func useDebugPhoto(){
+        self.cameraCaptureService.stop()
         self.setupFailed()
     }
     
@@ -105,7 +106,7 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
         
         self.photoTaken = true // This should be false
         /* *** Only for debug *** */
-        let bundlePath = Bundle.main.path(forResource: "photo4", ofType: "jpg")
+        let bundlePath = Bundle.main.path(forResource: "photo7", ofType: "jpg")
         self.dataProvider.saveCapturedPhoto(uiImage: UIImage(contentsOfFile: bundlePath!)!)
             .done { (saved: Bool) in
                 if saved {
@@ -117,7 +118,6 @@ class PhotoTakeCoordinator:NSObject, Coordinator {
             }.catch { (error: Error) in
                 print(error)
             }
-        
         /* ********************** */
     }
 

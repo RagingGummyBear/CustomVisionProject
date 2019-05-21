@@ -148,7 +148,6 @@ class TextGenerator {
         } else if className.contains("up-left") {
             return "Coffee position is in the upper-left part of the image"
         }
-        
         return ""
     }
     
@@ -203,7 +202,6 @@ class TextGenerator {
         } else if className.contains("brown") {
             return "The background has brown color"
         }
-        
         return ""
     }
 

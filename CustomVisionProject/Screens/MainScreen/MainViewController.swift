@@ -10,7 +10,7 @@ class MainViewController: UIViewController, Storyboarded {
     var quoteNotificationRunning = false
 
     // MARK: - IBOutlets references
-    @IBOutlet weak var discoverFortuneButton: UIButton!
+    @IBOutlet weak var discoverFortuneButton: PopAnimatedButton!
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var quoteLabel: UILabel!
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -58,9 +58,9 @@ class MainViewController: UIViewController, Storyboarded {
 
     func setQuote(quote:QuoteModel){
         self.quoteLabel.layer.removeAllAnimations()
-        if self.quoteLabel.alpha < 0.5 {
-            
-        }
+//        if self.quoteLabel.alpha < 0.5 {
+//
+//        }
         self.quoteNotificationRunning = true
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
             self.quoteLabel.alpha = 0.0
@@ -77,7 +77,6 @@ class MainViewController: UIViewController, Storyboarded {
         }
     }
     
-    
     // MARK: - Other functions
     // Remember keep the logic and processing in the coordinator
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -85,7 +84,6 @@ class MainViewController: UIViewController, Storyboarded {
             return
         }
         guard let touchPoint = touches.first else { return }
-        
         if self.quoteLabel.frame.contains(touchPoint.location(in: self.view)) {
             self.coordinator?.userRequestNewQuote()
         }

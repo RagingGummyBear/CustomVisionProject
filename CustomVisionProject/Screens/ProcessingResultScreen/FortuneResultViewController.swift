@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import PopupDialog
+import Toast_Swift
 
 class FortuneResultViewController: UIViewController, Storyboarded {
 
@@ -21,8 +23,8 @@ class FortuneResultViewController: UIViewController, Storyboarded {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var shortDescriptionLabel: UILabel!
     @IBOutlet weak var fullDescriptionLabel: UILabel!
-    @IBOutlet weak var shareButton: UIButton!
-    @IBOutlet weak var sendLikeButton: UIButton!
+    @IBOutlet weak var shareButton: PopAnimatedButton!
+    @IBOutlet weak var sendLikeButton: PopAnimatedButton!
 
     // MARK: - IBOutlets actions
     @IBAction func doneNavigationBarButton(_ sender: Any) {
@@ -34,7 +36,10 @@ class FortuneResultViewController: UIViewController, Storyboarded {
     }
     
     @IBAction func sendLikeButtonAction(_ sender: Any) {
-       print("Thanks for the like")
+        self.coordinator?.sendLikeButtonPressed()
+    }
+    
+    @IBAction func saveCoffeeButtonAction(_ sender: Any) {
         self.coordinator?.requestSaveCapturedImage()
     }
     
@@ -68,7 +73,6 @@ class FortuneResultViewController: UIViewController, Storyboarded {
     }
 
     // MARK: - UI Functions
-    
     func initalUISetup(){
         self.coordinator?.requestThumbnailCaptureImage()
             .done({ (result: UIImage) in
@@ -83,9 +87,17 @@ class FortuneResultViewController: UIViewController, Storyboarded {
             self.fullDescriptionLabel.text = self.coordinator?.generateLongDescription()
         }
     }
+    
+    func presentPopup(popupDialog: PopupDialog){
+        self.present(popupDialog, animated: true)
+    }
 
     func finalUISetup(){
 
+    }
+    
+    func toastMessage(message:String){
+        self.view.makeToast(message)
     }
 
     // MARK: - Other functions

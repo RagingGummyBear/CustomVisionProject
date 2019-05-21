@@ -7,8 +7,41 @@
 //
 
 import Foundation
+import Spring
 
 @IBDesignable extension UIButton {
+    
+    @IBInspectable var borderWidth: CGFloat {
+        set {
+            layer.borderWidth = newValue
+        }
+        get {
+            return layer.borderWidth
+        }
+    }
+    
+    @IBInspectable var cornerRadius: CGFloat {
+        set {
+            layer.cornerRadius = newValue
+        }
+        get {
+            return layer.cornerRadius
+        }
+    }
+    
+    @IBInspectable var borderColor: UIColor? {
+        set {
+            guard let uiColor = newValue else { return }
+            layer.borderColor = uiColor.cgColor
+        }
+        get {
+            guard let color = layer.borderColor else { return nil }
+            return UIColor(cgColor: color)
+        }
+    }
+}
+
+@IBDesignable extension UILabel {
     
     @IBInspectable var borderWidth: CGFloat {
         set {
@@ -107,5 +140,31 @@ extension UIColor {
         let blue = CGFloat(rgbValue & 0xFF)/256.0
         
         return UIColor(red:red, green:green, blue:blue, alpha:1.0)
+    }
+}
+
+
+class AnimatedButton : SpringButton {
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.force = 0.25
+        self.addTarget(self, action: #selector(makeTouchAnimation), for: .touchUpInside)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    
+    @objc func makeTouchAnimation(){
+        print(" ME ANIMATE ")
+    }
+}
+
+class PopAnimatedButton : AnimatedButton {
+    override func makeTouchAnimation() {
+        self.animation = "pop"
+        self.animate()
     }
 }
