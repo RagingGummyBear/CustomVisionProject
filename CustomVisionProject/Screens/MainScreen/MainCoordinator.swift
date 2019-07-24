@@ -69,7 +69,7 @@ class MainCoordinator:NSObject, Coordinator {
         }
     }
     
-    func shouldHideNavigationBar() -> Bool{
+    func shouldHideNavigationBar() -> Bool {
         return self.viewController.navigationBarHidden
     }
 
@@ -136,7 +136,7 @@ class MainCoordinator:NSObject, Coordinator {
             self.viewController.setQuote(quote: quote)
         }
         
-        self.quoteTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true, block: { (timer: Timer) in
+        self.quoteTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true, block: { (timer: Timer) in
             if let quote = self.pickRandomQuote() {
                 self.viewController.setQuote(quote: quote)
             }
